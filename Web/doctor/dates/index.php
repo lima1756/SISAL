@@ -77,16 +77,19 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="tables.html">Quirurgicas</a>
+                                    <a href="?type=surgery">Quirurgicas</a>
                                 </li>
                                 <li>
-                                    <a href="tables.html">Clinicas</a>
+                                    <a href="?type=clinic">Clinicas</a>
+                                </li>
+                                <li>
+                                    <a href="?type=all">Todas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

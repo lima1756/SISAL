@@ -59,7 +59,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -73,27 +73,29 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="tables.html">Quirurgicas</a>
+                                    <a href="dates/?type=surgery">Quirurgicas</a>
                                 </li>
                                 <li>
-                                    <a href="tables.html">Clinicas</a>
+                                    <a href="dates/?type=clinic">Clinicas</a>
+                                </li>
+                                <li>
+                                    <a href="dates/?type=all">Todas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -124,7 +126,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="dates">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver todas</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -141,14 +143,14 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">Todos</div>
+                                    <div class="huge">Historial</div>
                                     <div>Pacientes</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="patients">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver detalles</span>
+                                <span class="pull-left">Ver historial de pacientes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -168,9 +170,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="registerData">
                             <div class="panel-footer">
-                                <span class="pull-left">Ingresar</span>
+                                <span class="pull-left">Realizar registro de paciente</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -190,7 +192,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href=".." target="_blank">
                             <div class="panel-footer">
                                 <span class="pull-left">Detalles de la institución</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -210,29 +212,29 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
                                     <span class="pull-right text-muted small"><em>9:00</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
                                     <span class="pull-right text-muted small"><em>12:00</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
                                     <span class="pull-right text-muted small"><em>15:00</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
                                     <span class="pull-right text-muted small"><em>18:00</em>
                                     </span>
                                 </a>
                             </div>
                             <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">Ver todo</a>
+                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -251,7 +253,7 @@
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i> Hace 12 mins
                                             </small>
                                         </div>
                                         <p>
@@ -263,7 +265,7 @@
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 8 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i> Hace 8 mins
                                             </small>
                                         </div>
                                         <p>
@@ -275,7 +277,7 @@
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 6 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i> Hace 6 mins 
                                             </small>
                                         </div>
                                         <p>
@@ -287,7 +289,7 @@
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 2 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i> Hace 2 mins 
                                             </small>
                                         </div>
                                         <p>
@@ -299,14 +301,14 @@
                         </div>
                         <!-- /.panel-body -->
                         <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
-                                    </button>
-                                </span>
-                            </div>
+                            <form name="notesForm "id="notesForm" action="../doctor/" method="POST">
+                                    <div class="input-group">
+                                        <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
+                                        <span class="input-group-btn">
+                                            <input type="submit" class="full-size btn btn-warning btn-sm" id="submit"/>    
+                                        </span>
+                                    </div>
+                            </form>
                         </div>
                         <!-- /.panel-footer -->
                     </div>
