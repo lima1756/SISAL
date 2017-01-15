@@ -3881,6 +3881,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon,
 .input-group-btn,
+.input-group-search,
 .input-group .form-control {
   display: table-cell;
 }
@@ -3889,9 +3890,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group .form-control:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
+.textarea50{
+  width:49%;
+}
+
 .input-group-addon,
 .input-group-btn {
   width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.input-group-search{
   white-space: nowrap;
   vertical-align: middle;
 }
@@ -6753,5 +6762,9 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+.inputLowNumber{
+  width: 6em;
 }
 /*# sourceMappingURL=bootstrap.css.map */
