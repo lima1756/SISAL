@@ -61,7 +61,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -95,10 +95,10 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -118,84 +118,69 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            DataTables Advanced Tables
-                        </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
                                         <th>Paciente</th>
-                                        <th>Enferemedad</th>
                                         <th>Fecha</th>
                                         <th>Hora</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>1alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>2alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                    
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">5:00</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
-                                        <td>28-11-2016</td>
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2017</td>
                                         <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>
-                                        <td>alguna</td>
+                                        <td>alguien</td>                                        
                                         <td>28-11-2016</td>
                                         <td class="center">4</td>
                                     </tr>
@@ -229,7 +214,7 @@
 
      
     <!-- DataTables JavaScript -->
-    <script src="../../dataSource/js/jquery/jquery.dataTables.min.js"></script>
+    <script src="../../dataSource/js/jquery/jquery.dataTables.js"></script>
     <script src="../../dataSource/js/templates/dataTables.bootstrap.min.js"></script>
     <script src="../../dataSource/js/templates/dataTables.responsive.js"></script>
 
