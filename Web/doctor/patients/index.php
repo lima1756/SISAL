@@ -11,7 +11,7 @@
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
-     <!-- Bootstrap Core CSS -->
+      <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -22,6 +22,12 @@
 
     <!-- Custom Fonts -->
     <link href="../../dataSource/css/templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <link href="../../dataSource/css/templates/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,7 +62,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -78,19 +84,22 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="tables.html">Quirurgicas</a>
+                                    <a href="../dates/?type=surgery">Quirurgicas</a>
                                 </li>
                                 <li>
-                                    <a href="tables.html">Clinicas</a>
+                                    <a href="../dates/?type=clinic">Clinicas</a>
+                                </li>
+                                <li>
+                                    <a href="../dates/?type=all">Todas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -107,6 +116,7 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <!-- BOTON DE TODOS -->
                 <div class="col-lg-12">
                     <form role="form">
                     <div class="form-group input-group">
@@ -116,112 +126,273 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <form role="form">
-                    <div class="form-group input-group">
-                        <label>Buscar paciente</label>
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Una persona bien chingona
-                        </div>
-                        
-                                        
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>Fecha de cita</label>
-                                <select class="form-control">
-                                    <option>12-12-12</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                            <div class="alert">
-                                Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                            <div class="alert">
-                                Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                            <div class="alert">
-                                Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                            <div class="alert">
-                                Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                        </div>
-                        <!-- .panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Medicación
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="alert alert-success alert-dismissable">
-                                
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            </div>
-                            <div class="alert alert-success alert-dismissable">
-                                
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            </div>
-                            <div class="alert alert-success alert-dismissable">
-                                
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            </div>
-                            <div class="alert alert-success alert-dismissable">
-                                
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            </div>
-                        </div>
-                        <!-- .panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
+                <!-- LISTA DE PACIENTES -->
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Detalles del paciente
-                        </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="alert">
-                                Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                            <div class="alert">
-                                Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                            <div class="alert">
-                                Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
-                            <div class="alert">
-                                Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            </div>
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Paciente</th>
+                                        <th>Ultima consulta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX">
+                                        <td>1alguien</td>                                        
+                                        <td class="center">nombre1</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>2alguien</td>                                        
+                                        <td class="center">nombre2</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>1alguien</td>                                        
+                                        <td class="center">nombre1</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>1alguien</td>                                        
+                                        <td class="center">nombre1</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>1alguien</td>                                        
+                                        <td class="center">nombre1</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>1alguien</td>                                        
+                                        <td class="center">nombre1</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>1alguien</td>                                        
+                                        <td class="center">nombre1</td>
+                                        <td>28-11-2016</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
                         </div>
-                        <!-- .panel-body -->
+                        <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-6 -->
-                
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-12">
+                    <form>
+                        <div class="panel panel-default"aria-multiselectable="true">
+                            <div class="panel-heading">
+                                <h2>Una persona bien chingona</h2>
+                            </div>
+                            <div id="tablist">
+                                <!-- Desplegable información Personal--> 
+                                <div>
+                                    <a href="#pInf" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
+                                    <div class="panel-heading">
+                                        <h4>Información personal</h2>
+                                    </div>
+                                    </a>                                        
+                                    <div class="panel-body collapse indent" id="pInf" >
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Nombre"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Apellido"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Domicilio"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Ciudad"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Numero de telefono"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <select>
+                                                <option>Género</optio>
+                                                <option>Masculino</optio>
+                                                <option>Femenino</optio>
+                                            </select>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Desplegable Antecedentes personales--> 
+                                <div>
+                                    <a href="#aPer" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
+                                    <div class="panel-heading">
+                                        <h4>Antecedentes personales</h2>
+                                    </div>
+                                    </a>                                        
+                                    <div class="panel-body collapse indent" id="aPer"  >
+                                        <div class="form-group">
+                                            <label>Fecha de cita</label>
+                                            <select class="form-control">
+                                                <option>12-12-12</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="alert">
+                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Desplegable Interrogatorio--> 
+                                <div>
+                                    <a href="#int" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
+                                    <div class="panel-heading">
+                                        <h4>Interrogatorio</h2>
+                                    </div>
+                                    </a>                                        
+                                    <div class="panel-body collapse indent" id="int"  >
+                                        <div class="form-group"> 
+                                            <label>Fecha de cita</label>
+                                            <select class="form-control">
+                                                <option>12-12-12</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="alert">
+                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Desplegable Estilo de vida--> 
+                                <div>
+                                    <a href="#eVid" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
+                                    <div class="panel-heading">
+                                        <h4>Estilo de vida</h2>
+                                    </div>
+                                    </a>                                        
+                                    <div class="panel-body collapse indent" id="eVid"  >
+                                        <div class="form-group">
+                                            <label>Fecha de cita</label>
+                                            <select class="form-control">
+                                                <option>12-12-12</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="alert">
+                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Desplegable Alergias--> 
+                                <div>
+                                    <a href="#aler" role ="tab" data-toggle="collapse" data-target="#aler" data-parent="#tablist">
+                                    <div class="panel-heading">
+                                        <h4>Alergias</h2>
+                                    </div>
+                                    </a>                                        
+                                    <div class="panel-body collapse indent" id="aler"  >
+                                        <div class="form-group">
+                                            <label>Fecha de cita</label>
+                                            <select class="form-control">
+                                                <option>12-12-12</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="alert">
+                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Desplegable Citas--> 
+                                <div>
+                                    <a href="#citas" role ="tab" data-toggle="collapse" data-target="#citas" data-parent="#tablist">
+                                    <div class="panel-heading">
+                                        <h4>Citas</h2>
+                                    </div>
+                                    </a>                                        
+                                    <div class="panel-body collapse indent" id="citas"  >
+                                        <div class="form-group">
+                                            <label>Fecha de cita</label>
+                                            <select class="form-control">
+                                                <option>12-12-12</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="alert">
+                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                        <div class="alert">
+                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel -->
+
             </div>
             <!-- /.row -->
         </div>
@@ -239,6 +410,20 @@
     <!-- Custom Theme JavaScript -->
     <script src="../../dataSource/js/templates/sb-admin-2.js"></script>
 
+    <!-- DataTables JavaScript -->
+    <script src="../../dataSource/js/jquery/jquery.dataTables2.js"></script>
+    <script src="../../dataSource/js/templates/dataTables.bootstrap.min.js"></script>
+    <script src="../../dataSource/js/templates/dataTables.responsive.js"></script>
+
+     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+    
 </body>
 
 </html>
