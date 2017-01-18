@@ -29,6 +29,9 @@
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
 
+    <!-- FontsAwsome CSS -->
+    <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -188,7 +191,8 @@
                     <form>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
-                                <h2>Una persona bien chingona</h2>
+                                <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar"/></span>
+                                <span><h2>Una persona bien chingona</h2></span>
                             </div>
                             <div id="tablist">
                                 <!-- Desplegable información Personal--> 
@@ -369,31 +373,180 @@
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="eVid"  >
                                         <div class="form-group">
-                                            <label><input type="checkbox" value""/>¿Realiza ejercicio?</label>
-                                            <label class="changePadding">Veces a la semana:&nbsp</label><input type="number" value="0" min="0" max="7"/>
+                                            <input type="checkbox" name="ejercicio" id="ejercicio" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="ejercicio" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="ejercicio" class="btn btn-default active">
+                                                    ¿Realiza ejercicio?
+                                                </label>
+                                                <label class="btn">Veces a la semana:&nbsp</label><input type="number" class="btn btn-default" value="0" min="0" max="7"/>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Horas de sueño diarias:&nbsp</label><input type="number" value="0" min="0" max="20"/>
+                                            <div class="btn-group">
+                                                <label class="btn">Horas de sueño diarias:&nbsp</label><input type="number" class="btn btn-default" value="0" min="0" max="20"/>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label><input type="checkbox" value=""/>¿Desayuna?</label>
-                                            <label class="changePadding">Comidas al día:&nbsp</label><input type="number" value="0" min="0" max="10"/>
+                                            <input type="checkbox" name="desayuna" id="desayuna" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="desayuna" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="desayuna" class="btn btn-default active">
+                                                    ¿Desayuna?
+                                                </label>
+                                                <label class="btn">Comidas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="10"/>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label><input type="checkbox" value=""/>¿Toma Café?</label>
-                                            <label class="changePadding">Tazas al día:&nbsp</label><input type="number" value="0" min="0" max="50"/>
+                                            <input type="checkbox" name="cafe" id="cafe" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="cafe" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="cafe" class="btn btn-default active">
+                                                    ¿Toma Café?
+                                                </label>
+                                                <label class="btn">Tazas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label><input type="checkbox" value=""/>¿Toma refresco?</label>
-                                            <label class="changePadding">Vasos al día:&nbsp</label><input type="number" value="0" min="0" max="50"/>
+                                            <input type="checkbox" name="refresco" id="refresco" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="refresco" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="refresco" class="btn btn-default active">
+                                                    ¿Toma refresco?
+                                                </label>
+                                                <label class="btn">Vasos al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label><input type="checkbox" value=""/>¿Sigue alguna dieta?</label>
+                                            <input type="checkbox" name="dieta" id="dieta" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="dieta" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="dieta" class="btn btn-default active">
+                                                    ¿Sigue alguna dieta?
+                                                </label>
+                                            </div>
                                             <textarea type="text" placeholder="Información sobre la dieta" class="form-control"></textarea>
                                         </div>
+                                        <!--IMPORTANTE CUANDO SE HAGA JS: para deshabilitar los checkbox es necesario deshabilitar el input, el label de la palomita y el label de la pregunta:-->
                                         <div class="form-group">
-                                            <label><input type="checkbox" value=""/>¿Toma refresco?</label>
-                                            <label class="changePadding">Vasos al día:&nbsp</label><input type="number" value="0" min="0" max="50"/>
+                                            <input type="checkbox" name="alcohol" id="alcohol" autocomplete="off" disabled/>
+                                            <div class="btn-group">
+                                                <label for="alcohol" class="btn btn-default" disabled>
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="alcohol" class="btn btn-default active" disabled>
+                                                    ¿Consume Alcohol?
+                                                </label>
+                                                <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
+                                                <label class="btn">Vasos de bebidas alcoholicas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="ex-Alcoholico" id="ex-Alcoholico" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="ex-Alcoholico" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="ex-Alcoholico" class="btn btn-default active">
+                                                    ¿ex-Alcoholico?
+                                                </label>
+                                                <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="fuma" id="fuma" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="fuma" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="fuma" class="btn btn-default active">
+                                                    ¿Fuma?
+                                                </label>
+                                                <label class="btn">Edad a la que comenzó a fumar:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
+                                                <label class="btn">Cigarrillos al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="ex-fumador" id="ex-fumador" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="ex-fumador" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="ex-fumador" class="btn btn-default active">
+                                                    ¿Ex-fumador?
+                                                </label>
+                                                <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="fumador-pasivo" id="fumador-pasivo" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="fumador-pasivo" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="fumador-pasivo" class="btn btn-default active">
+                                                    ¿Fumador-pasivo?
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="droga" id="droga" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="droga" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="droga" class="btn btn-default active">
+                                                    ¿Consume algun tipo de droga?
+                                                </label>
+                                                <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
+                                            </div>
+                                            <input type="checkbox" name="droga-intra" id="droga-intra" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="droga-intra" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="droga-intra" class="btn btn-default active">
+                                                    ¿Consume algun tipo de droga intravenosa?
+                                                </label>
+                                            </div>
+                                            <textarea type="text" placeholder="Anotación acerca de las drogas consumidas" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="ex-adicto" id="ex-adicto" autocomplete="off"/>
+                                            <div class="btn-group">
+                                                <label for="ex-adicto" class="btn btn-default">
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
+                                                <label for="ex-adicto" class="btn btn-default active">
+                                                    ¿ex-adicto?
+                                                </label>
+                                                <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -407,26 +560,7 @@
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="aler"  >
                                         <div class="form-group">
-                                            <label>Fecha de cita</label>
-                                            <select class="form-control">
-                                                <option>12-12-12</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="alert">
-                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                            <textarea class="form-control" placeholder="Alergias tanto a medicamentos como a materiales o alimentos"></textarea>
                                         </div>
                                     </div>
                                 </div>
