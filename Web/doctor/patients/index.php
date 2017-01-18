@@ -54,7 +54,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SISAL</a>
+                <a class="navbar-brand" href="..">SISAL</a>
             </div>
             <!-- /.navbar-header -->
 
