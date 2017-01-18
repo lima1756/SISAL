@@ -12,7 +12,7 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
       <!-- Bootstrap Core CSS -->
-    <link href="../../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">
+    <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../../dataSource/css/templates/metisMenu.min.css" rel="stylesheet">
@@ -208,21 +208,47 @@
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Domicilio"/>
                                         </div>
+                                        <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Estado"/>
+                                        </div>
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Ciudad"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Numero de telefono"/>
+                                            <input class="form-control" type="number" placeholder="Código Postal"/>
                                         </div>
                                         <div class="form-group">
-                                            <select>
-                                                <option>Género</optio>
-                                                <option>Masculino</optio>
-                                                <option>Femenino</optio>
-                                            </select>
-                                            
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar"/>
                                         </div>
-
+                                        <div class="form-group">
+                                            <input class="form-control" type="number" placeholder="Teléfono oficina"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option>Género</option>
+                                                <option>Masculino</option>
+                                                <option>Femenino</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento"/>
+                                        </div>
+                                        <div class="form-group">
+                                        <!--CALCULAR AQUI LA EDAD--><label class="form-control">xy años</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Ocupación"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Desplegable Antecedentes personales--> 
@@ -232,33 +258,53 @@
                                         <h4>Antecedentes personales</h2>
                                     </div>
                                     </a>                                        
-                                    <div class="panel-body collapse indent" id="aPer"  >
+                                    <div class="panel-body collapse indent" id="aPer">
                                         <div class="form-group">
-                                            <label>Fecha de cita</label>
+                                            <label>Tipo de sangre</label>
                                             <select class="form-control">
-                                                <option>12-12-12</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                                <option></option>
+                                                <option></option>
+                                                <option></option>
                                             </select>
                                         </div>
-                                        <div class="alert">
-                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Tabaquismo</label>
+                                            <select class="form-control">
+                                                <option>Nunca</option>
+                                                <option>Casual</option>
+                                                <option>Moderado</option>
+                                                <option>Intenso</option>
+                                                <option>En remisión</option>
+                                                <option>Otro</option>
+                                            </select>
                                         </div>
-                                        <div class="alert">
-                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Alcoholismo</label>
+                                            <select class="form-control">
+                                                <option>Nunca</option>
+                                                <option>Casual</option>
+                                                <option>Moderado</option>
+                                                <option>Intenso</option>
+                                                <option>En remisión</option>
+                                                <option>Otro</option>
+                                            </select>
                                         </div>
-                                        <div class="alert">
-                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Antecedentes hereditarios</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
-                                        <div class="alert">
-                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Antecedentes patológicos</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes no patológicos</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Desplegable Interrogatorio--> 
+                                <!-- Desplegable Interrogatorio de antecedentes médicos--> 
                                 <div>
                                     <a href="#int" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
                                     <div class="panel-heading">
@@ -266,32 +312,55 @@
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="int"  >
-                                        <div class="form-group"> 
-                                            <label>Fecha de cita</label>
-                                            <select class="form-control">
-                                                <option>12-12-12</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
+                                        <div class="form-group">
+                                            <label>Antecedentes cardiovasculares</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
-                                        <div class="alert">
-                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Antecedentes digestivos</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
-                                        <div class="alert">
-                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Antecedentes endocrinos</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
-                                        <div class="alert">
-                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Antecedentes hemolinfatico</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
-                                        <div class="alert">
-                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Antecedentes de Músculo-Esquelético</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes de Piel y anexos</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes de aparato reproductor</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes de aparato respiratorio</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes de sistema nervioso</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes de sistemas generales</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Antecedentes de aparato urinario</label>
+                                            <textarea class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Desplegable Estilo de vida--> 
+                                <!--Hace que si no esta check se desactive y viceversa con lo que lo ocupen-->
                                 <div>
                                     <a href="#eVid" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
                                     <div class="panel-heading">
@@ -300,26 +369,31 @@
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="eVid"  >
                                         <div class="form-group">
-                                            <label>Fecha de cita</label>
-                                            <select class="form-control">
-                                                <option>12-12-12</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
+                                            <label><input type="checkbox" value""/>¿Realiza ejercicio?</label>
+                                            <label class="changePadding">Veces a la semana:&nbsp</label><input type="number" value="0" min="0" max="7"/>
                                         </div>
-                                        <div class="alert">
-                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Horas de sueño diarias:&nbsp</label><input type="number" value="0" min="0" max="20"/>
                                         </div>
-                                        <div class="alert">
-                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label><input type="checkbox" value=""/>¿Desayuna?</label>
+                                            <label class="changePadding">Comidas al día:&nbsp</label><input type="number" value="0" min="0" max="10"/>
                                         </div>
-                                        <div class="alert">
-                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label><input type="checkbox" value=""/>¿Toma Café?</label>
+                                            <label class="changePadding">Tazas al día:&nbsp</label><input type="number" value="0" min="0" max="50"/>
                                         </div>
-                                        <div class="alert">
-                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label><input type="checkbox" value=""/>¿Toma refresco?</label>
+                                            <label class="changePadding">Vasos al día:&nbsp</label><input type="number" value="0" min="0" max="50"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><input type="checkbox" value=""/>¿Sigue alguna dieta?</label>
+                                            <textarea type="text" placeholder="Información sobre la dieta" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><input type="checkbox" value=""/>¿Toma refresco?</label>
+                                            <label class="changePadding">Vasos al día:&nbsp</label><input type="number" value="0" min="0" max="50"/>
                                         </div>
                                     </div>
                                 </div>

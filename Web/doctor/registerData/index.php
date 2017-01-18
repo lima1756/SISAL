@@ -182,6 +182,10 @@
                                                     <option>Leve</option>
                                                 </select>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Notas:</label>
+                                                <textarea class="form-control" rows="3" placeholder="Notas que se requieran sobre la enfermedad o su estado"></textarea>
+                                            </div>
                                         </div>
                                         <!-- Tratamiento --> 
                                         <div>   
@@ -203,22 +207,37 @@
                                                     <option>12 horas</option>
                                                     <option>24 horas</option>
                                                 </select>
-                                                <label>Indicación:</label>
-                                                <input type="text"/>
+                                                <label>Iniciando a las:</label>
+                                                <select>
+                                                    <option>5 horas</option>
+                                                    <option>6 horas</option>
+                                                    <option>7 horas</option>
+                                                    <option>8 horas</option>
+                                                    <option>9 horas</option>
+                                                    <option>10 horas</option>
+                                                    <option>11 horas</option>
+                                                    <option>12 horas</option>
+                                                </select>
+                                                <input type="text" class="form-control" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Indicaciones extra:</label>
-                                                <textarea class="form-control" rows="3"></textarea>
+                                                <textarea class="form-control" rows="3" placeholder="Indicaciones terapeuticas adicionales"></textarea>
                                             </div>
                                         </div>
                                         <!-- Estudios -->                  
                                         <div class="form-group">
                                             <h2 class="header">Estudios:</h2>
                                             <label>Orden</label>
-                                            <textarea class="form-control" rows="3"></textarea>
+                                            <textarea class="form-control" rows="3" placeholder="Ingrese aqui la orden(es) que requiera el paciente, estas se incluiran en la receta"></textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                        <!-- Notas adicionales -->
+                                        <div class="form-group">
+                                            <h2 class="header">Notas adicionales:</h2>
+                                            <textarea class="form-control" rows="3" placeholder="Ingrese aqui las notas adicionales que requiera"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Guardar</button>
+                                        <button type="reset" class="btn btn-default">Reiniciar</button>
                                     </form>
                                 </div>
                             </div>

@@ -6768,3 +6768,7 @@ button.close {
   width: 6em;
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.changePadding{
+  padding-left: 6px;
+}
