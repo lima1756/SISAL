@@ -6799,3 +6799,5 @@ button.close {
 .form-group .btn-group[disabled]{
   cursor:not-allowed;
 }
+
+*, *:before, *:after {box-sizing:  border-box !important;}

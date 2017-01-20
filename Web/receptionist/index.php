@@ -12,7 +12,7 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">
+    <link href="../dataSource/css/templates/bootstrap.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../dataSource/css/templates/metisMenu.min.css" rel="stylesheet">
@@ -77,22 +77,7 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="dates/?type=surgery">Quirurgicas</a>
-                                </li>
-                                <li>
-                                    <a href="dates/?type=clinic">Clinicas</a>
-                                </li>
-                                <li>
-                                    <a href="dates/?type=all">Todas</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="dates"><i class="fa fa-table fa-fw"></i> Citas</a>
                         </li>
                         <li>
                             <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
@@ -109,11 +94,11 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Inicio</h1>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
+            <div class="row grid">
+                <div class="grid-sizer col-xs-1"></div> <!--Aunque esta linea no parezca importante NO BORRAR-->
+                <div class="col-lg-3 col-md-6 grid-item">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -135,51 +120,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">Historial</div>
-                                    <div>Pacientes</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="patients">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver historial de pacientes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-pencil-square-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">Registro</div>
-                                    <div>Registro medico</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="registerData">
-                            <div class="panel-footer">
-                                <span class="pull-left">Realizar registro de paciente</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
+                <div class=" col-lg-3 col-md-6 grid-item">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
@@ -201,47 +142,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Citas del día
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
-                                    <span class="pull-right text-muted small"><em>9:00</em>
-                                    </span>
-                                </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
-                                    <span class="pull-right text-muted small"><em>12:00</em>
-                                    </span>
-                                </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
-                                    <span class="pull-right text-muted small"><em>15:00</em>
-                                    </span>
-                                </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
-                                    <span class="pull-right text-muted small"><em>18:00</em>
-                                    </span>
-                                </a>
-                            </div>
-                            <!-- /.list-group -->
-                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
+                <div class=" col-lg-6 col-md-6 grid-item">
                     <div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i> Notas
@@ -314,14 +215,47 @@
                     </div>
                     <!-- /.panel .chat-panel -->
                 </div>
-                <!-- /.col-lg-4 -->
+                <div class=" col-lg-6 col-md-6 grid-item">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Citas Proximas
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
+                                    <span class="pull-right text-muted small"><em>9:00</em>
+                                    </span>
+                                </a>
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
+                                    <span class="pull-right text-muted small"><em>12:00</em>
+                                    </span>
+                                </a>
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
+                                    <span class="pull-right text-muted small"><em>15:00</em>
+                                    </span>
+                                </a>
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
+                                    <span class="pull-right text-muted small"><em>18:00</em>
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- /.list-group -->
+                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
             </div>
-            <!-- /.row -->
+            <!--row-->
         </div>
-        <!-- /#page-wrapper -->
-
+        <!--page-wrapper-->
     </div>
-    <!-- /#wrapper -->
 
     <!-- jQuery -->
     <script src="../dataSource/js/jquery/jquery.min.js"></script>
@@ -340,6 +274,16 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dataSource/js/templates/sb-admin-2.js"></script>
 
+    <!-- Masonry -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+    <script>
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+            });
+
+    </script>
 </body>
 
 </html>
