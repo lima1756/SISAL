@@ -48,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SISAL</a>
+                <a class="navbar-brand" href="#">SISAL</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -77,25 +77,10 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="dates/?type=surgery">Quirurgicas</a>
-                                </li>
-                                <li>
-                                    <a href="dates/?type=clinic">Clinicas</a>
-                                </li>
-                                <li>
-                                    <a href="dates/?type=all">Todas</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
-                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
-                        </li>
-                        <li>
-                            <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
                     </ul>
                 </div>
@@ -112,8 +97,10 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
+            <div class="row grid">
+                <div class="grid-sizer col-xs-1 col-md-1 col-lg-1"></div> <!--Aunque esta linea no parezca importante NO BORRAR-->
+                
+                <div class="col-lg-3 col-md-6 grid-item">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -121,65 +108,21 @@
                                     <i class="fa fa-calendar-check-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">4</div>
-                                    <div>Citas de hoy</div>
+                                    <div class="huge">5</div>
+                                    <div>Medicamentos de hoy</div>
                                 </div>
                             </div>
                         </div>
                         <a href="dates">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver todas</span>
+                                <span class="pull-left">Ver receta</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">Historial</div>
-                                    <div>Pacientes</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="patients">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver historial de pacientes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-pencil-square-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">Registro</div>
-                                    <div>Registro medico</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="registerData">
-                            <div class="panel-footer">
-                                <span class="pull-left">Realizar registro de paciente</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 grid-item">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
@@ -201,120 +144,115 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-6">
+                <!--Timeline Medicinas-->
+                <div class="col-lg-6 col-md-6 grid-item">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Citas del día
+                            <i class="fa fa-heartbeat fa-fw"></i>Medicamentos del día
+                        </div>
+                        <div class="panel-body">
+                            <ul class="timeline">
+                                <li>
+                                    <div class="timeline-badge success"><i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Medicamento 1</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 7:00 </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-badge success"><i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Medicamento 2</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 10:00 </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-badge success"><i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Medicamento 3</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 12:00 </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-badge warning"><i class="fa fa-minus"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Medicamento 4</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 14:00 </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-badge warning"><i class="fa fa-minus"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Medicamento 1</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 16:00 </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/.Panel body-->
+                    </div>
+                    <!--/.Panel-->
+                </div>
+                <!-- /.col lg 6 -->
+                <!-- Proximas citas -->
+                <div class="col-lg-6 col-md-6 grid-item">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Proximas citas
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
-                                    <span class="pull-right text-muted small"><em>9:00</em>
+                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
+                                    <span class="pull-right text-muted small"><em>22-01-2017 9:00</em>
                                     </span>
                                 </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
-                                    <span class="pull-right text-muted small"><em>12:00</em>
+                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
+                                    <span class="pull-right text-muted small"><em>23-03-2017 15:00</em>
                                     </span>
                                 </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
-                                    <span class="pull-right text-muted small"><em>15:00</em>
+                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
+                                    <span class="pull-right text-muted small"><em>24-04-2017 18:00</em>
                                     </span>
                                 </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
-                                    <span class="pull-right text-muted small"><em>18:00</em>
+                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
+                                    <span class="pull-right text-muted small"><em>25-05-2017 16:00</em>
                                     </span>
                                 </a>
                             </div>
                             <!-- /.list-group -->
-                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
+                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todas</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="chat-panel panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-comments fa-fw"></i> Notas
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <ul class="chat">
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 12 mins
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 8 mins
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 6 mins 
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 2 mins 
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.panel-body -->
-                        <div class="panel-footer">
-                            <form name="notesForm "id="notesForm" action="../doctor/" method="POST">
-                                    <div class="input-group">
-                                        <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
-                                        <span class="input-group-btn">
-                                            <input type="submit" class="full-size btn btn-warning btn-sm" id="submit"/>    
-                                        </span>
-                                    </div>
-                            </form>
-                        </div>
-                        <!-- /.panel-footer -->
-                    </div>
-                    <!-- /.panel .chat-panel -->
-                </div>
-                <!-- /.col-lg-4 -->
+                <!-- /.col lg 6 -->
+                
             </div>
             <!-- /.row -->
         </div>
@@ -339,6 +277,17 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dataSource/js/templates/sb-admin-2.js"></script>
+
+    <!-- Masonry -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+    <script>
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+            });
+
+    </script>
 
 </body>
 
