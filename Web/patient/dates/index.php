@@ -113,426 +113,167 @@
        <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Pacientes</h1>
+                    <h1 class="page-header">Citas</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <!-- BOTON DE TODOS -->
                 <div class="col-lg-12">
-                    <form>
-                        <div class="panel panel-default"aria-multiselectable="true">
-                            <div class="panel-heading">
-                                <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar"/></span>
-                                <span><h2>Una persona bien chingona</h2></span>
-                            </div>
-                            <div id="tablist">
-                                <!-- Desplegable información Personal--> 
-                                <div>
-                                    <a href="#pInf" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Información personal</h2>
-                                    </div>
-                                    </a>                                        
-                                    <div class="panel-body collapse indent" id="pInf" >
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Nombre"/>
+                    <div class="panel panel-default">
+                        <!-- /.panel-heading -->
+                        <div class="panel-head">
+                            <form>
+                                <div class="form-group" style="padding-top:15px;">
+                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" type="date"/>
+                                    <label class="btn">Doctor: </label>
+                                    <select class="btn btn-default">
+                                        <!--!!!!!!!!!!!LEER: Los doctores se obtendran de la base de datos-->
+                                        <option>doc1</option>
+                                        <option>doc2</option>
+                                    </select>
+                                    &nbsp&nbsp
+                                    <input type="checkbox" name="disponible" id="disponible" autocomplete="off"/>
+                                        <div class="btn-group">
+                                            <label for="disponible" class="btn btn-default">
+                                                <span class="fa fa-check"></span>
+                                                <span>&nbsp</span>
+                                            </label>
+                                            <label for="disponible" class="btn btn-default active">
+                                                Ver solo proximas citas
+                                            </label>
                                         </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Apellido"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Domicilio"/>
-                                        </div>
-                                        <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Estado"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ciudad"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Código Postal"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono oficina"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Correo Electrónico"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Género</option>
-                                                <option>Masculino</option>
-                                                <option>Femenino</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="No. de Seguridad social"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento"/>
-                                        </div>
-                                        <div class="form-group">
-                                        <!--CALCULAR AQUI LA EDAD--><label class="form-control">xy años</label>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ocupación"/>
-                                        </div>
-                                    </div>
+                                    <input class="btn btn-primary"type="submit" value="Ver citas"/>
                                 </div>
-                                <!-- Desplegable Antecedentes personales--> 
-                                <div>
-                                    <a href="#aPer" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Antecedentes personales</h2>
-                                    </div>
-                                    </a>                                        
-                                    <div class="panel-body collapse indent" id="aPer">
-                                        <div class="form-group">
-                                            <label>Tipo de sangre</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                                <option></option>
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Tabaquismo</label>
-                                            <select class="form-control">
-                                                <option>Nunca</option>
-                                                <option>Casual</option>
-                                                <option>Moderado</option>
-                                                <option>Intenso</option>
-                                                <option>En remisión</option>
-                                                <option>Otro</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Alcoholismo</label>
-                                            <select class="form-control">
-                                                <option>Nunca</option>
-                                                <option>Casual</option>
-                                                <option>Moderado</option>
-                                                <option>Intenso</option>
-                                                <option>En remisión</option>
-                                                <option>Otro</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes hereditarios</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes patológicos</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes no patológicos</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Desplegable Interrogatorio de antecedentes médicos--> 
-                                <div>
-                                    <a href="#int" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Interrogatorio</h2>
-                                    </div>
-                                    </a>                                        
-                                    <div class="panel-body collapse indent" id="int"  >
-                                        <div class="form-group">
-                                            <label>Antecedentes cardiovasculares</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes digestivos</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes endocrinos</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes hemolinfatico</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de Músculo-Esquelético</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de Piel y anexos</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de aparato reproductor</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de aparato respiratorio</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de sistema nervioso</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de sistemas generales</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Antecedentes de aparato urinario</label>
-                                            <textarea class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Desplegable Estilo de vida--> 
-                                <!--Hace que si no esta check se desactive y viceversa con lo que lo ocupen-->
-                                <div>
-                                    <a href="#eVid" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Estilo de vida</h2>
-                                    </div>
-                                    </a>                                        
-                                    <div class="panel-body collapse indent" id="eVid"  >
-                                        <div class="form-group">
-                                            <input type="checkbox" name="ejercicio" id="ejercicio" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="ejercicio" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="ejercicio" class="btn btn-default active">
-                                                    ¿Realiza ejercicio?
-                                                </label>
-                                                <label class="btn">Veces a la semana:&nbsp</label><input type="number" class="btn btn-default" value="0" min="0" max="7"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="btn-group">
-                                                <label class="btn">Horas de sueño diarias:&nbsp</label><input type="number" class="btn btn-default" value="0" min="0" max="20"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="desayuna" id="desayuna" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="desayuna" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="desayuna" class="btn btn-default active">
-                                                    ¿Desayuna?
-                                                </label>
-                                                <label class="btn">Comidas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="10"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="cafe" id="cafe" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="cafe" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="cafe" class="btn btn-default active">
-                                                    ¿Toma Café?
-                                                </label>
-                                                <label class="btn">Tazas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="refresco" id="refresco" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="refresco" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="refresco" class="btn btn-default active">
-                                                    ¿Toma refresco?
-                                                </label>
-                                                <label class="btn">Vasos al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="dieta" id="dieta" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="dieta" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="dieta" class="btn btn-default active">
-                                                    ¿Sigue alguna dieta?
-                                                </label>
-                                            </div>
-                                            <textarea type="text" placeholder="Información sobre la dieta" class="form-control"></textarea>
-                                        </div>
-                                        <!--IMPORTANTE CUANDO SE HAGA JS: para deshabilitar los checkbox es necesario deshabilitar el input, el label de la palomita y el label de la pregunta:-->
-                                        <div class="form-group">
-                                            <input type="checkbox" name="alcohol" id="alcohol" autocomplete="off" disabled/>
-                                            <div class="btn-group">
-                                                <label for="alcohol" class="btn btn-default" disabled>
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="alcohol" class="btn btn-default active" disabled>
-                                                    ¿Consume Alcohol?
-                                                </label>
-                                                <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
-                                                <label class="btn">Vasos de bebidas alcoholicas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="ex-Alcoholico" id="ex-Alcoholico" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="ex-Alcoholico" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="ex-Alcoholico" class="btn btn-default active">
-                                                    ¿ex-Alcoholico?
-                                                </label>
-                                                <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="fuma" id="fuma" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="fuma" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="fuma" class="btn btn-default active">
-                                                    ¿Fuma?
-                                                </label>
-                                                <label class="btn">Edad a la que comenzó a fumar:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
-                                                <label class="btn">Cigarrillos al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="ex-fumador" id="ex-fumador" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="ex-fumador" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="ex-fumador" class="btn btn-default active">
-                                                    ¿Ex-fumador?
-                                                </label>
-                                                <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="fumador-pasivo" id="fumador-pasivo" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="fumador-pasivo" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="fumador-pasivo" class="btn btn-default active">
-                                                    ¿Fumador-pasivo?
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="droga" id="droga" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="droga" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="droga" class="btn btn-default active">
-                                                    ¿Consume algun tipo de droga?
-                                                </label>
-                                                <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80"/>
-                                            </div>
-                                            <input type="checkbox" name="droga-intra" id="droga-intra" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="droga-intra" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="droga-intra" class="btn btn-default active">
-                                                    ¿Consume algun tipo de droga intravenosa?
-                                                </label>
-                                            </div>
-                                            <textarea type="text" placeholder="Anotación acerca de las drogas consumidas" class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="ex-adicto" id="ex-adicto" autocomplete="off"/>
-                                            <div class="btn-group">
-                                                <label for="ex-adicto" class="btn btn-default">
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
-                                                <label for="ex-adicto" class="btn btn-default active">
-                                                    ¿ex-adicto?
-                                                </label>
-                                                <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50"/>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Desplegable Alergias--> 
-                                <div>
-                                    <a href="#aler" role ="tab" data-toggle="collapse" data-target="#aler" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Alergias</h2>
-                                    </div>
-                                    </a>                                        
-                                    <div class="panel-body collapse indent" id="aler"  >
-                                        <div class="form-group">
-                                            <textarea class="form-control" placeholder="Alergias tanto a medicamentos como a materiales o alimentos"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Desplegable Citas--> 
-                                <div>
-                                    <a href="#citas" role ="tab" data-toggle="collapse" data-target="#citas" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Citas</h2>
-                                    </div>
-                                    </a>                                        
-                                    <div class="panel-body collapse indent" id="citas"  >
-                                        <div class="form-group">
-                                            <label>Fecha de cita</label>
-                                            <select class="form-control">
-                                                <option>12-12-12</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="alert">
-                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                        <!-- /.panel -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>Ver información</th>
+                                        <th>Tipo</th>
+                                        <th>Doctor</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
+                                    <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
+                                        <td>Quirurgica</td>
+                                        <td>Doc1</td>
+                                        <td>28-11-2016</td>
+                                        <td>16:00</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
+                                        <td>Clinica</td>
+                                        <td>Doc12</td>
+                                        <td>28-12-2016</td>
+                                        <td>16:00</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
+                                        <td>Clinica</td>
+                                        <td>Doc3</td>
+                                        <td>28-11-2019</td>
+                                        <td>15:00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+                
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <label class="panel-title">Doc1: 28-11-2016::16:00</label>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-heading">
+                                <a href="#medicinas" role ="tab" data-toggle="collapse" data-target="#medicinas" data-parent="#tablist">
+                                    <h4>Medicamentos recetados:</h4> 
+                                </a>
+                            </div>
+                            <div class="panel-body collapse indent" id="medicinas"  >
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre medicamento</th>
+                                            <th>Cada</th>
+                                            <th>Iniciando a las</th>
+                                            <th>Indicaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
+                                        <tr class="odd gradeX">
+                                            <td>Paracetamos</td>
+                                            <td>8:00</td>
+                                            <td>24:00</td>
+                                            <td>100mg</td>
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td>Loratadina</td>
+                                            <td>10:00</td>
+                                            <td>12:00</td>
+                                            <td>500mg</td>
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td>Zenhale</td>
+                                            <td>12:00</td>
+                                            <td>9:00</td>
+                                            <td>Tomar durante 20 dias, mañana y noche dos tomas</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <div class="panel-heading">
+                                <a href="#indicaciones" role ="tab" data-toggle="collapse" data-target="#indicaciones" data-parent="#tablist">
+                                    <h4>Indicaciones terapeuticas:</h4> 
+                                </a>
+                            </div>
+                            <div class="panel-body collapse indent" id="indicaciones"  >
+                                <label>Inserte indicaciones aqui</label>
+                            </div>
+                            <div class="panel-heading">
+                                <a href="#estudios" role ="tab" data-toggle="collapse" data-target="#estudios" data-parent="#tablist">
+                                    <h4>Estudios médicos:</h4> 
+                                </a>
+                            </div>
+                            <div class="panel-body collapse indent" id="estudios"  >
+                                <label>Inserte Estudios médicos a realizar aqui</label>
+                            </div>
+                            <div class="panel-heading">
+                                <a href="#adicionales" role ="tab" data-toggle="collapse" data-target="#adicionales" data-parent="#tablist">
+                                    <h4>Indicaciones adicionales:</h4> 
+                                </a>
+                            </div>
+                            <div class="panel-body collapse indent" id="adicionales"  >
+                                <label>Inserte Indicaciones adicionales aqui</label>
+                            </div>
+                            <form>
+                                <input class="btn btn-warning" type="submit" value="Ver receta"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+
 
             </div>
             <!-- /.row -->
