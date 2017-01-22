@@ -79,17 +79,31 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <ul class="nav" id="side-menu">
+                        
                         <li>
                             <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../dates/?type=surgery">Quirurgicas</a>
+                                </li>
+                                <li>
+                                    <a href="../dates/?type=clinic">Clinicas</a>
+                                </li>
+                                <li>
+                                    <a href="../dates/?type=all">Todas</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
-                    </ul>
+                        <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -195,7 +209,7 @@
                                 </a>
                             </div>
                             <div class="panel-body collapse indent" id="medicinas"  >
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="tabla-medicinas">
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
                                             <th>Nombre medicamento</th>
@@ -286,29 +300,10 @@
      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable( {
-            responsive: true,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ citas por página",
-                "zeroRecords": "No se encontro nada",
-                "info": "Mostrando página Cita _PAGE_ de _PAGES_",
-                "infoEmpty": "No hay registros disponibles",
-                "infoFiltered": "(filtrado por _MAX_ total de citas)"
-            }
-        } );
-    } );
-    $(document).ready(function() {
-        $('#tabla-medicinas').DataTable( {
-            responsive: true,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ medicinas por página",
-                "zeroRecords": "No se encontro nada",
-                "info": "Mostrando pagina de medicinas _PAGE_ de _PAGES_",
-                "infoEmpty": "No hay registros disponibles",
-                "infoFiltered": "(filtrado por _MAX_ total de medicinas)"
-            }
-        } );
-    } );
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
     </script>
     
 </body>
