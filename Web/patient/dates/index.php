@@ -79,17 +79,15 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <ul class="nav" id="side-menu">
                         <li>
                             <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
-                            <a href="doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                            <a href="../doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
-                    </ul>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

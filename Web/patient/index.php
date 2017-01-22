@@ -245,7 +245,7 @@
                                 </a>
                             </div>
                             <!-- /.list-group -->
-                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todas</a>
+                            <a href="dates" class="btn btn-default btn-block">Ver todas</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>

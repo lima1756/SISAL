@@ -79,30 +79,14 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
                         <li>
                             <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="../dates/?type=surgery">Quirurgicas</a>
-                                </li>
-                                <li>
-                                    <a href="../dates/?type=clinic">Clinicas</a>
-                                </li>
-                                <li>
-                                    <a href="../dates/?type=all">Todas</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="../dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
-                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="#"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
                     </ul>
                 </div>
@@ -113,7 +97,7 @@
        <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Citas</h1>
+                    <h1 class="page-header">Mis médicos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -122,40 +106,13 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
-                        <div class="panel-head">
-                            <form>
-                                <div class="form-group" style="padding-top:15px;">
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" type="date"/>
-                                    <label class="btn">Doctor: </label>
-                                    <select class="btn btn-default">
-                                        <!--!!!!!!!!!!!LEER: Los doctores se obtendran de la base de datos-->
-                                        <option>doc1</option>
-                                        <option>doc2</option>
-                                    </select>
-                                    &nbsp&nbsp
-                                    <input type="checkbox" name="disponible" id="disponible" autocomplete="off"/>
-                                        <div class="btn-group">
-                                            <label for="disponible" class="btn btn-default">
-                                                <span class="fa fa-check"></span>
-                                                <span>&nbsp</span>
-                                            </label>
-                                            <label for="disponible" class="btn btn-default active">
-                                                Ver solo proximas citas
-                                            </label>
-                                        </div>
-                                    <input class="btn btn-primary"type="submit" value="Ver citas"/>
-                                </div>
-                            </form>
-                        </div>
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
                                         <th>Ver información</th>
-                                        <th>Tipo</th>
                                         <th>Doctor</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
+                                        <th>Especialidad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,28 +121,22 @@
                                         <div class="radio">
                                             <td><input type="radio" name="optradio"/></td>
                                         </div>
-                                        <td>Quirurgica</td>
                                         <td>Doc1</td>
-                                        <td>28-11-2016</td>
-                                        <td>16:00</td>
+                                        <td>Neumologo</td>
                                     </tr>
                                     <tr class="odd gradeX">
                                         <div class="radio">
                                             <td><input type="radio" name="optradio"/></td>
                                         </div>
-                                        <td>Clinica</td>
                                         <td>Doc12</td>
-                                        <td>28-12-2016</td>
-                                        <td>16:00</td>
+                                        <td>Ororrinolaringolo</td>
                                     </tr>
                                     <tr class="odd gradeX">
                                         <div class="radio">
                                             <td><input type="radio" name="optradio"/></td>
                                         </div>
-                                        <td>Clinica</td>
                                         <td>Doc3</td>
-                                        <td>28-11-2019</td>
-                                        <td>15:00</td>
+                                        <td>General</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -204,71 +155,21 @@
                         </div>
                         <div class="panel-body">
                             <div class="panel-heading">
-                                <a href="#medicinas" role ="tab" data-toggle="collapse" data-target="#medicinas" data-parent="#tablist">
-                                    <h4>Medicamentos recetados:</h4> 
+                                <a href="#general" role ="tab" data-toggle="collapse" data-target="#general" data-parent="#tablist">
+                                    <h4>Informacion general:</h4> 
                                 </a>
                             </div>
-                            <div class="panel-body collapse indent" id="medicinas"  >
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre medicamento</th>
-                                            <th>Cada</th>
-                                            <th>Iniciando a las</th>
-                                            <th>Indicaciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
-                                        <tr class="odd gradeX">
-                                            <td>Paracetamos</td>
-                                            <td>8:00</td>
-                                            <td>24:00</td>
-                                            <td>100mg</td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Loratadina</td>
-                                            <td>10:00</td>
-                                            <td>12:00</td>
-                                            <td>500mg</td>
-                                        </tr>
-                                        <tr class="odd gradeX">
-                                            <td>Zenhale</td>
-                                            <td>12:00</td>
-                                            <td>9:00</td>
-                                            <td>Tomar durante 20 dias, mañana y noche dos tomas</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- /.table-responsive -->
+                            <div class="panel-body collapse indent" id="general" >
+                                <label>Inserte Informacion general aqui</label>
                             </div>
                             <div class="panel-heading">
-                                <a href="#indicaciones" role ="tab" data-toggle="collapse" data-target="#indicaciones" data-parent="#tablist">
-                                    <h4>Indicaciones terapeuticas:</h4> 
+                                <a href="#contacto" role ="tab" data-toggle="collapse" data-target="#contacto" data-parent="#tablist">
+                                    <h4>Información de contacto:</h4> 
                                 </a>
                             </div>
-                            <div class="panel-body collapse indent" id="indicaciones"  >
-                                <label>Inserte indicaciones aqui</label>
+                            <div class="panel-body collapse indent" id="contacto"  >
+                                <label>Inserte Información de contacto aqui</label>
                             </div>
-                            <div class="panel-heading">
-                                <a href="#estudios" role ="tab" data-toggle="collapse" data-target="#estudios" data-parent="#tablist">
-                                    <h4>Estudios médicos:</h4> 
-                                </a>
-                            </div>
-                            <div class="panel-body collapse indent" id="estudios"  >
-                                <label>Inserte Estudios médicos a realizar aqui</label>
-                            </div>
-                            <div class="panel-heading">
-                                <a href="#adicionales" role ="tab" data-toggle="collapse" data-target="#adicionales" data-parent="#tablist">
-                                    <h4>Indicaciones adicionales:</h4> 
-                                </a>
-                            </div>
-                            <div class="panel-body collapse indent" id="adicionales"  >
-                                <label>Inserte Indicaciones adicionales aqui</label>
-                            </div>
-                            <form>
-                                <input class="btn btn-warning" type="submit" value="Ver receta"/>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -300,10 +201,21 @@
      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
+        $('#dataTables-example').DataTable( {
+            responsive: true,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ doctores por página",
+                "zeroRecords": "No se encontro nada",
+                "info": "Mostrando página doctores _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado por _MAX_ total de doctores)"
+            },
+            "columnDefs": [
+                { "width": "10%", "targets": 0 },
+                { "width": "45%", "targets": 1 }
+            ]
+        } );
+    } );
     </script>
     
 </body>
