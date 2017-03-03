@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>SISAL</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="dataSource/css/templates/bootstrap.css" rel="stylesheet">
@@ -43,23 +43,23 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Inicio de sesión</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#about">About</a>
+                        <a class="page-scroll" href="#about">Acerca de...</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#services">Services</a>
+                        <a class="page-scroll" href="#services">Servicios</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
+                        <a class="page-scroll" href="#portfolio">Portafolio</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="#contact">Contacto</a>
                     </li>
                 </ul>
             </div>
@@ -71,10 +71,10 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Your Favorite Source of Free Bootstrap Themes</h1>
+                <h1 id="homeHeading">SISAL: Sistema de integración para la salud.</h1>
                 <hr>
-                <p>Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+                <p>Esta página web está destinada a la Clínica San Antonio, para que los procesos clínicos sean más automáticos, y se actualicen los procesos.</p>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Encuentra más</a>
             </div>
         </div>
     </header>
@@ -83,15 +83,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">We've got what you need!</h2>
+                    <h2 class="section-heading">Tenemos lo que necesitas!</h2>
                     <hr class="light">
-                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                    <p class="text-faded">Contamos con una plataforma Android, te invitamos a que la utilices.</p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Utilízanos!</a>
                 </div>
             </div>
         </div>
     </section>
 
+
+<!--
     <section id="services">
         <div class="container">
             <div class="row">
@@ -231,12 +233,12 @@
             </div>
         </div>
     </section>
-
+-->
     <aside class="bg-dark">
         <div class="container text-center">
             <div class="call-to-action">
-                <h2>Free Download at Start Bootstrap!</h2>
-                <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Download Now!</a>
+                <h2>Utiliza nuestro sistema</h2>
+                <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Descarga ahora!</a>
             </div>
         </div>
     </aside>
@@ -245,17 +247,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <h2 class="section-heading">Acércate a nosostros</h2>
                     <hr class="primary">
-                    <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                    <p>Estás interesado en este servicio para tu clínica u hospital? ¡Contáctanos!</p>
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 text-center">
                     <i class="fa fa-phone fa-3x sr-contact"></i>
-                    <p>123-456-6789</p>
+                    <p>01-800-andochido</p>
                 </div>
                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-                    <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                    <p><a href="mailto:your-email@your-domain.com">francisco.mtcz@hotmail.com</a></p>
                 </div>
             </div>
         </div>
