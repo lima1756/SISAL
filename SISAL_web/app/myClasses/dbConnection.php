@@ -2,18 +2,24 @@
 
     namespace App\myClasses;
     use PDO;
-    /*
-        Clase para la conexión con la base de datos
-    */
+
+    /**
+     * Clase para la conexión con la base de datos
+     */ 
     class dbConnection {
-        
+        /**
+         * Propiedad que almacena la conexión con la base de datos
+         * 
+         * @var PDO $DBCon
+         */        
         private $DBCon;
+        
+        
         /**
          * Constructor de la clase
          * Genera y abre la conexión con la base de datos mediante PHP_ROUND_HALF_DOWN
          * En caso de error genera una exepción y la muestra mediante echo
          */
-        
         public function __construct()
         {
             //CADENA DE CONEXION PDO(localhost,nombre de la bd, usuario, contraseña)
@@ -162,16 +168,104 @@
 
         
         /**
-         * Undocumented function
+         * insert: Funcion para generar INSERTS en la base de datos
          * 
-         * @param string $tabla
-         * @param array $campos
-         * @param array $datos
+         * @param string $tabla  Este es el nombre de la tabla sobre la que se realizara el INSERT
+         * @param array $campos  Este es un array de los campos sobre los que se hara el INSERT.
+         * ej:
+         *      ["columna1", "columna2", "columna3"]
+         * @param array $datos   Este es un array de arrays que contiene los datos que se agregaran a la base de datos
+         * ej:
+         *      [["valorDato Columna1", "valorDato Columna2", valorDato Columan3]]
          * @return void
+         *  
          */ 
         public function insert(string $tabla, array $campos, array $datos)
         {
-
+            $query = "INSERT INTO " . $tabla . " (";
+            $countCampos = count($campos);
+            $countDatos = count($datos);
+            $data = [];
+            for($x = 0; $x < $countCampos; $x++)
+            {
+                if($x == $countCampos-1)
+                {
+                    $query = $query . $campos[$x] . ") ";
+                }
+                else
+                {
+                    $query = $query . $campos[$x] . ", ";
+                }
+            }
+            $query = $query . "VALUES ";
+            if($countDatos>1)
+            {
+                for($x = 0; $x < $countDatos; $x++)
+                {
+                    $query = $query . " (" ;
+                    $countDato = count($datos[$x]);
+                    if($x == $countDatos-1)
+                    {
+                        for($y = 0; $y < $countDato; $y++)
+                        {
+                            if($y == $countDato-1)
+                            {
+                                $query = $query . "?" . ");";
+                                array_push($data, $datos[$x][$y]);
+                            }
+                            else
+                            {
+                                $query = $query . "?" . ", ";
+                                array_push($data, $datos[$x][$y]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for($y = 0; $y < $countDato; $y++)
+                        {
+                            if($y == $countDato-1)
+                            {
+                                $query = $query . "?" . "), ";
+                                array_push($data, $datos[$x][$y]);
+                            }
+                            else
+                            {
+                                $query = $query . "?" . ", ";
+                                array_push($data, $datos[$x][$y]);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                $query = $query . " (";
+                $countDato = count($datos[$x]);
+                for($y = 0; $y < $countDato; $y++)
+                {
+                    if($y == $countDato-1)
+                    {
+                        $query = $query . "?" . ");";
+                        array_push($data, $datos[$x][$y]);
+                    }
+                    else
+                    {
+                        $query = $query . "?" . ", ";
+                        array_push($data, $datos[$x][$y]);
+                    }
+                }
+            }
+            try
+            {
+                $insert = $this->DBCon->prepare($query);
+                $insert->execute($data);
+                return 1;
+            }
+            catch(PDOException $e)
+            {
+                return $e->getMessage();
+            }
         }
 
         public function update(string $tabla, array $campos, array $datos, array $where)
