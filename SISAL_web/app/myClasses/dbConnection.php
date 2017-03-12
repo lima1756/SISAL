@@ -9,10 +9,11 @@
         
         private $DBCon;
         /**
-        * Constructor de la clase
-        * Genera y abre la conexión con la base de datos mediante PHP_ROUND_HALF_DOWN
-        * En caso de error genera una exepción y la muestra mediante echo
-        */
+         * Constructor de la clase
+         * Genera y abre la conexión con la base de datos mediante PHP_ROUND_HALF_DOWN
+         * En caso de error genera una exepción y la muestra mediante echo
+         */
+        
         public function __construct()
         {
             //CADENA DE CONEXION PDO(localhost,nombre de la bd, usuario, contraseña)
@@ -30,6 +31,23 @@
             }
         }
 
+        /**
+         * select: Función para generar SELECTS para la base de datos
+         * 
+         * @param array $valores  Este es un array de los campos que se obtendran con el SELECT.
+         * ej:
+         *     ["columna1", "columna2", "columna3"]
+         * @param string $tabla  Este es el nombre de la tabla sobre la que se realizara el SELECT
+         * @param array $joins  Este es un array de arrays para realizar inner JOINS en la consulta
+         * ej:
+         *      [["nombreTabla", "valor 1 a comparar en el ON", "Valor 2 a comparar en el ON", OPCIONAL: "Operación logica a hacer en el ON"]]
+         * @param array $where  Este es un array de arrays para realizar el WHERE de la consulta
+         * ej:
+         *      [["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica"], 
+         *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
+         * @param string $extra  Este string es el añadido como para ordenar o limitar la sentencia
+         * @return void
+         */ 
         public function select(array $valores, string $tabla, array $joins = [], array $where = [], string $extra = null)
         {
             $query = "SELECT ";
@@ -142,6 +160,15 @@
             
         }
 
+        
+        /**
+         * Undocumented function
+         * 
+         * @param string $tabla
+         * @param array $campos
+         * @param array $datos
+         * @return void
+         */ 
         public function insert(string $tabla, array $campos, array $datos)
         {
 
