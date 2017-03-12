@@ -1,3 +1,7 @@
+<?php
+    use App\myClasses\dbConnection;
+    $connect = new App\myClasses\dbConnection;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
