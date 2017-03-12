@@ -388,15 +388,83 @@
         }
         
         /**
-         * Undocumented function
+         * delete: Funcion para generar DELETES en la base de datos
          * 
-         * @param string $tabla
-         * @param array $where
+         * @param string $tabla  Este es el nombre de la tabla sobre la que se realizara el DELETE
+         * @param array $where  Este es un array de arrays para realizar el WHERE del DELETE
+         * ej:
+         *      [["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica"], 
+         *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
          * @return void
          */ 
         public function delete(string $tabla, array $where)
         {
+            $data = [];
+            $countWhere = count($where);
+            $query = "DELETE FROM " . $tabla;
+            if($countWhere > 0)
+            {
+                for($x = 0; $x < $countWhere; $x++)
+                {
+                    
+                    if($x==0)
+                    {
+                        if(count($where[$x])==2)
+                        {
+                            $query = $query . " WHERE " . $where[$x][0] . " = " . "?";
+                        }
+                        elseif(count($where[$x])==3)
+                        {
+                            
+                            $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . "?";
+                        }
+                        else
+                        {
+                            $query = null;
+                            echo "ERROR WHERE values incorrect";
+                            return -1;
+                        }
+                    }
+                    else
+                    {
+                        if(count($where[$x])==2)
+                        {
+                            $query = $query . " AND " . $where[$x][0] . " = " . "?";
+                        }
+                        elseif(count($where[$x])==3)
+                        {
+                            $query = $query . " AND " . $where[$x][0] . $where[$x][2] . "?";
 
+                        }
+                        elseif(count($where[$x])==4)
+                        {
+                            $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
+                        }
+                        else
+                        {
+                            $query = null;
+                            echo "ERROR Where values incorrect";
+                            return -1;
+                        }
+                    }
+                    array_push($data, $where[$x][1]);
+                }
+            }
+            else
+            {
+                return "ERROR no puede haber un Delete sin WHERE";
+            }
+            try
+            {
+                
+                $insert = $this->DBCon->prepare($query);
+                $insert->execute($data);
+                return 1;
+            }
+            catch(PDOException $e)
+            {
+                return $e->getMessage();
+            }
         }
         
         
