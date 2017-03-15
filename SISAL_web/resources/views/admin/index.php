@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Administrador</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">
@@ -77,22 +77,22 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="dates/?type=surgery">Quirurgicas</a>
+                                    <a href="dates/?type=doctors">Doctores</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=clinic">Clinicas</a>
+                                    <a href="dates/?type=patients">Pacientes</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=all">Todas</a>
+                                    <a href="dates/?type=recepcionist">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registrar medico</a>
                         </li>
                         <li>
                             <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
@@ -121,20 +121,21 @@
                                     <i class="fa fa-calendar-check-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">4</div>
-                                    <div>Citas de hoy</div>
+                                    <div class="huge">8</div>
+                                    <div>Doctores en turno</div>
                                 </div>
                             </div>
                         </div>
                         <a href="dates">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver todas</span>
+                                <span class="pull-left">Ver más</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
                         </a>
                     </div>
                 </div>
+                <!--
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
@@ -156,7 +157,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
@@ -166,13 +167,13 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">Registro</div>
-                                    <div>Registro medico</div>
+                                    <div>Registro de personal</div>
                                 </div>
                             </div>
                         </div>
                         <a href="registerData">
                             <div class="panel-footer">
-                                <span class="pull-left">Realizar registro de paciente</span>
+                                <span class="pull-left">Realizar registro.</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -207,29 +208,29 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Citas del día
+                            <i class="fa fa-bell fa-fw"></i> Doctores en turno
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
                                 <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
-                                    <span class="pull-right text-muted small"><em>9:00</em>
+                                    <span class="pull-right text-muted small"><em>Consultorio 1</em>
                                     </span>
                                 </a>
                                 <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
-                                    <span class="pull-right text-muted small"><em>12:00</em>
+                                    <span class="pull-right text-muted small"><em>Consultorio 6</em>
                                     </span>
                                 </a>
                                 <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
-                                    <span class="pull-right text-muted small"><em>15:00</em>
+                                    <span class="pull-right text-muted small"><em>Consultorio 3</em>
                                     </span>
                                 </a>
                                 <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
-                                    <span class="pull-right text-muted small"><em>18:00</em>
+                                    <span class="pull-right text-muted small"><em>Consultorio 2</em>
                                     </span>
                                 </a>
                             </div>
