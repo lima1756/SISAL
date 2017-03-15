@@ -53,7 +53,7 @@
                         <a class="page-scroll" href="#about">Acerca de...</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#services">Servicios de  SISAL</a>
+                        <a class="page-scroll" href="#services">Servicios</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#portfolio">Portafolio</a>

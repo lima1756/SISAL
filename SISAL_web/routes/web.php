@@ -19,3 +19,11 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('welcome');
 });
+
+Route::get('/doctor', function () {
+    return view('/../doctor/index');
+});
+
+Route::get('/admin', function () {
+    return view('/../admin/index');
+});
