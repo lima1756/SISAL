@@ -44,6 +44,17 @@
             return false;
         }
 
+        /**
+         * logIn function
+         * Funcion para generar el logIn, en caso que se obtengan los datos correctamente se regresa un true señalando que fue correcto
+         * En caso contrario regresa un false indicando que no se realizo el logIn correctamente
+         * La contraseña que se recibe se hashea para ser comparada con la contraseña ya hasheada en la base de datos.
+         * @param string $name usuario o correo para el inicio de sesión
+         * @param string $pass contraseña para el inicio de sesión
+         * @param boolean $stay Este campo lo que hace es que si se recibe en true almacenara en la base de datos una llave y 
+         *          la guardara en una cookie para que si vuelve a acceder se obtengan los datos automaticamente a partir de esa cookie.
+         * @return void
+         */
         public static function logIn($name, $pass, $stay = false)
         {
             $cipher_pass = hash("sha256", $pass);
@@ -72,11 +83,22 @@
                 return false;
             }
         }
+
+        /**
+         * getData
+         * Este método obtiene el dato solicitado de los datos ya almacenados.
+         * @param [type] $columna
+         * @return string: Regresa el dato solicitado o en caso de no existir regresa un string con tal aclaración
+         */
         public static function getData($columna)
         {
             if(sizeof(self::$data)!=0 || self::retrieveSession())
-                return self::$data[0][$columna];
-            else
+            {
+                if(isset(self::$data[0][$columna]))
+                {
+                    return self::$data[0][$columna];   
+                }
+            }
                 return "No existe tal valor";
         }
         
