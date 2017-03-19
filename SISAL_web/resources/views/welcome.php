@@ -3,7 +3,7 @@
     use App\myClasses\logData;
     $connect = new dbConnection;
     logData::logIn("LIMA","lima123");
-    var_dump($_SESSION['authData']);
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
