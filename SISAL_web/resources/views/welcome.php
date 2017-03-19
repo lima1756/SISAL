@@ -2,7 +2,7 @@
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
     $connect = new dbConnection;
-    logData::logIn("LIMA","lima123");
+    
     
 ?>
 <!DOCTYPE html>
