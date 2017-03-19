@@ -44,17 +44,17 @@
          * ej:
          *     ["columna1", "columna2", "columna3"]
          * @param string $tabla  Este es el nombre de la tabla sobre la que se realizara el SELECT
-         * @param array $joins  Este es un array de arrays para realizar inner JOINS en la consulta
-         * ej:
-         *      [["nombreTabla", "valor 1 a comparar en el ON", "Valor 2 a comparar en el ON", OPCIONAL: "Operación logica a hacer en el ON"]]
          * @param array $where  Este es un array de arrays para realizar el WHERE de la consulta
          * ej:
          *      [["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica"], 
          *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
+         * @param array $joins  Este es un array de arrays para realizar inner JOINS en la consulta
+         * ej:
+         *      [["nombreTabla", "valor 1 a comparar en el ON", "Valor 2 a comparar en el ON", OPCIONAL: "Operación logica a hacer en el ON"]]
          * @param string $extra  Este string es el añadido como para ordenar o limitar la sentencia
          * @return void
          */ 
-        public function select(array $valores, string $tabla, array $joins = [], array $where = [], string $extra = null)
+        public function select(array $valores, $tabla, array $where = [], array $joins = [], $extra = null)
         {
             $query = "SELECT ";
             $values = count($valores);
@@ -83,11 +83,13 @@
                     
                     if(count($joins[$x])==3)
                     {
-                        $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . " = " . $joins[$x][2];
+                        $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . " = " . "?";
+                        
                     }
                     elseif(count($joins[$x])==4)
                     {
-                        $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . $joins[$x][3] . $joins[$x][2];
+                        $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . $joins[$x][3] . "?";
+                        array_push($data,$joins[$x][2]);
                     }
                     else
                     {
@@ -106,11 +108,13 @@
                     {
                         if(count($where[$x])==2)
                         {
-                            $query = $query . " WHERE " . $where[$x][0] . " = " . $where[$x][1];
+                            $query = $query . " WHERE " . $where[$x][0] . " = " . "?";
+                            array_push($data, $where[$x][1]);
                         }
                         elseif(count($where[$x])==3)
                         {
-                            $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . $where[$x][1];
+                            $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . "?";
+                            array_push($data, $where[$x][1]);
                         }
                         else
                         {
@@ -123,17 +127,19 @@
                     {
                         if(count($where[$x])==2)
                         {
-                            $query = $query . " AND " . $where[$x][0] . " = " . $where[$x][1];
+                            $query = $query . " AND " . $where[$x][0] . " = " . "?";
+                            array_push($data, $where[$x][1]);
                         }
                         elseif(count($where[$x])==3)
                         {
-                            $query = $query . " AND " . $where[$x][0] . $where[$x][2] . $where[$x][1];
+                            $query = $query . " AND " . $where[$x][0] . $where[$x][2] . "?";
+                            array_push($data, $where[$x][1]);
 
                         }
                         elseif(count($where[$x])==4)
                         {
-                            $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . $where[$x][1];
-                        }
+                            $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
+                            array_push($data, $where[$x][1]);                        }
                         else
                         {
                             $query = null;
@@ -152,9 +158,8 @@
             $query = $query . ";";
             try
             {
-
                 $select = $this->DBCon->prepare($query);
-                $select->execute();
+                $select->execute($data);
                 $answer = $select->fetchAll(PDO::FETCH_ASSOC);
                 return $answer;
             }

@@ -1,6 +1,9 @@
 <?php
     use App\myClasses\dbConnection;
-    $connect = new App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    $connect = new dbConnection;
+    logData::logIn("LIMA","lima123");
+    var_dump($_SESSION['authData']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +147,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="dataSource/js/templates/scrollreveal.js"></script>
     <script src="dataSource/js/jquery/jquery.magnific-popup.js"></script>
-
+    
     <!-- Theme JavaScript -->
     <script src="dataSource/js/templates/creative.js"></script>
 

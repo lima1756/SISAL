@@ -19,3 +19,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('welcome');
 });
+
+Route::get('/algo', function () {
+    return view('receptionist/index');
+});
