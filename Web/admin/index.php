@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Administrador</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">
@@ -77,22 +77,22 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="dates/?type=surgery">Quirurgicas</a>
+                                    <a href="dates/?type=doctors">Doctores</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=clinic">Clinicas</a>
+                                    <a href="dates/?type=patients">Pacientes</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=all">Todas</a>
+                                    <a href="dates/?type=recepcionist">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registrar medico</a>
                         </li>
                         <li>
                             <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
