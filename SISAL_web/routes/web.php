@@ -24,12 +24,6 @@ Route::get('/home', function () {
 
 
 
-
-Route::get('/dashboard', function () {
-
-        return view('receptionist/index');
-});
-
 Route::get('/doctor', function () {
     return view('doctor/index');
 });
