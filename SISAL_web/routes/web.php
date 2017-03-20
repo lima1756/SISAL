@@ -53,6 +53,7 @@ Route::post('/logIn', function () {
             return redirect('/dashboard');
         }
     }
+    return redirect('/');
 });
 
 Route::get('/dashboard', function () {
