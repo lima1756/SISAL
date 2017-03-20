@@ -1,10 +1,11 @@
 <?php
-    use App\myClasses\dbConnection;
+    //use App\myClasses\dbConnection;
     use App\myClasses\logData;
-    
+    //use App\myClasses\Type;
     //logData::logIn("LIMA", "123456789", true);  //Hacer inicio de sesión
     //logData::logOut(); //Cerrar sesión
     //var_dump(logData::getData("id_usuario")); // Obtener datos
+    //var_dump(Type::isMedic()); //Ejemplo de como usar el verificador de tipo de cuenta
 ?>
 <!DOCTYPE html>
 <html lang="en">

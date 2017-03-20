@@ -1,6 +1,5 @@
 <?php
     namespace App\myClasses;
-    use App\myClasses\dbConnection;
     session_start();
     /**
      * Clase que almacena y genera los datos de sesión

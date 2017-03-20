@@ -11,6 +11,7 @@
 |
 */
 use App\myClasses\logData;
+
 Route::get('/', function () {
     return view('welcome');
 });
