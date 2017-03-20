@@ -39,7 +39,6 @@ Route::get('/receptionist', function () {
 });
 
 Route::post('/logIn', function () {
-    var_dump($_POST);
     if(isset($_POST['stay']))
     {
         if(logData::logIn($_POST['email'], $_POST['pass'], true))
