@@ -22,8 +22,6 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-
-
 Route::get('/doctor', function () {
     return view('doctor/index');
 });
@@ -31,6 +29,7 @@ Route::get('/doctor', function () {
 Route::get('/admin', function () {
     return view('admin/index');
 });
+
 Route::get('/patient', function () {
     return view('patient/index');
 });
@@ -41,7 +40,7 @@ Route::get('/receptionist', function () {
 
 Route::post('/logIn', function () {
     var_dump($_POST);
-    if($_POST['stay']=="on")
+    if(isset($_POST['stay']))
     {
         if(logData::logIn($_POST['email'], $_POST['pass'], true))
         {
