@@ -2,8 +2,9 @@
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
     $connect = new dbConnection;
-    
-    var_dump(logData::getData("usuario"));
+    //logData::logIn("LIMA", "123456789", true);  //Hacer inicio de sesión
+    //logData::logOut(); //Cerrar sesión
+    //logData::getData("usuario");  Obtener datos
 ?>
 <!DOCTYPE html>
 <html lang="en">

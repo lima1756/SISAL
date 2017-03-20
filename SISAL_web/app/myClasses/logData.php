@@ -131,7 +131,7 @@
                         $key .= $v;
                     }
                     $cipherKey = hash("sha256", $key);
-                    $connect->update("usuarios", ["sessionKey"], [[$cipherKey]], [["id_usuario", self::$data[0]['id_usuario']]]);
+                    $connect->update("usuarios", ["sessionKey"], [$cipherKey], [["id_usuario", self::$data[0]['id_usuario']]]);
                     setcookie("sessionKey", $cipherKey, time()+3600*3600*10, "/");
                 }
                 $_SESSION['authData'] = self::$data;
@@ -162,7 +162,30 @@
                 return "No existe tal valor";
         }
         
+        /**
+         * logOut
+         * Esta función realiza el logOut al eliminar todos los datos de usuario almacenados
+         * @return void
+         */
+        public static function logOut()
+        {
+            self::retrieveSession();
+            $connect = new dbConnection();
+            $connect->update("usuarios", ["sessionKey"], [""], [["id_usuario", self::$data[0]['id_usuario']]]);
+            setcookie("sessionKey", "", time() - 3600);
+            self::$data = array();
+            self::$type = "";
+            unset($_SESSION['authData']);
+            unset($_SESSION['authType']);
+            unset($_COOKIE['sessionKey']);
+        }
 
+        /**
+         * __clone
+         * Función que establece que se realiza al intentar clonar la clase
+         * En este caso no se permite debido a que es un singleton
+         * @return void
+         */
         public function __clone()
         {
             trigger_error("Operación Invalida: No puedes clonar una instancia de ". get_class($this) ." class.", E_USER_ERROR );

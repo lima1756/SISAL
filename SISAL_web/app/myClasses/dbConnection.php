@@ -297,7 +297,7 @@
          *      ["columna1", "columna2", "columna3"]
          * @param array $datos   Este es un array de arrays que contiene los datos por los que seran sustituidos los de la base de datos
          * ej:
-         *      [["valorDato Columna1", "valorDato Columna2", valorDato Columan3]]
+         *      ["valorDato Columna1", "valorDato Columna2", valorDato Columan3]
          * @param array $where  Este es un array de arrays para realizar el WHERE del update
          * ej:
          *      [["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica"], 
@@ -327,7 +327,7 @@
                     {
                         $query = $query . $campos[$x] . " = ?, "; 
                     }
-                    array_push($data, $datos[$x][0]);
+                    array_push($data, $datos[$x]);
                 }
                 if($countWhere > 0)
                 {
