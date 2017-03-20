@@ -82,7 +82,11 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" ahref="#" data-target="#login" data-toggle="modal">Inicio de sesión</a>
+                <?php if(logData::retrieveSession()): ?>
+                <a class="navbar-brand page-scroll" href="/dashboard">Acceder</a>
+                <?php else: ?>
+                <a class="navbar-brand page-scroll" href="#" data-target="#login" data-toggle="modal">Inicio de sesión</a>
+                <?php endif; ?>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -183,10 +187,10 @@
             <div class="login-box-body">
             <div id="errorlogIn" class="alert alert-danger" style="visibility:hidden;display: none;"></div>
               <div class="form-group">
-                <form name="logIn" id="loginForm" action="logIn" method="post">
+                <form name="logIn" id="loginForm" action="/logIn" method="post">
                   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                  <div class="form-group has-feedback"> <!----- username -------------->
-                      <input class="form-control" placeholder="Email o usuario"  id="email" type="email" name="email"/> 
+                      <input class="form-control" placeholder="Email o usuario"  id="email" type="text" name="email"/> 
             <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
                       <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   </div>
@@ -198,13 +202,13 @@
                   
                   <div class="row">
                       <div class="col-xs-12">
-                          <input type="checkbox" name="fancy-checkbox-info" id="fancy-checkbox-info" autocomplete="off" />
+                          <input type="checkbox" name="stay" id="stay" autocomplete="off" />
                             <div class="[ btn-group ]">
-                                <label for="fancy-checkbox-info" class="[ btn btn-info ]">
+                                <label for="stay" class="[ btn btn-info ]">
                                     <span class="[ glyphicon glyphicon-ok ]"></span>
                                     <span> </span>
                                 </label>
-                                <label for="fancy-checkbox-info" class="[ btn btn-default active ]">
+                                <label for="stay" class="[ btn btn-default active ]">
                                     Mantener sesión iniciada
                                 </label>
                             </div>

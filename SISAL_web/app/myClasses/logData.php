@@ -33,9 +33,8 @@
          * en caso de no existir regresa falso
          * @return boolean
          */
-        private static function retrieveSession()
-        {
-            
+        public static function retrieveSession()
+        {   
             if(sizeof(self::$data)==0)
             {
                 if(isset($_SESSION['authData']))

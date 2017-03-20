@@ -11,6 +11,7 @@
 |
 */
 use App\myClasses\logData;
+use App\myClasses\Type;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,8 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('welcome');
 });
+
+
 
 
 Route::get('/dashboard', function () {
@@ -40,4 +43,50 @@ Route::get('/patient', function () {
 
 Route::get('/receptionist', function () {
   return view('receptionist/index');
+});
+
+Route::post('/logIn', function () {
+    var_dump($_POST);
+    if($_POST['stay']=="on")
+    {
+        if(logData::logIn($_POST['email'], $_POST['pass'], true))
+        {
+            return redirect('/dashboard');
+        }
+    }
+    else
+    {
+        if(logData::logIn($_POST['email'], $_POST['pass']))
+        {
+            return redirect('/dashboard');
+        }
+    }
+});
+
+Route::get('/dashboard', function () {
+    if(Type::isMedic())
+    {
+        return view('doctor/index');
+    }
+    elseif(Type::isPatient())
+    {
+        return view('patient/index');
+    }
+    elseif(Type::isReceptionist())
+    {
+        return view('receptionist/index');
+    }
+    elseif(Type::isAdmin())
+    {
+        return view('admin/index');
+    }
+    else
+    {
+        return redirect('/');
+    }
+});
+
+Route::get('/logOut', function () {
+    logData::logOut();
+    return redirect('/');
 });
