@@ -15,6 +15,13 @@
         private static $data;
 
         /**
+         * variable type
+         * Almacena el tipo de usuario que accede
+         * @var string
+         */
+        private static $type;
+
+        /**
          * Constructor
          * Al ser esta clase un "Singleton" el constructor es privado
          */
@@ -29,11 +36,34 @@
          */
         private static function retrieveSession()
         {
+            $connect = new dbConnection();
             if(sizeof(self::$data)==0)
             {
                 if(isset($_SESSION['authData']))
                 {
                     self::$data = $_SESSION['authData'];
+                    self::$type = $_SESSION['authType'];
+                    return true;
+                }
+                if(isset($_COOKIE['sessionKey']))
+                {
+                    self::$data = $connect->select(["*"], "usuarios", [["sessionKey", $_COOKIE['sessionKey']]]);
+                    if(sizeof($connect->select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    {
+                        self::$type = "medicos";
+                    }
+                    elseif(sizeof($connect->select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    {
+                        self::$type = "recepcionistas";
+                    }
+                    elseif(sizeof($connect->select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    {
+                        self::$type = "pacientes";
+                    }
+                    elseif(sizeof($connect->select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    {
+                        self::$type = "administradores";
+                    }
                     return true;
                 }
             }
@@ -59,23 +89,53 @@
         {
             $cipher_pass = hash("sha256", $pass);
             $connect = new dbConnection();
-            if($stay)
-            {
-                $obtainedData = $connect->select(["*"], "usuarios", [["usuario", $name],["pass", $cipher_pass]]);
-                if(sizeof($obtainedData) == 0)
-                    $obtainedData = $connect->select(["*"], "usuarios", [["email", $name],["pass", $cipher_pass]]);
-                self::$data = $obtainedData;
-            }
-            else
-            {
-                $obtainedData = $connect->select(["*"], "usuarios", [["usuario", $name],["pass", $cipher_pass]]);
-                if(sizeof($obtainedData) == 0)
-                    $obtainedData = $connect->select(["*"], "usuarios", [["email", $name],["pass", $cipher_pass]]);
-                self::$data = $obtainedData;
-            }
+            $obtainedData = $connect->select(["*"], "usuarios", [["usuario", $name],["pass", $cipher_pass]]);
+            if(sizeof($obtainedData) == 0)
+                $obtainedData = $connect->select(["*"], "usuarios", [["email", $name],["pass", $cipher_pass]]);
+            self::$data = $obtainedData;                
             if(sizeof(self::$data)!=0)
             {
+                if(sizeof($connect->select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "medicos";
+                    
+                }
+                elseif(sizeof($connect->select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "recepcionistas";
+                }
+                elseif(sizeof($connect->select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "pacientes";
+                }
+                elseif(sizeof($connect->select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "administradores";
+                }
+                else
+                {
+                    self::$type = "";
+                    self::$data = array();
+                    return false;
+                }
+                if($stay)
+                {
+                    $tiempo = getdate();
+                    $key = "";
+                    foreach($tiempo as $v)
+                    {
+                        $key .= $v;
+                    }
+                    foreach(self::$data[0] as $v)
+                    {
+                        $key .= $v;
+                    }
+                    $cipherKey = hash("sha256", $key);
+                    $connect->update("usuarios", ["sessionKey"], [[$cipherKey]], [["id_usuario", self::$data[0]['id_usuario']]]);
+                    setcookie("sessionKey", $cipherKey, time()+3600*3600*10, "/");
+                }
                 $_SESSION['authData'] = self::$data;
+                $_SESSION['authType'] = self::$type;
                 return true;
             }
             else

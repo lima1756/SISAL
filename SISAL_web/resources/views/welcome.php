@@ -3,7 +3,7 @@
     use App\myClasses\logData;
     $connect = new dbConnection;
     
-    
+    var_dump(logData::getData("usuario"));
 ?>
 <!DOCTYPE html>
 <html lang="en">

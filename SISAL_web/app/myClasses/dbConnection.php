@@ -185,7 +185,7 @@
          * @return void
          *  
          */ 
-        public function insert(string $tabla, array $campos, array $datos)
+        public function insert($tabla, array $campos, array $datos)
         {
             $query = "INSERT INTO " . $tabla . " (";
             $countCampos = count($campos);
@@ -253,7 +253,7 @@
             else
             {
                 $query = $query . " (";
-                $countDato = count($datos[$x]);
+                $countDato = count($datos[0]);
                 if($countDato == $countCampos)
                 {
                     for($y = 0; $y < $countDato; $y++)
@@ -261,12 +261,12 @@
                         if($y == $countDato-1)
                         {
                             $query = $query . "?" . ");";
-                            array_push($data, $datos[$x][$y]);
+                            array_push($data, $datos[0][$y]);
                         }
                         else
                         {
                             $query = $query . "?" . ", ";
-                            array_push($data, $datos[$x][$y]);
+                            array_push($data, $datos[0][$y]);
                         }
                     }
                 }
@@ -278,6 +278,7 @@
             try
             {
                 $insert = $this->DBCon->prepare($query);
+                
                 $insert->execute($data);
                 return 1;
             }
@@ -303,7 +304,7 @@
          *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
          * @return void
          */ 
-        public function update(string $tabla, array $campos, array $datos, array $where)
+        public function update($tabla, array $campos, array $datos, array $where)
         {
             $data = [];
             $countCampos = count($campos);
@@ -326,7 +327,7 @@
                     {
                         $query = $query . $campos[$x] . " = ?, "; 
                     }
-                    array_push($data, $datos[$x]);
+                    array_push($data, $datos[$x][0]);
                 }
                 if($countWhere > 0)
                 {
@@ -374,12 +375,12 @@
                             }
                         }
                         array_push($data, $where[$x][1]);
+                        
                     }
                 }
                 
                 try
                 {
-                    
                     $insert = $this->DBCon->prepare($query);
                     $insert->execute($data);
                     return 1;
@@ -402,7 +403,7 @@
          *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
          * @return void
          */ 
-        public function delete(string $tabla, array $where)
+        public function delete($tabla, array $where)
         {
             $data = [];
             $countWhere = count($where);
