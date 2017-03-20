@@ -1,10 +1,10 @@
 <?php
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
-    $connect = new dbConnection;
+    
     //logData::logIn("LIMA", "123456789", true);  //Hacer inicio de sesión
     //logData::logOut(); //Cerrar sesión
-    //logData::getData("usuario");  Obtener datos
+    //var_dump(logData::getData("id_usuario")); // Obtener datos
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,12 +26,18 @@
     <link href="dataSource/css/templates/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="dataSource/fonts/templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 
     <!-- Plugin CSS -->
     <link href="dataSource/css/templates/magnific-popup.css" rel="stylesheet">
 
     <!-- Theme CSS -->
     <link href="dataSource/css/templates/creative.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- extra Fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <script src="../../public/js/functions.js"></script>
@@ -40,7 +46,30 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- Extra style-->
+    <style>
+        .form-group input[type="checkbox"] {
+            display: none;
+        }
 
+        .form-group input[type="checkbox"] + .btn-group > label span {
+            width: 20px;
+        }
+
+        .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+            display: none;
+        }
+        .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+            display: inline-block;   
+        }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+            display: inline-block;
+        }
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+            display: none;   
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -52,7 +81,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Inicio de sesión</a>
+                <a class="navbar-brand page-scroll" ahref="#" data-target="#login" data-toggle="modal">Inicio de sesión</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -137,6 +166,64 @@
             </div>
         </div>
     </section>
+
+
+    <div class="modal fade" id="login" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Inicio de seción</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+            <div id="errorlogIn" class="alert alert-danger" style="visibility:hidden;display: none;"></div>
+              <div class="form-group">
+                <form name="logIn" id="loginForm" action="logIn" method="post">
+                  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                 <div class="form-group has-feedback"> <!----- username -------------->
+                      <input class="form-control" placeholder="Email o usuario"  id="email" type="email" name="email"/> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback"><!----- password -------------->
+                      <input class="form-control" placeholder="Contraseña" id="pass" type="password" name="pass"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                  </div>
+                  
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <input type="checkbox" name="fancy-checkbox-info" id="fancy-checkbox-info" autocomplete="off" />
+                            <div class="[ btn-group ]">
+                                <label for="fancy-checkbox-info" class="[ btn btn-info ]">
+                                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                                    <span> </span>
+                                </label>
+                                <label for="fancy-checkbox-info" class="[ btn btn-default active ]">
+                                    Mantener sesión iniciada
+                                </label>
+                            </div>
+                      </div>
+                      
+                  </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                          <button type="submit" class="btn btn-green btn-block btn-flat" style="margin-top:10px;">Sign In</button>
+                      </div>
+                    <div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Modal box-->
 
     <!-- jQuery -->
     <script src="dataSource/js/jquery/jquery.min.js"></script>

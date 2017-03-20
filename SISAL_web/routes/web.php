@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\myClasses\logData;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,7 +21,8 @@ Route::get('/home', function () {
 });
 
 
-Route::get('/algo', function () {
+Route::get('/dashboard', function () {
+
         return view('receptionist/index');
 });
 

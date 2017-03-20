@@ -36,7 +36,7 @@
          */
         private static function retrieveSession()
         {
-            $connect = new dbConnection();
+            
             if(sizeof(self::$data)==0)
             {
                 if(isset($_SESSION['authData']))
@@ -47,20 +47,20 @@
                 }
                 if(isset($_COOKIE['sessionKey']))
                 {
-                    self::$data = $connect->select(["*"], "usuarios", [["sessionKey", $_COOKIE['sessionKey']]]);
-                    if(sizeof($connect->select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    dbConnection::select(["*"], "usuarios", [["sessionKey", $_COOKIE['sessionKey']]]);
+                    if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                     {
                         self::$type = "medicos";
                     }
-                    elseif(sizeof($connect->select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    elseif(sizeof(dbConnection::select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                     {
                         self::$type = "recepcionistas";
                     }
-                    elseif(sizeof($connect->select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    elseif(sizeof(dbConnection::select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                     {
                         self::$type = "pacientes";
                     }
-                    elseif(sizeof($connect->select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                    elseif(sizeof(dbConnection::select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                     {
                         self::$type = "administradores";
                     }
@@ -88,27 +88,26 @@
         public static function logIn($name, $pass, $stay = false)
         {
             $cipher_pass = hash("sha256", $pass);
-            $connect = new dbConnection();
-            $obtainedData = $connect->select(["*"], "usuarios", [["usuario", $name],["pass", $cipher_pass]]);
+            $obtainedData = dbConnection::select(["*"], "usuarios", [["usuario", $name],["pass", $cipher_pass]]);
             if(sizeof($obtainedData) == 0)
-                $obtainedData = $connect->select(["*"], "usuarios", [["email", $name],["pass", $cipher_pass]]);
+                $obtainedData = dbConnection::select(["*"], "usuarios", [["email", $name],["pass", $cipher_pass]]);
             self::$data = $obtainedData;                
             if(sizeof(self::$data)!=0)
             {
-                if(sizeof($connect->select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                 {
                     self::$type = "medicos";
                     
                 }
-                elseif(sizeof($connect->select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                elseif(sizeof(dbConnection::select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                 {
                     self::$type = "recepcionistas";
                 }
-                elseif(sizeof($connect->select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                elseif(sizeof(dbConnection::select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                 {
                     self::$type = "pacientes";
                 }
-                elseif(sizeof($connect->select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                elseif(sizeof(dbConnection::select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                 {
                     self::$type = "administradores";
                 }
@@ -131,7 +130,7 @@
                         $key .= $v;
                     }
                     $cipherKey = hash("sha256", $key);
-                    $connect->update("usuarios", ["sessionKey"], [$cipherKey], [["id_usuario", self::$data[0]['id_usuario']]]);
+                    dbConnection::update("usuarios", ["sessionKey"], [$cipherKey], [["id_usuario", self::$data[0]['id_usuario']]]);
                     setcookie("sessionKey", $cipherKey, time()+3600*3600*10, "/");
                 }
                 $_SESSION['authData'] = self::$data;
@@ -170,8 +169,7 @@
         public static function logOut()
         {
             self::retrieveSession();
-            $connect = new dbConnection();
-            $connect->update("usuarios", ["sessionKey"], [""], [["id_usuario", self::$data[0]['id_usuario']]]);
+            dbConnection::update("usuarios", ["sessionKey"], [""], [["id_usuario", self::$data[0]['id_usuario']]]);
             setcookie("sessionKey", "", time() - 3600);
             self::$data = array();
             self::$type = "";
@@ -180,6 +178,13 @@
             unset($_COOKIE['sessionKey']);
         }
 
+        public static function getType()
+        {
+            if(self::retrieveSession())
+            {
+                return self::$type;
+            }
+        }
         /**
          * __clone
          * Función que establece que se realiza al intentar clonar la clase

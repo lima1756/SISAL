@@ -12,31 +12,45 @@
          * 
          * @var PDO $DBCon
          */        
-        private $DBCon;
+        private static $DBCon = "";
         
         
         /**
          * Constructor de la clase
-         * Genera y abre la conexión con la base de datos mediante PHP_ROUND_HALF_DOWN
-         * En caso de error genera una exepción y la muestra mediante echo
+         * Llama a la creación de la instancia.
+         * @return boolean regresa el valor devuelto por la creación de la instancia
          */
-        public function __construct()
+        private function __construct()
         {
-            //CADENA DE CONEXION PDO(localhost,nombre de la bd, usuario, contraseña)
-            try
-            {
-                $name = "SISAL";
-                $user = "root";
-                $password = "";
-                $this->DBCon = new PDO('mysql:host=localhost; dbname='.$name, $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
-                $this->DBCon->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-            }
-            catch(PDOException $e)
-            {
-                echo $e->getMessage();
-            }
+            return self::createInstance();
         }
 
+        /**
+         * createInstance
+         * Crea la instancia para la conexión con la base de datos
+         * @return boolean regresa verdadero si ya existe la conexión PDO o si fue creada exitosamente
+         */
+        private static function createInstance()
+        {
+            if(!is_a(self::$DBCon, "PDO"))
+            {
+                try
+                {
+                    $name = "SISAL";
+                    $user = "root";
+                    $password = "";
+                    self::$DBCon = new PDO('mysql:host=localhost; dbname='.$name, $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
+                    self::$DBCon->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+                    return true;
+                }
+                catch(PDOException $e)
+                {
+                    echo $e->getMessage();
+                    return false;
+                }
+            }
+            return true;
+        }
         /**
          * select: Función para generar SELECTS para la base de datos
          * 
@@ -54,120 +68,122 @@
          * @param string $extra  Este string es el añadido como para ordenar o limitar la sentencia
          * @return void
          */ 
-        public function select(array $valores, $tabla, array $where = [], array $joins = [], $extra = null)
+        public static function select(array $valores, $tabla, array $where = [], array $joins = [], $extra = null)
         {
-            $query = "SELECT ";
-            $values = count($valores);
-            $countJoins = count($joins);
-            $countWhere = count($where);
-            $countExtra = count($extra);
-            $data = [];
-            $answer = null;
-            for($x = 0; $x < $values; $x++)
+            if(self::createInstance())
             {
-                if($x != $values-1)
+                $query = "SELECT ";
+                $values = count($valores);
+                $countJoins = count($joins);
+                $countWhere = count($where);
+                $countExtra = count($extra);
+                $data = [];
+                $answer = null;
+                for($x = 0; $x < $values; $x++)
                 {
-                    $query = $query . $valores[$x] . ", ";
-                }
-                else
-                {
-                    $query = $query . $valores[$x];
-                }
-            }
-            
-            $query = $query . " FROM " . $tabla;
-            if($countJoins > 0)
-            {
-                for($x = 0; $x < $countJoins; $x++)
-                {
-                    
-                    if(count($joins[$x])==3)
+                    if($x != $values-1)
                     {
-                        $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . " = " . "?";
-                        
-                    }
-                    elseif(count($joins[$x])==4)
-                    {
-                        $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . $joins[$x][3] . "?";
-                        array_push($data,$joins[$x][2]);
+                        $query = $query . $valores[$x] . ", ";
                     }
                     else
                     {
-                        $query = null;
-                        echo "ERROR";
-                        return -1;
+                        $query = $query . $valores[$x];
                     }
                 }
-            }
-            
-            if($countWhere > 0)
-            {
-                for($x = 0; $x < $countWhere; $x++)
-                {
-                    if($x==0)
-                    {
-                        if(count($where[$x])==2)
-                        {
-                            $query = $query . " WHERE " . $where[$x][0] . " = " . "?";
-                            array_push($data, $where[$x][1]);
-                        }
-                        elseif(count($where[$x])==3)
-                        {
-                            $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . "?";
-                            array_push($data, $where[$x][1]);
-                        }
-                        else
-                        {
-                            $query = null;
-                            echo "ERROR join values incorrect";
-                            return -1;
-                        }
-                    }
-                    else
-                    {
-                        if(count($where[$x])==2)
-                        {
-                            $query = $query . " AND " . $where[$x][0] . " = " . "?";
-                            array_push($data, $where[$x][1]);
-                        }
-                        elseif(count($where[$x])==3)
-                        {
-                            $query = $query . " AND " . $where[$x][0] . $where[$x][2] . "?";
-                            array_push($data, $where[$x][1]);
-
-                        }
-                        elseif(count($where[$x])==4)
-                        {
-                            $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
-                            array_push($data, $where[$x][1]);                        }
-                        else
-                        {
-                            $query = null;
-                            echo "ERROR Where values incorrect";
-                            return -1;
-                        }
-                    }
                 
+                $query = $query . " FROM " . $tabla;
+                if($countJoins > 0)
+                {
+                    for($x = 0; $x < $countJoins; $x++)
+                    {
+                        
+                        if(count($joins[$x])==3)
+                        {
+                            $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . " = " . "?";
+                            
+                        }
+                        elseif(count($joins[$x])==4)
+                        {
+                            $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . $joins[$x][3] . "?";
+                            array_push($data,$joins[$x][2]);
+                        }
+                        else
+                        {
+                            $query = null;
+                            echo "ERROR";
+                            return -1;
+                        }
+                    }
+                }
+                
+                if($countWhere > 0)
+                {
+                    for($x = 0; $x < $countWhere; $x++)
+                    {
+                        if($x==0)
+                        {
+                            if(count($where[$x])==2)
+                            {
+                                $query = $query . " WHERE " . $where[$x][0] . " = " . "?";
+                                array_push($data, $where[$x][1]);
+                            }
+                            elseif(count($where[$x])==3)
+                            {
+                                $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . "?";
+                                array_push($data, $where[$x][1]);
+                            }
+                            else
+                            {
+                                $query = null;
+                                echo "ERROR join values incorrect";
+                                return -1;
+                            }
+                        }
+                        else
+                        {
+                            if(count($where[$x])==2)
+                            {
+                                $query = $query . " AND " . $where[$x][0] . " = " . "?";
+                                array_push($data, $where[$x][1]);
+                            }
+                            elseif(count($where[$x])==3)
+                            {
+                                $query = $query . " AND " . $where[$x][0] . $where[$x][2] . "?";
+                                array_push($data, $where[$x][1]);
+
+                            }
+                            elseif(count($where[$x])==4)
+                            {
+                                $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
+                                array_push($data, $where[$x][1]);                        }
+                            else
+                            {
+                                $query = null;
+                                echo "ERROR Where values incorrect";
+                                return -1;
+                            }
+                        }
+                    
+                    }
+                }
+                if($countExtra>0)
+                {
+                    $query = $query . " " . $extra;
+                }
+                
+                $query = $query . ";";
+                try
+                {
+                    $select = self::$DBCon->prepare($query);
+                    $select->execute($data);
+                    $answer = $select->fetchAll(PDO::FETCH_ASSOC);
+                    return $answer;
+                }
+                catch(PDOException $e)
+                {
+                    return $e->getMessage();
                 }
             }
-            if($countExtra>0)
-            {
-                $query = $query . " " . $extra;
-            }
-            
-            $query = $query . ";";
-            try
-            {
-                $select = $this->DBCon->prepare($query);
-                $select->execute($data);
-                $answer = $select->fetchAll(PDO::FETCH_ASSOC);
-                return $answer;
-            }
-            catch(PDOException $e)
-            {
-                return $e->getMessage();
-            }
-
             
         }
 
@@ -185,62 +201,90 @@
          * @return void
          *  
          */ 
-        public function insert($tabla, array $campos, array $datos)
+        public static function insert($tabla, array $campos, array $datos)
         {
-            $query = "INSERT INTO " . $tabla . " (";
-            $countCampos = count($campos);
-            $countDatos = count($datos);
-            $data = [];
-            for($x = 0; $x < $countCampos; $x++)
+            if(self::createInstance())
             {
-                if($x == $countCampos-1)
+                $query = "INSERT INTO " . $tabla . " (";
+                $countCampos = count($campos);
+                $countDatos = count($datos);
+                $data = [];
+                for($x = 0; $x < $countCampos; $x++)
                 {
-                    $query = $query . $campos[$x] . ") ";
-                }
-                else
-                {
-                    $query = $query . $campos[$x] . ", ";
-                }
-            }
-            $query = $query . "VALUES ";
-            if($countDatos>1)
-            {
-                for($x = 0; $x < $countDatos; $x++)
-                {
-                    $query = $query . " (" ;
-                    $countDato = count($datos[$x]);
-                    if($countDato == $countCampos)
+                    if($x == $countCampos-1)
                     {
-                        if($x == $countDatos-1)
+                        $query = $query . $campos[$x] . ") ";
+                    }
+                    else
+                    {
+                        $query = $query . $campos[$x] . ", ";
+                    }
+                }
+                $query = $query . "VALUES ";
+                if($countDatos>1)
+                {
+                    for($x = 0; $x < $countDatos; $x++)
+                    {
+                        $query = $query . " (" ;
+                        $countDato = count($datos[$x]);
+                        if($countDato == $countCampos)
                         {
-                            for($y = 0; $y < $countDato; $y++)
+                            if($x == $countDatos-1)
                             {
-                                if($y == $countDato-1)
+                                for($y = 0; $y < $countDato; $y++)
                                 {
-                                    $query = $query . "?" . ");";
-                                    array_push($data, $datos[$x][$y]);
+                                    if($y == $countDato-1)
+                                    {
+                                        $query = $query . "?" . ");";
+                                        array_push($data, $datos[$x][$y]);
+                                    }
+                                    else
+                                    {
+                                        $query = $query . "?" . ", ";
+                                        array_push($data, $datos[$x][$y]);
+                                    }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                for($y = 0; $y < $countDato; $y++)
                                 {
-                                    $query = $query . "?" . ", ";
-                                    array_push($data, $datos[$x][$y]);
+                                    if($y == $countDato-1)
+                                    {
+                                        $query = $query . "?" . "), ";
+                                        array_push($data, $datos[$x][$y]);
+                                    }
+                                    else
+                                    {
+                                        $query = $query . "?" . ", ";
+                                        array_push($data, $datos[$x][$y]);
+                                    }
                                 }
                             }
                         }
                         else
                         {
-                            for($y = 0; $y < $countDato; $y++)
+                            return "ERROR campos no corresponden con datos";
+                        }
+                    }
+                }
+                else
+                {
+                    $query = $query . " (";
+                    $countDato = count($datos[0]);
+                    if($countDato == $countCampos)
+                    {
+                        for($y = 0; $y < $countDato; $y++)
+                        {
+                            if($y == $countDato-1)
                             {
-                                if($y == $countDato-1)
-                                {
-                                    $query = $query . "?" . "), ";
-                                    array_push($data, $datos[$x][$y]);
-                                }
-                                else
-                                {
-                                    $query = $query . "?" . ", ";
-                                    array_push($data, $datos[$x][$y]);
-                                }
+                                $query = $query . "?" . ");";
+                                array_push($data, $datos[0][$y]);
+                            }
+                            else
+                            {
+                                $query = $query . "?" . ", ";
+                                array_push($data, $datos[0][$y]);
                             }
                         }
                     }
@@ -249,42 +293,17 @@
                         return "ERROR campos no corresponden con datos";
                     }
                 }
-            }
-            else
-            {
-                $query = $query . " (";
-                $countDato = count($datos[0]);
-                if($countDato == $countCampos)
+                try
                 {
-                    for($y = 0; $y < $countDato; $y++)
-                    {
-                        if($y == $countDato-1)
-                        {
-                            $query = $query . "?" . ");";
-                            array_push($data, $datos[0][$y]);
-                        }
-                        else
-                        {
-                            $query = $query . "?" . ", ";
-                            array_push($data, $datos[0][$y]);
-                        }
-                    }
+                    $insert = self::$DBCon->prepare($query);
+                    
+                    $insert->execute($data);
+                    return 1;
                 }
-                else
+                catch(PDOException $e)
                 {
-                    return "ERROR campos no corresponden con datos";
+                    return $e->getMessage();
                 }
-            }
-            try
-            {
-                $insert = $this->DBCon->prepare($query);
-                
-                $insert->execute($data);
-                return 1;
-            }
-            catch(PDOException $e)
-            {
-                return $e->getMessage();
             }
         }
 
@@ -304,31 +323,114 @@
          *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
          * @return void
          */ 
-        public function update($tabla, array $campos, array $datos, array $where)
+        public static function update($tabla, array $campos, array $datos, array $where)
         {
-            $data = [];
-            $countCampos = count($campos);
-            $countDatos = count($datos);
-            $countWhere = count($where);
-            $query = "UPDATE " . $tabla . " SET ";
-            if($countCampos != $countDatos)
+            if(self::createInstance())
             {
-                return "ERROR, campos a editar diferente que datos";
-            }
-            else
-            {
-                for($x = 0; $x < $countCampos; $x++)
+                $data = [];
+                $countCampos = count($campos);
+                $countDatos = count($datos);
+                $countWhere = count($where);
+                $query = "UPDATE " . $tabla . " SET ";
+                if($countCampos != $countDatos)
                 {
-                    if($x == $countCampos-1)
-                    {
-                        $query = $query . $campos[$x] . " = ? "; 
-                    }
-                    else
-                    {
-                        $query = $query . $campos[$x] . " = ?, "; 
-                    }
-                    array_push($data, $datos[$x]);
+                    return "ERROR, campos a editar diferente que datos";
                 }
+                else
+                {
+                    for($x = 0; $x < $countCampos; $x++)
+                    {
+                        if($x == $countCampos-1)
+                        {
+                            $query = $query . $campos[$x] . " = ? "; 
+                        }
+                        else
+                        {
+                            $query = $query . $campos[$x] . " = ?, "; 
+                        }
+                        array_push($data, $datos[$x]);
+                    }
+                    if($countWhere > 0)
+                    {
+                        for($x = 0; $x < $countWhere; $x++)
+                        {
+                            
+                            if($x==0)
+                            {
+                                if(count($where[$x])==2)
+                                {
+                                    $query = $query . " WHERE " . $where[$x][0] . " = " . "?";
+                                }
+                                elseif(count($where[$x])==3)
+                                {
+                                    
+                                    $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . "?";
+                                }
+                                else
+                                {
+                                    $query = null;
+                                    echo "ERROR WHERE values incorrect";
+                                    return -1;
+                                }
+                            }
+                            else
+                            {
+                                if(count($where[$x])==2)
+                                {
+                                    $query = $query . " AND " . $where[$x][0] . " = " . "?";
+                                }
+                                elseif(count($where[$x])==3)
+                                {
+                                    $query = $query . " AND " . $where[$x][0] . $where[$x][2] . "?";
+
+                                }
+                                elseif(count($where[$x])==4)
+                                {
+                                    $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
+                                }
+                                else
+                                {
+                                    $query = null;
+                                    echo "ERROR Where values incorrect";
+                                    return -1;
+                                }
+                            }
+                            array_push($data, $where[$x][1]);
+                            
+                        }
+                    }
+                    
+                    try
+                    {
+                        $insert = self::$DBCon->prepare($query);
+                        $insert->execute($data);
+                        return 1;
+                    }
+                    catch(PDOException $e)
+                    {
+                        return $e->getMessage();
+                    }
+                }
+            }
+        }
+        
+        /**
+         * delete: Funcion para generar DELETES en la base de datos
+         * 
+         * @param string $tabla  Este es el nombre de la tabla sobre la que se realizara el DELETE
+         * @param array $where  Este es un array de arrays para realizar el WHERE del DELETE
+         * ej:
+         *      [["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica"], 
+         *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
+         * @return void
+         */ 
+        public static function delete($tabla, array $where)
+        {
+            if(self::createInstance())
+            {
+                $data = [];
+                $countWhere = count($where);
+                $query = "DELETE FROM " . $tabla;
                 if($countWhere > 0)
                 {
                     for($x = 0; $x < $countWhere; $x++)
@@ -375,13 +477,16 @@
                             }
                         }
                         array_push($data, $where[$x][1]);
-                        
                     }
                 }
-                
+                else
+                {
+                    return "ERROR no puede haber un Delete sin WHERE";
+                }
                 try
                 {
-                    $insert = $this->DBCon->prepare($query);
+                    
+                    $insert = self::$DBCon->prepare($query);
                     $insert->execute($data);
                     return 1;
                 }
@@ -390,88 +495,6 @@
                     return $e->getMessage();
                 }
             }
-            
         }
-        
-        /**
-         * delete: Funcion para generar DELETES en la base de datos
-         * 
-         * @param string $tabla  Este es el nombre de la tabla sobre la que se realizara el DELETE
-         * @param array $where  Este es un array de arrays para realizar el WHERE del DELETE
-         * ej:
-         *      [["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica"], 
-         *          ["campo o valor a comprar 1", "campo o valor a comprar 2", OPCIONAL: "operacion logica", OPCIONAL: "Union con el WHERE ej: AND, OR, etc"]]
-         * @return void
-         */ 
-        public function delete($tabla, array $where)
-        {
-            $data = [];
-            $countWhere = count($where);
-            $query = "DELETE FROM " . $tabla;
-            if($countWhere > 0)
-            {
-                for($x = 0; $x < $countWhere; $x++)
-                {
-                    
-                    if($x==0)
-                    {
-                        if(count($where[$x])==2)
-                        {
-                            $query = $query . " WHERE " . $where[$x][0] . " = " . "?";
-                        }
-                        elseif(count($where[$x])==3)
-                        {
-                            
-                            $query = $query . " WHERE " . $where[$x][0] . $where[$x][2] . "?";
-                        }
-                        else
-                        {
-                            $query = null;
-                            echo "ERROR WHERE values incorrect";
-                            return -1;
-                        }
-                    }
-                    else
-                    {
-                        if(count($where[$x])==2)
-                        {
-                            $query = $query . " AND " . $where[$x][0] . " = " . "?";
-                        }
-                        elseif(count($where[$x])==3)
-                        {
-                            $query = $query . " AND " . $where[$x][0] . $where[$x][2] . "?";
-
-                        }
-                        elseif(count($where[$x])==4)
-                        {
-                            $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
-                        }
-                        else
-                        {
-                            $query = null;
-                            echo "ERROR Where values incorrect";
-                            return -1;
-                        }
-                    }
-                    array_push($data, $where[$x][1]);
-                }
-            }
-            else
-            {
-                return "ERROR no puede haber un Delete sin WHERE";
-            }
-            try
-            {
-                
-                $insert = $this->DBCon->prepare($query);
-                $insert->execute($data);
-                return 1;
-            }
-            catch(PDOException $e)
-            {
-                return $e->getMessage();
-            }
-        }
-        
         
     }
