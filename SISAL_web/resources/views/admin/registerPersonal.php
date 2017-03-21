@@ -71,28 +71,28 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="../dates/?type=surgery">Quirurgicas</a>
+                                    <a href="dates/?type=doctors">Doctores</a>
                                 </li>
                                 <li>
-                                    <a href="../dates/?type=clinic">Clinicas</a>
+                                    <a href="dates/?type=patients">Pacientes</a>
                                 </li>
                                 <li>
-                                    <a href="../dates/?type=all">Todas</a>
+                                    <a href="dates/?type=recepcionist">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar medico</a>
                         </li>
                         <li>
-                            <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -103,153 +103,81 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro medico - 15/01/17 Fulanito</h1>
+                    <h1 class="page-header">Registrar Empleado</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <form role="form">
-                                        <label>Cambiar paciente</label>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-search">
-                                                <input type="text" class="form-control">
-                                                <button class="btn btn-default" type="button">Seleccionar
-                                                </button>
-                                            </span>
-                                            
-                                        </div> 
-                                        <!-- Interrogatorio -->
-                                        <div class="form-group">
-                                            <h2 class="header">Interrogatorio:</h2>
-                                            <textarea class="textarea50" placeholder="Motivo de consulta:" rows="10"></textarea>
-                                            <textarea class="textarea50" placeholder="Síntomas:" rows="10"></textarea>
-                                        </div>
-                                        <!-- Exploración -->
-                                        <div class="form-group">
-                                            <h2 class="header">Exploración:</h2>
-                                            <table>
-                                                <tr>
-                                                    <td><label>Peso: </label></td>
-                                                    <td colspan="3"><input type="number"/></td>
-                                                    <td><label>kg</label></td>
-                                                    <td rowspan="6" width="50%"><textarea placeholder="Exploración fisica:" rows="10" cols="50"></textarea></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label>Talla: </label></td>
-                                                    <td  colspan="3"><input type="number"/></td>
-                                                    <td><label>Cm</label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label>Frec Respiratoria: </label></td>
-                                                    <td  colspan="3"><input type="number"/></td>
-                                                    <td><label>por minuto</label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label>Presion alterial: </label></td>
-                                                    <td><input type="number" class="inputLowNumber"/></td>
-                                                    <td align="center"><label>/</label></td>
-                                                    <td><input type="number" class="inputLowNumber"/></td>
-                                                    <td><label>mmHg</label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label>Temperatura: </label></td>
-                                                    <td  colspan="3"><input type="number"/></td>
-                                                    <td><label>°C</label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label>Frecuencia cardiaca: </label></td>
-                                                    <td  colspan="3"><input type="number"/></td>
-                                                    <td><label>ppm</label></td>
-                                                </tr>
-                                            </table>
-                                        </div> 
-                                        <!-- Diagnostico -->                  
-                                        <div class="form-group">
-                                            <h2 class="header">Diagnostico:</h2>
-                                            <input class="form-control" type="text" placeholder="Enfermedad"/>
-                                            <div class="form-group">
-                                                <label>Estado de la enfermedad:</label>
-                                                <select class="form-control">
-                                                    <option>Sin determinar</option>
-                                                    <option>Grave</option>
-                                                    <option>Controlado</option>
-                                                    <option>Leve</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Notas:</label>
-                                                <textarea class="form-control" rows="3" placeholder="Notas que se requieran sobre la enfermedad o su estado"></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- Tratamiento --> 
-                                        <div>   
-                                            <h2 class="header">Tratamiento:</h2>              
-                                            <div class="form-group">
-                                                <label>Cantidad de medicamentos:</label>
-                                                <input type="number" value="1" min="0" max="20"/>
-                                            </div>
-                                            <div class="form-group meds">
-                                                <label>Nombre:</label>
-                                                <input type="text"/>
-                                                <label>Cada:</label>
-                                                <select>
-                                                    <option>1 hora</option>
-                                                    <option>2 horas</option>
-                                                    <option>4 horas</option>
-                                                    <option>6 horas</option>
-                                                    <option>8 horas</option>
-                                                    <option>12 horas</option>
-                                                    <option>24 horas</option>
-                                                </select>
-                                                <label>Iniciando a las:</label>
-                                                <select>
-                                                    <option>5 horas</option>
-                                                    <option>6 horas</option>
-                                                    <option>7 horas</option>
-                                                    <option>8 horas</option>
-                                                    <option>9 horas</option>
-                                                    <option>10 horas</option>
-                                                    <option>11 horas</option>
-                                                    <option>12 horas</option>
-                                                </select>
-                                                <input type="text" class="form-control" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Indicaciones extra:</label>
-                                                <textarea class="form-control" rows="3" placeholder="Indicaciones terapeuticas adicionales"></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- Estudios -->                  
-                                        <div class="form-group">
-                                            <h2 class="header">Estudios:</h2>
-                                            <label>Orden</label>
-                                            <textarea class="form-control" rows="3" placeholder="Ingrese aqui la orden(es) que requiera el paciente, estas se incluiran en la receta"></textarea>
-                                        </div>
-                                        <!-- Notas adicionales -->
-                                        <div class="form-group">
-                                            <h2 class="header">Notas adicionales:</h2>
-                                            <textarea class="form-control" rows="3" placeholder="Ingrese aqui las notas adicionales que requiera"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Guardar</button>
-                                        <button type="reset" class="btn btn-default">Reiniciar</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
+
+                         <div class="form-group">
+                         <label>Nombre:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
                         </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+                        <div class="form-group">
+                         <label>Apellido Paterno:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                         <label>Apellido Materno:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+
+                        <div class="form-group">
+                         <label>Usuario:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                         <label>Contraseña:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                         <label>Correo:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                         <label>Domicilio:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                         <label>Municipio:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Codigo Postal:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Telefono:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Celular:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Genero:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>No. Social:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Fecha Nacimiento:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Ocupación:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label>Puesto:</label>
+                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning">Guardar</button>
+                            <button type="reset" class="btn btn-select">Reiniciar</button> 
+                        </div>       
         </div>
         <!-- /#page-wrapper -->
 
