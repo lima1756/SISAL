@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Administrador</title>
 
      <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
@@ -89,11 +89,12 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar medico</a>
+                            <a href="registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar Personal</a>
                         </li>
+                        <!--
                         <li>
                             <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

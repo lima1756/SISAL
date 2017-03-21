@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Paciente</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">

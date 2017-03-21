@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Recepcionista</title>
+    <title>Administrador</title>
 
      <!-- Bootstrap Core CSS -->
-    <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
+    <link href="../../dataSource/css/templates/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../../dataSource/css/templates/metisMenu.min.css" rel="stylesheet">
@@ -75,11 +75,27 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+                        
                         <li>
                             <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dates"><i class="fa fa-table fa-fw"></i> Citas</a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="?type=surgery">Quirurgicas</a>
+                                </li>
+                                <li>
+                                    <a href="?type=clinic">Clinicas</a>
+                                </li>
+                                <li>
+                                    <a href="?type=all">Todas</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
                             <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
@@ -103,74 +119,70 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
-                        <div class="panel-head">
-                            <form>
-                                <div class="form-group" style="padding-top:15px;">
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" type="date"/>
-                                    <label class="btn">Doctor: </label>
-                                    <select class="btn btn-default">
-                                        <!--!!!!!!!!!!!LEER: Los doctores se obtendran de la base de datos-->
-                                        <option>doc1</option>
-                                        <option>doc2</option>
-                                    </select>
-                                    &nbsp&nbsp
-                                    <input type="checkbox" name="disponible" id="disponible" autocomplete="off"/>
-                                        <div class="btn-group">
-                                            <label for="disponible" class="btn btn-default">
-                                                <span class="fa fa-check"></span>
-                                                <span>&nbsp</span>
-                                            </label>
-                                            <label for="disponible" class="btn btn-default active">
-                                                Ver solo horarios disponibles
-                                            </label>
-                                        </div>
-                                    <input class="btn btn-primary"type="submit" value="Ver citas"/>
-                                </div>
-                            </form>
-                        </div>
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Seleccionar</th>
                                         <th>Paciente</th>
-                                        <th>Usuario</th>
-                                        <th>Doctor</th>
                                         <th>Fecha</th>
                                         <th>Hora</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
                                     <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>nombre-de-alguien</td>
-                                        <td>1alguien</td>
-                                        <td>Doc1</td>
+                                        <td>1alguien</td>                                        
                                         <td>28-11-2016</td>
-                                        <td>16:00</td>
+                                        <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>nombre-de-alguien2</td>
-                                        <td>1alguien2</td>
-                                        <td>Doc12</td>
-                                        <td>28-12-2016</td>
-                                        <td>16:00</td>
+                                        <td>2alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
                                     </tr>
                                     <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>nombre-de-alguien3</td>
-                                        <td>1alguien4</td>
-                                        <td>Doc3</td>
-                                        <td>28-11-2019</td>
-                                        <td>15:00</td>
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                    
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">5:00</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2017</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="odd gradeX">
+                                        <td>alguien</td>                                        
+                                        <td>28-11-2016</td>
+                                        <td class="center">4</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -181,38 +193,6 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
-                <!--AL MOMENTO DE SELECCIONAR EL RADIO DE UNA CITA REGISTRADA, SE MUESTRAN LOS DATOS COMO SIGUE-->
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <label class="panel-title">Doc1: 28-11-2016::16:00</label>
-                        </div>
-                        <div class="panel-body">
-                            <label>Usuario de paciente:</label> <p>1alguien</p>
-                            <label>Nombre de paciente:</label> <p>nombre-de-alguien</p>
-                            <form>
-                                <input class="btn btn-danger" type="submit" value="Eliminar cita"/>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!--AL MOMENTO DE SELECCIONAR EL RADIO DE UNA CITA NO REGISTRADA, SE PIDEN LOS DATOS COMO SIGUE-->
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <label class="panel-title">Doc1: 28-11-2016::16:00</label>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <form>
-                                    <input class="form-control" type="text" placeholder="Usuario del paciente"/>
-                                    <input class="form-control" type="text" placeholder="Nombre del paciente"/>
-                                    <input class="btn btn-primary form-control" type="submit" value="Agregar cita"/>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.row -->
             
