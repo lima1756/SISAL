@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registrar medico</a>
+                            <a href="registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar medico</a>
                         </li>
                         <li>
                             <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
@@ -118,11 +118,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-calendar-check-o fa-5x"></i>
+                                    <i class="fa fa-user-md fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">8</div>
-                                    <div>Doctores en turno</div>
+                                    <div class="huge">Doctores</div>
+                                    <div>8 en turno</div>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="registerData">
+                        <a href="registerPersonal">
                             <div class="panel-footer">
                                 <span class="pull-left">Realizar registro.</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
