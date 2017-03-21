@@ -17090,7 +17090,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFa7l8sq1hK2Vk="
 							},
-							"name": "id",
+							"name": "id_dL",
 							"length": 0,
 							"primaryKey": true,
 							"foreignKey": false,
@@ -17129,7 +17129,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFa7l8sq1hK2Vk="
 							},
-							"name": "id_medico",
+							"name": "id_usuario",
 							"length": 0,
 							"primaryKey": false,
 							"foreignKey": false,
