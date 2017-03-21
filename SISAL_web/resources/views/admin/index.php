@@ -80,13 +80,13 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="dates/?type=doctors">Doctores</a>
+                                    <a href="Personal">Doctores</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=patients">Pacientes</a>
+                                    <a href="Personal">Pacientes</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=recepcionist">Recepcionistas</a>
+                                    <a href="Personal">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

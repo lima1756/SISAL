@@ -55,6 +55,12 @@ Route::get('/dates', function () {
 Route::get('/userProfile', function () {
   return view('doctor/userProfile');
 });
+Route::get('/Personal', function () {
+  return view('admin/Personal');
+});
+
+
+
 
 Route::post('/logIn', function () {
     if(isset($_POST['stay']))
