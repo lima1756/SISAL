@@ -38,6 +38,24 @@ Route::get('/receptionist', function () {
   return view('receptionist/index');
 });
 
+Route::get('/registerPersonal', function () {
+  return view('admin/registerPersonal');
+});
+
+Route::get('/registerData', function () {
+  return view('doctor/registerData');
+});
+
+Route::get('/patients', function () {
+  return view('doctor/patients');
+});
+Route::get('/dates', function () {
+  return view('doctor/dates');
+});
+Route::get('/userProfile', function () {
+  return view('doctor/userProfile');
+});
+
 Route::post('/logIn', function () {
     if(isset($_POST['stay']))
     {
