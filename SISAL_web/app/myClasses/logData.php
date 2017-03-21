@@ -45,7 +45,8 @@
                 }
                 if(isset($_COOKIE['sessionKey']))
                 {
-                    dbConnection::select(["*"], "usuarios", [["sessionKey", $_COOKIE['sessionKey']]]);
+                    var_dump($_COOKIE['sessionKey']);
+                    self::$data = dbConnection::select(["*"], "usuarios", [["sessionKey", $_COOKIE['sessionKey']]]);
                     if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                     {
                         self::$type = "medicos";
@@ -167,6 +168,7 @@
         public static function logOut()
         {
             self::retrieveSession();
+            var_dump("LIMA");
             dbConnection::update("usuarios", ["sessionKey"], [""], [["id_usuario", self::$data[0]['id_usuario']]]);
             setcookie("sessionKey", "", time() - 3600);
             self::$data = array();

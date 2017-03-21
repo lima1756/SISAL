@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 use App\myClasses\logData;
-var_dump(logData::getData("usuario"));
+
 
 ?>
 <html lang="es">

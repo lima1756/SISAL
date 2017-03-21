@@ -1,3 +1,10 @@
+<!--
+    <?php
+var_dump($_GET);
+?>
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,7 +83,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
@@ -203,12 +210,24 @@
     <script src="../../dataSource/js/templates/sb-admin-2.js"></script>
            
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    
     <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
+        $('#dataTables-example').DataTable( {
+            responsive: true,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ Personal por página",
+                "zeroRecords": "No se encontro nada",
+                "info": "Mostrando página personal _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado por _MAX_ total de doctores)"
+            },
+            "columnDefs": [
+                { "width": "10%", "targets": 0 },
+                { "width": "45%", "targets": 1 }
+            ]
+        } );
+    } );
     </script>
 
 </body>
