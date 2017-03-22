@@ -82,9 +82,7 @@
                                 <li>
                                     <a href="Personal">Doctores</a>
                                 </li>
-                                <li>
-                                    <a href="Personal">Pacientes</a>
-                                </li>
+                                
                                 <li>
                                     <a href="Personal">Recepcionistas</a>
                                 </li>

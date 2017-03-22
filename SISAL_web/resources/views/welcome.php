@@ -6,6 +6,7 @@
     //logData::logOut(); //Cerrar sesión
     //var_dump(logData::getData("id_usuario")); // Obtener datos
     //var_dump(Type::isMedic()); //Ejemplo de como usar el verificador de tipo de cuenta
+    //var_dump($_GET);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -180,12 +181,17 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title text-center form-title">Inicio de seción</h4>
+            <h4 class="modal-title text-center form-title">Inicio de sesión</h4>
           </div>
           <div class="modal-body padtrbl">
 
             <div class="login-box-body">
+            <?php
+                if(!isset($_GET['error'])):?>
             <div id="errorlogIn" class="alert alert-danger" style="visibility:hidden;display: none;"></div>
+            <?php else: ?>
+            <div id="errorlogIn" class="alert alert-danger">Datos erroneos, verifica</div>
+            <?php endif; ?>
               <div class="form-group">
                 <form name="logIn" id="loginForm" action="/logIn" method="post">
                   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">

@@ -26,5 +26,7 @@
         {
             return logData::getType() == "administradores" ? true : false;
         }
+
+
     }
 ?>

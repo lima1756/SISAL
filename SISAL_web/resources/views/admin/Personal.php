@@ -1,8 +1,8 @@
-<!--
+
     <?php
 var_dump($_GET);
 ?>
--->
+
 
 
 <!DOCTYPE html>
@@ -91,9 +91,7 @@ var_dump($_GET);
                                 <li>
                                     <a href="Personal/?type=doctors">Doctores</a>
                                 </li>
-                                <li>
-                                    <a href="Personal/?type=patients">Pacientes</a>
-                                </li>
+                                
                                 <li>
                                     <a href="Personal/?type=recepcionist">Recepcionistas</a>
                                 </li>
@@ -101,7 +99,7 @@ var_dump($_GET);
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
+                            <a href="/registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
                         </li>
                         <!--
                         <li>
@@ -216,7 +214,7 @@ var_dump($_GET);
         $('#dataTables-example').DataTable( {
             responsive: true,
             "language": {
-                "lengthMenu": "Mostrar _MENU_ Personal por página",
+                "lengthMenu": "Mostrar _MENU_ empleados por página",
                 "zeroRecords": "No se encontro nada",
                 "info": "Mostrando página personal _PAGE_ de _PAGES_",
                 "infoEmpty": "No hay registros disponibles",
