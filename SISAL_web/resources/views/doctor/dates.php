@@ -1,3 +1,34 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $today = date("Y-m-d") . " 00:00:00";
+    $tipo = $_GET['type'];
+    if($tipo=="all")
+    {
+        $citas = dbConnection::select(["DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+            [["citas.id_medico", logData::getData("id_usuario")], ["citas.fecha_hora", $today, ">"]], 
+            [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    }
+    elseif($tipo=="clinic") //2
+    {
+        $citas = dbConnection::select(["DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+            [["citas.id_medico", logData::getData("id_usuario")], ["citas.fecha_hora", $today, ">"], ["citas.tipo", 2]], 
+            [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    }
+    elseif($tipo=="surgery") //1
+    {
+        $citas = dbConnection::select(["DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+            [["citas.id_medico", logData::getData("id_usuario")], ["citas.fecha_hora", $today, ">"], ["citas.tipo", 1]], 
+            [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    }
+    else
+    {
+        header("Location: /dashboard/dates?type=all");
+        die();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,7 +141,14 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Citas</h1>
+                    <?php if($tipo=="all"): ?>
+                    <h1 class="page-header">Todas las Citas proximas</h1>
+                    <?php elseif($tipo=="clinic"): ?>
+                    <h1 class="page-header">Todas las Citas Clinicas proximas</h1>
+                    <?php elseif($tipo=="surgery"): ?>
+                    <h1 class="page-header">Todas las Citas Quirurgicas proximas</h1>
+                    <?php endif; ?>
+                    
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -129,61 +167,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>1alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>2alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                    
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">5:00</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2017</td>
-                                        <td class="center">4</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">4</td>
-                                    </tr>
+                                    <?php foreach($citas as $cita): ?>
+                                        <tr class="odd gradeX">
+                                            <td><?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?></td>                                        
+                                            <td><?php echo $cita['fecha']; ?></td>
+                                            <td class="center"><?php echo $cita['hora']; ?></td>
+                                        </tr>                                    
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
@@ -225,7 +215,8 @@
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
-            responsive: true
+            responsive: true,
+            "order": [[ 1, "asc" ]]
         });
     });
     </script>

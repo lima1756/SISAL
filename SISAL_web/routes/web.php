@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\myClasses\dbConnection;
 use App\myClasses\logData;
 use App\myClasses\Type;
 
@@ -106,4 +107,28 @@ Route::get('/dashboard', function () {
 Route::get('/logOut', function () {
     logData::logOut();
     return redirect('/');
+});
+
+Route::post('/newNote', function () {
+   dbConnection::insert("notas", ["contenido", "id_usuario"], [[$_POST['note'], logData::getData("id_usuario")]]);
+    return redirect('/dashboard');
+});
+
+Route::get('/dashboard/dates', function () {
+    if(Type::isMedic())
+    {
+        return view('doctor/dates');
+    }
+    elseif(Type::isPatient())
+    {
+        return view('patient/dates');
+    }
+    elseif(Type::isReceptionist())
+    {
+        return view('receptionist/dates');
+    }
+    else
+    {
+        return redirect('/dashboard');
+    }
 });

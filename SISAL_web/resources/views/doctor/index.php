@@ -1,3 +1,15 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $today = date("Y-m-d") . " 00:00:00";
+    $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
+    $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+        [["citas.id_medico", logData::getData("id_usuario")], ["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"]], 
+        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    $cantidadCitas = count($citasHoy);
+    $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d/%m/%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -80,22 +92,22 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="dates/?type=surgery">Quirurgicas</a>
+                                    <a href="/dashboard//dates/?type=surgery">Quirurgicas</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=clinic">Clinicas</a>
+                                    <a href="/dashboard//dates/?type=clinic">Clinicas</a>
                                 </li>
                                 <li>
-                                    <a href="dates/?type=all">Todas</a>
+                                    <a href="/dashboard/dates/?type=all">Todas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="/dashboard/registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
-                            <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="/dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -121,7 +133,7 @@
                                     <i class="fa fa-calendar-check-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">4</div>
+                                    <div class="huge"><?php echo $cantidadCitas; ?></div>
                                     <div>Citas de hoy</div>
                                 </div>
                             </div>
@@ -212,26 +224,17 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
-                                    <span class="pull-right text-muted small"><em>9:00</em>
-                                    </span>
-                                </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
-                                    <span class="pull-right text-muted small"><em>12:00</em>
-                                    </span>
-                                </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
-                                    <span class="pull-right text-muted small"><em>15:00</em>
-                                    </span>
-                                </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
-                                    <span class="pull-right text-muted small"><em>18:00</em>
-                                    </span>
-                                </a>
+                                <?php if($cantidadCitas != 0): ?>
+                                    <?php foreach($citasHoy as $cita): ?>
+                                        <a href="/dashboard/patients/?id=<?php echo $cita['id_usuario'] ?>" class="list-group-item"> 
+                                            <i class="fa fa-calendar-check-o fa-fw"></i> <?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?>
+                                            <span class="pull-right text-muted small"><em><?php echo $cita['hora']; ?></em>
+                                            </span>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> No hay citas el día de hoy :)
+                                <?php endif; ?>
                             </div>
                             <!-- /.list-group -->
                             <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
@@ -249,60 +252,27 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat">
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 12 mins
-                                            </small>
+                                <?php foreach($notas as $nota): ?>
+                                    <li class="clearfix">
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <small class="pull-right text-muted">
+                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo $nota['fecha']; ?>
+                                                </small>
+                                            </div>
+                                            <p>
+                                                <?php echo $nota['contenido']; ?>
+                                            </p>
                                         </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 8 mins
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 6 mins 
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 2 mins 
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                         <!-- /.panel-body -->
                         <div class="panel-footer">
-                            <form name="notesForm "id="notesForm" action="../doctor/" method="POST">
+                            <form name="notesForm "id="notesForm" action="/newNote" method="POST">
                                     <div class="input-group">
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                         <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
                                         <span class="input-group-btn">
                                             <input type="submit" class="full-size btn btn-warning btn-sm" id="submit"/>    
