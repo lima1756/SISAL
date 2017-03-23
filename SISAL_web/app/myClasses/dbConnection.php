@@ -99,13 +99,11 @@
                         
                         if(count($joins[$x])==3)
                         {
-                            $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . " = " . "?";
-                            
+                            $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . " = " . $joins[$x][2];
                         }
                         elseif(count($joins[$x])==4)
                         {
-                            $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . $joins[$x][3] . "?";
-                            array_push($data,$joins[$x][2]);
+                            $query = $query . " INNER JOIN " . $joins[$x][0] . " ON " . $joins[$x][1] . $joins[$x][3] . $joins[$x][2];
                         }
                         else
                         {
@@ -155,7 +153,8 @@
                             elseif(count($where[$x])==4)
                             {
                                 $query = $query . " " . $where[$x][3] . " " . $where[$x][0] . $where[$x][2] . "?";
-                                array_push($data, $where[$x][1]);                        }
+                                array_push($data, $where[$x][1]);
+                            }
                             else
                             {
                                 $query = null;
@@ -209,6 +208,7 @@
                 $countCampos = count($campos);
                 $countDatos = count($datos);
                 $data = [];
+                
                 for($x = 0; $x < $countCampos; $x++)
                 {
                     if($x == $countCampos-1)
@@ -223,8 +223,10 @@
                 $query = $query . "VALUES ";
                 if($countDatos>1)
                 {
+                    
                     for($x = 0; $x < $countDatos; $x++)
                     {
+                        
                         $query = $query . " (" ;
                         $countDato = count($datos[$x]);
                         if($countDato == $countCampos)
@@ -264,7 +266,9 @@
                         }
                         else
                         {
+                            
                             return "ERROR campos no corresponden con datos";
+                            
                         }
                     }
                 }
@@ -295,6 +299,7 @@
                 }
                 try
                 {
+                    
                     $insert = self::$DBCon->prepare($query);
                     
                     $insert->execute($data);
