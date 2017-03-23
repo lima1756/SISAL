@@ -1,6 +1,22 @@
 
     <?php
-var_dump($_GET);
+    use App\myClasses\dbConnection;
+    if($_GET['type']=="doctors")
+    {
+$valores=["nombre", "usuario", "email"];
+$tabla="usuarios";
+$where=[];
+$join=[["medicos", "usuarios.id_usuario","medicos.id_usuario"]];
+$datos = dbConnection::select($valores,$tabla,$where,$join);
+    }
+    elseif($_GET['type']=="recepcionist"){
+$valores=["nombre", "usuario", "email"];
+$tabla="usuarios";
+$where=[];
+$join=[["recepcionistas", "usuarios.id_usuario","recepcionistas.id_usuario"]];
+$datos = dbConnection::select($valores,$tabla,$where,$join);
+    }
+
 ?>
 
 
@@ -89,11 +105,11 @@ var_dump($_GET);
                             <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="Personal/?type=doctors">Doctores</a>
+                                    <a href="/Personal/?type=doctors">Doctores</a>
                                 </li>
                                 
                                 <li>
-                                    <a href="Personal/?type=recepcionist">Recepcionistas</a>
+                                    <a href="/Personal/?type=recepcionist">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -129,46 +145,20 @@ var_dump($_GET);
                                 <thead>
                                     <tr>
                                         <th>Empleado</th>
-                                        <th>Tipo</th>
                                         <th>Usuario</th>
+                                        <th>Correo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
-                                        <td>Bruno</td>                                        
-                                        <td>Doctor</td>
-                                        <td class="center">Brucamer</td>
+                                    
+                                        <td><?php echo($dato['nombre']);?></td>                                        
+                                        <td><?php echo($dato['email']);?></td> 
+                                        <td><?php echo($dato['usuario']);?></td> 
                                     </tr>
-                                    <tr class="odd gradeX">
-                                        <td>Jaime</td>                                        
-                                        <td>Doctor</td>
-                                        <td class="center">JaimeCamacho</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>Ivan</td>                                        
-                                        <td>Administrador</td>
-                                        <td class="center">Lima</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>Francisco</td>                                    
-                                        <td>Administrador</td>
-                                        <td class="center">JosFra</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>Julietea</td>                                        
-                                        <td>Recepcionista</td>
-                                        <td class="center">Juliet212</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>Juan</td>                                        
-                                        <td>Paciente</td>
-                                        <td class="center">JuanLop</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <td>alguien</td>                                        
-                                        <td>28-11-2016</td>
-                                        <td class="center">ALguienPadre569</td>
-                                    </tr>
+                                    <?php endforeach;?>
                                     
                                 </tbody>
                             </table>
