@@ -1,3 +1,21 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $tiempoCita = dbConnection::select(["medicos.tiempo_consulta"], "medicos", [["medicos.id_usuario", logData::getData("id_usuario")]]);
+    $today = date("Y-m-d H:i:s", strtotime('-' . $tiempoCita[0]['tiempo_consulta'] . ' minutes'));
+    $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
+    $cita = dbConnection::select(["usuarios.id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], 
+        "citas", 
+        [["citas.id_medico", logData::getData("id_usuario")], ["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"]], 
+        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]],
+        "order by fecha_hora ASC LIMIT 1");
+    $pacientes = dbConnection::select(["citas.id_paciente", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
+        "citas",
+        [["citas.id_medico", 1003]],
+        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]],
+        "GROUP BY citas.id_paciente");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,7 +121,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Registro medico - 15/01/17 Fulanito</h1>
+                    <h1 class="page-header" id="pageHeader"><?php echo date("d/m/Y") . " - "; echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -118,12 +136,19 @@
                                         <label>Cambiar paciente</label>
                                         <div class="form-group input-group">
                                             <span class="input-group-search">
-                                                <input type="text" class="form-control">
-                                                <button class="btn btn-default" type="button">Seleccionar
+                                                <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="<?php echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?>"/>
+                                                <datalist id="patients">
+                                                    <?php foreach($pacientes as $key => $p): ?>
+                                                        <option value="<?php  echo $p['usuario'] . " - " . $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno'];?>">
+                                                    <?php endforeach; ?>
+                                                </datalist>
+                                                <button class="btn btn-default" type="button" onclick="getNameAndID()">Seleccionar
                                                 </button>
                                             </span>
-                                            
                                         </div> 
+                                    </form>
+                                    <form role="form">   
+                                        <input type="text" name="id" id="idPatient" value="<?php echo $cita[0]['id_usuario']?>" hidden/> 
                                         <!-- Interrogatorio -->
                                         <div class="form-group">
                                             <h2 class="header">Interrogatorio:</h2>
@@ -258,6 +283,8 @@
 
     <!-- jQuery -->
     <script src="../../dataSource/js/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../../dataSource/js/templates/bootstrap.min.js"></script>
@@ -268,6 +295,38 @@
     <!-- Custom Theme JavaScript -->
     <script src="../../dataSource/js/templates/sb-admin-2.js"></script>
 
+
+    <script>
+        function getNameAndID()
+        {
+            var date = "<?php echo date("d/m/Y"); ?>";
+            
+            var nombres = 
+            {
+                <?php foreach($pacientes as $p): ?>
+                    <?php  echo $p['id_paciente']; ?>: "<?php echo $p['usuario'] . " - " . $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno'];?>", <?php echo "\n"; ?>
+                <?php endforeach; ?>
+            }
+            for(key in nombres)
+            {
+                if(nombres[key]==$("#patient").val())
+                {
+                    var name = nombres[key].substring(nombres[key].indexOf('-'));
+                    $("#idPatient").attr('value', key);
+                    $("#pageHeader").html(date + " " + name);
+                    document.getElementById("patient").value = "";
+                    $("#patient").attr('placeholder', name.substring(2));
+                    break;
+                }
+                else
+                {
+                    console.log("NADA");
+                }
+            }
+            
+        }
+        
+    </script>
 </body>
 
 </html>

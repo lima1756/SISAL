@@ -132,3 +132,14 @@ Route::get('/dashboard/dates', function () {
         return redirect('/dashboard');
     }
 });
+
+Route::get('/dashboard/registerData', function () {
+    if(Type::isMedic())
+    {
+        return view('doctor/registerData');
+    }
+    else
+    {
+        return redirect('/dashboard');
+    }
+});
