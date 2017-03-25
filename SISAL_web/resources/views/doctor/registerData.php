@@ -232,7 +232,7 @@
                                                 <input type="number" name="cantidad" id="cantidad" value="0" min="0" max="20" onchange="cantidadMedicamentos()"/>
                                             </div>
                                             <div id="medicamentos">
-                                                
+                                                 
                                             </div>
                                             <div class="form-group">
                                                 <label>Indicaciones extra:</label>
@@ -286,6 +286,7 @@
 
 
     <script>
+        var anterior = 0;
         function getNameAndID()
         {
             var date = "<?php echo date("d/m/Y"); ?>";
@@ -303,8 +304,7 @@
                     var name = nombres[key].substring(nombres[key].indexOf('-'));
                     $("#idPatient").attr('value', key);
                     $("#pageHeader").html(date + " " + name);
-                    document.getElementById("patient").value = "
-                        <div class=\"form-group meds\">\n<label>Nombre:</label>\n<input type=\"text\"/>\n<label>Cada:</label>\n<select>\n<option>1 hora</option>\n<option>2 horas</option>\n<option>4 horas</option>\n<option>6 horas</option>\n<option>8 horas</option>\n<option>12 horas</option>\n<option>24 horas</option>\n</select>\n<label>Iniciando a las:</label>\n<select>\n<option>5 horas</option>\n<option>6 horas</option>'n<option>7 horas</option>\n<option>8 horas</option>\n<option>9 horas</option>\n<option>10 horas</option>\n<option>11 horas</option>\n<option>12 horas</option>\n</select>\n<input type=\"text\" class=\"form-control\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n</div>";
+                    document.getElementById("patient").value = "";
                     $("#patient").attr('placeholder', name.substring(2));
                     break;
                 }
@@ -315,13 +315,58 @@
         function cantidadMedicamentos() 
         {
             var cantidad = $('#cantidad').val();
+            var nombre = [];
+            var cada = [];
+            var start = [];
+            var indi = [];
             if(cantidad > 20)
             {
                 document.getElementById("cantidad").value = "20";
                 cantidad = 20;
             }
-            document.getElementById("medicamentos").innerHTML = 
-            console.log(cantidad);
+            if(cantidad == 0)
+            {
+                document.getElementById("medicamentos").innerHTML = "";
+            }
+            for(x = 1; x <= anterior; x++)
+            {
+                nombre.push(document.getElementById("medName"+x).value)
+                cada.push(document.getElementById("medCada"+x).value)
+                start.push(document.getElementById("medStart"+x).value)
+                indi.push(document.getElementById("medIndi"+x).value)
+            }
+            for(x = 1; x <= cantidad; x++)
+            {
+                if(x == 1)
+                {
+                    if(x != cantidad || (x == cantidad && parseInt(anterior)>parseInt(cantidad)))
+                    {
+                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<label>Nombre:</label>\n<input type=\"text\" name=\"medName" + x + "\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n<label>Cada:</label>\n<select name=\"medCada" + x + "\" id=\"medCada" + x + "\" value=\"\">\n<option value=\"1\">1 hora</option>\n<option value=\"2\">2 horas</option>\n<option value=\"4\">4 horas</option>\n<option value=\"6\">6 horas</option value=\"8\">\n<option>8 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<label>Iniciando a las:</label>\n<select name=\"medStart" + x + "\" id=\"medStart" + x + "\" value=\"\">\n<option value=\"5\">5 horas</option>\n<option value=\"6\">6 horas</option>'n<option value=\"7\">7 horas</option>\n<option value=\"8\">8 horas</option>\n<option value=\"9\">9 horas</option>\n<option value=\"10\">10 horas</option>\n<option value=\"11\">11 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"16\">16 horas</option>\n<option value=\"18\">18 horas</option>\n<option value=\"20\">20 horas</option>\n<option value=\"22\">22 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<input type=\"text\" class=\"form-control\" name=\"medIndi" + x + "\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n</div>";
+
+                    }
+                    else
+                    {
+                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<label>Nombre:</label>\n<input type=\"text\" name=\"medName" + x + "\" id=\"medName" + x + "\" />\n<label>Cada:</label>\n<select name=\"medCada" + x + "\" id=\"medCada" + x + "\" value=\"\">\n<option value=\"1\">1 hora</option>\n<option value=\"2\">2 horas</option>\n<option value=\"4\">4 horas</option>\n<option value=\"6\">6 horas</option value=\"8\">\n<option>8 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<label>Iniciando a las:</label>\n<select name=\"medStart" + x + "\" id=\"medStart" + x + "\" value=\"\">\n<option value=\"5\">5 horas</option>\n<option value=\"6\">6 horas</option>'n<option value=\"7\">7 horas</option>\n<option value=\"8\">8 horas</option>\n<option value=\"9\">9 horas</option>\n<option value=\"10\">10 horas</option>\n<option value=\"11\">11 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"16\">16 horas</option>\n<option value=\"18\">18 horas</option>\n<option value=\"20\">20 horas</option>\n<option value=\"22\">22 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<input type=\"text\" class=\"form-control\" name=\"medIndi" + x + "\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n</div>";
+                    }
+                }
+                else 
+                {
+                    if(x != cantidad || (x == cantidad && parseInt(anterior) > parseInt(cantidad)))
+                    {
+                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n<label>Nombre:</label>\n<input type=\"text\" name=\"medName" + x + "\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n<label>Cada:</label>\n<select name=\"medCada" + x + "\" id=\"medCada" + x + "\" value=\"\">\n<option value=\"1\">1 hora</option>\n<option value=\"2\">2 horas</option>\n<option value=\"4\">4 horas</option>\n<option value=\"6\">6 horas</option>\n<option value=\"8\">8 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<label>Iniciando a las:</label>\n<select name=\"medStart" + x + "\" id=\"medStart" + x + "\" value=\"\">\n<option value=\"5\">5 horas</option>\n<option value=\"6\">6 horas</option>'n<option value=\"7\">7 horas</option>\n<option value=\"8\">8 horas</option>\n<option value=\"9\">9 horas</option>\n<option value=\"10\">10 horas</option>\n<option value=\"11\">11 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"16\">16 horas</option>\n<option value=\"18\">18 horas</option>\n<option value=\"20\">20 horas</option>\n<option value=\"22\">22 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<input type=\"text\" class=\"form-control\" name=\"medIndi" + x + "\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n</div>";
+                    }
+                    else
+                    {
+                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n<label>Nombre:</label>\n<input type=\"text\" name=\"medName" + x + "\" id=\"medName" + x + "\" />\n<label>Cada:</label>\n<select name=\"medCada" + x + "\" id=\"medCada" + x + "\" value=\"\">\n<option value=\"1\">1 hora</option>\n<option value=\"2\">2 horas</option>\n<option value=\"4\">4 horas</option>\n<option value=\"6\">6 horas</option>\n<option value=\"8\">8 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<label>Iniciando a las:</label>\n<select name=\"medStart" + x + "\" id=\"medStart" + x + "\" value=\"\">\n<option value=\"5\">5 horas</option>\n<option value=\"6\">6 horas</option>'n<option value=\"7\">7 horas</option>\n<option value=\"8\">8 horas</option>\n<option value=\"9\">9 horas</option>\n<option value=\"10\">10 horas</option>\n<option value=\"11\">11 horas</option>\n<option value=\"12\">12 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"14\">14 horas</option>\n<option value=\"16\">16 horas</option>\n<option value=\"18\">18 horas</option>\n<option value=\"20\">20 horas</option>\n<option value=\"22\">22 horas</option>\n<option value=\"24\">24 horas</option>\n</select>\n<input type=\"text\" class=\"form-control\" name=\"medIndi" + x + "\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n</div>";
+                    }
+                }
+            }
+            for(x=1; x<= cantidad; x++)
+            {
+                document.getElementById("medCada" + x).value = cada[x-1];
+                document.getElementById("medStart" + x).value = start[x-1];
+            }
+            anterior = cantidad;
         }
         
     </script>
@@ -332,5 +377,35 @@
 
 
 <!--
+                                                
+
+                                                <div class="form-group meds">
+                                                    <label>Nombre:</label>
+                                                    <input type="text"/>
+                                                    <label>Cada:</label>
+                                                    <select>
+                                                        <option>1 hora</option>
+                                                        <option>2 horas</option>
+                                                        <option>4 horas</option>
+                                                        <option>6 horas</option>
+                                                        <option>8 horas</option>
+                                                        <option>12 horas</option>
+                                                        <option>24 horas</option>
+                                                    </select>
+                                                    <label>Iniciando a las:</label>
+                                                    <select>
+                                                        <option>5 horas</option>
+                                                        <option>6 horas</option>
+                                                        <option>7 horas</option>
+                                                        <option>8 horas</option>
+                                                        <option>9 horas</option>
+                                                        <option>10 horas</option>
+                                                        <option>11 horas</option>
+                                                        <option>12 horas</option>
+                                                    </select>
+                                                    <input type="text" class="form-control" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>
+                                                </div>
+
+
                                                 
                                                 -->
