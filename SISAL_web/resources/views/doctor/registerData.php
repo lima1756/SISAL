@@ -121,7 +121,11 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" id="pageHeader"><?php echo date("d/m/Y") . " - "; echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?></h1>
+                    <?php if(sizeof($cita)>0): ?>
+                        <h1 class="page-header" id="pageHeader"><?php echo date("d/m/Y") . " - "; echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?></h1>
+                    <?php else: ?>
+                        <h1 class="page-header" id="pageHeader">Seleccione un paciente</h1>
+                    <?php endif;?>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -136,7 +140,11 @@
                                         <label>Cambiar paciente</label>
                                         <div class="form-group input-group">
                                             <span class="input-group-search">
-                                                <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="<?php echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?>"/>
+                                                <?php if(sizeof($cita)>0): ?>
+                                                    <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="<?php echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?>"/>
+                                                <?php else: ?>
+                                                    <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="Seleccione un paciente"/>
+                                                <?php endif;?>
                                                 <datalist id="patients">
                                                     <?php foreach($pacientes as $key => $p): ?>
                                                         <option value="<?php  echo $p['usuario'] . " - " . $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno'];?>">
@@ -148,7 +156,11 @@
                                         </div> 
                                     </form>
                                     <form role="form">   
-                                        <input type="text" name="id" id="idPatient" value="<?php echo $cita[0]['id_usuario']?>" hidden/> 
+                                        <?php if(sizeof($cita)>0): ?>
+                                            <input type="text" name="id" id="idPatient" value="<?php echo $cita[0]['id_usuario']?>" hidden/> 
+                                        <?php else: ?>
+                                            <input type="text" name="id" id="idPatient" value="" hidden/> 
+                                        <?php endif;?>
                                         <!-- Interrogatorio -->
                                         <div class="form-group">
                                             <h2 class="header">Interrogatorio:</h2>
@@ -217,33 +229,10 @@
                                             <h2 class="header">Tratamiento:</h2>              
                                             <div class="form-group">
                                                 <label>Cantidad de medicamentos:</label>
-                                                <input type="number" value="1" min="0" max="20"/>
+                                                <input type="number" name="cantidad" id="cantidad" value="0" min="0" max="20" onchange="cantidadMedicamentos()"/>
                                             </div>
-                                            <div class="form-group meds">
-                                                <label>Nombre:</label>
-                                                <input type="text"/>
-                                                <label>Cada:</label>
-                                                <select>
-                                                    <option>1 hora</option>
-                                                    <option>2 horas</option>
-                                                    <option>4 horas</option>
-                                                    <option>6 horas</option>
-                                                    <option>8 horas</option>
-                                                    <option>12 horas</option>
-                                                    <option>24 horas</option>
-                                                </select>
-                                                <label>Iniciando a las:</label>
-                                                <select>
-                                                    <option>5 horas</option>
-                                                    <option>6 horas</option>
-                                                    <option>7 horas</option>
-                                                    <option>8 horas</option>
-                                                    <option>9 horas</option>
-                                                    <option>10 horas</option>
-                                                    <option>11 horas</option>
-                                                    <option>12 horas</option>
-                                                </select>
-                                                <input type="text" class="form-control" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>
+                                            <div id="medicamentos">
+                                                
                                             </div>
                                             <div class="form-group">
                                                 <label>Indicaciones extra:</label>
@@ -314,19 +303,34 @@
                     var name = nombres[key].substring(nombres[key].indexOf('-'));
                     $("#idPatient").attr('value', key);
                     $("#pageHeader").html(date + " " + name);
-                    document.getElementById("patient").value = "";
+                    document.getElementById("patient").value = "
+                        <div class=\"form-group meds\">\n<label>Nombre:</label>\n<input type=\"text\"/>\n<label>Cada:</label>\n<select>\n<option>1 hora</option>\n<option>2 horas</option>\n<option>4 horas</option>\n<option>6 horas</option>\n<option>8 horas</option>\n<option>12 horas</option>\n<option>24 horas</option>\n</select>\n<label>Iniciando a las:</label>\n<select>\n<option>5 horas</option>\n<option>6 horas</option>'n<option>7 horas</option>\n<option>8 horas</option>\n<option>9 horas</option>\n<option>10 horas</option>\n<option>11 horas</option>\n<option>12 horas</option>\n</select>\n<input type=\"text\" class=\"form-control\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n</div>";
                     $("#patient").attr('placeholder', name.substring(2));
                     break;
-                }
-                else
-                {
-                    console.log("NADA");
                 }
             }
             
         }
+
+        function cantidadMedicamentos() 
+        {
+            var cantidad = $('#cantidad').val();
+            if(cantidad > 20)
+            {
+                document.getElementById("cantidad").value = "20";
+                cantidad = 20;
+            }
+            document.getElementById("medicamentos").innerHTML = 
+            console.log(cantidad);
+        }
         
     </script>
+    
 </body>
 
 </html>
+
+
+<!--
+                                                
+                                                -->
