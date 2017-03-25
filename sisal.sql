@@ -378,13 +378,13 @@ INSERT INTO `estudios` (`id_estudios`, `orden`) VALUES
 -- Estructura de tabla para la tabla `exploracion`
 --
 
-DROP TABLE IF EXISTS `exploracion`;
 CREATE TABLE `exploracion` (
   `id_exploracion` int(11) NOT NULL,
   `peso` int(11) NOT NULL,
   `talla` int(11) NOT NULL,
   `frecuenciaRespiratoria` int(11) NOT NULL,
-  `presArter` int(11) NOT NULL,
+  `presArterBaja` int(11) NOT NULL,
+  `presArterAlta` int(11) NOT NULL,
   `temperatura` int(11) NOT NULL,
   `frecuenciaCardiaca` int(11) NOT NULL,
   `exploracionFisica` text COLLATE utf8_unicode_ci NOT NULL
@@ -394,9 +394,9 @@ CREATE TABLE `exploracion` (
 -- Volcado de datos para la tabla `exploracion`
 --
 
-INSERT INTO `exploracion` (`id_exploracion`, `peso`, `talla`, `frecuenciaRespiratoria`, `presArter`, `temperatura`, `frecuenciaCardiaca`, `exploracionFisica`) VALUES
-(1, 88, 36, 22, 112, 31, 75, 'todo bien'),
-(2, 69, 32, 21, 102, 28, 92, 'todo bien');
+INSERT INTO `exploracion` (`id_exploracion`, `peso`, `talla`, `frecuenciaRespiratoria`, `presArterBaja`, `presArterAlta`, `temperatura`, `frecuenciaCardiaca`, `exploracionFisica`) VALUES
+(1, 88, 36, 22, 112, 0, 31, 75, 'todo bien'),
+(2, 69, 32, 21, 102, 0, 28, 92, 'todo bien');
 
 -- --------------------------------------------------------
 
