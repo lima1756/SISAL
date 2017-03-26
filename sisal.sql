@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2017 a las 01:17:43
+-- Tiempo de generación: 26-03-2017 a las 01:00:23
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -145,10 +145,10 @@ CREATE TABLE `citas` (
 --
 
 INSERT INTO `citas` (`id_cita`, `id_paciente`, `id_recepcionista`, `id_medico`, `fecha_hora`, `tipo`) VALUES
-(1, 1010, 1006, 1003, '2017-03-22 20:00:00', 1),
-(2, 1010, 1006, 1003, '2017-03-22 21:00:00', 2),
-(3, 1010, 1006, 1003, '2017-03-23 00:00:00', 1),
-(4, 1010, 1006, 1003, '2017-03-23 18:15:00', 1);
+(1, 1010, 1006, 1003, '2017-03-23 20:00:00', 1),
+(2, 1010, 1006, 1003, '2017-03-23 21:50:00', 2),
+(3, 1010, 1006, 1003, '2017-03-23 07:00:00', 1),
+(4, 1009, 1006, 1003, '2017-03-23 19:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,7 @@ INSERT INTO `comidas` (`id_comidas`, `desayuno`, `comidasDiarias`) VALUES
 DROP TABLE IF EXISTS `diagnostico`;
 CREATE TABLE `diagnostico` (
   `id_diagnostico` int(11) NOT NULL,
-  `enfermedad` int(11) NOT NULL,
+  `enfermedad` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `estado` enum('Sin determinar','Leve','Controlado','Grave') COLLATE utf8_unicode_ci NOT NULL,
   `notas` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -190,8 +190,8 @@ CREATE TABLE `diagnostico` (
 --
 
 INSERT INTO `diagnostico` (`id_diagnostico`, `enfermedad`, `estado`, `notas`) VALUES
-(1, 2, 'Grave', 'Esta empeorando con el paso del tiempo, debido a sus alergias'),
-(2, 6, 'Sin determinar', 'Aun no se sabe que ocasiono estos síntomas');
+(1, '2', 'Grave', 'Esta empeorando con el paso del tiempo, debido a sus alergias'),
+(2, '6', 'Sin determinar', 'Aun no se sabe que ocasiono estos síntomas');
 
 -- --------------------------------------------------------
 
@@ -378,6 +378,7 @@ INSERT INTO `estudios` (`id_estudios`, `orden`) VALUES
 -- Estructura de tabla para la tabla `exploracion`
 --
 
+DROP TABLE IF EXISTS `exploracion`;
 CREATE TABLE `exploracion` (
   `id_exploracion` int(11) NOT NULL,
   `peso` int(11) NOT NULL,
@@ -3308,6 +3309,7 @@ CREATE TABLE `tipo_sangre` (
 DROP TABLE IF EXISTS `tratamiento`;
 CREATE TABLE `tratamiento` (
   `id_tratamiento` int(11) NOT NULL,
+  `id_medicamento` int(11) NOT NULL,
   `cada` int(11) DEFAULT NULL,
   `inicio` time DEFAULT NULL,
   `indicaciones` text COLLATE utf8_unicode_ci,
@@ -3318,9 +3320,9 @@ CREATE TABLE `tratamiento` (
 -- Volcado de datos para la tabla `tratamiento`
 --
 
-INSERT INTO `tratamiento` (`id_tratamiento`, `cada`, `inicio`, `indicaciones`, `id_registro`) VALUES
-(1, 6, '09:30:00', 'Tomar con alimentos', 1),
-(2, 3, '15:00:00', 'Reposar media hora', 2);
+INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`, `indicaciones`, `id_registro`) VALUES
+(1, 0, 6, '09:30:00', 'Tomar con alimentos', 1),
+(2, 0, 3, '15:00:00', 'Reposar media hora', 2);
 
 -- --------------------------------------------------------
 
