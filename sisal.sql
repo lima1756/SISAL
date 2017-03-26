@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-03-2017 a las 01:00:23
+-- Tiempo de generación: 26-03-2017 a las 01:25:11
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -191,7 +191,8 @@ CREATE TABLE `diagnostico` (
 
 INSERT INTO `diagnostico` (`id_diagnostico`, `enfermedad`, `estado`, `notas`) VALUES
 (1, '2', 'Grave', 'Esta empeorando con el paso del tiempo, debido a sus alergias'),
-(2, '6', 'Sin determinar', 'Aun no se sabe que ocasiono estos síntomas');
+(2, '6', 'Sin determinar', 'Aun no se sabe que ocasiono estos síntomas'),
+(4, 'sadfasdf', 'Grave', 'asdfasdf');
 
 -- --------------------------------------------------------
 
@@ -370,7 +371,8 @@ CREATE TABLE `estudios` (
 
 INSERT INTO `estudios` (`id_estudios`, `orden`) VALUES
 (1, 'Preparatoria'),
-(2, 'Solo secundaria');
+(2, 'Solo secundaria'),
+(4, 'asdfsdf');
 
 -- --------------------------------------------------------
 
@@ -397,7 +399,8 @@ CREATE TABLE `exploracion` (
 
 INSERT INTO `exploracion` (`id_exploracion`, `peso`, `talla`, `frecuenciaRespiratoria`, `presArterBaja`, `presArterAlta`, `temperatura`, `frecuenciaCardiaca`, `exploracionFisica`) VALUES
 (1, 88, 36, 22, 112, 0, 31, 75, 'todo bien'),
-(2, 69, 32, 21, 102, 0, 28, 92, 'todo bien');
+(2, 69, 32, 21, 102, 0, 28, 92, 'todo bien'),
+(4, 123, 23123, 123, 231321, 231, 123, 23, '123');
 
 -- --------------------------------------------------------
 
@@ -589,7 +592,7 @@ INSERT INTO `medicos` (`id_usuario`, `domicilioConsultorio`, `telEmergencias`, `
 DROP TABLE IF EXISTS `municipios`;
 CREATE TABLE `municipios` (
   `id` int(11) NOT NULL,
-  `estado_id` int(11) NOT NULL COMMENT 'Relación con estados',
+  `estado_id` int(11) NOT NULL,
   `clave` varchar(3) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1'
@@ -3136,7 +3139,8 @@ CREATE TABLE `notas_adicionales` (
 
 INSERT INTO `notas_adicionales` (`id_notasAdicionales`, `notas`) VALUES
 (1, 'El paciente luce alterado'),
-(2, 'nada');
+(2, 'nada'),
+(4, 'asdfasf');
 
 -- --------------------------------------------------------
 
@@ -3225,7 +3229,8 @@ CREATE TABLE `registro_clinico` (
 
 INSERT INTO `registro_clinico` (`id_registro`, `fecha_hora`, `id_medico`, `id_paciente`, `id_diagnostico`, `id_interrogatorio`, `id_exploracion`, `id_notasAdicionales`, `id_estudios`) VALUES
 (1, '2017-02-23 13:08:22', 1003, 1010, 1, 1, 1, 1, 1),
-(2, '2017-02-24 15:03:13', 1004, 1011, 2, 2, 2, 2, 2);
+(2, '2017-02-24 15:03:13', 1004, 1011, 2, 2, 2, 2, 2),
+(4, '2017-03-25 19:22:00', 1003, 1010, 4, 4, 4, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -3246,7 +3251,8 @@ CREATE TABLE `registro_interrogatorio` (
 
 INSERT INTO `registro_interrogatorio` (`id_interrogatorio`, `motivoConsulta`, `sintomas`) VALUES
 (1, 'Se sentía mal', 'Dolor de  cabeza, mala digestión'),
-(2, 'Lo obligaron familiares', 'Presión alta, mareos, infección estomacal');
+(2, 'Lo obligaron familiares', 'Presión alta, mareos, infección estomacal'),
+(4, 'asdfdsfasfd', 'asdfsdf');
 
 -- --------------------------------------------------------
 
@@ -3322,7 +3328,8 @@ CREATE TABLE `tratamiento` (
 
 INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`, `indicaciones`, `id_registro`) VALUES
 (1, 0, 6, '09:30:00', 'Tomar con alimentos', 1),
-(2, 0, 3, '15:00:00', 'Reposar media hora', 2);
+(2, 0, 3, '15:00:00', 'Reposar media hora', 2),
+(5, 1, 4, '00:00:07', 'sadfasdf', 4);
 
 -- --------------------------------------------------------
 
@@ -3377,8 +3384,7 @@ INSERT INTO `usuarios` (`id_usuario`, `usuario`, `pass`, `email`, `nombre`, `ape
 -- Indices de la tabla `administradores`
 --
 ALTER TABLE `administradores`
-  ADD UNIQUE KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_usuario_2` (`id_usuario`);
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `alcoholico`
@@ -3396,8 +3402,7 @@ ALTER TABLE `alergias`
 -- Indices de la tabla `antecedentes`
 --
 ALTER TABLE `antecedentes`
-  ADD PRIMARY KEY (`id_antecedentes`),
-  ADD KEY `id_sangre` (`id_sangre`);
+  ADD PRIMARY KEY (`id_antecedentes`);
 
 --
 -- Indices de la tabla `citas`
@@ -3427,8 +3432,7 @@ ALTER TABLE `dietas`
 -- Indices de la tabla `drogas`
 --
 ALTER TABLE `drogas`
-  ADD PRIMARY KEY (`id_drogas`),
-  ADD KEY `id_intravenosa` (`id_intravenosa`);
+  ADD PRIMARY KEY (`id_drogas`);
 
 --
 -- Indices de la tabla `ejercicio`
@@ -3446,9 +3450,7 @@ ALTER TABLE `estados`
 -- Indices de la tabla `estilovida`
 --
 ALTER TABLE `estilovida`
-  ADD PRIMARY KEY (`id_estiloVida`),
-  ADD KEY `id_ejercicio` (`id_ejercicio`),
-  ADD KEY `id_suenio` (`id_suenio`,`id_comidas`,`id_refresco`,`id_dietas`,`id_alcoholismo`,`id_exAlcoholismo`,`id_drogas`,`id_exAdicto`,`id_fumador`,`id_exFumador`);
+  ADD PRIMARY KEY (`id_estiloVida`);
 
 --
 -- Indices de la tabla `estudios`
@@ -3514,15 +3516,13 @@ ALTER TABLE `medicos`
 -- Indices de la tabla `municipios`
 --
 ALTER TABLE `municipios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `estado_id` (`estado_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `notas`
 --
 ALTER TABLE `notas`
-  ADD PRIMARY KEY (`id_nota`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD PRIMARY KEY (`id_nota`);
 
 --
 -- Indices de la tabla `notas_adicionales`
@@ -3552,8 +3552,7 @@ ALTER TABLE `refresco`
 -- Indices de la tabla `registro_clinico`
 --
 ALTER TABLE `registro_clinico`
-  ADD PRIMARY KEY (`id_registro`),
-  ADD KEY `id_medico` (`id_medico`,`id_paciente`,`id_diagnostico`,`id_interrogatorio`,`id_exploracion`,`id_notasAdicionales`,`id_estudios`);
+  ADD PRIMARY KEY (`id_registro`);
 
 --
 -- Indices de la tabla `registro_interrogatorio`
@@ -3583,16 +3582,13 @@ ALTER TABLE `tipo_sangre`
 -- Indices de la tabla `tratamiento`
 --
 ALTER TABLE `tratamiento`
-  ADD PRIMARY KEY (`id_tratamiento`),
-  ADD UNIQUE KEY `id_registro` (`id_registro`),
-  ADD KEY `id_registro_2` (`id_registro`);
+  ADD PRIMARY KEY (`id_tratamiento`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_municipio` (`id_municipio`);
+  ADD PRIMARY KEY (`id_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -3622,7 +3618,7 @@ ALTER TABLE `comidas`
 -- AUTO_INCREMENT de la tabla `diagnostico`
 --
 ALTER TABLE `diagnostico`
-  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `dietas`
 --
@@ -3652,12 +3648,12 @@ ALTER TABLE `estilovida`
 -- AUTO_INCREMENT de la tabla `estudios`
 --
 ALTER TABLE `estudios`
-  MODIFY `id_estudios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_estudios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `exploracion`
 --
 ALTER TABLE `exploracion`
-  MODIFY `id_exploracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_exploracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `ex_adicto`
 --
@@ -3707,7 +3703,7 @@ ALTER TABLE `notas`
 -- AUTO_INCREMENT de la tabla `notas_adicionales`
 --
 ALTER TABLE `notas_adicionales`
-  MODIFY `id_notasAdicionales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_notasAdicionales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `refresco`
 --
@@ -3717,12 +3713,12 @@ ALTER TABLE `refresco`
 -- AUTO_INCREMENT de la tabla `registro_clinico`
 --
 ALTER TABLE `registro_clinico`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `registro_interrogatorio`
 --
 ALTER TABLE `registro_interrogatorio`
-  MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `suenio`
 --
@@ -3742,28 +3738,12 @@ ALTER TABLE `tipo_sangre`
 -- AUTO_INCREMENT de la tabla `tratamiento`
 --
 ALTER TABLE `tratamiento`
-  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1013;
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `estados`
---
-ALTER TABLE `estados`
-  ADD CONSTRAINT `estados_ibfk_1` FOREIGN KEY (`id`) REFERENCES `municipios` (`estado_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
