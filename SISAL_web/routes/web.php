@@ -23,44 +23,13 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-Route::get('/doctor', function () {
-    return view('doctor/index');
-});
-
-Route::get('/admin', function () {
-    return view('admin/index');
-});
-
-Route::get('/patient', function () {
-    return view('patient/index');
-});
-
-Route::get('/receptionist', function () {
-  return view('receptionist/index');
-});
-
 Route::get('/registerPersonal', function () {
   return view('admin/registerPersonal');
 });
 
-Route::get('/registerData', function () {
-  return view('doctor/registerData');
-});
-
-Route::get('/patients', function () {
-  return view('doctor/patients');
-});
-Route::get('/dates', function () {
-  return view('doctor/dates');
-});
-Route::get('/userProfile', function () {
-  return view('doctor/userProfile');
-});
 Route::get('/Personal', function () {
   return view('admin/Personal');
 });
-
-
 
 
 Route::post('/logIn', function () {
@@ -137,6 +106,63 @@ Route::get('/dashboard/registerData', function () {
     if(Type::isMedic())
     {
         return view('doctor/registerData');
+    }
+    else
+    {
+        return redirect('/dashboard');
+    }
+});
+
+Route::post('/registerDate', function () {
+    //Interrogatorio
+    dbConnection::insert("registro_interrogatorio", ["motivoConsulta", "sintomas"], [[$_POST['motivo'], $_POST['sintomas']]]);
+    $idInterrogatorio = dbConnection::lastID();
+    //exploración
+    dbConnection::insert("exploracion", ["peso", "talla", "frecuenciaRespiratoria", "presArterAlta", "presArterBaja", "temperatura", "frecuenciaCardiaca", "exploracionFisica"], 
+        [[$_POST['peso'], $_POST['talla'], $_POST['frecResp'], $_POST['presAlta'], $_POST['presBaja'], $_POST['temp'], $_POST['frecCard'], $_POST['exploracion']]]);
+    $idExploracion = dbConnection::lastID();
+    //Diagnostico
+    dbConnection::insert("diagnostico", ["enfermedad", "estado", "notas"], 
+        [[$_POST['enfermedad'], $_POST['estadoEnfermedad'], $_POST['notasEnfermedad']]]);
+    $idDiagnostico = dbConnection::lastID();
+    //notas Adicionales
+    dbConnection::insert("notas_adicionales", ["notas"], 
+        [[$_POST['notasAdicionales']]]);
+    $idNotasAdd = dbConnection::lastID();
+    //Estudios
+    dbConnection::insert("estudios", ["orden"], 
+        [[$_POST['estudios']]]);
+    $idEstudios = dbConnection::lastID();
+    //registro clinico
+    dbConnection::insert("registro_clinico", ["id_medico", "id_paciente", "id_diagnostico", "id_interrogatorio", "id_exploracion", "id_notasAdicionales", "id_estudios"], 
+        [[logData::getData("id_usuario"), $_POST['idPatient'], $idDiagnostico, $idInterrogatorio, $idExploracion, $idNotasAdd, $idEstudios]]);
+    $idRegistro = dbConnection::lastID();
+    
+    
+
+    for($x = 0; $x < $_POST['cantidad']; $x++)
+    {
+        if($_POST['medID'][$x]!=0)
+        {
+            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "indicaciones", "id_registro"], 
+                [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medIndi'][$x], $idRegistro]]);
+        }
+        else
+        {
+            dbConnection::insert("medicamentos", ["nombre"], 
+                [[$_POST['medName'][$x]]]);
+            $idMed = dbConnection::lastID();
+            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "indicaciones", "id_registro"], 
+                [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medIndi'][$x], $idRegistro]]);
+        }
+    }
+    return redirect('/dashboard/patients');
+});
+
+Route::get('/dashboard/patients', function() {
+    if(Type::isMedic())
+    {
+        return view('doctor/patients');
     }
     else
     {

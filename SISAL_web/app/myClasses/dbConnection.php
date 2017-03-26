@@ -502,4 +502,13 @@
             }
         }
         
+        /**
+         * lastID
+         * Esta función retorna el ultimo ID generado automaticamente en un insert
+         * @return numeric
+         */
+        public static function lastID()
+        {
+            return self::$DBCon->lastInsertId();
+        }
     }
