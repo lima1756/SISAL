@@ -130,7 +130,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-calendar-check-o fa-5x"></i>
+                                    <i class="fa fa-calendar-check-o fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $cantidadCitas; ?></div>
@@ -152,7 +152,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
+                                    <i class="fa fa-users fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">Historial</div>
@@ -174,7 +174,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-pencil-square-o fa-5x"></i>
+                                    <i class="fa fa-pencil-square-o fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">Registro</div>
@@ -196,7 +196,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-hospital-o fa-5x"></i>
+                                    <i class="fa fa-hospital-o fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">Hospital</div>
