@@ -1,3 +1,14 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $pacientes = dbConnection::select(["citas.id_paciente", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora)"],
+        "citas",
+        [["citas.id_medico", 1003]],
+        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]],
+        "GROUP BY citas.id_paciente ORDER BY citas.fecha_hora DESC");
+        var_dump($pacientes);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +50,23 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+        label input[type="radio"] ~ i.fa.fa-circle-o{
+            color: #c8c8c8;    display: inline;
+        }
+        label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+            display: none;
+        }
+        label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+            display: none;
+        }
+        label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+            color: #7AA3CC;    display: inline;
+        }
+        label:hover input[type="radio"] ~ i.fa {
+        color: #7AA3CC;
+        }
+    </style>
 </head>
 
 <body>
@@ -120,7 +148,11 @@
             <!-- /.row -->
             <div class="row">
                 <!-- BOTON DE TODOS -->
-                <div class="col-lg-12">
+                <?php if(isset($_GET['id'])):?>
+                    <div class="col-lg-12">
+                <?php else: ?>
+                    <div class="col-lg-12" style="visibility: hidden; display:none;">
+                <?php endif; ?>
                     <form role="form">
                     <div class="form-group input-group">
                         <span class="input-group-btn">
@@ -130,50 +162,86 @@
                     </div>
                 </div>
                 <!-- LISTA DE PACIENTES -->
-                <div class="col-lg-12">
+                <?php if(isset($_GET['id'])): ?>
+                    <div class="col-lg-12" style="visibility: hidden; display:none;">
+                <?php else: ?>
+                    <div class="col-lg-12" >
+                <?php endif; ?>
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
+                                        <th>Seleccionar</th>
                                         <th>Usuario</th>
                                         <th>Paciente</th>
                                         <th>Ultima consulta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @foreach ($questions as $q)
+                                    <tr>
+                                    <td><label class="btn active">
+                                        {{ Form::radio('ticket', $q->id_ticket, false, ['id'=> 'radio'.$q->id_ticket, 'style'=>'display:none;']) }}<i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
+                                    </label></td>
+                                    <td>{{ $q->fecha_hora }}</td>
+                                    <td>{{ $q->estado }}</td>
+                                    <td>{{ $q->pregunta }}</td>
+                                    </tr>
+                                @endforeach
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>1alguien</td>                                        
                                         <td class="center">nombre1</td>
                                         <td>28-11-2016</td>
                                     </tr>
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>2alguien</td>                                        
                                         <td class="center">nombre2</td>
                                         <td>28-11-2016</td>
                                     </tr>
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>1alguien</td>                                        
                                         <td class="center">nombre1</td>
                                         <td>28-11-2016</td>
                                     </tr>
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>1alguien</td>                                        
                                         <td class="center">nombre1</td>
                                         <td>28-11-2016</td>
                                     </tr>
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>1alguien</td>                                        
                                         <td class="center">nombre1</td>
                                         <td>28-11-2016</td>
                                     </tr>
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>1alguien</td>                                        
                                         <td class="center">nombre1</td>
                                         <td>28-11-2016</td>
                                     </tr>
                                     <tr class="odd gradeX">
+                                        <div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>
                                         <td>1alguien</td>                                        
                                         <td class="center">nombre1</td>
                                         <td>28-11-2016</td>
@@ -183,11 +251,14 @@
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
+                    </div><!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
-                <div class="col-lg-12">
+                <?php if(isset($_GET['id'])): ?>
+                    <div class="col-lg-12" >
+                <?php else: ?>
+                    <div class="col-lg-12" style="visibility: hidden; display:none;">
+                <?php endif; ?>
                     <form>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
@@ -627,7 +698,13 @@
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
-            responsive: true
+            responsive: true,
+            "columnDefs": [
+                { "width": "10%", "targets": 0 },
+                { "width": "20%", "targets": 1 },
+                { "width": "40%", "targets": 2 }
+            ],
+            "order": [[ 3, "desc" ]]
         });
     });
     </script>

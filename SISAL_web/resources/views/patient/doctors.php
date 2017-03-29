@@ -213,7 +213,7 @@
             "columnDefs": [
                 { "width": "10%", "targets": 0 },
                 { "width": "45%", "targets": 1 }
-            ]
+            ],
         } );
     } );
     </script>
