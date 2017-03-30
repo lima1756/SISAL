@@ -173,6 +173,7 @@
                 $query = $query . ";";
                 try
                 {
+                    echo $query;
                     $select = self::$DBCon->prepare($query);
                     $select->execute($data);
                     $answer = $select->fetchAll(PDO::FETCH_ASSOC);

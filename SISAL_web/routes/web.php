@@ -170,10 +170,29 @@ Route::get('/dashboard/patients', function() {
     }
 });
 
-Route::post('/ajaxDP', function() {
+Route::get('/ajaxDP', function() {
     if(Type::isMedic())
     {
-        
+        //Query basico c:
+        $datos = dbConnection::select(["antecedentes.*", "interrogatorio.*", "alergias.*", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+                "usuarios. codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
+                "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar", "tipo_sangre.tipo", "refresco.vasosDiarios", "suenio.horasDiarias", "intravenosa.descripcion", 
+                "fumador.edad_inicio", "fumador.ciggarrosDiarios", "ex_fumador.edad_fin", "ex_alcoholico.edad_fin", "ex_adicto.edad_fin", "ejercicio.veces_semana", "drogas.detalles",
+                "drogas.edad_inicio", "drogas.detalles", "dietas.informacionDieta", "comidas.desayuno", "comidas.comidasDiarias", "alcoholico.edad_inicio", "alcoholico.vasos"
+            ], 
+            "usuarios",
+            [["usuarios.id_usuario", /*$_POST['patientId']*/ 1009]],
+            [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"], ["antecedentes", "antecedentes.id_antecedentes", "pacientes.id_antecedentes"], 
+                ["interrogatorio", "interrogatorio.id_interrogatorio", "pacientes.id_interrogatorio"], ["alergias", "alergias.id_alergias", "pacientes.id_alergias"],
+                ["estiloVida", "estilovida.id_estiloVida", "pacientes.id_estiloVida"], ["ejercicio", "estilovida.id_ejercicio", "ejercicio.id_ejercicio"], 
+                ["suenio", "estilovida.id_suenio", "suenio.id_suenio"], ["comidas", "estilovida.id_comidas", "comidas.id_comidas"],
+                ["refresco", "estilovida.id_refresco", "refresco.id_refresco"], ["drogas", "estilovida.id_drogas", "drogas.id_drogas"],
+                ["alcoholico", "estilovida.id_alcoholismo", "alcoholico.id_alcoholico"], ["ex_alcoholico", "estilovida.id_exAlcoholismo", "ex_alcoholico.id_exAlcoholico"],
+                ["ex_adicto", "estilovida.id_exAdicto", "ex_adicto.id_exAdicto"], ["fumador", "estilovida.id_fumador", "fumador.id_fumador"],
+                ["ex_fumador", "estilovida.id_exFumador", "ex_fumador.id_exFumador"], ["intravenosa", "drogas.id_intravenosa", "intravenosa.id_intravenosa"],
+                ["tipo_sangre", "tipo_sangre.id_sangre", "antecedentes.id_sangre"], ["dietas", "estilovida.id_dietas", "dietas.id_dietas"]]
+            );
+        var_dump($datos);
     }
     else
     {
