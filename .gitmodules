@@ -1,0 +1,3 @@
+[submodule "sisal_web/rack"]
+	path = sisal_web/rack
+	url = https://github.com/spipu/html2pdf.git
