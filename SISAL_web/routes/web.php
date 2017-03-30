@@ -169,3 +169,14 @@ Route::get('/dashboard/patients', function() {
         return redirect('/dashboard');
     }
 });
+
+Route::post('/ajaxDP', function() {
+    if(Type::isMedic())
+    {
+        
+    }
+    else
+    {
+        return 0;
+    }
+});

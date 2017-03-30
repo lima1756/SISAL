@@ -12,7 +12,7 @@
         "order by fecha_hora ASC LIMIT 1");
     $pacientes = dbConnection::select(["citas.id_paciente", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
         "citas",
-        [["citas.id_medico", 1003]],
+        [["citas.id_medico", logData::getData("id_usuario")]],
         [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]],
         "GROUP BY citas.id_paciente");
     $medicamentos = dbConnection::select(["*"], "medicamentos");

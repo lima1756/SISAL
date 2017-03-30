@@ -2,12 +2,11 @@
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
     date_default_timezone_set("America/Mexico_City");
-    $pacientes = dbConnection::select(["citas.id_paciente", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora)"],
+    $pacientes = dbConnection::select(["citas.id_paciente", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
         "citas",
-        [["citas.id_medico", 1003]],
+        [["citas.id_medico", logData::getData("id_usuario")]],
         [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]],
-        "GROUP BY citas.id_paciente ORDER BY citas.fecha_hora DESC");
-        var_dump($pacientes);
+        "GROUP BY citas.id_paciente");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -180,72 +179,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($questions as $q)
-                                    <tr>
-                                    <td><label class="btn active">
-                                        {{ Form::radio('ticket', $q->id_ticket, false, ['id'=> 'radio'.$q->id_ticket, 'style'=>'display:none;']) }}<i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
-                                    </label></td>
-                                    <td>{{ $q->fecha_hora }}</td>
-                                    <td>{{ $q->estado }}</td>
-                                    <td>{{ $q->pregunta }}</td>
-                                    </tr>
-                                @endforeach
+                                <?php foreach($pacientes as $p): ?>
                                     <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>1alguien</td>                                        
-                                        <td class="center">nombre1</td>
-                                        <td>28-11-2016</td>
+                                        <td><label class="btn active">
+                                            <input type="radio" name="paciente" value="<?php echo $p['id_paciente']; ?>"id="<?php echo "radio".$p['id_paciente']?>" style="display:none"/>
+                                            <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
+                                        </label></td>
+                                        <td><?php echo $p['usuario']; ?></td>
+                                        <td><?php echo $p['nombre'] . $p['apellidoPaterno'] . $p['apellidoMaterno']; ?></td>
+                                        <td><?php echo $p['ultima']; ?></td>
                                     </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>2alguien</td>                                        
-                                        <td class="center">nombre2</td>
-                                        <td>28-11-2016</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>1alguien</td>                                        
-                                        <td class="center">nombre1</td>
-                                        <td>28-11-2016</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>1alguien</td>                                        
-                                        <td class="center">nombre1</td>
-                                        <td>28-11-2016</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>1alguien</td>                                        
-                                        <td class="center">nombre1</td>
-                                        <td>28-11-2016</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>1alguien</td>                                        
-                                        <td class="center">nombre1</td>
-                                        <td>28-11-2016</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>1alguien</td>                                        
-                                        <td class="center">nombre1</td>
-                                        <td>28-11-2016</td>
-                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
@@ -706,9 +650,61 @@
             ],
             "order": [[ 3, "desc" ]]
         });
-    });
-    </script>
-    
+             $('input[type=radio][name=paciente]').change(function() {
+                var csrfVal="<?php echo csrf_token(); ?>";
+                <?php foreach ($pacientes as $key => $p): ?>
+                    <?php if($key==0): ?>
+                        if (this.value == <?php echo $p['id_paciente'];?>) {
+                            id=$('input:radio[name=paciente]:checked').val();
+                        }
+                    <?php else: ?>
+                        else if (this.value == <?php echo $p['id_paciente'];?>) {
+                            id=$('input:radio[name=paciente]:checked').val();
+                        }
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfVal
+                    }
+                })
+                $.post("/ajaxDP", { <?php //DP se refiere a Doctor-Patients ?>
+                    'patientId': id
+                },
+                function(data, status){
+                    var json = JSON.parse(data);
+                    var message = json.descripcion.replace(/\n/g, "<br />");
+                    /*$('#pregunta-container').show();
+                    $('#pregunta').html(json.pregunta);
+                    $('#descripcion').html(message);
+                    $('#estado_actual').val(json.estado);
+                    $('#detalles').val(json.detalles);
+                    $('#porcentaje').val(json.porcentaje);
+                    $('#prioridad').val(json.prioridad);
+                    $('#ticket_su').val(json.id_ticketSU);
+                    $('#state').val(json.id_estado);
+                    $('#foro').attr("href", "/dashboard/foro/"+json.id_ticketSU)
+                    $('#llamadas').attr("href", "/dashboard/llamadas/"+json.id_ticketSU)*/
+                });
+                /*$.post("/ajaxSRTI", {
+                    'ticketid': id
+                },
+                function(data, status){
+                    if(data=="-1"){
+                        $('#imgn').attr("src", "")
+                        $('#imgn').attr('alt', 'No se subió ninguna imagen');
+                    }
+                    else{
+                        var json = JSON.parse(data);
+                        $('#imgn').attr("src", "/storage/ticketImages/" + json.nombre)
+                        $('#imgn').attr('alt', 'img');
+                    }
+                });*/
+            });
+            
+            } );
+
+    </script>    
 </body>
 
 </html>
