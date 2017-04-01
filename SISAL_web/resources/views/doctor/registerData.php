@@ -1,6 +1,7 @@
 <?php
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
+    //Si termino cita (se hizo registro medico) se pasa al siguiente de la lista
     date_default_timezone_set("America/Mexico_City");
     $tiempoCita = dbConnection::select(["medicos.tiempo_consulta"], "medicos", [["medicos.id_usuario", logData::getData("id_usuario")]]);
     $today = date("Y-m-d H:i:s", strtotime('-' . $tiempoCita[0]['tiempo_consulta'] . ' minutes'));

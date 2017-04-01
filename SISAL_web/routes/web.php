@@ -174,14 +174,64 @@ Route::get('/ajaxDP', function() {
     if(Type::isMedic())
     {
         //Query basico c:
-        $datos = dbConnection::select(["antecedentes.*", "interrogatorio.*", "alergias.*", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+        $generales = dbConnection::select(["pacientes.*"], 
+            "pacientes", 
+            [["pacientes.id_usuario", /*$_POST['patientId']*/ 1009]]);
+        var_dump($generales);
+        if($generales[0]['id_antecedentes'] != null)
+        {
+            $antecedentes = dbConnection::select(["antecedentes.*"], "antecedentes", [["antecedentes.id_antecedentes", $generales[0]['id_antecedentes']]]);
+            var_dump($antecedentes);
+        }
+        if($generales[0]['id_interrogatorio'] != null)
+        {
+            $interrogatorio = dbConnection::select(["interrogatorio.*"], "interrogatorio", [["interrogatorio.id_interrogatorio", $generales[0]['id_interrogatorio']]]);
+            var_dump($interrogatorio);
+        }
+        if($generales[0]['id_alergias'] != null)
+        {
+            $alergias = dbConnection::select(["alergias.*"], "alergias", [["alergias.id_alergias", $generales[0]['id_alergias']]]);
+            var_dump($alergias);
+        }
+        if($generales[0]['id_estiloVida'] != null)
+        {
+            $estiloVida = dbConnection::select(["estiloVida.*"], "estiloVida", [["estiloVida.id_estiloVida", $generales[0]['id_estiloVida']]]);
+            var_dump($estiloVida);
+            if($estiloVida[0]["id_ejercicio"])
+            {
+                $ejercicio = dbConnection::select(["ejercicio.*"], "ejercicio", [["ejercicio.id_ejercicio", $estiloVida[0]['id_ejercicio']]]);
+                var_dump($ejercicio);
+            }
+            if($estiloVida[0]["id_suenio"])
+            {
+                $suenio = dbConnection::select(["suenio.*"], "suenio", [["suenio.id_suenio", $estiloVida[0]['id_suenio']]]);
+                var_dump($suenio);
+            }
+            if($estiloVida[0]["id_comidas"])
+            {
+                $comidas = dbConnection::select(["comidas.*"], "comidas", [["comidas.id_comidas", $estiloVida[0]['id_comidas']]]);
+                var_dump($comidas);
+            }
+            if($estiloVida[0]["id_refresco"])
+            {
+                $refresco = dbConnection::select(["refresco.*"], "refresco", [["refresco.id_refresco", $estiloVida[0]['id_refresco']]]);
+                var_dump($refresco);
+            }
+            if($estiloVida[0]["id_dietas"])
+            {
+                $dietas = dbConnection::select(["dietas.*"], "dietas", [["dietas.id_dietas", $estiloVida[0]['id_dietas']]]);
+                var_dump($dietas);
+            }
+        }
+        
+        /**$datos = dbConnection::select(["antecedentes.*", "interrogatorio.*", "alergias.*", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
                 "usuarios. codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
                 "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar", "tipo_sangre.tipo", "refresco.vasosDiarios", "suenio.horasDiarias", "intravenosa.descripcion", 
                 "fumador.edad_inicio", "fumador.ciggarrosDiarios", "ex_fumador.edad_fin", "ex_alcoholico.edad_fin", "ex_adicto.edad_fin", "ejercicio.veces_semana", "drogas.detalles",
                 "drogas.edad_inicio", "drogas.detalles", "dietas.informacionDieta", "comidas.desayuno", "comidas.comidasDiarias", "alcoholico.edad_inicio", "alcoholico.vasos"
             ], 
             "usuarios",
-            [["usuarios.id_usuario", /*$_POST['patientId']*/ 1009]],
+            [["usuarios.id_usuario", $_POST['patientId']]],
             [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"], ["antecedentes", "antecedentes.id_antecedentes", "pacientes.id_antecedentes"], 
                 ["interrogatorio", "interrogatorio.id_interrogatorio", "pacientes.id_interrogatorio"], ["alergias", "alergias.id_alergias", "pacientes.id_alergias"],
                 ["estiloVida", "estilovida.id_estiloVida", "pacientes.id_estiloVida"], ["ejercicio", "estilovida.id_ejercicio", "ejercicio.id_ejercicio"], 
@@ -192,7 +242,7 @@ Route::get('/ajaxDP', function() {
                 ["ex_fumador", "estilovida.id_exFumador", "ex_fumador.id_exFumador"], ["intravenosa", "drogas.id_intravenosa", "intravenosa.id_intravenosa"],
                 ["tipo_sangre", "tipo_sangre.id_sangre", "antecedentes.id_sangre"], ["dietas", "estilovida.id_dietas", "dietas.id_dietas"]]
             );
-        var_dump($datos);
+        var_dump($datos);*/
     }
     else
     {
