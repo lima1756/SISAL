@@ -170,7 +170,6 @@ Route::get('/dashboard/patients', function() {
     }
 });
 
-<<<<<<< HEAD
 //Receta PDF
 Route::get('/receta', function() {
     return view('disenio');
@@ -198,9 +197,7 @@ Route::get('/prueba', function() {
 Route::get('/ajaxDP', function() {
     if(Type::isMedic())
     {
-        
-=======
-Route::POST('/ajaxDP', function() {
+        Route::POST('/ajaxDP', function() {
     if(Type::isMedic())
     {
         $infoPacientes = array();
@@ -296,7 +293,7 @@ Route::POST('/ajaxDP', function() {
                 $infoPacientes['ex_fumador'] = $ex_fumador[0];
             }
             return json_encode($infoPacientes);
->>>>>>> origin/master
+
         }
     }
     else
