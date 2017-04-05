@@ -199,15 +199,17 @@
                 </div>
                 <!-- /.col-lg-12 -->
                 <?php if(isset($_GET['id'])): ?>
-                    <div class="col-lg-12" >
+                    <div class="col-lg-12" name="toda_info" id="toda_info">
                 <?php else: ?>
-                    <div class="col-lg-12" style="visibility: hidden; display:none;">
+                    <div class="col-lg-12" name="toda_info" id="toda_info" style="visibility: hidden; display:none;">
                 <?php endif; ?>
                     <form>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
-                                <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar"/></span>
-                                <span><h2>Una persona bien chingona</h2></span>
+                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" type="submit">Editar</button></span>
+                                <span style="float:right; padding-top:10px; visibility: hidden; display:none;"><button class="btn btn-lg btn-success" type="submit">Aceptar</button></span>
+                                <span style="float:right; padding-top:10px; visibility: hidden; display:none;"><button class="btn btn-lg btn-danger" type="submit">Cancelar</button></span>
+                                <span><h2 id="nombre_completo" name="nombre_completo"></h2></span>
                             </div>
                             <div id="tablist">
                                 <!-- Desplegable información Personal--> 
@@ -219,58 +221,62 @@
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="pInf" >
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Nombre"/>
+                                            <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Apellido"/>
+                                            <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Domicilio"/>
+                                            <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio"/>
                                         </div>
                                         <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Estado"/>
+                                            <input class="form-control" type="text" placeholder="Estado" name="Estado"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ciudad"/>
+                                            <input class="form-control" type="text" placeholder="Ciudad" name="Ciudad"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Código Postal"/>
+                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar"/>
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono oficina"/>
+                                            <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Correo Electrónico"/>
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email"/>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" id="genero" name="genero">
                                                 <option>Género</option>
-                                                <option>Masculino</option>
-                                                <option>Femenino</option>
+                                                <option value="m">Masculino</option>
+                                                <option value="f">Femenino</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="No. de Seguridad social"/>
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento"/>
+                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento"/>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento"/>
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento"/>
                                         </div>
                                         <div class="form-group">
-                                        <!--CALCULAR AQUI LA EDAD--><label class="form-control">xy años</label>
+                                        <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="edad">xy años</label>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ocupación"/>
+                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"/>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Desplegable Antecedentes personales--> 
+                                <?php $sangres = dbConnection::select(["tipo", "id_sangre"], "tipo_sangre"); ?>
                                 <div>
                                     <a href="#aPer" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
                                     <div class="panel-heading">
@@ -280,26 +286,26 @@
                                     <div class="panel-body collapse indent" id="aPer">
                                         <div class="form-group">
                                             <label>Tipo de sangre</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                                <option></option>
-                                                <option></option>
+                                            <select class="form-control" name="sangre" id="sangre">
+                                                <?php foreach($sangres as $s):?>
+                                                    <option value="<?php echo $s['id_sangre'];?>"> <?php echo $s['tipo'];?> </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Tabaquismo</label>
-                                            <select class="form-control">
-                                                <option>Nunca</option>
-                                                <option>Casual</option>
-                                                <option>Moderado</option>
-                                                <option>Intenso</option>
-                                                <option>En remisión</option>
-                                                <option>Otro</option>
+                                            <select class="form-control" name="tabaquismoCantidad" id="tabaquismoCantidad">
+                                                <option value="Nunca">Nunca</option>
+                                                <option value="Casual">Casual</option>
+                                                <option value="Moderado">Moderado</option>
+                                                <option value="Intenso">Intenso</option>
+                                                <option value="En remisión">En remisión</option>
+                                                <option value="Otro">Otro</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Alcoholismo</label>
-                                            <select class="form-control">
+                                            <select class="form-control" name="alcoholismoCantidad" id="alcoholismoCantidad">
                                                 <option>Nunca</option>
                                                 <option>Casual</option>
                                                 <option>Moderado</option>
@@ -310,19 +316,18 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes hereditarios</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="antecedentesHereditarios" id="antecedentesHereditarios"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes patológicos</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="antecedentesPatologicos" id="antecedentesPatologicos"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes no patológicos</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="antecedentesNoPatologicos" id="antecedentesNoPatologicos"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                
                                 <!-- Desplegable Interrogatorio de antecedentes médicos--> 
                                 <div>
                                     <a href="#int" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
@@ -333,15 +338,15 @@
                                     <div class="panel-body collapse indent" id="int"  >
                                         <div class="form-group">
                                             <label>Antecedentes cardiovasculares</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="antecedentesCardio" id="antecedentesCardio"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes digestivos</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="antecedentesDigest" id="antecedentesCardio"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes endocrinos</label>
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name="antecedentesEndocr" id="antecedentesEndocr"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes hemolinfatico</label>
@@ -638,7 +643,7 @@
     <script src="../../dataSource/js/templates/dataTables.bootstrap.min.js"></script>
     <script src="../../dataSource/js/templates/dataTables.responsive.js"></script>
 
-     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+     
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -673,7 +678,13 @@
                 },
                 function(data, status){
                     var json = JSON.parse(data);
-                    var message = json.descripcion.replace(/\n/g, "<br />");
+                    if(json != 0)
+                    {
+                        $('#toda_info').show();
+                        $('#toda_info').attr("style", "");
+                        document.getElementById('toda_info').scrollIntoView();
+                        $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                    }
                     /*$('#pregunta-container').show();
                     $('#pregunta').html(json.pregunta);
                     $('#descripcion').html(message);
