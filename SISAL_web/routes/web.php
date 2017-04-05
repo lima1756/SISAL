@@ -170,58 +170,34 @@ Route::get('/dashboard/patients', function() {
     }
 });
 
+//Receta PDF
+Route::get('/receta', function() {
+    return view('disenio');
+});
+
+Route::get('/prueba', function() {
+   try {
+    ob_start();
+    include '\disenio.php';
+    $content = ob_get_clean();
+
+    $html2pdf = new Html2Pdf('L', 'A4', 'fr');
+    $html2pdf->setDefaultFont('Arial');
+    $html2pdf->writeHTML($content);
+    $html2pdf->Output('Receta.pdf');//D si se desea descargar
+    } catch (Html2PdfException $e) {
+        $formatter = new ExceptionFormatter($e);
+        echo $formatter->getHtmlMessage();
+    }
+});
+
+
+
+//FIN Receta PDF
 Route::get('/ajaxDP', function() {
     if(Type::isMedic())
     {
-        //Query basico c:
-        $generales = dbConnection::select(["pacientes.*"], 
-            "pacientes", 
-            [["pacientes.id_usuario", /*$_POST['patientId']*/ 1009]]);
-        var_dump($generales);
-        if($generales[0]['id_antecedentes'] != null)
-        {
-            $antecedentes = dbConnection::select(["antecedentes.*"], "antecedentes", [["antecedentes.id_antecedentes", $generales[0]['id_antecedentes']]]);
-            var_dump($antecedentes);
-        }
-        if($generales[0]['id_interrogatorio'] != null)
-        {
-            $interrogatorio = dbConnection::select(["interrogatorio.*"], "interrogatorio", [["interrogatorio.id_interrogatorio", $generales[0]['id_interrogatorio']]]);
-            var_dump($interrogatorio);
-        }
-        if($generales[0]['id_alergias'] != null)
-        {
-            $alergias = dbConnection::select(["alergias.*"], "alergias", [["alergias.id_alergias", $generales[0]['id_alergias']]]);
-            var_dump($alergias);
-        }
-        if($generales[0]['id_estiloVida'] != null)
-        {
-            $estiloVida = dbConnection::select(["estiloVida.*"], "estiloVida", [["estiloVida.id_estiloVida", $generales[0]['id_estiloVida']]]);
-            var_dump($estiloVida);
-            if($estiloVida[0]["id_ejercicio"])
-            {
-                $ejercicio = dbConnection::select(["ejercicio.*"], "ejercicio", [["ejercicio.id_ejercicio", $estiloVida[0]['id_ejercicio']]]);
-                var_dump($ejercicio);
-            }
-            if($estiloVida[0]["id_suenio"])
-            {
-                $suenio = dbConnection::select(["suenio.*"], "suenio", [["suenio.id_suenio", $estiloVida[0]['id_suenio']]]);
-                var_dump($suenio);
-            }
-            if($estiloVida[0]["id_comidas"])
-            {
-                $comidas = dbConnection::select(["comidas.*"], "comidas", [["comidas.id_comidas", $estiloVida[0]['id_comidas']]]);
-                var_dump($comidas);
-            }
-            if($estiloVida[0]["id_refresco"])
-            {
-                $refresco = dbConnection::select(["refresco.*"], "refresco", [["refresco.id_refresco", $estiloVida[0]['id_refresco']]]);
-                var_dump($refresco);
-            }
-            if($estiloVida[0]["id_dietas"])
-            {
-                $dietas = dbConnection::select(["dietas.*"], "dietas", [["dietas.id_dietas", $estiloVida[0]['id_dietas']]]);
-                var_dump($dietas);
-            }
+        
         }
         
         /**$datos = dbConnection::select(["antecedentes.*", "interrogatorio.*", "alergias.*", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
