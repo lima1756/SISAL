@@ -194,10 +194,9 @@ Route::get('/prueba', function() {
 
 
 //FIN Receta PDF
-Route::get('/ajaxDP', function() {
-    if(Type::isMedic())
-    {
-        Route::POST('/ajaxDP', function() {
+
+
+Route::POST('/ajaxDP', function() {
     if(Type::isMedic())
     {
         $infoPacientes = array();
