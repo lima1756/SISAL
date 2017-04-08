@@ -289,8 +289,9 @@
                                             <label>Tipo de sangre</label>
                                             <select class="form-control" name="sangre" id="sangre" disabled>
                                                 <?php foreach($sangres as $s):?>
-                                                    <option value="<?php echo $s['id_sangre'];?>"> <?php echo $s['tipo'];?> </option>
+                                                    <option value="<?php echo $s['tipo'];?>"> <?php echo $s['tipo'];?> </option>
                                                 <?php endforeach; ?>
+                                                <option value="otro">Sin seleccionar</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -343,7 +344,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes digestivos</label>
-                                            <textarea class="form-control" name="antecedentesDigest" id="antecedentesCardio" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesDigest" id="antecedentesDigest" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes endocrinos</label>
@@ -351,35 +352,35 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes hemolinfatico</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesHemo" id="antecedentesHemo" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de Músculo-Esquelético</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesMusc" id="antecedentesMusc" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de Piel y anexos</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesPiel" id="antecedentesPiel" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de aparato reproductor</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesRepr" id="antecedentesRepr" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de aparato respiratorio</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesResp" id="antecedentesResp" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de sistema nervioso</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesNerv" id="antecedentesNerv" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de sistemas generales</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesGene" id="antecedentesGene" disabled></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Antecedentes de aparato urinario</label>
-                                            <textarea class="form-control" disabled></textarea>
+                                            <textarea class="form-control" name="antecedentesUri" id="antecedentesUri" disabled></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -720,6 +721,26 @@
                     }
                     $('#edad').html(edad);
                     $('#ocupacion').val(json.generales.Ocupacion);
+                    $('#sangre').val(json.sangre.tipo);
+                    $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
+                    $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+                    $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);
+                    $('#antecedentesPatologicos').val(json.antecedentes.antecedentesPatologicos);
+                    $('#antecedentesNoPatologicos').val(json.antecedentes.antecedentesNoPatologicos);
+                    $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+                    $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+                    
+                    $('#antecedentesCardio').val(json.interrogatorio.antecedentesCardio);
+                    $('#antecedentesDigest').val(json.interrogatorio.antecedentesDigesti);
+                    $('#antecedentesEndocr').val(json.interrogatorio.antecedentesEndo);
+                    $('#antecedentesHemo').val(json.interrogatorio.antecedentesHemoli);
+                    $('#antecedentesMusc').val(json.interrogatorio.antecedentesMuscu);
+                    $('#antecedentesPiel').val(json.interrogatorio.antecedentesPiel);
+                    $('#antecedentesRepr').val(json.interrogatorio.antecedentesReprod);
+                    $('#antecedentesResp').val(json.interrogatorio.antecedentesRespi);
+                    $('#antecedentesNerv').val(json.interrogatorio.antecedentesNerv);
+                    $('#antecedentesGene').val(json.interrogatorio.antecedentesGener);
+                    $('#antecedentesUri').val(json.interrogatorio.antecedentesUrina);
                 });
                 /*$.post("/ajaxSRTI", {
                     'ticketid': id
