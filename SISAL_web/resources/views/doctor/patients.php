@@ -262,9 +262,9 @@
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
                                         </div>
-                                        <div class="form-group">
+                                        <?php /*<div class="form-group">
                                             <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
-                                        </div>
+                                        </div> */?>
                                         <div class="form-group">
                                             <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
                                         </div>
@@ -689,17 +689,37 @@
                         document.getElementById('toda_info').scrollIntoView();
                         $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
                     }
-                    /*$('#pregunta-container').show();
-                    $('#pregunta').html(json.pregunta);
-                    $('#descripcion').html(message);
-                    $('#estado_actual').val(json.estado);
-                    $('#detalles').val(json.detalles);
-                    $('#porcentaje').val(json.porcentaje);
-                    $('#prioridad').val(json.prioridad);
-                    $('#ticket_su').val(json.id_ticketSU);
-                    $('#state').val(json.id_estado);
-                    $('#foro').attr("href", "/dashboard/foro/"+json.id_ticketSU)
-                    $('#llamadas').attr("href", "/dashboard/llamadas/"+json.id_ticketSU)*/
+                    $('#nombre').val(json.generales.nombre);
+                    $('#apellidoPaterno').val(json.generales.apellidoPaterno);
+                    $('#apellidoMaterno').val(json.generales.apellidoMaterno);
+                    $('#domicilio').val(json.generales.domicilio);
+                    $('#codigoPostal').val(json.generales.codigoPostal);
+                    $('#domTel').val(json.generales.telefonoDomiciliar);
+                    $('#ofTel').val(json.generales.telefonoDomiciliar);
+                    $('#email').val(json.generales.telefonoDomiciliar);
+                    if(json.generales.genero=="Masculino")
+                    {
+                        $('#genero').val("m");
+                    }
+                    else
+                    {
+                        $('#genero').val("f");
+                    }
+                    $('#seguroSocial').val(json.generales.noSeguroSocial);
+                    var fecha = new Date(json.generales.fechaNacimiento);
+                    $('#fechaNacimiento').val(json.generales.fechaNacimiento);
+                    var hoy = new Date();
+                    var edad = 0;
+                    if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
+                    {
+                        edad = hoy.getFullYear() - fecha.getFullYear() + 1;
+                    }
+                    else
+                    {
+                        edad = hoy.getFullYear() - fecha.getFullYear();
+                    }
+                    $('#edad').html(edad);
+                    $('#ocupacion').val(json.generales.Ocupacion);
                 });
                 /*$.post("/ajaxSRTI", {
                     'ticketid': id
