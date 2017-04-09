@@ -467,11 +467,11 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="alcohol" id="alcohol" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="alcohol" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="alcohol" class="btn btn-default" name="checkAlcolico1" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="alcohol" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="alcohol" class="btn btn-default active" name="checkAlcolico2" id="checkbox" disabled>
                                                     ¿Consume Alcohol?
                                                 </label>
                                                 <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" name="alcoholEdad" id="alcoholEdad" value="0" min="0" max="80" disabled/>
@@ -482,11 +482,11 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="exAlcoholico" id="exAlcoholico" autocomplete="off"/>
                                             <div class="btn-group">
-                                                <label for="exAlcoholico" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="exAlcoholico" class="btn btn-default" id="checkbox" name="checkExAlcholico1"disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="exAlcoholico" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="exAlcoholico" class="btn btn-default active" name="checkExAlcholico2" id="checkbox" disabled>
                                                     ¿ex-Alcoholico?
                                                 </label>
                                                 <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" name="exAlcoholicoEdad" id="exAlcoholicoEdad" value="0" min="0" max="80" disabled/>
@@ -495,11 +495,11 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="fuma" id="fuma" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="fuma" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="fuma" class="btn btn-default" id="checkbox" name="checkfuma1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="fuma" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="fuma" class="btn btn-default active" id="checkbox" name="checkfuma2" disabled>
                                                     ¿Fuma?
                                                 </label>
                                                 <label class="btn">Edad a la que comenzó a fumar:&nbsp</label><input class="btn btn-default" name="fumaEdad" id="fumaEdad" type="number" value="0" min="0" max="80" disabled/>
@@ -509,11 +509,11 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="exFumador" id="exFumador" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="exFumador" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="exFumador" class="btn btn-default" id="checkbox" name="checkExFuma1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="exFumador" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="exFumador" class="btn btn-default active" id="checkbox" name="checkExFuma2" disabled>
                                                     ¿Ex-fumador?
                                                 </label>
                                                 <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" name="exFumadorEdad" id="exFumadorEdad" type="number" value="0" min="0" max="80" disabled/>
@@ -534,11 +534,11 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="droga" id="droga" autocomplete="off"/>
                                             <div class="btn-group">
-                                                <label for="droga" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="droga" class="btn btn-default" id="checkbox" name="checkDroga1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="droga" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="droga" class="btn btn-default active" id="checkbox" name="checkDroga2" disabled>
                                                     ¿Consume algun tipo de droga?
                                                 </label>
                                                 <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" name="drogaEdad" id="drogaEdad" type="number" value="0" min="0" max="80" disabled/>
@@ -558,11 +558,11 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="exAdicto" id="exAdicto" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="exAdicto" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="exAdicto" class="btn btn-default" id="checkbox" name="checkExAdicto1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="exAdicto" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="exAdicto" class="btn btn-default active" name="checkExAdicto2" id="checkbox" disabled>
                                                     ¿ex-adicto?
                                                 </label>
                                                 <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" name="exAdictoEdad" id="exAdictoEdad" type="number" value="0" min="0" max="50" disabled/>
@@ -688,8 +688,10 @@
                         $('#toda_info').attr("style", "");
                         document.getElementById('toda_info').scrollIntoView();
                         $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                        recuperarInfo();
+                        cancelacion();
                     }
-                    recuperarInfo();
+                    
                 });
                 /*$.post("/ajaxSRTI", {
                     'ticketid': id
@@ -801,9 +803,14 @@
             {
                 $('#exAdictoEdad').prop('disabled', true);
             }
+            recuperarInfo();
         }
         function cancelacion()
         {
+            if(json.generales)
+            {
+            recuperarInfo();
+            }
             $('#formulario :input').prop('disabled', true);
             $('#editar').prop('disabled', false);
             $('#cancelar').prop('disabled', false);
@@ -812,8 +819,8 @@
             $('#editar').show();
             $('#cancelar').hide();
             $('#aceptar').hide();
-            if(json)
-                recuperarInfo();
+            
+                
         }
 
         $('#ejercicio').change(function() {
@@ -824,6 +831,198 @@
             {
                 $('#ejercicioVecesSemana').prop('disabled', true);
                 $('#ejercicioVecesSemana').val(0);
+            }
+        });
+
+        $('#cafe').change(function() {
+            if(document.getElementById('cafe').checked){
+                $('#cafeAlDia').prop('disabled', false);
+            }
+            else
+            {
+                $('#cafeAlDia').prop('disabled', true);
+                $('#cafeAlDia').val(0);
+            }
+        });
+
+        $('#refresco').change(function() {
+            if(document.getElementById('refresco').checked){
+                $('#refrescoAlDia').prop('disabled', false);
+            }
+            else
+            {
+                $('#refrescoAlDia').prop('disabled', true);
+                $('#refrescoAlDia').val(0);
+            }
+        });
+
+        $('#dieta').change(function() {
+            if(document.getElementById('dieta').checked){
+                $('#dietaInfo').prop('disabled', false);
+            }
+            else
+            {
+                $('#dietaInfo').prop('disabled', true);
+                $('#dietaInfo').val(0);
+            }
+        });
+
+        $('#alcohol').change(function() {
+            if(document.getElementById('alcohol').checked){
+                $('#alcoholEdad').prop('disabled', false);
+                $('#alcoholAlDia').prop('disabled', false);
+                $('#exAlcoholico').attr('disabled', true);
+                $('label[name=checkExAlcholico1]').attr('disabled', true);
+                $('label[name=checkExAlcholico2]').attr('disabled', true);
+                document.getElementById('exAlcoholico').checked = false;
+                $('#exAlcoholicoEdad').val(0);
+                
+            }
+            else
+            {
+                $('#alcoholEdad').prop('disabled', true);
+                $('#alcoholAlDia').prop('disabled', true);
+                $('#exAlcoholico').prop('disabled', false);
+                $('label[name=checkExAlcholico1]').attr('disabled', false);
+                $('label[name=checkExAlcholico2]').attr('disabled', false);
+                $('#alcoholEdad').val(0);
+                $('#alcoholAlDia').val(0);
+            }
+        });
+
+        $('#exAlcoholico').change(function() {
+            if(document.getElementById('exAlcoholico').checked){
+                $('#alcoholEdad').prop('disabled', true);
+                $('#alcoholAlDia').prop('disabled', true);
+                $('#alcohol').attr('disabled', true);
+                $('label[name=checkAlcolico1]').attr('disabled', true);
+                $('label[name=checkAlcolico2]').attr('disabled', true);
+                $('#exAlcoholicoEdad').prop('disabled', false);
+                document.getElementById('alcohol').checked = false;
+                $('#alcoholEdad').val(0);
+                $('#alcoholAlDia').val(0);
+                
+            }
+            else
+            {
+                $('#alcoholEdad').prop('disabled', true);
+                $('#alcoholAlDia').prop('disabled', true);
+                $('#alcohol').attr('disabled', false);
+                $('label[name=checkAlcolico1]').attr('disabled', false);
+                $('label[name=checkAlcolico2]').attr('disabled', false);
+                $('#exAlcoholicoEdad').prop('disabled', true);
+                $('#exAlcoholicoEdad').val(0);
+            }
+        });
+
+
+        $('#fuma').change(function() {
+            if(document.getElementById('fuma').checked){
+                $('#fumaEdad').prop('disabled', false);
+                $('#fumaAlDia').prop('disabled', false);
+                $('#exFumador').prop('disabled', true);
+                $('label[name=checkExFuma1]').attr('disabled', true);
+                $('label[name=checkExFuma2]').attr('disabled', true);
+                document.getElementById('exFumador').checked = false;
+                $('#exFumadorEdad').val(0);
+                $('#exFumadorEdad').prop('disabled', true);
+                
+            }
+            else
+            {
+                $('#fumaEdad').prop('disabled', true);
+                $('#fumaAlDia').prop('disabled', true);
+                $('#exFumador').prop('disabled', false);
+                $('label[name=checkExFuma1]').attr('disabled', false);
+                $('label[name=checkExFuma2]').attr('disabled', false);                
+                $('#fumaEdad').val(0);
+                $('#fumaAlDia').val(0);
+            }
+        });
+
+        $('#exFumador').change(function() {
+            if(document.getElementById('exFumador').checked){
+                $('#fumaEdad').prop('disabled', true);
+                $('#fumaAlDia').prop('disabled', true);
+                $('#fuma').prop('disabled', true);
+                $('label[name=checkfuma1]').attr('disabled', true);
+                $('label[name=checkfuma2]').attr('disabled', true);
+                $('#exFumadorEdad').prop('disabled', false);
+                document.getElementById('fuma').checked = false;
+                $('#fumaEdad').val(0);
+                $('#fumaAlDia').val(0);
+                
+            }
+            else
+            {
+                $('#fumaEdad').prop('disabled', true);
+                $('#fumaAlDia').prop('disabled', true);
+                $('#fuma').prop('disabled', false);
+                $('label[name=checkfuma1]').attr('disabled', false);
+                $('label[name=checkfuma2]').attr('disabled', false);
+                $('#exFumadorEdad').prop('disabled', true);
+                $('#exFumadorEdad').val(0);
+            }
+        });
+
+
+        $('#droga').change(function() {
+            if(document.getElementById('droga').checked){
+                $('#drogaEdad').prop('disabled', false);
+                $('#exAdicto').prop('disabled', true);
+                $('label[name=checkExAdicto1]').attr('disabled', true);
+                $('label[name=checkExAdicto2]').attr('disabled', true);
+                document.getElementById('exFumador').checked = false;
+                $('#exAdictoEdad').val(0);
+                $('#exAdictoEdad').prop('disabled', true);
+                $('#drogaAnota').attr('disabled', false);
+                $('label[name=dogaIntraLabel1]').attr('disabled', false);
+                $('label[name=dogaIntraLabel2]').attr('disabled', false);
+                $('#drogaIntra').attr('disabled', false);
+            }
+            else
+            {
+                $('#drogaEdad').prop('disabled', true);
+                $('#exAdicto').prop('disabled', false);
+                $('label[name=checkExAdicto1]').attr('disabled', false);
+                $('label[name=checkExAdicto2]').attr('disabled', false);                
+                $('#drogaEdad').val(0);
+                $('label[name=dogaIntraLabel1]').attr('disabled', true);
+                $('label[name=dogaIntraLabel2]').attr('disabled', true);
+                $('#drogaAnota').html("")
+                $('#drogaAnota').attr('disabled', true);
+                $('#drogaIntra').attr('disabled', true);
+                document.getElementById('drogaIntra').checked = false;
+            }
+        });
+
+        $('#exAdicto').change(function() {
+            if(document.getElementById('exAdicto').checked){
+                $('#drogaEdad').prop('disabled', true);
+                $('#droga').prop('disabled', true);
+                $('label[name=checkDroga1]').attr('disabled', true);
+                $('label[name=checkDroga2]').attr('disabled', true);
+                $('#exAdictoEdad').prop('disabled', false);
+                document.getElementById('droga').checked = false;
+                $('#drogaEdad').val(0);
+
+                $('#drogaAnota').html("")
+                $('#drogaAnota').attr('disabled', true);
+                
+                $('label[name=dogaIntraLabel1]').attr('disabled', true);
+                $('label[name=dogaIntraLabel2]').attr('disabled', true);
+                $('#drogaIntra').attr('disabled', true);
+                document.getElementById('drogaIntra').checked = false;
+            }
+            else
+            {
+                $('#drogaEdad').prop('disabled', true);
+                $('#droga').prop('disabled', false);
+                $('label[name=checkDroga1]').attr('disabled', false);
+                $('label[name=checkDroga2]').attr('disabled', false);
+                $('#exAdictoEdad').prop('disabled', true);
+                $('#exAdictoEdad').val(0);
+                $('#drogaIntra').attr('disabled', true);
             }
         });
 
@@ -1011,8 +1210,181 @@
                 $('#exAdictoEdad').val(json.exAdicto.edad_fin);
             }
             $('#alergias').html(json.alergias.descripcion);
+
+            if(document.getElementById('exAdicto').checked){
+                $('#drogaEdad').prop('disabled', true);
+                $('#droga').prop('disabled', true);
+                $('label[name=checkDroga1]').attr('disabled', true);
+                $('label[name=checkDroga2]').attr('disabled', true);
+                $('#exAdictoEdad').prop('disabled', false);
+                document.getElementById('droga').checked = false;
+                $('#drogaEdad').val(0);
+
+                $('#drogaAnota').html("")
+                $('#drogaAnota').attr('disabled', true);
+                
+                $('label[name=dogaIntraLabel1]').attr('disabled', true);
+                $('label[name=dogaIntraLabel2]').attr('disabled', true);
+                $('#drogaIntra').attr('disabled', true);
+                document.getElementById('drogaIntra').checked = false;
+            }
+            else
+            {
+                $('#drogaEdad').prop('disabled', false);
+                $('#droga').prop('disabled', false);
+                $('label[name=checkDroga1]').attr('disabled', false);
+                $('label[name=checkDroga2]').attr('disabled', false);
+                $('#exAdictoEdad').prop('disabled', true);
+                $('#exAdictoEdad').val(0);
+                $('#drogaIntra').attr('disabled', false);
+            }
+
+            if(document.getElementById('droga').checked){
+                $('#drogaEdad').prop('disabled', false);
+                $('#exAdicto').prop('disabled', true);
+                $('label[name=checkExAdicto1]').attr('disabled', true);
+                $('label[name=checkExAdicto2]').attr('disabled', true);
+                document.getElementById('exFumador').checked = false;
+                $('#exAdictoEdad').val(0);
+                $('#exAdictoEdad').prop('disabled', true);
+                $('#drogaAnota').attr('disabled', false);
+                $('label[name=dogaIntraLabel1]').attr('disabled', false);
+                $('label[name=dogaIntraLabel2]').attr('disabled', false);
+                $('#drogaIntra').attr('disabled', false);
+            }
+            else
+            {
+                $('#drogaEdad').prop('disabled', true);
+                $('#exAdicto').prop('disabled', false);
+                $('label[name=checkExAdicto1]').attr('disabled', false);
+                $('label[name=checkExAdicto2]').attr('disabled', false);                
+                $('#drogaEdad').val(0);
+                $('label[name=dogaIntraLabel1]').attr('disabled', true);
+                $('label[name=dogaIntraLabel2]').attr('disabled', true);
+                $('#drogaAnota').html("")
+                $('#drogaAnota').attr('disabled', true);
+                $('#drogaIntra').attr('disabled', true);
+                document.getElementById('drogaIntra').checked = false;
+            }
+
+            if(document.getElementById('exFumador').checked){
+                $('#fumaEdad').prop('disabled', true);
+                $('#fumaAlDia').prop('disabled', true);
+                $('#fuma').prop('disabled', true);
+                $('label[name=checkfuma1]').attr('disabled', true);
+                $('label[name=checkfuma2]').attr('disabled', true);
+                $('#exFumadorEdad').prop('disabled', false);
+                document.getElementById('fuma').checked = false;
+                $('#fumaEdad').val(0);
+                $('#fumaAlDia').val(0);
+                
+            }
+            else
+            {
+                $('#fumaEdad').prop('disabled', false);
+                $('#fumaAlDia').prop('disabled', false);
+                $('#fuma').prop('disabled', false);
+                $('label[name=checkfuma1]').attr('disabled', false);
+                $('label[name=checkfuma2]').attr('disabled', false);
+                $('#exFumadorEdad').prop('disabled', true);
+                $('#exFumadorEdad').val(0);
+            }
+
+            if(document.getElementById('fuma').checked){
+                $('#fumaEdad').prop('disabled', false);
+                $('#fumaAlDia').prop('disabled', false);
+                $('#exFumador').prop('disabled', true);
+                $('label[name=checkExFuma1]').attr('disabled', true);
+                $('label[name=checkExFuma2]').attr('disabled', true);
+                document.getElementById('exFumador').checked = false;
+                $('#exFumadorEdad').val(0);
+                $('#exFumadorEdad').prop('disabled', true);
+                
+            }
+            else
+            {
+                $('#fumaEdad').prop('disabled', true);
+                $('#fumaAlDia').prop('disabled', true);
+                $('#exFumador').prop('disabled', false);
+                $('label[name=checkExFuma1]').attr('disabled', false);
+                $('label[name=checkExFuma2]').attr('disabled', false);                
+                $('#fumaEdad').val(0);
+                $('#fumaAlDia').val(0);
+            }
+
+            if(document.getElementById('exAlcoholico').checked){
+                $('#alcoholEdad').prop('disabled', true);
+                $('#alcoholAlDia').prop('disabled', true);
+                $('#alcohol').attr('disabled', true);
+                $('label[name=checkAlcolico1]').attr('disabled', true);
+                $('label[name=checkAlcolico2]').attr('disabled', true);
+                $('#exAlcoholicoEdad').prop('disabled', false);
+                document.getElementById('alcohol').checked = false;
+                $('#alcoholEdad').val(0);
+                $('#alcoholAlDia').val(0);
+                
+            }
+            else
+            {
+                $('#alcoholEdad').prop('disabled', false);
+                $('#alcoholAlDia').prop('disabled', false);
+                $('#alcohol').attr('disabled', false);
+                $('label[name=checkAlcolico1]').attr('disabled', false);
+                $('label[name=checkAlcolico2]').attr('disabled', false);
+                $('#exAlcoholicoEdad').prop('disabled', true);
+                $('#exAlcoholicoEdad').val(0);
+            }
+
+            if(document.getElementById('alcohol').checked){
+                $('#alcoholEdad').prop('disabled', false);
+                $('#alcoholAlDia').prop('disabled', false);
+                $('#exAlcoholico').attr('disabled', true);
+                $('label[name=checkExAlcholico1]').attr('disabled', true);
+                $('label[name=checkExAlcholico2]').attr('disabled', true);
+                document.getElementById('exAlcoholico').checked = false;
+                $('#exAlcoholicoEdad').val(0);
+                
+            }
+            else
+            {
+                $('#alcoholEdad').prop('disabled', true);
+                $('#alcoholAlDia').prop('disabled', true);
+                $('#exAlcoholico').prop('disabled', false);
+                $('label[name=checkExAlcholico1]').attr('disabled', false);
+                $('label[name=checkExAlcholico2]').attr('disabled', false);
+                $('#alcoholEdad').val(0);
+                $('#alcoholAlDia').val(0);
+            }
+
+            if(document.getElementById('dieta').checked){
+                $('#dietaInfo').prop('disabled', false);
+            }
+            else
+            {
+                $('#dietaInfo').prop('disabled', true);
+                $('#dietaInfo').val(0);
+            }
+
+            if(document.getElementById('refresco').checked){
+                $('#refrescoAlDia').prop('disabled', false);
+            }
+            else
+            {
+                $('#refrescoAlDia').prop('disabled', true);
+                $('#refrescoAlDia').val(0);
+            }
+
+            if(document.getElementById('ejercicio').checked){
+                $('#ejercicioVecesSemana').prop('disabled', false);
+            }
+            else
+            {
+                $('#ejercicioVecesSemana').prop('disabled', true);
+                $('#ejercicioVecesSemana').val(0);
+            }
         }
     </script>    
 </body>
 
 </html>
+
