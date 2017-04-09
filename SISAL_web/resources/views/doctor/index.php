@@ -92,10 +92,10 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dashboard//dates/?type=surgery">Quirurgicas</a>
+                                    <a href="/dashboard/dates/?type=surgery">Quirurgicas</a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard//dates/?type=clinic">Clinicas</a>
+                                    <a href="/dashboard/dates/?type=clinic">Clinicas</a>
                                 </li>
                                 <li>
                                     <a href="/dashboard/dates/?type=all">Todas</a>

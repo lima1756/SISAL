@@ -108,7 +108,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="../dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
@@ -126,7 +126,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="../dashboard/registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Pacientes</a>

@@ -91,7 +91,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="../dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
@@ -112,7 +112,7 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
-                            <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="../dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
