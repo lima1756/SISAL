@@ -101,7 +101,10 @@ Route::get('/dashboard/dates', function () {
         return redirect('/dashboard');
     }
 });
-
+Route::get('/dashboard/userProfile', function () {
+   
+        return view('doctor/userProfile');
+});
 Route::get('/dashboard/registerData', function () {
     if(Type::isMedic())
     {
