@@ -268,18 +268,13 @@ Route::POST('/ajaxDP', function() {
             }
             if($estiloVida[0]["id_drogas"]!= null)
             {
-                $drogas = dbConnection::select(["drogas.edad_inicio", "drogas.detalles", "drogas.id_intravenosa"], "drogas", [["drogas.id_drogas", $estiloVida[0]['id_drogas']]]);
+                $drogas = dbConnection::select(["drogas.edad_inicio", "drogas.detalles", "drogas.intravenosa"], "drogas", [["drogas.id_drogas", $estiloVida[0]['id_drogas']]]);
                 $infoPacientes['drogas'] = $drogas[0];
-                if($drogas[0]["id_intravenosa"]!= null)
-                {
-                    $intravenosa = dbConnection::select(["intravenosa.descripcion"], "intravenosa", [["intravenosa.id_intravenosa", $drogas[0]['id_intravenosa']]]);
-                    $infoPacientes['intravenosa'] = $intravenosa[0];
-                }
             }
             if($estiloVida[0]["id_exAdicto"] != null)
             {
                 $ex_adicto = dbConnection::select(["ex_adicto.edad_fin"], "ex_adicto", [["ex_adicto.id_exAdicto", $estiloVida[0]['id_exAdicto']]]);
-                $infoPacientes['id_exAdicto'] = $ex_adicto[0];
+                $infoPacientes['exAdicto'] = $ex_adicto[0];
             }
             if($estiloVida[0]["id_fumador"] != null)
             {
@@ -290,6 +285,11 @@ Route::POST('/ajaxDP', function() {
             {
                 $ex_fumador = dbConnection::select(["ex_fumador.edad_fin"], "ex_fumador", [["ex_fumador.id_exFumador", $estiloVida[0]['id_exFumador']]]);
                 $infoPacientes['ex_fumador'] = $ex_fumador[0];
+            }
+            if($estiloVida[0]["id_cafe"] != null)
+            {
+                $cafe = dbConnection::select(["cafe.tazasDiarias"], "cafe", [["cafe.id_cafe", $estiloVida[0]['id_cafe']]]);
+                $infoPacientes['cafe'] = $cafe[0];
             }
             return json_encode($infoPacientes);
 

@@ -404,12 +404,12 @@
                                                 <label for="ejercicio" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Realiza ejercicio?
                                                 </label>
-                                                <label class="btn">Veces a la semana:&nbsp</label><input type="number" class="btn btn-default" value="0" min="0" max="7" disabled/>
+                                                <label class="btn">Veces a la semana:&nbsp</label><input type="number" id="ejercicioVecesSemana" name="ejercicioVecesSemana" class="btn btn-default" value="0" min="0" max="7" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="btn-group">
-                                                <label class="btn">Horas de sueño diarias:&nbsp</label><input type="number" class="btn btn-default" value="0" min="0" max="20" disabled/>
+                                                <label class="btn">Horas de sueño diarias:&nbsp</label><input type="number" class="btn btn-default" name="horasSuenio" id="horasSuenio" value="0" min="0" max="20" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -422,7 +422,7 @@
                                                 <label for="desayuna" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Desayuna?
                                                 </label>
-                                                <label class="btn">Comidas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="10" disabled/>
+                                                <label class="btn">Comidas al día:&nbsp</label><input class="btn btn-default" type="number" name="comidasDia" id="comidasDia" value="0" min="0" max="10" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -435,7 +435,7 @@
                                                 <label for="cafe" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Toma Café?
                                                 </label>
-                                                <label class="btn">Tazas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50" disabled/>
+                                                <label class="btn">Tazas al día:&nbsp</label><input class="btn btn-default" type="number" id="cafeAlDia" name="cafeAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -448,7 +448,7 @@
                                                 <label for="refresco" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Toma refresco?
                                                 </label>
-                                                <label class="btn">Vasos al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50" disabled/>
+                                                <label class="btn">Vasos al día:&nbsp</label><input class="btn btn-default" type="number" id="refrescoAlDia" name="refrescoAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -462,9 +462,8 @@
                                                     ¿Sigue alguna dieta?
                                                 </label>
                                             </div>
-                                            <textarea type="text" placeholder="Información sobre la dieta" class="form-control" disabled></textarea>
+                                            <textarea type="text" placeholder="Información sobre la dieta" class="form-control" name="dietaInfo" id="dietaInfo" disabled></textarea>
                                         </div>
-                                        <!--IMPORTANTE CUANDO SE HAGA JS: para deshabilitar los checkbox es necesario deshabilitar el input, el label de la palomita y el label de la pregunta:-->
                                         <div class="form-group">
                                             <input type="checkbox" name="alcohol" id="alcohol" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -475,22 +474,22 @@
                                                 <label for="alcohol" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Consume Alcohol?
                                                 </label>
-                                                <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80" disabled/>
-                                                <label class="btn">Vasos de bebidas alcoholicas al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50" disabled/>
+                                                <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" name="alcoholEdad" id="alcoholEdad" value="0" min="0" max="80" disabled/>
+                                                <label class="btn">Vasos de bebidas alcoholicas al día:&nbsp</label><input class="btn btn-default" type="number" name="alcoholAlDia" id="alcoholAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                             
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="ex-Alcoholico" id="ex-Alcoholico" autocomplete="off"/>
+                                            <input type="checkbox" name="exAlcoholico" id="exAlcoholico" autocomplete="off"/>
                                             <div class="btn-group">
-                                                <label for="ex-Alcoholico" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="exAlcoholico" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="ex-Alcoholico" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="exAlcoholico" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿ex-Alcoholico?
                                                 </label>
-                                                <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80" disabled/>
+                                                <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" name="exAlcoholicoEdad" id="exAlcoholicoEdad" value="0" min="0" max="80" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -503,31 +502,31 @@
                                                 <label for="fuma" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Fuma?
                                                 </label>
-                                                <label class="btn">Edad a la que comenzó a fumar:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80" disabled/>
-                                                <label class="btn">Cigarrillos al día:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50" disabled/>
+                                                <label class="btn">Edad a la que comenzó a fumar:&nbsp</label><input class="btn btn-default" name="fumaEdad" id="fumaEdad" type="number" value="0" min="0" max="80" disabled/>
+                                                <label class="btn">Cigarrillos al día:&nbsp</label><input class="btn btn-default" name="fumaAlDia" id="fumaAlDia" type="number" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="ex-fumador" id="ex-fumador" autocomplete="off" disabled/>
+                                            <input type="checkbox" name="exFumador" id="exFumador" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="ex-fumador" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="exFumador" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="ex-fumador" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="exFumador" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Ex-fumador?
                                                 </label>
-                                                <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80" disabled/>
+                                                <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" name="exFumadorEdad" id="exFumadorEdad" type="number" value="0" min="0" max="80" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="fumador-pasivo" id="fumador-pasivo" autocomplete="off" disabled/>
+                                            <input type="checkbox" name="fumadorPasivo" id="fumadorPasivo" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="fumador-pasivo" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="fumadorPasivo" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="fumador-pasivo" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="fumadorPasivo" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Fumador-pasivo?
                                                 </label>
                                             </div>
@@ -542,31 +541,31 @@
                                                 <label for="droga" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Consume algun tipo de droga?
                                                 </label>
-                                                <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="80" disabled/>
+                                                <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" name="drogaEdad" id="drogaEdad" type="number" value="0" min="0" max="80" disabled/>
                                             </div>
-                                            <input type="checkbox" name="droga-intra" id="droga-intra" autocomplete="off" disabled/>
+                                            <input type="checkbox" name="drogaIntra" id="drogaIntra" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="droga-intra" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="drogaIntra" class="btn btn-default" id="checkbox" name="dogaIntraLabel1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="droga-intra" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="drogaIntra" class="btn btn-default active" name="dogaIntraLabel2" id="checkbox" disabled>
                                                     ¿Consume algun tipo de droga intravenosa?
                                                 </label>
                                             </div>
-                                            <textarea type="text" placeholder="Anotación acerca de las drogas consumidas" class="form-control" disabled></textarea>
+                                            <textarea type="text" placeholder="Anotación acerca de las drogas consumidas" class="form-control" name="drogaAnota" id="drogaAnota" disabled></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="ex-adicto" id="ex-adicto" autocomplete="off" disabled/>
+                                            <input type="checkbox" name="exAdicto" id="exAdicto" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="ex-adicto" class="btn btn-default" id="checkbox" disabled>
+                                                <label for="exAdicto" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="ex-adicto" class="btn btn-default active" id="checkbox" disabled>
+                                                <label for="exAdicto" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿ex-adicto?
                                                 </label>
-                                                <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" type="number" value="0" min="0" max="50" disabled/>
+                                                <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" name="exAdictoEdad" id="exAdictoEdad" type="number" value="0" min="0" max="50" disabled/>
                                             </div>
                                             
                                         </div>
@@ -582,7 +581,7 @@
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="aler"  >
                                         <div class="form-group">
-                                            <textarea class="form-control" placeholder="Alergias tanto a medicamentos como a materiales o alimentos" disabled></textarea>
+                                            <textarea class="form-control" name="alergias" id="alergias" placeholder="Alergias tanto a medicamentos como a materiales o alimentos" disabled></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -591,7 +590,7 @@
                                 <div>
                                     <a href="#citas" role ="tab" data-toggle="collapse" data-target="#citas" data-parent="#tablist">
                                     <div class="panel-heading">
-                                        <h4>Citas</h2>
+                                        <h4>Expediente clinico</h2>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="citas"  >
@@ -647,7 +646,7 @@
 
      
     <script>
-    var json;
+    var json = 0;
 
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -682,7 +681,7 @@
                     'patientId': id
                 },
                 function(data, status){
-                    var json = JSON.parse(data);
+                    json = JSON.parse(data);
                     if(json != 0)
                     {
                         $('#toda_info').show();
@@ -690,57 +689,7 @@
                         document.getElementById('toda_info').scrollIntoView();
                         $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
                     }
-                    $('#nombre').val(json.generales.nombre);
-                    $('#apellidoPaterno').val(json.generales.apellidoPaterno);
-                    $('#apellidoMaterno').val(json.generales.apellidoMaterno);
-                    $('#domicilio').val(json.generales.domicilio);
-                    $('#codigoPostal').val(json.generales.codigoPostal);
-                    $('#domTel').val(json.generales.telefonoDomiciliar);
-                    $('#ofTel').val(json.generales.telefonoDomiciliar);
-                    $('#email').val(json.generales.telefonoDomiciliar);
-                    if(json.generales.genero=="Masculino")
-                    {
-                        $('#genero').val("m");
-                    }
-                    else
-                    {
-                        $('#genero').val("f");
-                    }
-                    $('#seguroSocial').val(json.generales.noSeguroSocial);
-                    var fecha = new Date(json.generales.fechaNacimiento);
-                    $('#fechaNacimiento').val(json.generales.fechaNacimiento);
-                    var hoy = new Date();
-                    var edad = 0;
-                    if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
-                    {
-                        edad = hoy.getFullYear() - fecha.getFullYear() + 1;
-                    }
-                    else
-                    {
-                        edad = hoy.getFullYear() - fecha.getFullYear();
-                    }
-                    $('#edad').html(edad);
-                    $('#ocupacion').val(json.generales.Ocupacion);
-                    $('#sangre').val(json.sangre.tipo);
-                    $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
-                    $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
-                    $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);
-                    $('#antecedentesPatologicos').val(json.antecedentes.antecedentesPatologicos);
-                    $('#antecedentesNoPatologicos').val(json.antecedentes.antecedentesNoPatologicos);
-                    $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
-                    $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
-                    
-                    $('#antecedentesCardio').val(json.interrogatorio.antecedentesCardio);
-                    $('#antecedentesDigest').val(json.interrogatorio.antecedentesDigesti);
-                    $('#antecedentesEndocr').val(json.interrogatorio.antecedentesEndo);
-                    $('#antecedentesHemo').val(json.interrogatorio.antecedentesHemoli);
-                    $('#antecedentesMusc').val(json.interrogatorio.antecedentesMuscu);
-                    $('#antecedentesPiel').val(json.interrogatorio.antecedentesPiel);
-                    $('#antecedentesRepr').val(json.interrogatorio.antecedentesReprod);
-                    $('#antecedentesResp').val(json.interrogatorio.antecedentesRespi);
-                    $('#antecedentesNerv').val(json.interrogatorio.antecedentesNerv);
-                    $('#antecedentesGene').val(json.interrogatorio.antecedentesGener);
-                    $('#antecedentesUri').val(json.interrogatorio.antecedentesUrina);
+                    recuperarInfo();
                 });
                 /*$.post("/ajaxSRTI", {
                     'ticketid': id
@@ -769,6 +718,89 @@
             $('#editar').hide();
             $('#cancelar').show();
             $('#aceptar').show();
+
+            if(document.getElementById('ejercicio').checked){
+                $('#ejercicioVecesSemana').prop('disabled', false);
+            }
+            else
+            {
+                $('#ejercicioVecesSemana').prop('disabled', true);
+            }
+            if(document.getElementById('cafe').checked){
+                $('#cafeAlDia').prop('disabled', false);    
+            }
+            else{ 
+                $('#cafeAlDia').prop('disabled', true); 
+            }
+            if(document.getElementById('refresco').checked){
+                $('#refrescoAlDia').prop('disabled', false);
+            }
+            else
+            {
+                $('#refrescoAlDia').prop('disabled', true);
+            }
+            
+            if(document.getElementById('dieta').checked){
+                $('#dietaInfo').prop('disabled', false);
+            }
+            else
+            {
+                $('#dietaInfo').prop('disabled', true);
+            }
+            if(document.getElementById('alcohol').checked){
+                $('#alcoholEdad').prop('disabled', false);
+                $('#alcoholAlDia').prop('disabled', false);
+            }
+            else
+            {
+                $('#alcoholEdad').prop('disabled', true);
+                $('#alcoholAlDia').prop('disabled', true);
+            }
+            if(document.getElementById('exAlcoholico').checked){
+                $('#exAlcoholicoEdad').prop('disabled', false);
+            }
+            else
+            {
+                $('#exAlcoholicoEdad').prop('disabled', true);
+            }
+            if(document.getElementById('fuma').checked){
+                $('#fumaEdad').prop('disabled', false);
+                $('#fumaAlDia').prop('disabled', false);
+            }
+            else
+            {
+                $('#fumaEdad').prop('disabled', true);
+                $('#fumaAlDia').prop('disabled', true);
+            }
+            if(document.getElementById('exFumador').checked){
+                $('#exFumadorEdad').prop('disabled', false);
+            }
+            else
+            {
+                $('#exFumadorEdad').prop('disabled', true);
+            }
+            if(document.getElementById('droga').checked){
+                $('#drogaEdad').prop('disabled', false);
+                $('#drogaIntra').prop('disabled', false);
+                $('label[name=dogaIntraLabel1]').prop('disabled', false);
+                $('label[name=dogaIntraLabel2]').prop('disabled', false);
+                $('#drogaAnota').prop('disabled', false);
+            }
+            else
+            {
+                $('#drogaEdad').prop('disabled', true);
+                $('#drogaIntra').prop('disabled', true);
+                $('label[name=dogaIntraLabel1]').attr('disabled', true);
+                $('label[name=dogaIntraLabel2]').attr('disabled', true);
+                $('#drogaAnota').prop('disabled', true);
+            }
+            if(document.getElementById('exAdicto').checked){
+                $('#exAdictoEdad').prop('disabled', false);
+            }
+            else
+            {
+                $('#exAdictoEdad').prop('disabled', true);
+            }
         }
         function cancelacion()
         {
@@ -780,8 +812,206 @@
             $('#editar').show();
             $('#cancelar').hide();
             $('#aceptar').hide();
+            if(json)
+                recuperarInfo();
         }
 
+        $('#ejercicio').change(function() {
+            if(document.getElementById('ejercicio').checked){
+                $('#ejercicioVecesSemana').prop('disabled', false);
+            }
+            else
+            {
+                $('#ejercicioVecesSemana').prop('disabled', true);
+                $('#ejercicioVecesSemana').val(0);
+            }
+        });
+
+        function recuperarInfo()
+        {
+            $('#nombre').val(json.generales.nombre);
+            $('#apellidoPaterno').val(json.generales.apellidoPaterno);
+            $('#apellidoMaterno').val(json.generales.apellidoMaterno);
+            $('#domicilio').val(json.generales.domicilio);
+            $('#codigoPostal').val(json.generales.codigoPostal);
+            $('#domTel').val(json.generales.telefonoDomiciliar);
+            $('#ofTel').val(json.generales.telefonoDomiciliar);
+            $('#email').val(json.generales.telefonoDomiciliar);
+            if(json.generales.genero=="Masculino")
+            {
+                $('#genero').val("m");
+            }
+            else
+            {
+                $('#genero').val("f");
+            }
+            $('#seguroSocial').val(json.generales.noSeguroSocial);
+            var fecha = new Date(json.generales.fechaNacimiento);
+            $('#fechaNacimiento').val(json.generales.fechaNacimiento);
+            var hoy = new Date();
+            var edad = 0;
+            if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
+            {
+                edad = hoy.getFullYear() - fecha.getFullYear() + 1;
+            }
+            else
+            {
+                edad = hoy.getFullYear() - fecha.getFullYear();
+            }
+            $('#edad').html(edad);
+            $('#ocupacion').val(json.generales.Ocupacion);
+
+            $('#sangre').val(json.sangre.tipo);
+            $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
+            $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+            $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);
+            $('#antecedentesPatologicos').val(json.antecedentes.antecedentesPatologicos);
+            $('#antecedentesNoPatologicos').val(json.antecedentes.antecedentesNoPatologicos);
+            $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+            $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+            
+            $('#antecedentesCardio').val(json.interrogatorio.antecedentesCardio);
+            $('#antecedentesDigest').val(json.interrogatorio.antecedentesDigesti);
+            $('#antecedentesEndocr').val(json.interrogatorio.antecedentesEndo);
+            $('#antecedentesHemo').val(json.interrogatorio.antecedentesHemoli);
+            $('#antecedentesMusc').val(json.interrogatorio.antecedentesMuscu);
+            $('#antecedentesPiel').val(json.interrogatorio.antecedentesPiel);
+            $('#antecedentesRepr').val(json.interrogatorio.antecedentesReprod);
+            $('#antecedentesResp').val(json.interrogatorio.antecedentesRespi);
+            $('#antecedentesNerv').val(json.interrogatorio.antecedentesNerv);
+            $('#antecedentesGene').val(json.interrogatorio.antecedentesGener);
+            $('#antecedentesUri').val(json.interrogatorio.antecedentesUrina);
+
+            if(json.ejercicio)
+            {
+                document.getElementById('ejercicio').checked = true;
+                $('#ejercicioVecesSemana').val(json.ejercicio.veces_semana);
+            }
+            else
+            {
+                document.getElementById('ejercicio').checked = false;
+                $('#ejercicioVecesSemana').val(0);
+            }
+            $('#horasSuenio').val(json.suenio.horasDiarias);
+            if(json.comidas.desayuno)
+            {
+                document.getElementById('desayuna').checked = true;
+            }
+            else
+            {
+                document.getElementById('desayuna').checked = false;
+            }
+            $('#comidasDia').val(json.comidas.comidasDiarias);
+            if(json.cafe)
+            {
+                document.getElementById('cafe').checked = true;
+                $('#cafeAlDia').val(json.cafe.tazasDiarias);
+            }
+            else
+            {
+                document.getElementById('cafe').checked = false;
+                $('#cafeAlDia').val(0);
+            }
+            if(json.refresco)
+            {
+                document.getElementById('refresco').checked = true;
+                $('#refrescoAlDia').val(json.refresco.vasosDiarios);
+            }
+            else
+            {
+                document.getElementById('refresco').checked = false;
+                $('#refrescoAlDia').val(json.refresco.vasosDiarios);
+            }
+            if(json.dietas)
+            {
+                document.getElementById('dieta').checked = true;
+                $('#dietaInfo').val(json.dietas.informacionDieta);
+            }
+            else
+            {
+                document.getElementById('dieta').checked = false;
+                $('#dietaInfo').html("");
+            }
+            if(json.alcoholico)
+            {
+                document.getElementById('alcohol').checked = true;
+                $('#alcoholEdad').val(json.alcoholico.edad_inicio);
+                $('#alcoholAlDia').val(json.alcoholico.vasos);
+            }
+            else
+            {
+                document.getElementById('alcohol').checked = false;
+                $('#alcoholEdad').val(0);
+                $('#alcoholAlDia').val(0);
+            }
+            if(json.ex_alcoholico)
+            {
+                document.getElementById('exAlcoholico').checked = true;
+                $('#exAlcoholicoEdad').val(json.ex_alcoholico.edad_fin);
+            }
+            else
+            {
+                document.getElementById('exAlcoholico').checked = false;
+                $('#exAlcoholicoEdad').val(0);
+            }
+            if(json.fumador)
+            {
+                document.getElementById('fuma').checked = true;
+                $('#fumaEdad').val(json.fumador.edad_inicio);
+                $('#fumaAlDia').val(json.fumador.ciggarrosDiarios);
+            }
+            else
+            {
+                document.getElementById('fuma').checked = false;
+                $('#fumaEdad').val(0);
+                $('#fumaAlDia').val(0);
+            }
+            if(json.ex_fumador)
+            {
+                document.getElementById('exFumador').checked = true;
+                $('#fumaEdad').val(json.ex_fumador.edad_fin);
+            }
+            else
+            {
+                document.getElementById('exFumador').checked = false;
+                $('#fumaEdad').val(0);
+            }
+            if(json.estiloVida.fumadorPasivo!=0)
+            {
+                document.getElementById('fumadorPasivo').checked = true;
+            }
+            else
+            {
+                document.getElementById('fumadorPasivo').checked = false;
+            }
+            if(json.drogas)
+            {
+                document.getElementById('droga').checked = true;
+                $('#drogaEdad').val(json.drogas.edad_inicio);
+                if(json.drogas.intravenosa != 0)
+                {
+                    document.getElementById('drogaIntra').checked = true;
+                }
+                else
+                {
+                    document.getElementById('drogaIntra').checked = false;
+                }
+                $('#drogaAnota').html(json.drogas.detalles);
+            }
+            else
+            {
+                document.getElementById('droga').checked = false;
+                $('#drogaEdad').val(0);
+                document.getElementById('drogaIntra').checked = false;
+                $('#drogaAnota').html("");
+            }
+            if(json.exAdicto)
+            {
+                document.getElementById('exAdicto').checked = true;
+                $('#exAdictoEdad').val(json.exAdicto.edad_fin);
+            }
+            $('#alergias').html(json.alergias.descripcion);
+        }
     </script>    
 </body>
 
