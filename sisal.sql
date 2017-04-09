@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2017 a las 04:06:50
+-- Tiempo de generación: 09-04-2017 a las 20:46:24
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sisal`
 --
+CREATE DATABASE IF NOT EXISTS `sisal` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sisal`;
 
 -- --------------------------------------------------------
 
@@ -104,6 +106,24 @@ INSERT INTO `antecedentes` (`id_antecedentes`, `id_sangre`, `tabaquismo`, `alcoh
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cafe`
+--
+
+CREATE TABLE `cafe` (
+  `id_cafe` int(11) NOT NULL,
+  `tazasDiarias` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cafe`
+--
+
+INSERT INTO `cafe` (`id_cafe`, `tazasDiarias`) VALUES
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `canceladas`
 --
 
@@ -181,9 +201,7 @@ CREATE TABLE `diagnostico` (
 
 INSERT INTO `diagnostico` (`id_diagnostico`, `enfermedad`, `estado`, `notas`) VALUES
 (1, '2', 'Grave', 'Esta empeorando con el paso del tiempo, debido a sus alergias'),
-(2, '6', 'Sin determinar', 'Aun no se sabe que ocasiono estos síntomas'),
-(4, 'sadfasdf', 'Grave', 'asdfasdf'),
-(5, 'Sinusitis', 'Controlado', 'Seguir el medicamento');
+(2, '6', 'Sin determinar', 'Aun no se sabe que ocasiono estos síntomas');
 
 -- --------------------------------------------------------
 
@@ -227,14 +245,14 @@ CREATE TABLE `drogas` (
   `id_drogas` int(11) NOT NULL,
   `edad_inicio` int(10) UNSIGNED NOT NULL,
   `detalles` text COLLATE utf8_unicode_ci NOT NULL,
-  `id_intravenosa` int(11) NOT NULL
+  `intravenosa` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `drogas`
 --
 
-INSERT INTO `drogas` (`id_drogas`, `edad_inicio`, `detalles`, `id_intravenosa`) VALUES
+INSERT INTO `drogas` (`id_drogas`, `edad_inicio`, `detalles`, `intravenosa`) VALUES
 (1, 16, 'Marihuana en cigarros', 1),
 (2, 19, 'Solo crack', 2);
 
@@ -320,6 +338,7 @@ CREATE TABLE `estilovida` (
   `id_ejercicio` int(11) DEFAULT NULL,
   `id_suenio` int(11) DEFAULT NULL,
   `id_comidas` int(11) DEFAULT NULL,
+  `id_cafe` int(11) DEFAULT NULL,
   `id_refresco` int(11) DEFAULT NULL,
   `id_dietas` int(11) DEFAULT NULL,
   `id_alcoholismo` int(11) DEFAULT NULL,
@@ -327,16 +346,17 @@ CREATE TABLE `estilovida` (
   `id_drogas` int(11) DEFAULT NULL,
   `id_exAdicto` int(11) DEFAULT NULL,
   `id_fumador` int(11) DEFAULT NULL,
-  `id_exFumador` int(11) DEFAULT NULL
+  `id_exFumador` int(11) DEFAULT NULL,
+  `fumadorPasivo` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `estilovida`
 --
 
-INSERT INTO `estilovida` (`id_estiloVida`, `id_ejercicio`, `id_suenio`, `id_comidas`, `id_refresco`, `id_dietas`, `id_alcoholismo`, `id_exAlcoholismo`, `id_drogas`, `id_exAdicto`, `id_fumador`, `id_exFumador`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+INSERT INTO `estilovida` (`id_estiloVida`, `id_ejercicio`, `id_suenio`, `id_comidas`, `id_cafe`, `id_refresco`, `id_dietas`, `id_alcoholismo`, `id_exAlcoholismo`, `id_drogas`, `id_exAdicto`, `id_fumador`, `id_exFumador`, `fumadorPasivo`) VALUES
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
+(2, 2, 2, 2, NULL, 2, 2, 2, 2, 2, 2, 2, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -355,9 +375,7 @@ CREATE TABLE `estudios` (
 
 INSERT INTO `estudios` (`id_estudios`, `orden`) VALUES
 (1, 'Preparatoria'),
-(2, 'Solo secundaria'),
-(4, 'asdfsdf'),
-(5, '');
+(2, 'Solo secundaria');
 
 -- --------------------------------------------------------
 
@@ -383,9 +401,7 @@ CREATE TABLE `exploracion` (
 
 INSERT INTO `exploracion` (`id_exploracion`, `peso`, `talla`, `frecuenciaRespiratoria`, `presArterBaja`, `presArterAlta`, `temperatura`, `frecuenciaCardiaca`, `exploracionFisica`) VALUES
 (1, 88, 36, 22, 112, 0, 31, 75, 'todo bien'),
-(2, 69, 32, 21, 102, 0, 28, 92, 'todo bien'),
-(4, 123, 23123, 123, 231321, 231, 123, 23, '123'),
-(5, 42, 35, 65, 117, 60, 31, 71, 'Todo correcto');
+(2, 69, 32, 21, 102, 0, 28, 92, 'todo bien');
 
 -- --------------------------------------------------------
 
@@ -498,25 +514,6 @@ INSERT INTO `interrogatorio` (`id_interrogatorio`, `antecedentesCardio`, `antece
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `intravenosa`
---
-
-CREATE TABLE `intravenosa` (
-  `id_intravenosa` int(11) NOT NULL,
-  `descripcion` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `intravenosa`
---
-
-INSERT INTO `intravenosa` (`id_intravenosa`, `descripcion`) VALUES
-(1, 'ninguna'),
-(2, 'ninguna');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `medicamentos`
 --
 
@@ -571,7 +568,7 @@ INSERT INTO `medicos` (`id_usuario`, `domicilioConsultorio`, `telEmergencias`, `
 
 CREATE TABLE `municipios` (
   `id` int(11) NOT NULL,
-  `estado_id` int(11) NOT NULL,
+  `estado_id` int(11) NOT NULL COMMENT 'Relación con estados',
   `clave` varchar(3) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1'
@@ -3116,9 +3113,7 @@ CREATE TABLE `notas_adicionales` (
 
 INSERT INTO `notas_adicionales` (`id_notasAdicionales`, `notas`) VALUES
 (1, 'El paciente luce alterado'),
-(2, 'nada'),
-(4, 'asdfasf'),
-(5, '');
+(2, 'nada');
 
 -- --------------------------------------------------------
 
@@ -3203,8 +3198,7 @@ CREATE TABLE `registro_clinico` (
 
 INSERT INTO `registro_clinico` (`id_registro`, `fecha_hora`, `id_medico`, `id_paciente`, `id_diagnostico`, `id_interrogatorio`, `id_exploracion`, `id_notasAdicionales`, `id_estudios`) VALUES
 (1, '2017-02-23 13:08:22', 1003, 1010, 1, 1, 1, 1, 1),
-(2, '2017-02-24 15:03:13', 1004, 1011, 2, 2, 2, 2, 2),
-(4, '2017-03-25 19:22:00', 1003, 1010, 4, 4, 4, 4, 4);
+(2, '2017-02-24 15:03:13', 1004, 1011, 2, 2, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -3224,9 +3218,7 @@ CREATE TABLE `registro_interrogatorio` (
 
 INSERT INTO `registro_interrogatorio` (`id_interrogatorio`, `motivoConsulta`, `sintomas`) VALUES
 (1, 'Se sentía mal', 'Dolor de  cabeza, mala digestión'),
-(2, 'Lo obligaron familiares', 'Presión alta, mareos, infección estomacal'),
-(4, 'asdfdsfasfd', 'asdfsdf'),
-(5, 'Alergia', 'Estaba muy grave, no dejaba de estornudar');
+(2, 'Lo obligaron familiares', 'Presión alta, mareos, infección estomacal');
 
 -- --------------------------------------------------------
 
@@ -3274,8 +3266,16 @@ INSERT INTO `tipocita` (`id`, `nombre`) VALUES
 
 CREATE TABLE `tipo_sangre` (
   `id_sangre` int(11) NOT NULL,
-  `tipo` int(11) NOT NULL
+  `tipo` varchar(3) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_sangre`
+--
+
+INSERT INTO `tipo_sangre` (`id_sangre`, `tipo`) VALUES
+(1, 'A+'),
+(2, 'A-');
 
 -- --------------------------------------------------------
 
@@ -3298,8 +3298,7 @@ CREATE TABLE `tratamiento` (
 
 INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`, `indicaciones`, `id_registro`) VALUES
 (1, 0, 6, '09:30:00', 'Tomar con alimentos', 1),
-(2, 0, 3, '15:00:00', 'Reposar media hora', 2),
-(5, 1, 4, '00:00:07', 'sadfasdf', 4);
+(2, 0, 3, '15:00:00', 'Reposar media hora', 2);
 
 -- --------------------------------------------------------
 
@@ -3334,7 +3333,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_usuario`, `usuario`, `pass`, `email`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `Domicilio`, `id_municipio`, `codigoPostal`, `telefonoDomiciliar`, `telefonoCelular`, `genero`, `noSeguroSocial`, `fechaNacimiento`, `Ocupacion`, `sessionKey`) VALUES
 (1001, 'josfra21', 'panchito21', 'francisco.mtzc@hotmail.com', 'José Francisco', 'Martinez', 'Camacho', 'Santa Gertrudis 2133', 629, 45615, '36011047', '3319098665', 'Masculino', '2392-66-1324-3', '1998-07-21', 'Estudiante', NULL),
 (1002, 'LIMA', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'luisivanmorett@gmail.com', 'Luis Iván', 'Morett', 'Arévalo', 'Benito Juarez', 651, 44865, '36458745', '3311516589', 'Masculino', '5480-61-3024-8', '1998-01-07', 'Estudiante', ''),
-(1003, 'brucamer', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'doctorbrunocamacho@gmail.com', 'Bruno', 'Camacho', 'Mercado', 'Independencia 1659', 1907, 46585, '8121348', '6681030000', 'Masculino', '6840-61-3154-5', '1955-10-16', 'Doctor', NULL),
+(1003, 'brucamer', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'doctorbrunocamacho@gmail.com', 'Bruno', 'Camacho', 'Mercado', 'Independencia 1659', 1907, 46585, '8121348', '6681030000', 'Masculino', '6840-61-3154-5', '1955-10-16', 'Doctor', ''),
 (1004, 'Jacamer', 'JaimeCM', 'doctorjaimecamacho@gmail.com', 'Jaime', 'Camacho', 'Mercado', 'Independencia 1655', 1607, 46519, '8121348', '6681456987', 'Masculino', '6315-91-3244-0', '1966-02-15', 'Doctor', NULL),
 (1005, 'gaby13', 'Gabriela_31', 'gaby@gmail.com', 'Gabriela', 'Lopez', 'Fuentes', 'Reforma 4686 int.30', 752, 46953, '34584521', '3312058456', 'Femenino', '4956-91-3875-0', '1984-01-12', 'Recepcionista', NULL),
 (1006, 'annel', 'ARG34', 'annelRuiz@hotmail.com', 'Annel', 'Ruiz', 'García', 'Santa Margarita', 468, 46853, '34598465', '3356988154', 'Femenino', '4689-02-4685-7', '1979-08-22', 'Recepcionista', NULL),
@@ -3372,6 +3371,12 @@ ALTER TABLE `alergias`
 --
 ALTER TABLE `antecedentes`
   ADD PRIMARY KEY (`id_antecedentes`);
+
+--
+-- Indices de la tabla `cafe`
+--
+ALTER TABLE `cafe`
+  ADD PRIMARY KEY (`id_cafe`);
 
 --
 -- Indices de la tabla `citas`
@@ -3462,12 +3467,6 @@ ALTER TABLE `fumador`
 --
 ALTER TABLE `interrogatorio`
   ADD PRIMARY KEY (`id_interrogatorio`);
-
---
--- Indices de la tabla `intravenosa`
---
-ALTER TABLE `intravenosa`
-  ADD PRIMARY KEY (`id_intravenosa`);
 
 --
 -- Indices de la tabla `medicamentos`
@@ -3574,6 +3573,11 @@ ALTER TABLE `alcoholico`
 ALTER TABLE `alergias`
   MODIFY `id_alergias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `cafe`
+--
+ALTER TABLE `cafe`
+  MODIFY `id_cafe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
@@ -3587,7 +3591,7 @@ ALTER TABLE `comidas`
 -- AUTO_INCREMENT de la tabla `diagnostico`
 --
 ALTER TABLE `diagnostico`
-  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `dietas`
 --
@@ -3617,12 +3621,12 @@ ALTER TABLE `estilovida`
 -- AUTO_INCREMENT de la tabla `estudios`
 --
 ALTER TABLE `estudios`
-  MODIFY `id_estudios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_estudios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `exploracion`
 --
 ALTER TABLE `exploracion`
-  MODIFY `id_exploracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_exploracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `ex_adicto`
 --
@@ -3649,11 +3653,6 @@ ALTER TABLE `fumador`
 ALTER TABLE `interrogatorio`
   MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de la tabla `intravenosa`
---
-ALTER TABLE `intravenosa`
-  MODIFY `id_intravenosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
@@ -3672,7 +3671,7 @@ ALTER TABLE `notas`
 -- AUTO_INCREMENT de la tabla `notas_adicionales`
 --
 ALTER TABLE `notas_adicionales`
-  MODIFY `id_notasAdicionales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_notasAdicionales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `refresco`
 --
@@ -3682,12 +3681,12 @@ ALTER TABLE `refresco`
 -- AUTO_INCREMENT de la tabla `registro_clinico`
 --
 ALTER TABLE `registro_clinico`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `registro_interrogatorio`
 --
 ALTER TABLE `registro_interrogatorio`
-  MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `suenio`
 --
@@ -3702,12 +3701,12 @@ ALTER TABLE `tipocita`
 -- AUTO_INCREMENT de la tabla `tipo_sangre`
 --
 ALTER TABLE `tipo_sangre`
-  MODIFY `id_sangre` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sangre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `tratamiento`
 --
 ALTER TABLE `tratamiento`
-  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --

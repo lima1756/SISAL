@@ -92,7 +92,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                       <li><a href="../dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="../dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -863,7 +863,7 @@
             else
             {
                 $('#dietaInfo').prop('disabled', true);
-                $('#dietaInfo').val(0);
+                $('#dietaInfo').val("");
             }
         });
 
@@ -1124,7 +1124,7 @@
             if(json.dietas)
             {
                 document.getElementById('dieta').checked = true;
-                $('#dietaInfo').val(json.dietas.informacionDieta);
+                $('#dietaInfo').html(json.dietas.informacionDieta);
             }
             else
             {
@@ -1362,7 +1362,7 @@
             else
             {
                 $('#dietaInfo').prop('disabled', true);
-                $('#dietaInfo').val(0);
+                $('#dietaInfo').html("");
             }
 
             if(document.getElementById('refresco').checked){
