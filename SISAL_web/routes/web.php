@@ -399,6 +399,7 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
         ['antecedentesCardio', 'antecedentesDigesti', 'antecedentesEndo', 'antecedentesHemoli', 'antecedentesMuscu', 'antecedentesPiel', 'antecedentesReprod', 'antecedentesRespi', 'antecedentesNerv', 'antecedentesGener', 'antecedentesUrina'],
         [[$_POST['antecedentesCardio'], $_POST['antecedentesDigest'], $_POST['antecedentesEndocr'], $_POST['antecedentesHemo'], $_POST['antecedentesMusc'], $_POST['antecedentesPiel'],$_POST['antecedentesRepr'], $_POST['antecedentesResp'], $_POST['antecedentesNerv'], $_POST['antecedentesGene'], $_POST['antecedentesUri']]]);
     $interrogatorio = dbConnection::lastID();
+    
     $ejercicio = null;
     if(isset($_POST['ejercicio']))
     {
@@ -529,4 +530,23 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
         ['id_antecedentes', 'id_interrogatorio', 'id_alergias', 'id_estiloVida'],
         [$antecedentes, $interrogatorio, $alergias, $estiloVida],
         [['pacientes.id_usuario', $_POST['idPaciente']]]);
+    
+    dbConnection::RAW("DELETE FROM antecedentes WHERE id_antecedentes NOT IN (SELECT id_antecedentes FROM pacientes)");
+    dbConnection::RAW("DELETE FROM interrogatorio WHERE id_interrogatorio NOT IN (SELECT id_interrogatorio FROM pacientes)");
+    dbConnection::RAW("DELETE FROM alergias WHERE id_alergias NOT IN (SELECT id_alergias FROM pacientes)");
+    dbConnection::RAW("DELETE FROM estilovida WHERE id_estiloVida NOT IN (SELECT id_estiloVida FROM pacientes)");
+    
+    dbConnection::RAW("DELETE FROM ejercicio WHERE id_ejercicio NOT IN (SELECT id_ejercicio FROM estilovida)");
+    dbConnection::RAW("DELETE FROM suenio WHERE id_suenio NOT IN (SELECT id_suenio FROM estilovida)");
+    dbConnection::RAW("DELETE FROM comidas WHERE id_comidas NOT IN (SELECT id_comidas FROM estilovida)");
+    dbConnection::RAW("DELETE FROM cafe WHERE id_cafe NOT IN (SELECT id_cafe FROM estilovida)");
+    dbConnection::RAW("DELETE FROM refresco WHERE id_refresco NOT IN (SELECT id_refresco FROM estilovida)");
+    dbConnection::RAW("DELETE FROM dietas WHERE id_dietas NOT IN (SELECT id_dietas FROM estilovida)");
+    dbConnection::RAW("DELETE FROM alcoholico WHERE id_alcoholico NOT IN (SELECT id_alcoholismo FROM estilovida)");
+    dbConnection::RAW("DELETE FROM ex_alcoholico WHERE id_exAlcoholico NOT IN (SELECT id_exAlcoholismo FROM estilovida)");
+    dbConnection::RAW("DELETE FROM drogas WHERE id_drogas NOT IN (SELECT id_drogas FROM estilovida)");
+    dbConnection::RAW("DELETE FROM ex_adicto WHERE id_exAdicto NOT IN (SELECT id_exAdicto FROM estilovida)");
+    dbConnection::RAW("DELETE FROM fumador WHERE id_fumador NOT IN (SELECT id_fumador FROM estilovida)");
+    dbConnection::RAW("DELETE FROM ex_fumador WHERE id_exFumador NOT IN (SELECT id_exFumador FROM estilovida)");
+
 });

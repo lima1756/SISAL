@@ -292,7 +292,6 @@
                                                 <?php foreach($sangres as $s):?>
                                                     <option value="<?php echo $s['id_sangre'];?>"> <?php echo $s['tipo'];?> </option>
                                                 <?php endforeach; ?>
-                                                <option value="otro">Sin seleccionar</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -1060,8 +1059,10 @@
             }
             $('#edad').html(edad);
             $('#ocupacion').val(json.generales.Ocupacion);
-
-            $('#sangre').val(json.sangre.id_sangre);
+            if(json.sangre)
+            {
+                $('#sangre').val(json.sangre.id_sangre);
+            }
             $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
             $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
             $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);

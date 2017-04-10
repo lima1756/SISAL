@@ -488,7 +488,7 @@
                 }
                 try
                 {
-                    
+                    var_dump($query);
                     $insert = self::$DBCon->prepare($query);
                     $insert->execute($data);
                     return 1;
@@ -508,5 +508,25 @@
         public static function lastID()
         {
             return self::$DBCon->lastInsertId();
+        }
+
+        /**
+         * RAW
+         * Funcion para realizar queries de manera RAW que no se puedan realizar en alguno de los metodos anteriores
+         * @param String $query
+         * @return numerico or Sting
+         */
+        public static function RAW($query)
+        {
+            try
+            {
+                $insert = self::$DBCon->prepare($query);
+                $insert->execute();
+                return 1;
+            }
+            catch(PDOException $e)
+            {
+                return $e->getMessage();
+            }
         }
     }
