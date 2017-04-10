@@ -205,10 +205,11 @@
                     <div class="col-lg-12" name="toda_info" id="toda_info" style="visibility: hidden; display:none;">
                 <?php endif; ?>
                     <form name="formulario" id="formulario">
+                        <input type="text" name="idPaciente" id="idPaciente" hidden/>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" onclick="edicion(); return false;" type="submit" id="editar">Editar</button></span>
-                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" style="display:none;">Aceptar</button></span>
+                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="aceptacion(); return false;" style="display:none;">Aceptar</button></span>
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                                 <span><h2 id="nombre_completo" name="nombre_completo"></h2></span>
                             </div>
@@ -255,8 +256,8 @@
                                         <div class="form-group">
                                             <select class="form-control" id="genero" name="genero" disabled>
                                                 <option>Género</option>
-                                                <option value="m">Masculino</option>
-                                                <option value="f">Femenino</option>
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -289,7 +290,7 @@
                                             <label>Tipo de sangre</label>
                                             <select class="form-control" name="sangre" id="sangre" disabled>
                                                 <?php foreach($sangres as $s):?>
-                                                    <option value="<?php echo $s['tipo'];?>"> <?php echo $s['tipo'];?> </option>
+                                                    <option value="<?php echo $s['id_sangre'];?>"> <?php echo $s['tipo'];?> </option>
                                                 <?php endforeach; ?>
                                                 <option value="otro">Sin seleccionar</option>
                                             </select>
@@ -643,7 +644,8 @@
     var idDoctor = 0;
     var idCita = 0;
     var csrfVal="<?php echo csrf_token(); ?>";
-    $(document).ready(function() {
+    $(document).ready(function() 
+    {
         $('#dataTables-example').DataTable({
             responsive: true,
             "columnDefs": [
@@ -667,6 +669,7 @@
                     }
                 <?php endif; ?>
             <?php endforeach; ?>
+            $('#idPaciente').val(id);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': csrfVal
@@ -706,6 +709,7 @@
         });
         
         } );
+
         function edicion()
         {
             $('#formulario :input').prop('disabled', false);
@@ -1035,11 +1039,11 @@
             $('#email').val(json.generales.telefonoDomiciliar);
             if(json.generales.genero=="Masculino")
             {
-                $('#genero').val("m");
+                $('#genero').val("Masculino");
             }
             else
             {
-                $('#genero').val("f");
+                $('#genero').val("Femenino");
             }
             $('#seguroSocial').val(json.generales.noSeguroSocial);
             var fecha = new Date(json.generales.fechaNacimiento);
@@ -1057,7 +1061,7 @@
             $('#edad').html(edad);
             $('#ocupacion').val(json.generales.Ocupacion);
 
-            $('#sangre').val(json.sangre.tipo);
+            $('#sangre').val(json.sangre.id_sangre);
             $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
             $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
             $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);
@@ -1088,16 +1092,21 @@
                 document.getElementById('ejercicio').checked = false;
                 $('#ejercicioVecesSemana').val(0);
             }
-            $('#horasSuenio').val(json.suenio.horasDiarias);
-            if(json.comidas.desayuno)
+            if(json.suenio)
             {
-                document.getElementById('desayuna').checked = true;
+                $('#horasSuenio').val(json.suenio.horasDiarias);
             }
-            else
-            {
-                document.getElementById('desayuna').checked = false;
+            if(json.comidas){
+                if(json.comidas.desayuno)
+                {
+                    document.getElementById('desayuna').checked = true;
+                }
+                else
+                {
+                    document.getElementById('desayuna').checked = false;
+                }
+                $('#comidasDia').val(json.comidas.comidasDiarias);
             }
-            $('#comidasDia').val(json.comidas.comidasDiarias);
             if(json.cafe)
             {
                 document.getElementById('cafe').checked = true;
@@ -1116,7 +1125,7 @@
             else
             {
                 document.getElementById('refresco').checked = false;
-                $('#refrescoAlDia').val(json.refresco.vasosDiarios);
+                $('#refrescoAlDia').val(0);
             }
             if(json.dietas)
             {
@@ -1435,6 +1444,31 @@
             })
             obtenerCita();
         });
+
+        function aceptacion()
+        {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                }
+            })
+            $.post("/ajaxDgP",
+                $('#formulario').serialize()
+            ,
+            function(data, status){
+                
+            });
+            $('#formulario :input').prop('disabled', true);
+            $('#editar').prop('disabled', false);
+            $('#cancelar').prop('disabled', false);
+            $('#aceptar').prop('disabled', false);
+            $('label[id="checkbox"]').attr('disabled', true);
+            $('#editar').show();
+            $('#cancelar').hide();
+            $('#aceptar').hide();
+            $('#medico').attr("disabled", false);
+            $('#fechaCita').attr("disabled", false);
+        }
     </script>    
 </body>
 

@@ -267,7 +267,7 @@
                         else
                         {
                             
-                            return "ERROR campos no corresponden con datos";
+                            return "ERROR campos no corresponden con datos 1";
                             
                         }
                     }
@@ -294,15 +294,12 @@
                     }
                     else
                     {
-                        return "ERROR campos no corresponden con datos";
+                        return "ERROR campos no corresponden con datos 2";
                     }
                 }
                 try
                 {
-                    var_dump($query);
-                    var_dump($data);
                     $insert = self::$DBCon->prepare($query);
-                    
                     $insert->execute($data);
                     return 1;
                 }

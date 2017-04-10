@@ -213,12 +213,18 @@ Route::POST('/ajaxDP', function() {
         if($generales[0]['id_antecedentes'] != null)
         {
             $antecedentes = dbConnection::select(["antecedentes.*"], "antecedentes", [["antecedentes.id_antecedentes", $generales[0]['id_antecedentes']]]);
-            $infoPacientes['antecedentes'] = $antecedentes[0];
-            if($antecedentes[0]['id_sangre'] != null)
+            if(count($antecedentes)>0)
             {
-                $sangre = dbConnection::select(["tipo_sangre.tipo"], "tipo_sangre", [["tipo_sangre.id_sangre", $antecedentes[0]['id_sangre']]]);
-                $infoPacientes['sangre'] = $sangre[0];
+                $infoPacientes['antecedentes'] = $antecedentes[0];
+                if($antecedentes[0]['id_sangre'] != null)
+                {
+                    $sangre = dbConnection::select(["*"], "tipo_sangre", [["tipo_sangre.id_sangre", $antecedentes[0]['id_sangre']]]);
+                    $infoPacientes['sangre'] = $sangre[0];
+                }
             }
+            else
+                $infoPacientes['antecedentes'] = [];
+            
         }
         if($generales[0]['id_interrogatorio'] != null)
         {
@@ -257,42 +263,50 @@ Route::POST('/ajaxDP', function() {
             if($estiloVida[0]["id_dietas"] != null)
             {
                 $dietas = dbConnection::select(["dietas.informacionDieta"], "dietas", [["dietas.id_dietas", $estiloVida[0]['id_dietas']]]);
-                $infoPacientes['dietas'] = $dietas[0];
+                if(count($dietas)>0)
+                    $infoPacientes['dietas'] = $dietas[0];
             }
             if($estiloVida[0]["id_alcoholismo"] != null)
             {
                 $alcoholico = dbConnection::select(["alcoholico.edad_inicio", "alcoholico.vasos"], "alcoholico", [["alcoholico.id_alcoholico", $estiloVida[0]['id_alcoholismo']]]);
-                $infoPacientes['alcoholico'] = $alcoholico[0];
+                if(count($alcoholico)>0)
+                    $infoPacientes['alcoholico'] = $alcoholico[0];
             }
             if($estiloVida[0]["id_exAlcoholismo"] != null)
             {
                 $ex_alcoholico = dbConnection::select(["ex_alcoholico.edad_fin"], "ex_alcoholico", [["ex_alcoholico.id_exAlcoholico", $estiloVida[0]['id_exAlcoholismo']]]);
-                $infoPacientes['ex_alcoholico'] = $ex_alcoholico[0];
+                if(count($ex_alcoholico)>0)
+                    $infoPacientes['ex_alcoholico'] = $ex_alcoholico[0];
             }
             if($estiloVida[0]["id_drogas"]!= null)
             {
                 $drogas = dbConnection::select(["drogas.edad_inicio", "drogas.detalles", "drogas.intravenosa"], "drogas", [["drogas.id_drogas", $estiloVida[0]['id_drogas']]]);
-                $infoPacientes['drogas'] = $drogas[0];
+                if(count($drogas)>0)
+                    $infoPacientes['drogas'] = $drogas[0];
             }
             if($estiloVida[0]["id_exAdicto"] != null)
             {
                 $ex_adicto = dbConnection::select(["ex_adicto.edad_fin"], "ex_adicto", [["ex_adicto.id_exAdicto", $estiloVida[0]['id_exAdicto']]]);
-                $infoPacientes['exAdicto'] = $ex_adicto[0];
+                if(count($ex_adicto)>0)
+                    $infoPacientes['exAdicto'] = $ex_adicto[0];
             }
             if($estiloVida[0]["id_fumador"] != null)
             {
                 $fumador = dbConnection::select(["fumador.edad_inicio", "fumador.ciggarrosDiarios"], "fumador", [["fumador.id_fumador", $estiloVida[0]['id_fumador']]]);
-                $infoPacientes['fumador'] = $fumador[0];
+                if(count($fumador)>0)
+                    $infoPacientes['fumador'] = $fumador[0];
             }
             if($estiloVida[0]["id_exFumador"] != null)
             {
                 $ex_fumador = dbConnection::select(["ex_fumador.edad_fin"], "ex_fumador", [["ex_fumador.id_exFumador", $estiloVida[0]['id_exFumador']]]);
-                $infoPacientes['ex_fumador'] = $ex_fumador[0];
+                if(count($ex_fumador)>0)            
+                    $infoPacientes['ex_fumador'] = $ex_fumador[0];
             }
             if($estiloVida[0]["id_cafe"] != null)
             {
                 $cafe = dbConnection::select(["cafe.tazasDiarias"], "cafe", [["cafe.id_cafe", $estiloVida[0]['id_cafe']]]);
-                $infoPacientes['cafe'] = $cafe[0];
+                if(count($cafe)>0)
+                    $infoPacientes['cafe'] = $cafe[0];
             }
             return json_encode($infoPacientes);
 
@@ -368,4 +382,151 @@ Route::POST('/ajaxDCdP' /* Doctor obtiene Cita de paciente*/, function() {
     {
         return 0;
     }
+});
+
+Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
+    
+    dbConnection::update("usuarios",
+        ['nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
+        [$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento'], $_POST['ocupacion']],
+        [['usuarios.id_usuario', $_POST['idPaciente']]]);
+    dbConnection::insert("antecedentes",
+        ['id_sangre', 'tabaquismo', 'alcoholismo', 'antecedentesHereditarios', 'antecedentesPatologicos', 'antecedentesNoPatologicos'],
+        [[$_POST['sangre'], $_POST['tabaquismoCantidad'], $_POST['alcoholismoCantidad'], $_POST['antecedentesHereditarios'], $_POST['antecedentesPatologicos'], $_POST['antecedentesNoPatologicos']]]);
+    $antecedentes = dbConnection::lastID();
+    
+    dbConnection::insert("interrogatorio",
+        ['antecedentesCardio', 'antecedentesDigesti', 'antecedentesEndo', 'antecedentesHemoli', 'antecedentesMuscu', 'antecedentesPiel', 'antecedentesReprod', 'antecedentesRespi', 'antecedentesNerv', 'antecedentesGener', 'antecedentesUrina'],
+        [[$_POST['antecedentesCardio'], $_POST['antecedentesDigest'], $_POST['antecedentesEndocr'], $_POST['antecedentesHemo'], $_POST['antecedentesMusc'], $_POST['antecedentesPiel'],$_POST['antecedentesRepr'], $_POST['antecedentesResp'], $_POST['antecedentesNerv'], $_POST['antecedentesGene'], $_POST['antecedentesUri']]]);
+    $interrogatorio = dbConnection::lastID();
+    $ejercicio = null;
+    if(isset($_POST['ejercicio']))
+    {
+        dbConnection::insert("ejercicio",
+            ["veces_semana"],
+            [[$_POST['ejercicioVecesSemana']]]);
+        $ejercicio = dbConnection::lastID();
+    }
+    dbConnection::insert("suenio",
+        ["horasDiarias"],
+        [[$_POST['horasSuenio']]]);
+    $suenio = dbConnection::lastID();
+
+    if(isset($_POST['desayuna']))
+    {
+        dbConnection::insert("comidas",
+            ["desayuno", "comidasDiarias"],
+            [[1, $_POST['comidasDia']]]);
+        $comidas = dbConnection::lastID();
+    }
+    else
+    {
+        dbConnection::insert("comidas",
+            ["desayuno", "comidasDiarias"],
+            [[0, $_POST['comidasDia']]]);
+        $comidas = dbConnection::lastID();
+    }
+    
+
+    $cafe = null;
+    if(isset($_POST['cafe']))
+    {
+        dbConnection::insert("cafe",
+            ["tazasDiarias"],
+            [[$_POST['cafeAlDia']]]);
+        $cafe = dbConnection::lastID();
+    }
+
+    $refresco = null;
+    if(isset($_POST['refresco']))
+    {
+        dbConnection::insert("refresco",
+            ["vasosDiarios"],
+            [[$_POST['refrescoAlDia']]]);
+        $refresco = dbConnection::lastID();
+    }
+
+    $dieta = null;
+    if(isset($_POST['dieta']))
+    {
+        dbConnection::insert("dietas",
+            ["informacionDieta"],
+            [[$_POST['dietaInfo']]]);
+        $dieta = dbConnection::lastID();
+    }
+    
+    $alcohol = null;
+    $exAlcohol = null;
+    if(isset($_POST['alcohol']))
+    {
+        dbConnection::insert("alcoholico",
+            ["edad_inicio", "vasos"],
+            [[$_POST['alcoholEdad'], $_POST['alcoholAlDia']]]);
+        $alcohol = dbConnection::lastID();
+    }
+    else
+    {
+        if(isset($_POST['exAlcoholico']))
+        {
+            dbConnection::insert("ex_alcoholico",
+                ["edad_fin"],
+                [[$_POST['exAlcoholicoEdad']]]);
+            $exAlcohol = dbConnection::lastID();
+        }
+    }
+    $fuma = null;
+    $exFuma = null;
+    if(isset($_POST['fuma']))
+    {
+        dbConnection::insert("fumador",
+            ["edad_inicio", "cigarrosDiarios"],
+            [[$_POST['fumaEdad'], $_POST['fumaAlDia']]]);
+        $fuma = dbConnection::lastID();
+    }
+    else
+    {
+        if(isset($_POST['exFumador']))
+        {
+            dbConnection::insert("ex_fumador",
+                ["edad_fin"],
+                [[$_POST['exFumadorEdad']]]);
+            $exFuma = dbConnection::lastID();
+        }
+    }
+    $fumadorPasivo = 0;
+    if(isset($_POST['fumadorPasivo']))
+    {
+        $fumadorPasivo = 1;
+    }
+    $droga = null;
+    $exDroga = null;
+    if(isset($_POST['droga']))
+    {
+        dbConnection::insert("drogas",
+            ["edad_inicio", "detalles", "intravenosa"],
+            [[$_POST['drogaEdad'], $_POST['drogaAnota'], $_POST['drogaIntra']]]);
+        $droga = dbConnection::lastID();
+    }
+    else
+    {
+        if(isset($_POST['exAdicto']))
+        {
+            dbConnection::insert("ex_fumador",
+                ["edad_fin"],
+                [[$_POST['exAdictoEdad']]]);
+            $exDroga = dbConnection::lastID();
+        }
+    }
+    dbConnection::insert("estiloVida",
+        ["id_ejercicio", "id_suenio", "id_comidas", "id_cafe", "id_refresco", "id_dietas", "id_alcoholismo", "id_exAlcoholismo", "id_drogas", "id_exAdicto", 'id_fumador', 'id_exFumador', "fumadorPasivo"],
+        [[$ejercicio, $suenio, $comidas, $cafe, $refresco, $dieta, $alcohol, $exAlcohol, $droga, $exDroga, $fuma, $exFuma, $fumadorPasivo]]);
+    $estiloVida = dbConnection::lastID();
+    dbConnection::insert("alergias",
+        ["descripcion"],
+        [[$_POST['alergias']]]);
+    $alergias = dbConnection::lastID();
+    dbConnection::update("pacientes",
+        ['id_antecedentes', 'id_interrogatorio', 'id_alergias', 'id_estiloVida'],
+        [$antecedentes, $interrogatorio, $alergias, $estiloVida],
+        [['pacientes.id_usuario', $_POST['idPaciente']]]);
 });
