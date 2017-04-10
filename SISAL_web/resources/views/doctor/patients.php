@@ -595,27 +595,19 @@
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="citas"  >
                                         <div class="form-group">
-                                            <label>Fecha de cita</label>
-                                            <select class="form-control">
-                                                <option>12-12-12</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <label>Medico: </label>
+                                            <select class="form-control" name="medico" id="medico">
                                             </select>
                                         </div>
-                                        <div class="alert">
-                                            Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div class="form-group">
+                                            <label>Fecha de cita</label>
+                                            <select class="form-control" name="fechaCita" id="fechaCita">
+                                            </select>
                                         </div>
-                                        <div class="alert">
-                                            Mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        <div id="contenidoCita" hidden>
+                                            
                                         </div>
-                                        <div class="alert">
-                                            Aun mas Info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
-                                        <div class="alert">
-                                            Info de la info: Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -647,7 +639,10 @@
      
     <script>
     var json = 0;
-
+    var id = 0;
+    var idDoctor = 0;
+    var idCita = 0;
+    var csrfVal="<?php echo csrf_token(); ?>";
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true,
@@ -658,58 +653,59 @@
             ],
             "order": [[ 3, "desc" ]]
         });
-             $('input[type=radio][name=paciente]').change(function() {
-                 cancelacion();
-                var csrfVal="<?php echo csrf_token(); ?>";
-                <?php foreach ($pacientes as $key => $p): ?>
-                    <?php if($key==0): ?>
-                        if (this.value == <?php echo $p['id_paciente'];?>) {
-                            id=$('input:radio[name=paciente]:checked').val();
-                        }
-                    <?php else: ?>
-                        else if (this.value == <?php echo $p['id_paciente'];?>) {
-                            id=$('input:radio[name=paciente]:checked').val();
-                        }
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': csrfVal
+        $('input[type=radio][name=paciente]').change(function() {
+            cancelacion();
+            $('#contenidoCita').hide();
+            <?php foreach ($pacientes as $key => $p): ?>
+                <?php if($key==0): ?>
+                    if (this.value == <?php echo $p['id_paciente'];?>) {
+                        id=$('input:radio[name=paciente]:checked').val();
                     }
-                })
-                $.post("/ajaxDP", { <?php //DP se refiere a Doctor-Patients ?>
-                    'patientId': id
-                },
-                function(data, status){
-                    json = JSON.parse(data);
-                    if(json != 0)
-                    {
-                        $('#toda_info').show();
-                        $('#toda_info').attr("style", "");
-                        document.getElementById('toda_info').scrollIntoView();
-                        $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
-                        recuperarInfo();
-                        cancelacion();
+                <?php else: ?>
+                    else if (this.value == <?php echo $p['id_paciente'];?>) {
+                        id=$('input:radio[name=paciente]:checked').val();
                     }
-                    
-                });
-                /*$.post("/ajaxSRTI", {
-                    'ticketid': id
-                },
-                function(data, status){
-                    if(data=="-1"){
-                        $('#imgn').attr("src", "")
-                        $('#imgn').attr('alt', 'No se subió ninguna imagen');
-                    }
-                    else{
-                        var json = JSON.parse(data);
-                        $('#imgn').attr("src", "/storage/ticketImages/" + json.nombre)
-                        $('#imgn').attr('alt', 'img');
-                    }
-                });*/
+                <?php endif; ?>
+            <?php endforeach; ?>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                }
+            })
+            $.post("/ajaxDP", { <?php //DP se refiere a Doctor-Patients ?>
+                'patientId': id
+            },
+            function(data, status){
+                json = JSON.parse(data);
+                if(json != 0)
+                {
+                    $('#toda_info').show();
+                    $('#toda_info').attr("style", "");
+                    document.getElementById('toda_info').scrollIntoView();
+                    $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                    recuperarInfo();
+                    cancelacion();
+                }
+                
             });
-            
-            } );
+            $.post("/ajaxDDdP", {
+                'patientId': id
+            },
+            function(data, status){
+                document.getElementById("medico").innerHTML = "";
+                doctores = JSON.parse(data);
+                for(var x = 0; x< doctores.cantidad; x++)
+                {
+                    document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].usuario + " - " + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
+                }
+                idDoctor = doctores[0].id_medico;
+                obtenerFechas();
+                
+                
+            });
+        });
+        
+        } );
         function edicion()
         {
             $('#formulario :input').prop('disabled', false);
@@ -819,7 +815,8 @@
             $('#editar').show();
             $('#cancelar').hide();
             $('#aceptar').hide();
-            
+            $('#medico').attr("disabled", false);
+            $('#fechaCita').attr("disabled", false);
                 
         }
 
@@ -1383,6 +1380,61 @@
                 $('#ejercicioVecesSemana').val(0);
             }
         }
+
+        function obtenerFechas()
+        {
+            document.getElementById("fechaCita").innerHTML ="";
+            $.post("/ajaxDCdDdP", {
+                    'patientId': id,
+                    'doctorId' : idDoctor
+                },
+                function(data, status){
+                    citas = JSON.parse(data);
+                    for(var x = 0; x< citas.cantidad; x++)
+                    {
+                        document.getElementById("fechaCita").innerHTML = document.getElementById('fechaCita').innerHTML + "<option value=\"" + citas[x].id_registro + "\">" + citas[x].fecha + "</option>"
+                    }
+                    idCita = citas[0].id_registro;
+                    obtenerCita()
+                });
+                
+        }
+
+        $('#medico').on('change', function() {
+            idDoctor = $('#medico').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                }
+            })
+            obtenerFechas();
+        });
+
+        function obtenerCita()
+        {
+            $.post("/ajaxDCdP", {
+                    'registroId': idCita
+                },
+                function(data, status){
+                    cita = JSON.parse(data);
+                    //Tu decision como mostraria la informacion del json aqui lo que yo hago es imprimirlo al chingadazo pero pues es demasiado yolo
+                    document.getElementById('contenidoCita').innerHTML = JSON.stringify(cita);
+                    //TODO TUYO
+                    //Considera que pueden no haber medicamentos asi que debes de revisar eso antes de imprimirlos o no
+                    $('#contenidoCita').show();
+                });
+            
+        }
+
+        $('#fechaCita').on('change', function() {
+            idCita = $('#fechaCita').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                }
+            })
+            obtenerCita();
+        });
     </script>    
 </body>
 

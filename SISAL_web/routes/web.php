@@ -303,3 +303,69 @@ Route::POST('/ajaxDP', function() {
         return 0;
     }
 });
+
+Route::POST('/ajaxDDdP'/* Doctor obtiene doctores de paciente */, function()  {
+    if(Type::isMedic())
+    {
+        $listaDoctores = dbConnection::select(
+            ['registro_clinico.id_medico', 'usuarios.nombre', 'usuarios.apellidoPaterno', 'usuarios.apellidoMaterno', 'usuarios.usuario'],
+            "registro_clinico",
+            [['registro_clinico.id_paciente', $_POST['patientId']]],
+            [['usuarios', 'registro_clinico.id_medico', 'usuarios.id_usuario']],
+            "GROUP BY registro_clinico.id_medico");
+        $listaDoctores['cantidad'] = count($listaDoctores);
+        return json_encode($listaDoctores);
+    }
+    else
+    {
+        return 0;
+    }
+});
+
+Route::POST('/ajaxDCdDdP' /* Doctor obitiene Citas de Doctores de Paciente */, function() {
+    if(Type::isMedic())
+    {
+        $listaCitas = dbConnection::select(
+            ['registro_clinico.id_registro', 'DATE_FORMAT(registro_clinico.fecha_hora, \'%d/%m/%y\') AS fecha'],
+            "registro_clinico",
+            [['registro_clinico.id_paciente', $_POST['patientId']], 
+                ['registro_clinico.id_medico', $_POST['doctorId']]],
+            [],
+            "ORDER BY fecha DESC"
+            );
+        $listaCitas['cantidad'] = count($listaCitas);
+        return json_encode($listaCitas);
+    }
+    else
+    {
+        return 0;
+    }
+});
+
+Route::POST('/ajaxDCdP' /* Doctor obtiene Cita de paciente*/, function() {
+    if(Type::isMedic())
+    {
+        $cita = dbConnection::select(
+            ['registro_clinico.id_diagnostico', 'registro_clinico.id_interrogatorio', 'registro_clinico.id_exploracion', 'registro_clinico.id_notasAdicionales', 'registro_clinico.id_estudios'],
+            "registro_clinico",
+            [['registro_clinico.id_registro', $_POST['registroId']]]
+            );
+        $diagnostico = dbConnection::select(['diagnostico.enfermedad', 'diagnostico.estado', 'diagnostico.notas'], "diagnostico", [['diagnostico.id_diagnostico', $cita[0]['id_diagnostico']]]);
+        $info['diagnotico'] = $diagnostico[0];
+        $interrogatorio = dbConnection::select(['registro_interrogatorio.motivoConsulta', 'registro_interrogatorio.sintomas'], "registro_interrogatorio", [['registro_interrogatorio.id_interrogatorio', $cita[0]['id_interrogatorio']]]);
+        $info['interrogatorio'] = $interrogatorio[0];
+        $exploracion = dbConnection::select(['exploracion.peso', 'exploracion.talla', 'exploracion.frecuenciaRespiratoria', 'presArterBaja', 'presArterAlta', 'temperatura', 'frecuenciaCardiaca', 'exploracionFisica'], "exploracion", [['exploracion.id_exploracion', $cita[0]['id_exploracion']]]);
+        $info['exploracion'] = $exploracion[0];
+        $notas_adicionales = dbConnection::select(['notas'], "notas_adicionales", [['notas_adicionales.id_notasAdicionales', $cita[0]['id_notasAdicionales']]]);
+        $info['notas_adicionales'] = $notas_adicionales[0];
+        $estudios = dbConnection::select(['orden'], "estudios", [['estudios.id_estudios', $cita[0]['id_estudios']]]);
+        $info['estudios'] = $estudios[0];
+        $tratamiento = dbConnection::select(['tratamiento.cada', 'tratamiento.inicio', 'tratamiento.indicaciones', 'medicamentos.nombre'], "tratamiento", [['tratamiento.id_registro',$_POST['registroId']]], [['medicamentos', 'tratamiento.id_medicamento', 'medicamentos.id_medicamento']]);
+        $info['tratamiento'] = $tratamiento;
+        return json_encode($info);
+    }
+    else
+    {
+        return 0;
+    }
+});
