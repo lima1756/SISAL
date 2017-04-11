@@ -670,6 +670,21 @@
                                                         <h5>Temperatura:</h5>
                                                         <input class="form-control" type="text" placeholder="CTemp" id="CTemp" name="CTemp" disabled/>
                                                     </div>
+                                                    <label><h3>Notas Adicionales:</h3></label><br>
+                                                    <div class="form-group">
+                                                        <h5>Notas:</h5>
+                                                        <input class="form-control" type="text" placeholder="CNA" id="CNA" name="CNA" disabled/>
+                                                    </div>
+                                                    <label><h3>Estudios:</h3></label><br>
+                                                    <div class="form-group">
+                                                        <h5>Orden:</h5>
+                                                        <input class="form-control" type="text" placeholder="COrden" id="COrden" name="COrden" disabled/>
+                                                    </div>
+                                                    <label><h3>Tratamiento:</h3></label><br>
+                                                    <div class="form-group">
+                                                        <h5>Receta:</h5>
+                                                        <input class="form-control" type="text" placeholder="CReceta" id="CReceta" name="CReceta" disabled/>
+                                                    </div>
                                                 </div>
                                                 <!--Panel-->
                                             </div>
@@ -1514,6 +1529,9 @@
                     $('#CPresAlta').val(cita.exploracion.presArterAlta);
                     $('#CPresBaja').val(cita.exploracion.presArterBaja);
                     $('#CTemp').val(cita.exploracion.temperatura);
+                    $('#CNA').val(cita.notas_adicionales.notas);
+                    $('#COrden').val(cita.estudios.orden); 
+                    $('#CReceta').val(cita.tratamiento); 
                 });
             
         }
