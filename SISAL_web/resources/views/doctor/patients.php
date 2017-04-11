@@ -600,42 +600,75 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Fecha de cita</label>
+                                            <label>Fecha de cita:</label>
                                             <select class="form-control" name="fechaCita" id="fechaCita">
                                             </select>
                                         </div>
-                                        
+                                        <div id="contenidoCita">
+                                            
+                                        </div>
                                             <!-- Desplegable Contenido Cita--> 
                                             <div>
                                                 <a href="#pCit" data-toggle="collapse" role ="tab" data-target="#pCit" data-parent="#tablist">
                                                 <div class="panel-heading">
-                                                    <h4>Datos de cita:</h2>
+                                                    <h4>Datos de cita:</h4>
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="pCit" >
-                                                    <label>Diagnóstico:</label><br>
+                                                    <label><h3>Diagnóstico:</h3></label><br>
                                                     <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="CEnfermedad" id="Enfermedad" name="Enfermedad" disabled/>
+                                                        <h5>Enfermedad:</h5>
+                                                        <input class="form-control" type="text" placeholder="CEnfermedad" id="CEnfermedad" name="CEnfermedad" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        <h5>Estado:</h5>
                                                         <input class="form-control" type="text" placeholder="CEstado" id="CEstado" name="CEstado" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        <h5>Notas:</h5>
                                                         <input class="form-control" type="text" placeholder="CNotas" id="CNotas" name="CNotas" disabled/>
                                                     </div>
-                                                    <label>Interrogatorio:</label><br>
+                                                    <label><h3>Interrogatorio:</h3></label><br>
                                                     <div class="form-group">
+                                                        <h5>Motivos:</h5>
                                                         <input class="form-control" type="text" placeholder="CMotivos" id="CMotivos" name="CMotivos" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        <h5>Sintomas:</h5>
                                                         <input class="form-control" type="text" placeholder="CSintomas" id="CSintomas"name="CSintomas" disabled/>
                                                     </div>
-                                                    <label>Exploración:</label><br>
+                                                    <label><h3>Exploración:</h3></label><br>
                                                     <div class="form-group">
+                                                        <h5>Peso:</h5>
                                                         <input class="form-control" type="number" placeholder="CPeso" id="CPeso" name="CPeso" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        <h5>Talla:</h5>
                                                         <input class="form-control" type="number" placeholder="CTalla" id="CTalla" name="CTalla" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5>Exploracion Fisica:</h5>
+                                                        <input class="form-control" type="text" placeholder="CExploracion" id="CExploracion" name="CExploracion" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5>Frecuencia Cardíaca:</h5>
+                                                        <input class="form-control" type="number" placeholder="CFreCar" id="CFreCar" name="CFreCar" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5>Presion Alta:</h5>
+                                                        <input class="form-control" type="number" placeholder="CPresAlta" id="CPresAlta" name="CPresAlta" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5>Presion Baja:</h5>
+                                                        <input class="form-control" type="number" placeholder="CPresBaja" id="CPresBaja" name="CPresBaja" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5>Frecuencia Respiratoria:</h5>
+                                                        <input class="form-control" type="number" placeholder="CFreRes" id="CFreRes" name="CFreRes" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5>Temperatura:</h5>
+                                                        <input class="form-control" type="text" placeholder="CTemp" id="CTemp" name="CTemp" disabled/>
                                                     </div>
                                                 </div>
                                                 <!--Panel-->
@@ -1467,8 +1500,20 @@
                     //TODO TUYO
                     //Considera que pueden no haber medicamentos asi que debes de revisar eso antes de imprimirlos o no
                     $('#contenidoCita').show();
-                    $('#diagnostico').show();
-
+                    console.log(cita);
+                    $('#CEnfermedad').val(cita.diagnotico.enfermedad);
+                    $('#CEstado').val(cita.diagnotico.estado);
+                    $('#CNotas').val(cita.diagnotico.notas);
+                    $('#CMotivos').val(cita.interrogatorio.motivoConsulta);
+                    $('#CSintomas').val(cita.interrogatorio.sintomas);
+                    $('#CPeso').val(cita.exploracion.peso);
+                    $('#CTalla').val(cita.exploracion.talla);
+                    $('#CExploracion').val(cita.exploracion.exploracionFisica);
+                    $('#CFreCar').val(cita.exploracion.frecuenciaCardiaca);
+                    $('#CFreRes').val(cita.exploracion.frecuenciaRespiratoria);
+                    $('#CPresAlta').val(cita.exploracion.presArterAlta);
+                    $('#CPresBaja').val(cita.exploracion.presArterBaja);
+                    $('#CTemp').val(cita.exploracion.temperatura);
                 });
             
         }
