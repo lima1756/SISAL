@@ -604,8 +604,43 @@
                                             <select class="form-control" name="fechaCita" id="fechaCita">
                                             </select>
                                         </div>
-                                        <div id="contenidoCita" hidden>
-                                            
+                                        
+                                            <!-- Desplegable Contenido Cita--> 
+                                            <div>
+                                                <a href="#pCit" data-toggle="collapse" role ="tab" data-target="#pCit" data-parent="#tablist">
+                                                <div class="panel-heading">
+                                                    <h4>Datos de cita:</h2>
+                                                </div>
+                                                </a>                                        
+                                                <div class="panel-body collapse indent" id="pCit" >
+                                                    <label>Diagnóstico:</label><br>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="text" placeholder="CEnfermedad" id="Enfermedad" name="Enfermedad" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="text" placeholder="CEstado" id="CEstado" name="CEstado" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="text" placeholder="CNotas" id="CNotas" name="CNotas" disabled/>
+                                                    </div>
+                                                    <label>Interrogatorio:</label><br>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="text" placeholder="CMotivos" id="CMotivos" name="CMotivos" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="text" placeholder="CSintomas" id="CSintomas"name="CSintomas" disabled/>
+                                                    </div>
+                                                    <label>Exploración:</label><br>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="number" placeholder="CPeso" id="CPeso" name="CPeso" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="form-control" type="number" placeholder="CTalla" id="CTalla" name="CTalla" disabled/>
+                                                    </div>
+                                                </div>
+                                                <!--Panel-->
+                                            </div>
+                                            <!--Desplegable-->
                                         </div>
                                         
                                     </div>
@@ -1432,6 +1467,8 @@
                     //TODO TUYO
                     //Considera que pueden no haber medicamentos asi que debes de revisar eso antes de imprimirlos o no
                     $('#contenidoCita').show();
+                    $('#diagnostico').show();
+
                 });
             
         }
