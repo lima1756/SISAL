@@ -13,7 +13,7 @@
 use App\myClasses\dbConnection;
 use App\myClasses\logData;
 use App\myClasses\Type;
-
+date_default_timezone_set("America/Mexico_City");
 Route::get('/', function () {
     return view('welcome');
 });
@@ -548,5 +548,78 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
     dbConnection::RAW("DELETE FROM ex_adicto WHERE id_exAdicto NOT IN (SELECT id_exAdicto FROM estilovida)");
     dbConnection::RAW("DELETE FROM fumador WHERE id_fumador NOT IN (SELECT id_fumador FROM estilovida)");
     dbConnection::RAW("DELETE FROM ex_fumador WHERE id_exFumador NOT IN (SELECT id_exFumador FROM estilovida)");
+
+});
+
+Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
+    $idDoc = $_POST['idDoc'];
+    $date = $_POST['date'];
+    $disponible = $_POST['disp'] == "true" ? true : false;
+    $Hoy = date("N");
+    $horario = dbConnection::select(["horario_trabajo", "tiempo_consulta"], "medicos", [["id_usuario", $idDoc]], [], "LIMIT 1");
+    $tiempoConsulta = $horario[0]['tiempo_consulta'];
+    $horario = $horario[0]['horario_trabajo'];
+    preg_match('/\(/',$horario, $par, PREG_OFFSET_CAPTURE);
+    $inicio = $par[0][1] + 1;
+    preg_match('/-/',$horario, $guion, PREG_OFFSET_CAPTURE);
+    $fin = $guion[0][1]- $inicio;
+    $horaStart = substr($horario, $inicio, $fin);
+    $inicio2= $guion[0][1] + 1;
+    preg_match('/\)/',$horario, $par2, PREG_OFFSET_CAPTURE);
+    $fin2 = $par2[0][1] - $inicio2;
+    $horaFin = substr($horario, $inicio2, $fin2);
+    $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.usuario"],
+        "citas",
+        [["citas.id_medico", $idDoc], ["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d')", $date]],
+        [["tipocita", "citas.tipo", "tipocita.id"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    $datos["data"] = [];
+    if($disponible)
+    {   
+        $time = $horaStart;
+         $conteo = 0;
+        while(strtotime($time)<strtotime($horaFin))
+        {
+            $comprobacion = true;
+            foreach($consulta as $c)
+            {
+                if($c['hora']== $time)
+                    $comprobacion = false;
+            }
+            if($comprobacion)
+            {
+                array_push($datos["data"],["Seleccionar"=> '<input type="radio" name="optradio" values="-1"/>', "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+            }
+            $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
+            $time = date("H:i:s", $time);
+            $conteo++;
+        }
+        
+    }
+    else
+    {
+         $time = $horaStart;
+         $conteo = 0;
+        while(strtotime($time)<strtotime($horaFin))
+        {
+            $comprobacion = true;
+            foreach($consulta as $c)
+            {
+                if($c['hora']== $time)
+                {
+                    array_push($datos["data"],["Seleccionar"=> '<input type="radio" name="optradio" values="'.$c['id_usuario'].'"/>', "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
+                    $comprobacion = false;
+                }
+            }
+            if($comprobacion)
+            {
+                array_push($datos["data"],["Seleccionar"=> '<input type="radio" name="optradio" values="-1"/>', "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+            }
+            $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
+            $time = date("H:i:s", $time);
+            $conteo++;
+        }
+        
+    }
+    echo json_encode($datos);
 
 });

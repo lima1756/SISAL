@@ -1,3 +1,15 @@
+<?php 
+use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $listaDoctores = dbConnection::select(
+            ['medicos.id_usuario', 'usuarios.nombre', 'usuarios.apellidoPaterno', 'usuarios.apellidoMaterno', 'usuarios.usuario'],
+            "medicos",
+            [],
+            [['usuarios', 'medicos.id_usuario', 'usuarios.id_usuario']]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,17 +116,17 @@
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-head">
-                            <form>
+                            <form action="#" method="POST">
                                 <div class="form-group" style="padding-top:15px;">
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" type="date"/>
+                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
                                     <label class="btn">Doctor: </label>
-                                    <select class="btn btn-default">
-                                        <!--!!!!!!!!!!!LEER: Los doctores se obtendran de la base de datos-->
-                                        <option>doc1</option>
-                                        <option>doc2</option>
+                                    <select class="btn btn-default" name="idDoc" id="idDoc">
+                                        <?php foreach($listaDoctores as $d): ?>
+                                            <option value="<?php echo $d['id_usuario'];?>"><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     &nbsp&nbsp
-                                    <input type="checkbox" name="disponible" id="disponible" autocomplete="off"/>
+                                    <input type="checkbox" name="disponible" id="disponible" />
                                         <div class="btn-group">
                                             <label for="disponible" class="btn btn-default">
                                                 <span class="fa fa-check"></span>
@@ -124,7 +136,7 @@
                                                 Ver solo horarios disponibles
                                             </label>
                                         </div>
-                                    <input class="btn btn-primary"type="submit" value="Ver citas"/>
+                                    <button class="btn btn-primary">Ver citas</button>
                                 </div>
                             </form>
                         </div>
@@ -135,43 +147,12 @@
                                         <th>Seleccionar</th>
                                         <th>Paciente</th>
                                         <th>Usuario</th>
-                                        <th>Doctor</th>
-                                        <th>Fecha</th>
+                                        <th>Tipo</th>
                                         <th>Hora</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>nombre-de-alguien</td>
-                                        <td>1alguien</td>
-                                        <td>Doc1</td>
-                                        <td>28-11-2016</td>
-                                        <td>16:00</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>nombre-de-alguien2</td>
-                                        <td>1alguien2</td>
-                                        <td>Doc12</td>
-                                        <td>28-12-2016</td>
-                                        <td>16:00</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>nombre-de-alguien3</td>
-                                        <td>1alguien4</td>
-                                        <td>Doc3</td>
-                                        <td>28-11-2019</td>
-                                        <td>15:00</td>
-                                    </tr>
+                                       
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
@@ -243,13 +224,52 @@
            
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
+    
+        $(document).ready(function() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            if(dd<10) {
+                dd='0'+dd
+            } 
+
+            if(mm<10) {
+                mm='0'+mm
+            } 
+            today = yyyy+'-'+mm+'-'+dd;
+            $('#date').val(today);
+            $('#dataTables-example').DataTable({
+                responsive: true,
+                "ajax": {
+                    "method": "POST",
+                    "beforeSend": function(request) {
+                        request.setRequestHeader("X-CSRF-TOKEN", "<?php echo csrf_token(); ?>");
+                    },
+                    "url": "/ajaxRC",
+                    "data": {
+                        'idDoc': $('#idDoc').val(),
+                        'date': $('#date').val(),
+                        'disp': $('#disponible').prop("checked")
+                    }
+                },
+                "columns":[
+                    {"data":"Seleccionar"},
+                    {"data":"Paciente"},
+                    {"data":"Usuario"},
+                    {"data":"Tipo"},
+                    {"data":"Hora"}
+                ]
+            });
         });
-    });
+
+
     </script>
 
 </body>
 
 </html>
+<?php/*
+<div class="radio">
+                                            <td><input type="radio" name="optradio"/></td>
+                                        </div>*/?>

@@ -132,8 +132,9 @@
                             }
                             else
                             {
+                                
                                 $query = null;
-                                echo "ERROR join values incorrect";
+                                echo "ERROR Where values incorrect";
                                 return -1;
                             }
                         }
