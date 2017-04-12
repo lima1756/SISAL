@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-04-2017 a las 20:46:24
+-- Tiempo de generación: 12-04-2017 a las 00:13:53
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sisal`
 --
-CREATE DATABASE IF NOT EXISTS `sisal` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `sisal` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `sisal`;
 
 -- --------------------------------------------------------
@@ -28,6 +28,7 @@ USE `sisal`;
 -- Estructura de tabla para la tabla `administradores`
 --
 
+DROP TABLE IF EXISTS `administradores`;
 CREATE TABLE `administradores` (
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -46,6 +47,7 @@ INSERT INTO `administradores` (`id_usuario`) VALUES
 -- Estructura de tabla para la tabla `alcoholico`
 --
 
+DROP TABLE IF EXISTS `alcoholico`;
 CREATE TABLE `alcoholico` (
   `id_alcoholico` int(11) NOT NULL,
   `edad_inicio` int(10) UNSIGNED NOT NULL,
@@ -58,7 +60,15 @@ CREATE TABLE `alcoholico` (
 
 INSERT INTO `alcoholico` (`id_alcoholico`, `edad_inicio`, `vasos`) VALUES
 (1, 13, 10),
-(2, 19, 3);
+(2, 19, 3),
+(3, 5, 5),
+(4, 5, 5),
+(5, 5, 5),
+(6, 5, 5),
+(7, 5, 5),
+(8, 5, 5),
+(9, 5, 5),
+(10, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -66,6 +76,7 @@ INSERT INTO `alcoholico` (`id_alcoholico`, `edad_inicio`, `vasos`) VALUES
 -- Estructura de tabla para la tabla `alergias`
 --
 
+DROP TABLE IF EXISTS `alergias`;
 CREATE TABLE `alergias` (
   `id_alergias` int(11) NOT NULL,
   `descripcion` text COLLATE utf8_unicode_ci NOT NULL
@@ -76,8 +87,8 @@ CREATE TABLE `alergias` (
 --
 
 INSERT INTO `alergias` (`id_alergias`, `descripcion`) VALUES
-(1, 'Ninguna'),
-(2, 'Alergia al polen, incrementa en primavera');
+(37, 'Una alergia bien cabrona'),
+(38, 'A');
 
 -- --------------------------------------------------------
 
@@ -85,6 +96,7 @@ INSERT INTO `alergias` (`id_alergias`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `antecedentes`
 --
 
+DROP TABLE IF EXISTS `antecedentes`;
 CREATE TABLE `antecedentes` (
   `id_antecedentes` int(11) NOT NULL,
   `id_sangre` int(11) NOT NULL,
@@ -100,8 +112,8 @@ CREATE TABLE `antecedentes` (
 --
 
 INSERT INTO `antecedentes` (`id_antecedentes`, `id_sangre`, `tabaquismo`, `alcoholismo`, `antecedentesPatologicos`, `antecedentesNoPatologicos`, `antecedentesHereditarios`) VALUES
-(1, 1, 'Casual', 'Moderado', 'Todo normal', 'El paciente desconoce', 'Presión alta'),
-(2, 2, 'Nunca', 'Nunca', 'Ninguno', 'ninguno', 'ninguno');
+(12, 1, 'Nunca', 'Nunca', 'Ninguno', 'ninguno', 'ninguno'),
+(13, 2, 'Casual', 'Moderado', 'Todo normal', 'El paciente desconoce', 'Presión alta');
 
 -- --------------------------------------------------------
 
@@ -109,6 +121,7 @@ INSERT INTO `antecedentes` (`id_antecedentes`, `id_sangre`, `tabaquismo`, `alcoh
 -- Estructura de tabla para la tabla `cafe`
 --
 
+DROP TABLE IF EXISTS `cafe`;
 CREATE TABLE `cafe` (
   `id_cafe` int(11) NOT NULL,
   `tazasDiarias` int(11) NOT NULL
@@ -119,7 +132,15 @@ CREATE TABLE `cafe` (
 --
 
 INSERT INTO `cafe` (`id_cafe`, `tazasDiarias`) VALUES
-(1, 3);
+(1, 3),
+(2, 7),
+(3, 7),
+(4, 7),
+(5, 7),
+(6, 7),
+(7, 7),
+(8, 7),
+(9, 7);
 
 -- --------------------------------------------------------
 
@@ -127,6 +148,7 @@ INSERT INTO `cafe` (`id_cafe`, `tazasDiarias`) VALUES
 -- Estructura de tabla para la tabla `canceladas`
 --
 
+DROP TABLE IF EXISTS `canceladas`;
 CREATE TABLE `canceladas` (
   `id_cita` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
@@ -143,6 +165,7 @@ CREATE TABLE `canceladas` (
 -- Estructura de tabla para la tabla `citas`
 --
 
+DROP TABLE IF EXISTS `citas`;
 CREATE TABLE `citas` (
   `id_cita` int(11) NOT NULL,
   `id_paciente` int(11) NOT NULL,
@@ -160,7 +183,8 @@ INSERT INTO `citas` (`id_cita`, `id_paciente`, `id_recepcionista`, `id_medico`, 
 (1, 1010, 1006, 1003, '2017-03-23 20:00:00', 1),
 (2, 1010, 1006, 1003, '2017-03-23 21:50:00', 2),
 (3, 1010, 1006, 1003, '2017-03-23 07:00:00', 1),
-(4, 1009, 1006, 1003, '2017-03-23 19:00:00', 1);
+(4, 1009, 1006, 1003, '2017-03-23 19:00:00', 1),
+(5, 1010, 1005, 1003, '2017-04-11 19:35:41', 1);
 
 -- --------------------------------------------------------
 
@@ -168,6 +192,7 @@ INSERT INTO `citas` (`id_cita`, `id_paciente`, `id_recepcionista`, `id_medico`, 
 -- Estructura de tabla para la tabla `comidas`
 --
 
+DROP TABLE IF EXISTS `comidas`;
 CREATE TABLE `comidas` (
   `id_comidas` int(11) NOT NULL,
   `desayuno` tinyint(1) NOT NULL,
@@ -179,8 +204,8 @@ CREATE TABLE `comidas` (
 --
 
 INSERT INTO `comidas` (`id_comidas`, `desayuno`, `comidasDiarias`) VALUES
-(1, 6, 3),
-(2, 1, 4);
+(19, 1, 4),
+(20, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -188,6 +213,7 @@ INSERT INTO `comidas` (`id_comidas`, `desayuno`, `comidasDiarias`) VALUES
 -- Estructura de tabla para la tabla `diagnostico`
 --
 
+DROP TABLE IF EXISTS `diagnostico`;
 CREATE TABLE `diagnostico` (
   `id_diagnostico` int(11) NOT NULL,
   `enfermedad` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -209,6 +235,7 @@ INSERT INTO `diagnostico` (`id_diagnostico`, `enfermedad`, `estado`, `notas`) VA
 -- Estructura de tabla para la tabla `diaslibres`
 --
 
+DROP TABLE IF EXISTS `diaslibres`;
 CREATE TABLE `diaslibres` (
   `id_dL` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
@@ -222,6 +249,7 @@ CREATE TABLE `diaslibres` (
 -- Estructura de tabla para la tabla `dietas`
 --
 
+DROP TABLE IF EXISTS `dietas`;
 CREATE TABLE `dietas` (
   `id_dietas` int(11) NOT NULL,
   `informacionDieta` text COLLATE utf8_unicode_ci NOT NULL
@@ -233,7 +261,30 @@ CREATE TABLE `dietas` (
 
 INSERT INTO `dietas` (`id_dietas`, `informacionDieta`) VALUES
 (1, 'Por el momento no sigue dieta'),
-(2, '3 frutas al día, nada de pan, no derivados de la leche');
+(2, '3 frutas al día, nada de pan, no derivados de la leche'),
+(3, 'd'),
+(4, '3'),
+(5, '3'),
+(6, '3'),
+(7, '3'),
+(8, '3'),
+(9, '3 frutas al día, nada de pan, no derivados de la leche'),
+(10, '3 frutas al día, nada de pan, no derivados de la leche'),
+(11, '3 frutas al día, nada de pan, no derivados de la leche'),
+(12, '3 frutas al día, nada de pan, no derivados de la leche'),
+(13, '3 frutas al día, nada de pan, no derivados de la leche'),
+(14, '3 frutas al día, nada de pan, no derivados de la leche'),
+(15, '3 frutas al día, nada de pan, no derivados de la leche'),
+(16, '3 frutas al día, nada de pan, no derivados de la leche'),
+(17, '3 frutas al día, nada de pan, no derivados de la leche'),
+(18, '3 frutas al día, nada de pan, no derivados de la leche'),
+(19, '3 frutas al día, nada de pan, no derivados de la leche'),
+(20, '3 frutas al día, nada de pan, no derivados de la leche'),
+(21, '3 frutas al día, nada de pan, no derivados de la leche'),
+(22, '3 frutas al día, nada de pan, no derivados de la leche'),
+(23, '3 frutas al día, nada de pan, no derivados de la leche'),
+(24, '3 frutas al día, nada de pan, no derivados de la leche'),
+(25, '3 frutas al día, nada de pan, no derivados de la leche');
 
 -- --------------------------------------------------------
 
@@ -241,6 +292,7 @@ INSERT INTO `dietas` (`id_dietas`, `informacionDieta`) VALUES
 -- Estructura de tabla para la tabla `drogas`
 --
 
+DROP TABLE IF EXISTS `drogas`;
 CREATE TABLE `drogas` (
   `id_drogas` int(11) NOT NULL,
   `edad_inicio` int(10) UNSIGNED NOT NULL,
@@ -262,6 +314,7 @@ INSERT INTO `drogas` (`id_drogas`, `edad_inicio`, `detalles`, `intravenosa`) VAL
 -- Estructura de tabla para la tabla `ejercicio`
 --
 
+DROP TABLE IF EXISTS `ejercicio`;
 CREATE TABLE `ejercicio` (
   `id_ejercicio` int(11) NOT NULL,
   `veces_semana` int(11) NOT NULL
@@ -273,7 +326,37 @@ CREATE TABLE `ejercicio` (
 
 INSERT INTO `ejercicio` (`id_ejercicio`, `veces_semana`) VALUES
 (1, 5),
-(2, 1);
+(2, 1),
+(3, 3),
+(4, 3),
+(5, 3),
+(6, 3),
+(7, 3),
+(8, 3),
+(9, 3),
+(10, 3),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1);
 
 -- --------------------------------------------------------
 
@@ -281,6 +364,7 @@ INSERT INTO `ejercicio` (`id_ejercicio`, `veces_semana`) VALUES
 -- Estructura de tabla para la tabla `estados`
 --
 
+DROP TABLE IF EXISTS `estados`;
 CREATE TABLE `estados` (
   `id` int(11) NOT NULL,
   `clave` varchar(2) NOT NULL,
@@ -333,6 +417,7 @@ INSERT INTO `estados` (`id`, `clave`, `nombre`, `abrev`, `activo`) VALUES
 -- Estructura de tabla para la tabla `estilovida`
 --
 
+DROP TABLE IF EXISTS `estilovida`;
 CREATE TABLE `estilovida` (
   `id_estiloVida` int(11) NOT NULL,
   `id_ejercicio` int(11) DEFAULT NULL,
@@ -355,8 +440,8 @@ CREATE TABLE `estilovida` (
 --
 
 INSERT INTO `estilovida` (`id_estiloVida`, `id_ejercicio`, `id_suenio`, `id_comidas`, `id_cafe`, `id_refresco`, `id_dietas`, `id_alcoholismo`, `id_exAlcoholismo`, `id_drogas`, `id_exAdicto`, `id_fumador`, `id_exFumador`, `fumadorPasivo`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
-(2, 2, 2, 2, NULL, 2, 2, 2, 2, 2, 2, 2, 2, 0);
+(19, 32, 38, 19, 9, 25, 25, 10, NULL, NULL, NULL, NULL, 64, 0),
+(20, NULL, 39, 20, NULL, NULL, NULL, NULL, NULL, NULL, 66, NULL, 65, 0);
 
 -- --------------------------------------------------------
 
@@ -364,6 +449,7 @@ INSERT INTO `estilovida` (`id_estiloVida`, `id_ejercicio`, `id_suenio`, `id_comi
 -- Estructura de tabla para la tabla `estudios`
 --
 
+DROP TABLE IF EXISTS `estudios`;
 CREATE TABLE `estudios` (
   `id_estudios` int(11) NOT NULL,
   `orden` text COLLATE utf8_unicode_ci NOT NULL
@@ -383,6 +469,7 @@ INSERT INTO `estudios` (`id_estudios`, `orden`) VALUES
 -- Estructura de tabla para la tabla `exploracion`
 --
 
+DROP TABLE IF EXISTS `exploracion`;
 CREATE TABLE `exploracion` (
   `id_exploracion` int(11) NOT NULL,
   `peso` int(11) NOT NULL,
@@ -409,6 +496,7 @@ INSERT INTO `exploracion` (`id_exploracion`, `peso`, `talla`, `frecuenciaRespira
 -- Estructura de tabla para la tabla `ex_adicto`
 --
 
+DROP TABLE IF EXISTS `ex_adicto`;
 CREATE TABLE `ex_adicto` (
   `id_exAdicto` int(11) NOT NULL,
   `edad_fin` int(10) UNSIGNED NOT NULL
@@ -428,6 +516,7 @@ INSERT INTO `ex_adicto` (`id_exAdicto`, `edad_fin`) VALUES
 -- Estructura de tabla para la tabla `ex_alcoholico`
 --
 
+DROP TABLE IF EXISTS `ex_alcoholico`;
 CREATE TABLE `ex_alcoholico` (
   `id_exAlcoholico` int(11) NOT NULL,
   `edad_fin` int(11) NOT NULL
@@ -439,7 +528,21 @@ CREATE TABLE `ex_alcoholico` (
 
 INSERT INTO `ex_alcoholico` (`id_exAlcoholico`, `edad_fin`) VALUES
 (1, 24),
-(2, 20);
+(2, 20),
+(3, 2),
+(4, 2),
+(5, 2),
+(6, 2),
+(7, 2),
+(8, 20),
+(9, 20),
+(10, 20),
+(11, 20),
+(12, 20),
+(13, 20),
+(14, 20),
+(15, 20),
+(16, 20);
 
 -- --------------------------------------------------------
 
@@ -447,6 +550,7 @@ INSERT INTO `ex_alcoholico` (`id_exAlcoholico`, `edad_fin`) VALUES
 -- Estructura de tabla para la tabla `ex_fumador`
 --
 
+DROP TABLE IF EXISTS `ex_fumador`;
 CREATE TABLE `ex_fumador` (
   `id_exFumador` int(11) NOT NULL,
   `edad_fin` int(10) UNSIGNED NOT NULL
@@ -457,8 +561,8 @@ CREATE TABLE `ex_fumador` (
 --
 
 INSERT INTO `ex_fumador` (`id_exFumador`, `edad_fin`) VALUES
-(1, 21),
-(2, 23);
+(64, 0),
+(65, 0);
 
 -- --------------------------------------------------------
 
@@ -466,6 +570,7 @@ INSERT INTO `ex_fumador` (`id_exFumador`, `edad_fin`) VALUES
 -- Estructura de tabla para la tabla `fumador`
 --
 
+DROP TABLE IF EXISTS `fumador`;
 CREATE TABLE `fumador` (
   `id_fumador` int(11) NOT NULL,
   `edad_inicio` int(10) UNSIGNED NOT NULL,
@@ -486,6 +591,7 @@ INSERT INTO `fumador` (`id_fumador`, `edad_inicio`, `ciggarrosDiarios`) VALUES
 -- Estructura de tabla para la tabla `interrogatorio`
 --
 
+DROP TABLE IF EXISTS `interrogatorio`;
 CREATE TABLE `interrogatorio` (
   `id_interrogatorio` int(11) NOT NULL,
   `antecedentesCardio` text COLLATE utf8_unicode_ci NOT NULL,
@@ -506,10 +612,8 @@ CREATE TABLE `interrogatorio` (
 --
 
 INSERT INTO `interrogatorio` (`id_interrogatorio`, `antecedentesCardio`, `antecedentesDigesti`, `antecedentesEndo`, `antecedentesHemoli`, `antecedentesMuscu`, `antecedentesPiel`, `antecedentesReprod`, `antecedentesRespi`, `antecedentesNerv`, `antecedentesGener`, `antecedentesUrina`) VALUES
-(1, 'Presión Alta', 'ninguno', 'ninguno', 'ninguno', 'ninguno', 'Alergia a colágeno', 'ninguuno', 'Asma', 'ninguno', 'Fractura en rodilla izquierda a los 9 años', 'ninguno'),
-(2, 'ninguno', 'Mala digestión', 'ninguno', 'ninguno', 'ninguno', 'ninguno', 'ningunon', 'ninguno', 'ninguno', 'ninguno', 'ninguno'),
-(3, 'Presión Alta', 'ninguno', 'ninguno', 'ninguno', 'ninguno', 'Alergia a colágeno', 'ninguuno', 'Asma', 'ninguno', 'Fractura en rodilla izquierda a los 9 años', 'ninguno'),
-(4, 'ninguno', 'Mala digestión', 'ninguno', 'ninguno', 'ninguno', 'ninguno', 'ningunon', 'ninguno', 'ninguno', 'ninguno', 'ninguno');
+(21, 'ninguno', 'Mala digestión', 'ninguno', 'ninguno', 'ninguno', 'ninguno', 'ningunon', 'ninguno', 'ninguno', 'ninguno', 'ninguno'),
+(22, 'Presión Alta', 'ninguno', 'ninguno', 'ninguno', 'ninguno', 'Alergia a colágeno', 'ninguuno', 'Asma', 'ninguno', 'Fractura en rodilla izquierda a los 9 años', 'ninguno');
 
 -- --------------------------------------------------------
 
@@ -517,6 +621,7 @@ INSERT INTO `interrogatorio` (`id_interrogatorio`, `antecedentesCardio`, `antece
 -- Estructura de tabla para la tabla `medicamentos`
 --
 
+DROP TABLE IF EXISTS `medicamentos`;
 CREATE TABLE `medicamentos` (
   `id_medicamento` int(11) NOT NULL,
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL
@@ -536,6 +641,7 @@ INSERT INTO `medicamentos` (`id_medicamento`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `medicos`
 --
 
+DROP TABLE IF EXISTS `medicos`;
 CREATE TABLE `medicos` (
   `id_usuario` int(11) NOT NULL,
   `domicilioConsultorio` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -544,7 +650,6 @@ CREATE TABLE `medicos` (
   `emailEmergencias` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `facebook` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `twitter` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `dias_trabajo` int(11) NOT NULL,
   `horario_trabajo` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `tiempo_consulta` int(11) NOT NULL,
   `cedula` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
@@ -556,9 +661,9 @@ CREATE TABLE `medicos` (
 -- Volcado de datos para la tabla `medicos`
 --
 
-INSERT INTO `medicos` (`id_usuario`, `domicilioConsultorio`, `telEmergencias`, `celEmergencias`, `emailEmergencias`, `facebook`, `twitter`, `dias_trabajo`, `horario_trabajo`, `tiempo_consulta`, `cedula`, `especialidad`, `universidad`) VALUES
-(1003, 'Independencia 1659', '8150561', '6681030000', 'biomsedi@hotmail.com', 'BrunoCamacho Mercado', '@brucamer', 5, 'L-V  3:00 a 8:00 pm', 45, '729590', 'Médico cirujano y partero', 'Universidad Michoacana de San Nicolas de Hidalgo'),
-(1004, 'Independencia 1659', '8150561', '6621014856', 'jaimecammer@outlook.com', 'Jaime Camacho', 'No', 3, 'L,M,V', 60, '569542', 'Médico cirujano traumatòlogo', 'Universidad Autónoma de Guadalajara');
+INSERT INTO `medicos` (`id_usuario`, `domicilioConsultorio`, `telEmergencias`, `celEmergencias`, `emailEmergencias`, `facebook`, `twitter`, `horario_trabajo`, `tiempo_consulta`, `cedula`, `especialidad`, `universidad`) VALUES
+(1003, 'Independencia 1659', '8150561', '6681030000', 'biomsedi@hotmail.com', 'BrunoCamacho Mercado', '@brucamer', 'lmxvd(07:00-15:00)', 45, '729590', 'Médico cirujano y partero', 'Universidad Michoacana de San Nicolas de Hidalgo'),
+(1004, 'Independencia 1659', '8150561', '6621014856', 'jaimecammer@outlook.com', 'Jaime Camacho', 'No', 'lmx(9:00-17:00)', 60, '569542', 'Médico cirujano traumatòlogo', 'Universidad Autónoma de Guadalajara');
 
 -- --------------------------------------------------------
 
@@ -566,6 +671,7 @@ INSERT INTO `medicos` (`id_usuario`, `domicilioConsultorio`, `telEmergencias`, `
 -- Estructura de tabla para la tabla `municipios`
 --
 
+DROP TABLE IF EXISTS `municipios`;
 CREATE TABLE `municipios` (
   `id` int(11) NOT NULL,
   `estado_id` int(11) NOT NULL COMMENT 'Relación con estados',
@@ -3079,6 +3185,7 @@ INSERT INTO `municipios` (`id`, `estado_id`, `clave`, `nombre`, `activo`) VALUES
 -- Estructura de tabla para la tabla `notas`
 --
 
+DROP TABLE IF EXISTS `notas`;
 CREATE TABLE `notas` (
   `id_nota` int(11) NOT NULL,
   `contenido` text COLLATE utf8_unicode_ci NOT NULL,
@@ -3094,7 +3201,8 @@ INSERT INTO `notas` (`id_nota`, `contenido`, `fechaHora`, `id_usuario`) VALUES
 (1, 'Tengo que pedir un nuevo estetoscopio, y algodón en la bodega.', '2017-02-09 16:27:24', 1003),
 (2, 'Informar de cambio de horario, del lunes a viernes.', '2017-02-09 08:03:28', 1004),
 (3, 'Solicitar un cambió de material clínico', '2017-03-22 17:32:36', 1003),
-(4, 'Solicitar un asistente', '2017-03-22 17:49:48', 1003);
+(4, 'Solicitar un asistente', '2017-03-22 17:49:48', 1003),
+(5, 'asdsadas', '2017-04-11 17:25:25', 1005);
 
 -- --------------------------------------------------------
 
@@ -3102,6 +3210,7 @@ INSERT INTO `notas` (`id_nota`, `contenido`, `fechaHora`, `id_usuario`) VALUES
 -- Estructura de tabla para la tabla `notas_adicionales`
 --
 
+DROP TABLE IF EXISTS `notas_adicionales`;
 CREATE TABLE `notas_adicionales` (
   `id_notasAdicionales` int(11) NOT NULL,
   `notas` text COLLATE utf8_unicode_ci NOT NULL
@@ -3121,6 +3230,7 @@ INSERT INTO `notas_adicionales` (`id_notasAdicionales`, `notas`) VALUES
 -- Estructura de tabla para la tabla `pacientes`
 --
 
+DROP TABLE IF EXISTS `pacientes`;
 CREATE TABLE `pacientes` (
   `id_usuario` int(11) NOT NULL,
   `id_antecedentes` int(11) DEFAULT NULL,
@@ -3134,8 +3244,8 @@ CREATE TABLE `pacientes` (
 --
 
 INSERT INTO `pacientes` (`id_usuario`, `id_antecedentes`, `id_interrogatorio`, `id_alergias`, `id_estiloVida`) VALUES
-(1009, 2, 2, 2, 2),
-(1010, 1, 1, 1, 1);
+(1009, 13, 22, 38, 20),
+(1010, 12, 21, 37, 19);
 
 -- --------------------------------------------------------
 
@@ -3143,6 +3253,7 @@ INSERT INTO `pacientes` (`id_usuario`, `id_antecedentes`, `id_interrogatorio`, `
 -- Estructura de tabla para la tabla `recepcionistas`
 --
 
+DROP TABLE IF EXISTS `recepcionistas`;
 CREATE TABLE `recepcionistas` (
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -3161,6 +3272,7 @@ INSERT INTO `recepcionistas` (`id_usuario`) VALUES
 -- Estructura de tabla para la tabla `refresco`
 --
 
+DROP TABLE IF EXISTS `refresco`;
 CREATE TABLE `refresco` (
   `id_refresco` int(11) NOT NULL,
   `vasosDiarios` int(11) NOT NULL
@@ -3172,7 +3284,30 @@ CREATE TABLE `refresco` (
 
 INSERT INTO `refresco` (`id_refresco`, `vasosDiarios`) VALUES
 (1, 2),
-(2, 0);
+(2, 0),
+(3, 2),
+(4, 0),
+(5, 0),
+(6, 0),
+(7, 0),
+(8, 0),
+(9, 0),
+(10, 0),
+(11, 0),
+(12, 0),
+(13, 0),
+(14, 0),
+(15, 0),
+(16, 0),
+(17, 0),
+(18, 0),
+(19, 0),
+(20, 0),
+(21, 0),
+(22, 0),
+(23, 0),
+(24, 0),
+(25, 0);
 
 -- --------------------------------------------------------
 
@@ -3180,6 +3315,7 @@ INSERT INTO `refresco` (`id_refresco`, `vasosDiarios`) VALUES
 -- Estructura de tabla para la tabla `registro_clinico`
 --
 
+DROP TABLE IF EXISTS `registro_clinico`;
 CREATE TABLE `registro_clinico` (
   `id_registro` int(11) NOT NULL,
   `fecha_hora` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -3198,7 +3334,7 @@ CREATE TABLE `registro_clinico` (
 
 INSERT INTO `registro_clinico` (`id_registro`, `fecha_hora`, `id_medico`, `id_paciente`, `id_diagnostico`, `id_interrogatorio`, `id_exploracion`, `id_notasAdicionales`, `id_estudios`) VALUES
 (1, '2017-02-23 13:08:22', 1003, 1010, 1, 1, 1, 1, 1),
-(2, '2017-02-24 15:03:13', 1004, 1011, 2, 2, 2, 2, 2);
+(2, '2017-02-24 15:03:13', 1003, 1010, 2, 2, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -3206,6 +3342,7 @@ INSERT INTO `registro_clinico` (`id_registro`, `fecha_hora`, `id_medico`, `id_pa
 -- Estructura de tabla para la tabla `registro_interrogatorio`
 --
 
+DROP TABLE IF EXISTS `registro_interrogatorio`;
 CREATE TABLE `registro_interrogatorio` (
   `id_interrogatorio` int(11) NOT NULL,
   `motivoConsulta` text COLLATE utf8_unicode_ci NOT NULL,
@@ -3226,6 +3363,7 @@ INSERT INTO `registro_interrogatorio` (`id_interrogatorio`, `motivoConsulta`, `s
 -- Estructura de tabla para la tabla `suenio`
 --
 
+DROP TABLE IF EXISTS `suenio`;
 CREATE TABLE `suenio` (
   `id_suenio` int(11) NOT NULL,
   `horasDiarias` int(11) NOT NULL
@@ -3236,8 +3374,8 @@ CREATE TABLE `suenio` (
 --
 
 INSERT INTO `suenio` (`id_suenio`, `horasDiarias`) VALUES
-(1, 8),
-(2, 5);
+(38, 5),
+(39, 0);
 
 -- --------------------------------------------------------
 
@@ -3245,6 +3383,7 @@ INSERT INTO `suenio` (`id_suenio`, `horasDiarias`) VALUES
 -- Estructura de tabla para la tabla `tipocita`
 --
 
+DROP TABLE IF EXISTS `tipocita`;
 CREATE TABLE `tipocita` (
   `id` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL
@@ -3264,6 +3403,7 @@ INSERT INTO `tipocita` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tipo_sangre`
 --
 
+DROP TABLE IF EXISTS `tipo_sangre`;
 CREATE TABLE `tipo_sangre` (
   `id_sangre` int(11) NOT NULL,
   `tipo` varchar(3) COLLATE utf8_unicode_ci NOT NULL
@@ -3283,6 +3423,7 @@ INSERT INTO `tipo_sangre` (`id_sangre`, `tipo`) VALUES
 -- Estructura de tabla para la tabla `tratamiento`
 --
 
+DROP TABLE IF EXISTS `tratamiento`;
 CREATE TABLE `tratamiento` (
   `id_tratamiento` int(11) NOT NULL,
   `id_medicamento` int(11) NOT NULL,
@@ -3297,8 +3438,8 @@ CREATE TABLE `tratamiento` (
 --
 
 INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`, `indicaciones`, `id_registro`) VALUES
-(1, 0, 6, '09:30:00', 'Tomar con alimentos', 1),
-(2, 0, 3, '15:00:00', 'Reposar media hora', 2);
+(1, 1, 6, '09:30:00', 'Tomar con alimentos', 1),
+(2, 2, 3, '15:00:00', 'Reposar media hora', 1);
 
 -- --------------------------------------------------------
 
@@ -3306,6 +3447,7 @@ INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`,
 -- Estructura de tabla para la tabla `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `usuario` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
@@ -3335,12 +3477,12 @@ INSERT INTO `usuarios` (`id_usuario`, `usuario`, `pass`, `email`, `nombre`, `ape
 (1002, 'LIMA', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'luisivanmorett@gmail.com', 'Luis Iván', 'Morett', 'Arévalo', 'Benito Juarez', 651, 44865, '36458745', '3311516589', 'Masculino', '5480-61-3024-8', '1998-01-07', 'Estudiante', ''),
 (1003, 'brucamer', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'doctorbrunocamacho@gmail.com', 'Bruno', 'Camacho', 'Mercado', 'Independencia 1659', 1907, 46585, '8121348', '6681030000', 'Masculino', '6840-61-3154-5', '1955-10-16', 'Doctor', ''),
 (1004, 'Jacamer', 'JaimeCM', 'doctorjaimecamacho@gmail.com', 'Jaime', 'Camacho', 'Mercado', 'Independencia 1655', 1607, 46519, '8121348', '6681456987', 'Masculino', '6315-91-3244-0', '1966-02-15', 'Doctor', NULL),
-(1005, 'gaby13', 'Gabriela_31', 'gaby@gmail.com', 'Gabriela', 'Lopez', 'Fuentes', 'Reforma 4686 int.30', 752, 46953, '34584521', '3312058456', 'Femenino', '4956-91-3875-0', '1984-01-12', 'Recepcionista', NULL),
+(1005, 'gaby13', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'gaby@gmail.com', 'Gabriela', 'Lopez', 'Fuentes', 'Reforma 4686 int.30', 752, 46953, '34584521', '3312058456', 'Femenino', '4956-91-3875-0', '1984-01-12', 'Recepcionista', ''),
 (1006, 'annel', 'ARG34', 'annelRuiz@hotmail.com', 'Annel', 'Ruiz', 'García', 'Santa Margarita', 468, 46853, '34598465', '3356988154', 'Femenino', '4689-02-4685-7', '1979-08-22', 'Recepcionista', NULL),
 (1007, 'Herli65', 'lindita65', 'herli.cam@hotmail.com', 'Herlinda', 'Camacho', 'Mercado', 'Parques Santa Cruz  2133', 629, 45615, '36011047', '3310982477', 'Femenino', '6895-48-0245-7', '1965-04-20', 'Psicóloga ', NULL),
 (1008, 'Victoria', 'Vicko89', 'victorloco@yahoo.com', 'Victor', 'Hernandez', 'Soto', 'Revolucion 453', 612, 46452, '35968512', '3312457898', 'Masculino', '1945-91-0215-0', '1987-05-25', 'Estudiante', NULL),
-(1009, 'Marie92', 'SMG_92', 'selmariegomez@gmail.com', 'Selena Marie', 'Gomez', 'Torres', 'Nuevo Mexico', 695, 46854, '37895101', '3310121484', 'Femenino', '5986-01-4544-5', '1992-07-22', 'Maestra', NULL),
-(1010, 'RogerH', 'RodriguezJuan', 'JuanR@hotmail.com', 'Juan', 'Rodriguez', 'Perez', '16 de Septimbre', 546, 45879, '36254987', '3314879562', 'Masculino', '7895-91-3256-0', '1990-02-08', 'Notario', NULL),
+(1009, 'Marie92', 'SMG_92', '37895101', 'Selena Marie', 'Gomez', 'Torres', '', 695, 46854, '37895101', '37895101', 'Femenino', '5986-01-4544-5', '1992-07-22', 'Maestra', NULL),
+(1010, 'RogerH', 'RodriguezJuan', '36254987', 'Juana', 'Rodriguez', 'Perez', '', 546, 45879, '36254987', '36254987', 'Masculino', '7895-91-3256-0', '1990-02-08', 'Notario', NULL),
 (1011, 'Roxywel', 'RosG_86', 'Roxa@outlook.com', 'Rosa', 'Gutierrez', 'Zapata', 'Santa Elena 4567', 624, 48579, '36459210', '3333265847', 'Femenino', '8795-11-3874-5', '1975-12-29', 'Empleado', NULL),
 (1012, 'Alberto14', 'Albert_1900', 'A_Avila@outlook.com', 'Alberto', 'Avila', 'Lopez', 'Juarez 56', 684, 48572, '32564187', '3310985475', 'Masculino', '6895-91-3744-0', '1982-08-14', 'Empleado', NULL);
 
@@ -3566,27 +3708,32 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `alcoholico`
 --
 ALTER TABLE `alcoholico`
-  MODIFY `id_alcoholico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_alcoholico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `alergias`
 --
 ALTER TABLE `alergias`
-  MODIFY `id_alergias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_alergias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+--
+-- AUTO_INCREMENT de la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  MODIFY `id_antecedentes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `cafe`
 --
 ALTER TABLE `cafe`
-  MODIFY `id_cafe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_cafe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `comidas`
 --
 ALTER TABLE `comidas`
-  MODIFY `id_comidas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_comidas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT de la tabla `diagnostico`
 --
@@ -3596,7 +3743,7 @@ ALTER TABLE `diagnostico`
 -- AUTO_INCREMENT de la tabla `dietas`
 --
 ALTER TABLE `dietas`
-  MODIFY `id_dietas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_dietas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `drogas`
 --
@@ -3606,7 +3753,7 @@ ALTER TABLE `drogas`
 -- AUTO_INCREMENT de la tabla `ejercicio`
 --
 ALTER TABLE `ejercicio`
-  MODIFY `id_ejercicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ejercicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `estados`
 --
@@ -3616,7 +3763,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `estilovida`
 --
 ALTER TABLE `estilovida`
-  MODIFY `id_estiloVida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_estiloVida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT de la tabla `estudios`
 --
@@ -3636,12 +3783,12 @@ ALTER TABLE `ex_adicto`
 -- AUTO_INCREMENT de la tabla `ex_alcoholico`
 --
 ALTER TABLE `ex_alcoholico`
-  MODIFY `id_exAlcoholico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_exAlcoholico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `ex_fumador`
 --
 ALTER TABLE `ex_fumador`
-  MODIFY `id_exFumador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_exFumador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT de la tabla `fumador`
 --
@@ -3651,7 +3798,7 @@ ALTER TABLE `fumador`
 -- AUTO_INCREMENT de la tabla `interrogatorio`
 --
 ALTER TABLE `interrogatorio`
-  MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_interrogatorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
@@ -3666,7 +3813,7 @@ ALTER TABLE `municipios`
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `notas_adicionales`
 --
@@ -3676,7 +3823,7 @@ ALTER TABLE `notas_adicionales`
 -- AUTO_INCREMENT de la tabla `refresco`
 --
 ALTER TABLE `refresco`
-  MODIFY `id_refresco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_refresco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `registro_clinico`
 --
@@ -3691,7 +3838,7 @@ ALTER TABLE `registro_interrogatorio`
 -- AUTO_INCREMENT de la tabla `suenio`
 --
 ALTER TABLE `suenio`
-  MODIFY `id_suenio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_suenio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT de la tabla `tipocita`
 --
