@@ -186,7 +186,9 @@
                                     </div>
                                 </div>
                                 <!-- Desplegable Personal--> 
-                                <?php $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);?>
+                                <?php $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);
+                                
+                                ?>
                                 <div>
                                     <a href="#aPer" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
                                     <div class="panel-heading">
@@ -309,7 +311,11 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <?php 
+                                        
+                                        <?php
+                                            //var_dump ($masInfo);
+                                            
+                                            //var_dump ($par);
                                             preg_match('/\(/',$masInfo[0]['horario_trabajo'], $par, PREG_OFFSET_CAPTURE);
                                             $inicio = $par[0][1] + 1;
                                             preg_match('/-/',$masInfo[0]['horario_trabajo'], $guion, PREG_OFFSET_CAPTURE);
@@ -321,6 +327,7 @@
                                             $horaFin = substr($masInfo[0]['horario_trabajo'], $inicio2, $fin2);
                                             
                                         ?>
+                                        
                                         <div class="form-group">
                                             <label>Horario de trabajo:</label>
                                             <p>Inicio:</p>
