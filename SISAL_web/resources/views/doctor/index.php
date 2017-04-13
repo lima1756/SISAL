@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="dates">
+                        <a href="dashboard/dates/?type=all">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver todas</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="patients">
+                        <a href="/dashboard/patients">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver historial de pacientes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -182,7 +182,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="registerData">
+                        <a href="/dashboard/registerData">
                             <div class="panel-footer">
                                 <span class="pull-left">Realizar registro de paciente</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
