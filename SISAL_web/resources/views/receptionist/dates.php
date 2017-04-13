@@ -136,7 +136,7 @@ use App\myClasses\dbConnection;
                                                 Ver solo horarios disponibles
                                             </label>
                                         </div>
-                                    <button class="btn btn-primary">Ver citas</button>
+                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
                                 </div>
                             </form>
                         </div>
@@ -239,7 +239,7 @@ use App\myClasses\dbConnection;
             } 
             today = yyyy+'-'+mm+'-'+dd;
             $('#date').val(today);
-            $('#dataTables-example').DataTable({
+            $miTabla = $('#dataTables-example').DataTable({
                 responsive: true,
                 "ajax": {
                     "method": "POST",
@@ -247,10 +247,10 @@ use App\myClasses\dbConnection;
                         request.setRequestHeader("X-CSRF-TOKEN", "<?php echo csrf_token(); ?>");
                     },
                     "url": "/ajaxRC",
-                    "data": {
-                        'idDoc': $('#idDoc').val(),
-                        'date': $('#date').val(),
-                        'disp': $('#disponible').prop("checked")
+                    "data": function ( d ) {
+                        d.idDoc = $('#idDoc').val();
+                        d.date = $('#date').val();
+                        d.disp = $('#disponible').prop("checked");
                     }
                 },
                 "columns":[
@@ -261,9 +261,16 @@ use App\myClasses\dbConnection;
                     {"data":"Hora"}
                 ]
             });
+
+            
         });
 
-
+function updateDates()
+            {
+                $miTabla.ajax.reload();
+                console.log($miTabla.ajax.params());
+                return false;
+            }
     </script>
 
 </body>
