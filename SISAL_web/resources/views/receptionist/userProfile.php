@@ -65,7 +65,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
+                        <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -148,13 +148,9 @@
                                         <div class="form-group">
                                             <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" value="<?php echo logData::getData('email'); ?>" disabled/>
                                         </div>
-                                        Género:
+                                        Sexo:
                                         <div class="form-group">
-                                            <select class="form-control" id="genero" name="genero" value="<?php echo logData::getData('genero'); ?>" disabled>
-                                                <option>Género</option>
-                                                <option value="Masculino">Masculino</option>
-                                                <option value="Femenino">Femenino</option>
-                                            </select>
+                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" value="<?php echo logData::getData('genero'); ?>" disabled/>
                                         </div>
                                         No. Seguridad social:
                                         <div class="form-group">
