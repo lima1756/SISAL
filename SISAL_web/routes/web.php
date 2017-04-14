@@ -102,8 +102,23 @@ Route::get('/dashboard/dates', function () {
     }
 });
 Route::get('/dashboard/userProfile', function () {
-   
+   if(Type::isMedic())
+    {
         return view('doctor/userProfile');
+    }
+    elseif(Type::isPatient())
+    {
+        return view('patient/userProfile');
+    }
+    elseif(Type::isReceptionist())
+    {
+        return view('receptionist/userProfile');
+    }
+    else
+    {
+        return redirect('/dashboard');
+    }
+        
 });
 Route::get('/dashboard/registerData', function () {
     if(Type::isMedic())
