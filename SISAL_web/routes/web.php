@@ -30,6 +30,9 @@ Route::get('/registerPersonal', function () {
 Route::get('/Personal', function () {
   return view('admin/Personal');
 });
+Route::get('/medicine', function () {
+  return view('admin/medicine');
+});
 
 
 Route::post('/logIn', function () {

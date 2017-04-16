@@ -1,22 +1,13 @@
 
     <?php
     use App\myClasses\dbConnection;
-    if($_GET['type']=="doctors")
-    {
-$valores=["nombre", "usuario", "email"];
-$tabla="usuarios";
+    
+$nombre=["nombre", "id_medicamento"];
+$tabla="medicamentospendientes";
 $where=[];
-$join=[["medicos", "usuarios.id_usuario","medicos.id_usuario"]];
-$datos = dbConnection::select($valores,$tabla,$where,$join);
-    }
-    elseif($_GET['type']=="recepcionist"){
-$valores=["nombre", "usuario", "email"];
-$tabla="usuarios";
-$where=[];
-$join=[["recepcionistas", "usuarios.id_usuario","recepcionistas.id_usuario"]];
-$datos = dbConnection::select($valores,$tabla,$where,$join);
-    }
-
+$join=[];
+$datos = dbConnection::select($nombre,$tabla,$where,$join);
+   
 ?>
 
 
@@ -131,7 +122,7 @@ $datos = dbConnection::select($valores,$tabla,$where,$join);
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Empleados</h1>
+                    <h1 class="page-header">Medicina por aprobar</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -144,19 +135,16 @@ $datos = dbConnection::select($valores,$tabla,$where,$join);
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Empleado</th>
-                                        <th>Usuario</th>
-                                        <th>Correo</th>
+                                        <th>ID Medicamento</th>
+                                        <th>Nombre Medicamento</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
-                                    
+                                        <td><?php echo($dato['id_medicamento']);?></td>
                                         <td><?php echo($dato['nombre']);?></td>                                        
-                                        <td><?php echo($dato['email']);?></td> 
-                                        <td><?php echo($dato['usuario']);?></td> 
                                     </tr>
                                     <?php endforeach;?>
                                     
@@ -204,11 +192,11 @@ $datos = dbConnection::select($valores,$tabla,$where,$join);
         $('#dataTables-example').DataTable( {
             responsive: true,
             "language": {
-                "lengthMenu": "Mostrar _MENU_ empleados por página",
+                "lengthMenu": "Mostrar _MENU_ medicamentos por página",
                 "zeroRecords": "No se encontro nada",
-                "info": "Mostrando página personal _PAGE_ de _PAGES_",
+                "info": "Mostrando página medicamentos _PAGE_ de _PAGES_",
                 "infoEmpty": "No hay registros disponibles",
-                "infoFiltered": "(filtrado por _MAX_ total de doctores)"
+                "infoFiltered": "(filtrado por _MAX_ total de medicamentos)"
             },
             "columnDefs": [
                 { "width": "10%", "targets": 0 },
