@@ -108,10 +108,9 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                         <li>
                             <a href="/registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
                         </li>
-                        <!--
                         <li>
-                            <a href="patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
-                        </li>-->
+                            <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
