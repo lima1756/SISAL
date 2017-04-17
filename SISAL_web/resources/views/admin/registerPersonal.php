@@ -175,6 +175,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning">Guardar</button>
                             <button type="reset" class="btn btn-select">Reiniciar</button> 
+                            
                         </div>       
         </div>
         <!-- /#page-wrapper -->
