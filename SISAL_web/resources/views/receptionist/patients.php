@@ -67,7 +67,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
+                        <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
