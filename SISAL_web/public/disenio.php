@@ -1,9 +1,9 @@
 <?php
     use App\myClasses\dbConnection;
-    
+$v1 = $_POST['id_paciente'];   
 $valores=["nombre", "apellidoPaterno", "apellidoMaterno","email"];
 $tabla="usuarios";
-$where=[["id_usuario",1009]];
+$where=[["id_usuario",$v1]];
 $join=[];
 $datos = dbConnection::select($valores,$tabla,$where,$join);
     
@@ -193,28 +193,6 @@ footer {
             <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
             <td class="total" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
           </tr>
-          <tr>
-            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" >Development</td>
-            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" >Developing a Content Management System-based Website</td>
-            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-            <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-            <td class="total" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-          </tr>
-          <tr>
-            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" >SEO</td>
-            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" >Optimize the site for search engines (SEO)</td>
-            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-            <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-            <td class="total" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-          </tr>
-          <tr>
-            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" >Training</td>
-            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" >Initial training sessions for staff responsible for uploading web content</td>
-            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-            <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-            <td class="total" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" >000</td>
-          </tr>
-          
         </tbody>
       </table>
       <br><br>

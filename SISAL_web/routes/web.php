@@ -177,6 +177,7 @@ Route::post('/registerDate', function () {
                 [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medIndi'][$x], $idRegistro]]);
         }
     }
+    
     return redirect('/dashboard/patients');
 });
 
