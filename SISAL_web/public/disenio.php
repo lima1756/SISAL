@@ -1,14 +1,23 @@
 <?php
     use App\myClasses\dbConnection;
     var_dump($_POST);
-$v1 = $_POST['id_paciente'];   
+$regmed = $_POST['medico']; 
+$idCita = $_POST['fechaCita'];  
+$valores=["id_paciente", "id_diagnostico","fecha_hora"];
+$tabla="registro_clinico";
+$where=[["registro_clinico.id_registro",$idCita]];
+$join=[];
+$datos1 = dbConnection::select($valores,$tabla,$where,$join);
+
+var_dump($datos1);
+
+$v1 = $datos1[0]['id_paciente'];
 $valores=["nombre", "apellidoPaterno", "apellidoMaterno","email"];
 $tabla="usuarios";
 $where=[["id_usuario",$v1]];
 $join=[];
 $datos = dbConnection::select($valores,$tabla,$where,$join);
 
-    
 ?>
 
 <!DOCTYPE html>
@@ -168,11 +177,11 @@ footer {
       <h1 style="border-top-width:1px;border-top-style:solid;border-top-color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#5D6975;color:#5D6975;font-size:2.4em;line-height:1.4em;font-weight:normal;text-align:center;margin-top:0;margin-bottom:20px;margin-right:0;margin-left:0;background-color:transparent;background-image:url(dimension.png);background-repeat:repeat;background-position:top left;background-attachment:scroll;" >Receta médica</h1>
       
       <div id="project" style="float:left;" >
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Nombre</span><?php echo $datos[0]['nombre'];?></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Paterno:</span><?php echo $datos[0]['apellidoPaterno'];?></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Materno:</span> <?php echo $datos[0]['apellidoMaterno'];?></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Correo:</span> <a href="mailto:"<?php echo $datos[0]['email'];?> style="color:#5D6975;text-decoration:underline;" ><?php echo $datos[0]['email'];?></a></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Fecha:</span> Abril 5, 2017</div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Nombre: </span><?php echo $datos[0]['nombre'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Paterno: </span><?php echo $datos[0]['apellidoPaterno'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Materno: </span> <?php echo $datos[0]['apellidoMaterno'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Correo: </span> <a href="mailto:"<?php echo $datos[0]['email'];?> style="color:#5D6975;text-decoration:underline;" ><?php echo $datos[0]['email'];?></a></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Fecha: </span><?php echo $datos1[0]['fecha_hora'];?></div>
         
       </div>
     </div>
