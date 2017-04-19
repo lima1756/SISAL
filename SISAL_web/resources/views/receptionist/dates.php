@@ -12,6 +12,7 @@ use App\myClasses\dbConnection;
         [],
         [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"]]
         );
+    $tipoCitas = dbConnection::select(["id", "nombre"], "tipocita");
 ?>
 
 <!DOCTYPE html>
@@ -189,11 +190,12 @@ use App\myClasses\dbConnection;
                 <div class="col-lg-12" id="verCita" hidden>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <label class="panel-title" id="verCitaTitulo">Doc1: 28-11-2016::16:00</label>
+                            <label class="panel-title" id="verCitaTitulo"></label>
                         </div>
                         <div class="panel-body">
-                            <label>Usuario de paciente:</label> <p>1alguien</p>
-                            <label>Nombre de paciente:</label> <p>nombre-de-alguien</p>
+                            <label>Usuario de paciente:</label> <p id="usuarioPaciente"></p>
+                            <label>Nombre de paciente:</label> <p id="nombrePaciente"></p>
+                            <label>Tipo de cita:</label> <p id="tipoCita"></p>
                             <form>
                                 <input class="btn btn-danger" type="submit" value="Eliminar cita"/>
                             </form>
@@ -236,6 +238,13 @@ use App\myClasses\dbConnection;
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <select name="tipoCita" class="form-control especial" id="tipoCita" style="width: 100%">
+                                        <?php foreach($tipoCitas as $t): ?>
+                                            <option value="<?php  echo $t['id'] ?>"><?php  echo $t['nombre'];?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <input class="btn btn-primary form-control" type="submit" value="Agregar cita"/>
                                 </div>
                             </form>
@@ -275,7 +284,7 @@ use App\myClasses\dbConnection;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>     
     
     <script>
-    
+        var csrfVal = "<?php echo csrf_token(); ?>";
         $(document).ready(function() {
             var today = new Date();
             var dd = today.getDate();
@@ -330,13 +339,29 @@ use App\myClasses\dbConnection;
                 var fecha = new Date(cita);
                 $("#nuevaCita").show();
                 $("#verCita").hide();
-                $('#nuevaCitaTitulo').html(doctor + " -- " + fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear() + " " + fecha.getHours() + ":" + fecha.getMinutes());
+                $('#nuevaCitaTitulo').html(doctor + " -- " + ("0" + fecha.getDate()).slice(-2) + "/" + ("0" + (fecha.getMonth()+1)).slice(-2) + "/" + fecha.getFullYear() + " " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2));
             }
             else
             {
                 $("#verCita").show();
                 $("#nuevaCita").hide();
                 $('#verCitaTitulo').html(doctor);
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                }
+                })
+                $.post("/ajaxRDC", { <?php //RDC se refiere a Recepcionista obtiene Datos de Cita ?>
+                    'citaId': cita
+                },
+                function(data, status){
+                    var json = JSON.parse(data);  
+                    var fecha = new Date(json.fecha_hora); 
+                    $("#usuarioPaciente").html(json.usuario);
+                    $("#nombrePaciente").html(json.nombre + " " + json.apellidoPaterno + " " + json.apellidoMaterno);
+                    $("#tipoCita").html(json.tipo);
+                    $('#verCitaTitulo').html(doctor + " -- " + ("0" + fecha.getDate()).slice(-2) + "/" + ("0" + (fecha.getMonth()+1)).slice(-2) + "/" + fecha.getFullYear() + " " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2));
+                });
             }
         }
 

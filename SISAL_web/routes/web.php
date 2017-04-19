@@ -658,3 +658,14 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     echo json_encode($datos);
 
 });
+
+
+Route::POST('/ajaxRDC' /* Recepcionista obtiene Datos de Cita*/, function() {
+    $idDate = $_POST['citaId'];
+    $datos = dbConnection::select( 
+        ["fecha_hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
+        "citas", 
+        [["citas.id_cita", $idDate]],
+        [["tipocita", "tipocita.id", "citas.tipo"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    return json_encode($datos[0]);
+});
