@@ -7,7 +7,11 @@ use App\myClasses\dbConnection;
             "medicos",
             [],
             [['usuarios', 'medicos.id_usuario', 'usuarios.id_usuario']]);
-
+    $pacientes = dbConnection::select(["usuarios.id_usuario", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
+        "usuarios",
+        [],
+        [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"]]
+        );
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +44,24 @@ use App\myClasses\dbConnection;
 
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
-
+    
+    <style>
+        label input[type="radio"] ~ i.fa.fa-circle-o{
+                color: #c8c8c8;    display: inline;
+            }
+            label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+                display: none;
+            }
+            label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+                display: none;
+            }
+            label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+                color: #7AA3CC;    display: inline;
+            }
+            label:hover input[type="radio"] ~ i.fa {
+            color: #7AA3CC;
+            }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -122,7 +143,7 @@ use App\myClasses\dbConnection;
                                     <label class="btn">Doctor: </label>
                                     <select class="btn btn-default" name="idDoc" id="idDoc">
                                         <?php foreach($listaDoctores as $d): ?>
-                                            <option value="<?php echo $d['id_usuario'];?>"><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
+                                            <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     &nbsp&nbsp
@@ -141,6 +162,7 @@ use App\myClasses\dbConnection;
                             </form>
                         </div>
                         <div class="panel-body">
+                        <form>
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
@@ -156,6 +178,7 @@ use App\myClasses\dbConnection;
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
+                            </form>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -163,10 +186,10 @@ use App\myClasses\dbConnection;
                 </div>
                 <!-- /.col-lg-12 -->
                 <!--AL MOMENTO DE SELECCIONAR EL RADIO DE UNA CITA REGISTRADA, SE MUESTRAN LOS DATOS COMO SIGUE-->
-                <div class="col-lg-12">
+                <div class="col-lg-12" id="verCita" hidden>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <label class="panel-title">Doc1: 28-11-2016::16:00</label>
+                            <label class="panel-title" id="verCitaTitulo">Doc1: 28-11-2016::16:00</label>
                         </div>
                         <div class="panel-body">
                             <label>Usuario de paciente:</label> <p>1alguien</p>
@@ -178,19 +201,44 @@ use App\myClasses\dbConnection;
                     </div>
                 </div>
                 <!--AL MOMENTO DE SELECCIONAR EL RADIO DE UNA CITA NO REGISTRADA, SE PIDEN LOS DATOS COMO SIGUE-->
-                <div class="col-lg-12">
+                <div class="col-lg-12" id="nuevaCita" hidden>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <label class="panel-title">Doc1: 28-11-2016::16:00</label>
+                            <label class="panel-title" id="nuevaCitaTitulo">Doc1: 28-11-2016::16:00</label>
                         </div>
                         <div class="panel-body">
-                            <div class="form-group">
-                                <form>
-                                    <input class="form-control" type="text" placeholder="Usuario del paciente"/>
-                                    <input class="form-control" type="text" placeholder="Nombre del paciente"/>
+                            <form>
+                                <div class="form-group">
+                                    <input type="checkbox" id="registrado" autocomplete="off"/>
+                                    <div class="btn-group">
+                                        <label for="registrado" class="btn btn-default">
+                                            <span class="fa fa-check"></span>
+                                            <span>&nbsp</span>
+                                        </label>
+                                        <label for="registrado" class="btn btn-default active">
+                                            ¿Usuario Nuevo?
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="usuarioRegistrado">
+                                    <select name="usuario" class="form-control especial" id="usuario" style="width: 100%">
+                                        <?php foreach($pacientes as $p): ?>
+                                            <option value="<?php  echo $p['id_usuario'] ?>"><?php  echo $p['usuario'] . " - " . $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno'];?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div id="usuarioNuevo" hidden>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="Usuario del paciente"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="Nombre del paciente"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <input class="btn btn-primary form-control" type="submit" value="Agregar cita"/>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -221,8 +269,11 @@ use App\myClasses\dbConnection;
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dataSource/js/templates/sb-admin-2.js"></script>
-           
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+    <!-- select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>     
+    
     <script>
     
         $(document).ready(function() {
@@ -254,29 +305,61 @@ use App\myClasses\dbConnection;
                     }
                 },
                 "columns":[
-                    {"data":"Seleccionar"},
+                    {"data": function(data, type, full, meta){
+                        return "<label class=\"btn active\">  <input type='radio' value='"+data.Seleccionar+"' id='"+data.Seleccionar.replace(/\s/g, '')+"' name='optradio' onclick='obtenerCita(\"" + data.Seleccionar + "\")' hidden/><i class=\"fa fa-circle-o fa-2x\"></i><i class=\"fa fa-dot-circle-o fa-2x\"></i> </label>";
+                    }},
                     {"data":"Paciente"},
                     {"data":"Usuario"},
                     {"data":"Tipo"},
                     {"data":"Hora"}
                 ]
             });
-
-            
+            $('.especial').select2({
+                placeholder: "Persona para la cita",
+                allowClear: true,
+                language: "es"
+            });
+            $('#usuario').val('').trigger("change");
         });
 
-function updateDates()
+        function obtenerCita(cita)
+        {
+            var doctor = $("#idDoc option:selected").html();
+            if(isNaN(cita))
             {
-                $miTabla.ajax.reload();
-                console.log($miTabla.ajax.params());
-                return false;
+                var fecha = new Date(cita);
+                $("#nuevaCita").show();
+                $("#verCita").hide();
+                $('#nuevaCitaTitulo').html(doctor + " -- " + fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear() + " " + fecha.getHours() + ":" + fecha.getMinutes());
             }
+            else
+            {
+                $("#verCita").show();
+                $("#nuevaCita").hide();
+                $('#verCitaTitulo').html(doctor);
+            }
+        }
+
+        function updateDates()
+        {
+            $miTabla.ajax.reload();
+            return false;
+        }
+
+        $('#registrado').change(function() {
+            if(document.getElementById('registrado').checked){
+                $("#usuarioRegistrado").hide();
+                $("#usuarioNuevo").show();
+                $('#usuario').val('').trigger("change");
+            }
+            else
+            {
+                $("#usuarioNuevo").hide();
+                $("#usuarioRegistrado").show();
+            }
+        });
     </script>
 
 </body>
 
 </html>
-<?php/*
-<div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>*/?>

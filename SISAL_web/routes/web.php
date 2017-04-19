@@ -589,7 +589,7 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     preg_match('/\)/',$horario, $par2, PREG_OFFSET_CAPTURE);
     $fin2 = $par2[0][1] - $inicio2;
     $horaFin = substr($horario, $inicio2, $fin2);
-    $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.usuario"],
+    $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "citas.id_cita", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.usuario"],
         "citas",
         [["citas.id_medico", $idDoc], ["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d')", $date]],
         [["tipocita", "citas.tipo", "tipocita.id"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
@@ -614,7 +614,7 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
             }
             if($comprobacion && $hoyTrabaja)
             {
-                array_push($datos["data"],["Seleccionar"=> '<input type="radio" name="optradio" values="-1"/>', "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+                array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
                 $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
                 $time = date("H:i:s", $time);
             }
@@ -635,14 +635,14 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
             {
                 if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
                 {
-                    array_push($datos["data"],["Seleccionar"=> '<input type="radio" name="optradio" values="'.$c['id_usuario'].'"/>', "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
+                    array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
                     $comprobacion = false;
                     $tiempoExtra = $c['hora'];
                 }
             }
             if($comprobacion && $hoyTrabaja)
             {
-                array_push($datos["data"],["Seleccionar"=> '<input type="radio" name="optradio" values="-1"/>', "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+                array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
                 $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
                 $time = date("H:i:s", $time);
             }
