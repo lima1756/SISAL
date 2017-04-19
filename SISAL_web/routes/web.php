@@ -197,7 +197,7 @@ Route::get('/receta', function() {
     return view('disenio');
 });
 
-Route::get('/recetamedica', function() {
+Route::post('/recetamedica', function() {
    try {
     ob_start();
     include '\disenio.php';

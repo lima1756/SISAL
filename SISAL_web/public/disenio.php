@@ -1,11 +1,13 @@
 <?php
     use App\myClasses\dbConnection;
+    var_dump($_POST);
 $v1 = $_POST['id_paciente'];   
 $valores=["nombre", "apellidoPaterno", "apellidoMaterno","email"];
 $tabla="usuarios";
 $where=[["id_usuario",$v1]];
 $join=[];
 $datos = dbConnection::select($valores,$tabla,$where,$join);
+
     
 ?>
 

@@ -204,8 +204,6 @@
                 <?php else: ?>
                     <div class="col-lg-12" name="toda_info" id="toda_info" style="visibility: hidden; display:none;">
                 <?php endif; ?>
-                    <form name="formulario" id="formulario">
-                        <input type="text" name="idPaciente" id="idPaciente" hidden/>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" onclick="edicion(); return false;" type="submit" id="editar">Editar</button></span>
@@ -213,7 +211,10 @@
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                                 <span><h2 id="nombre_completo" name="nombre_completo"></h2></span>
                             </div>
+                        
                             <div id="tablist">
+                            <form name="formulario" id="formulario">
+                            <input type="text" name="idPaciente" id="idPaciente" hidden/>
                                 <!-- Desplegable información Personal--> 
                                 <div>
                                     <a href="#pInf" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
@@ -585,9 +586,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
+                                <!--//Form informacion paciente-->
 
+
+                                <form name="InformacionCita" method="POST" action="/recetamedica">
                                 <!-- Desplegable Citas--> 
                                 <div>
+                                    <input type="text" value="<?php echo csrf_token(); ?>" name="_token" hidden/>
                                     <a href="#citas" role ="tab" data-toggle="collapse" data-target="#citas" data-parent="#tablist">
                                     <div class="panel-heading">
                                         <h4>Expediente clinico</h2>
@@ -604,11 +610,8 @@
                                             <select class="form-control" name="fechaCita" id="fechaCita">
                                             </select>
                                         </div>
-                                        <div id="contenidoCita">
-                                            
-                                        </div>
                                             <!-- Desplegable Contenido Cita--> 
-                                            <div>
+                                            <div id="contenidoCita">
                                                 <a href="#pCit" data-toggle="collapse" role ="tab" data-target="#pCit" data-parent="#tablist">
                                                 <div class="panel-heading">
                                                     <h4>Datos de cita:</h4>
@@ -683,12 +686,14 @@
                                                     <label><h3>Tratamiento:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Receta:</h5>
-                                                        <button type="submit" class="btn btn-default"><a href="/recetamedica" target="_blank">Generar PDF</a></button>
+                                                        <input type="submit" class="btn btn-default" id="createPDF" value="Generar PDF"/>
                                                     </div>
                                                 </div>
-                                                <!--Panel-->
+                                                <!--//Panel-->
                                             </div>
-                                            <!--Desplegable-->
+                                            <!--//Desplegable-->
+                                        </form>
+                                        <!--//Form InformacionCita-->
                                         </div>
                                         
                                     </div>
@@ -696,7 +701,7 @@
                             </div>
                         </div>
                         <!-- /.panel -->
-                    </form>
+                    
             </div>
             <!-- /.row -->
         </div>
@@ -728,6 +733,7 @@
     var csrfVal="<?php echo csrf_token(); ?>";
     $(document).ready(function() 
     {
+        $("#createPDF").prop("disabled", false);
         $('#dataTables-example').DataTable({
             responsive: true,
             "columnDefs": [
@@ -783,7 +789,9 @@
                 {
                     document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].usuario + " - " + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
                 }
+                document.getElementById("fechaCita").innerHTML="";
                 idDoctor = doctores[0].id_medico;
+                $('#contenidoCita').hide();
                 obtenerFechas();
                 
                 
@@ -1511,11 +1519,11 @@
                 function(data, status){
                     cita = JSON.parse(data);
                     //Tu decision como mostraria la informacion del json aqui lo que yo hago es imprimirlo al chingadazo pero pues es demasiado yolo
-                    document.getElementById('contenidoCita').innerHTML = JSON.stringify(cita);
+                    
                     //TODO TUYO
                     //Considera que pueden no haber medicamentos asi que debes de revisar eso antes de imprimirlos o no
                     $('#contenidoCita').show();
-                    console.log(cita);
+                    
                     $('#CEnfermedad').val(cita.diagnotico.enfermedad);
                     $('#CEstado').val(cita.diagnotico.estado);
                     $('#CNotas').val(cita.diagnotico.notas);
