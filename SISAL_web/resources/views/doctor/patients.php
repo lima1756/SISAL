@@ -683,7 +683,7 @@
                                                     <label><h3>Tratamiento:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Receta:</h5>
-                                                        <input class="form-control" type="text" placeholder="CReceta" id="CReceta" name="CReceta" disabled/>
+                                                        <button type="submit" class="btn btn-default"><a href="/recetamedica" target="_blank">Generar PDF</a></button>
                                                     </div>
                                                 </div>
                                                 <!--Panel-->

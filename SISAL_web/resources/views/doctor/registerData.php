@@ -260,7 +260,7 @@
                                         </div>
                                         <input type="submit" class="btn btn-default" value="Guardar"/>
                                         <button type="reset" class="btn btn-default">Reiniciar</button>
-                                        <button type="Imprimir Receta" class="btn btn-default"><a href="/recetamedica" target="_blank">Generar PDF</a></button>
+                                        
 
                                     </form>
                                 </div>
