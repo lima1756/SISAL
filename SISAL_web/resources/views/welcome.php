@@ -190,6 +190,7 @@
                 if(!isset($_GET['error'])):?>
             <div id="errorlogIn" class="alert alert-danger" style="visibility:hidden;display: none;"></div>
             <?php else: ?>
+            <script>window.alert("Datos erroneos, verifica");</script>
             <div id="errorlogIn" class="alert alert-danger">Datos erroneos, verifica</div>
             <?php endif; ?>
               <div class="form-group">
