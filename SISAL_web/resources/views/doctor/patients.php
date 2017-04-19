@@ -629,16 +629,16 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <h5>Notas:</h5>
-                                                        <input class="form-control" type="text" placeholder="CNotas" id="CNotas" name="CNotas" disabled/>
+                                                        <textarea type="text" placeholder="Notas:" class="form-control" id="CNotas" name="CNotas" disabled></textarea>
                                                     </div>
                                                     <label><h3>Interrogatorio:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Motivos:</h5>
-                                                        <input class="form-control" type="text" placeholder="CMotivos" id="CMotivos" name="CMotivos" disabled/>
+                                                        <textarea type="text" placeholder="Motivos de consulta:" class="form-control" id="CMotivos" name="CMotivos" disabled></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <h5>Sintomas:</h5>
-                                                        <input class="form-control" type="text" placeholder="CSintomas" id="CSintomas"name="CSintomas" disabled/>
+                                                        <textarea type="text" placeholder="Síntomas: " class="form-control" id="CSintomas" name="CSintomas" disabled></textarea>
                                                     </div>
                                                     <label><h3>Exploración:</h3></label><br>
                                                     <div class="form-group">
@@ -651,7 +651,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <h5>Exploracion Fisica:</h5>
-                                                        <input class="form-control" type="text" placeholder="CExploracion" id="CExploracion" name="CExploracion" disabled/>
+                                                        <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CExploracion" name="CExploracion" disabled></textarea>                                                        
                                                     </div>
                                                     <div class="form-group">
                                                         <h5>Frecuencia Cardíaca:</h5>
@@ -676,7 +676,7 @@
                                                     <label><h3>Notas Adicionales:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Notas:</h5>
-                                                        <input class="form-control" type="text" placeholder="CNA" id="CNA" name="CNA" disabled/>
+                                                        <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CNA" name="CNA" disabled></textarea>                                                          
                                                     </div>
                                                     <label><h3>Estudios:</h3></label><br>
                                                     <div class="form-group">
@@ -1526,18 +1526,19 @@
                     
                     $('#CEnfermedad').val(cita.diagnotico.enfermedad);
                     $('#CEstado').val(cita.diagnotico.estado);
-                    $('#CNotas').val(cita.diagnotico.notas);
-                    $('#CMotivos').val(cita.interrogatorio.motivoConsulta);
+                    document.getElementById("CNotas").innerHTML = cita.diagnotico.notas;
+                    document.getElementById("CMotivos").innerHTML = cita.interrogatorio.motivoConsulta;
+                    document.getElementById("CSintomas").innerHTML = cita.interrogatorio.sintomas;
                     $('#CSintomas').val(cita.interrogatorio.sintomas);
                     $('#CPeso').val(cita.exploracion.peso);
                     $('#CTalla').val(cita.exploracion.talla);
-                    $('#CExploracion').val(cita.exploracion.exploracionFisica);
+                    document.getElementById("CExploracion").innerHTML = cita.exploracion.exploracionFisica;
                     $('#CFreCar').val(cita.exploracion.frecuenciaCardiaca);
                     $('#CFreRes').val(cita.exploracion.frecuenciaRespiratoria);
                     $('#CPresAlta').val(cita.exploracion.presArterAlta);
                     $('#CPresBaja').val(cita.exploracion.presArterBaja);
                     $('#CTemp').val(cita.exploracion.temperatura);
-                    $('#CNA').val(cita.notas_adicionales.notas);
+                    document.getElementById("CNA").innerHTML = cita.notas_adicionales.notas;
                     $('#COrden').val(cita.estudios.orden); 
                     $('#CReceta').val(cita.tratamiento); 
                 });

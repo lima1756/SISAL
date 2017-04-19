@@ -177,11 +177,11 @@ footer {
       <h1 style="border-top-width:1px;border-top-style:solid;border-top-color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#5D6975;color:#5D6975;font-size:2.4em;line-height:1.4em;font-weight:normal;text-align:center;margin-top:0;margin-bottom:20px;margin-right:0;margin-left:0;background-color:transparent;background-image:url(dimension.png);background-repeat:repeat;background-position:top left;background-attachment:scroll;" >Receta médica</h1>
       
       <div id="project" style="float:left;" >
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Nombre</span><?php echo $datos[0]['nombre'];?></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Paterno:</span><?php echo $datos[0]['apellidoPaterno'];?></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Materno:</span> <?php echo $datos[0]['apellidoMaterno'];?></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Correo:</span> <a href="mailto:"<?php echo $datos[0]['email'];?> style="color:#5D6975;text-decoration:underline;" ><?php echo $datos[0]['email'];?></a></div>
-        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Fecha:</span><?php echo $datos1[0]['fecha_hora'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Nombre: </span><?php echo $datos[0]['nombre'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Paterno: </span><?php echo $datos[0]['apellidoPaterno'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Apellido Materno: </span> <?php echo $datos[0]['apellidoMaterno'];?></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Correo: </span> <a href="mailto:"<?php echo $datos[0]['email'];?> style="color:#5D6975;text-decoration:underline;" ><?php echo $datos[0]['email'];?></a></div>
+        <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Fecha: </span><?php echo $datos1[0]['fecha_hora'];?></div>
         
       </div>
     </div>
