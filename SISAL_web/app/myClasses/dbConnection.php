@@ -518,15 +518,20 @@
          */
         public static function RAW($query)
         {
-            try
+            if(self::createInstance())
             {
-                $insert = self::$DBCon->prepare($query);
-                $insert->execute();
-                return 1;
-            }
-            catch(PDOException $e)
-            {
-                return $e->getMessage();
+                try
+                {
+                    $data = self::$DBCon->prepare($query);
+                    
+                    $data->execute();
+                    $answer = $data->fetchAll(PDO::FETCH_ASSOC);
+                    return $answer;
+                }
+                catch(PDOException $e)
+                {
+                    return $e->getMessage();
+                }
             }
         }
     }

@@ -572,101 +572,139 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
 
 Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     $idDoc = $_POST['idDoc'];
-    $date = $_POST['date'];
-    $disponible = $_POST['disp'] == "true" ? true : false;
-    $Hoy = date("N", strtotime($date));
-    $Hoy = $Hoy == 1 ? "l" : ($Hoy == 2 ? "m" : ($Hoy == 3 ? "x" : ($Hoy == 4 ? "j" : ($Hoy == 5 ? "v" : ($Hoy == 6 ? "s" : "d")))));
-    $horario = dbConnection::select(["horario_trabajo", "tiempo_consulta"], "medicos", [["id_usuario", $idDoc]], [], "LIMIT 1");
-    $tiempoConsulta = $horario[0]['tiempo_consulta'];
-    $horario = $horario[0]['horario_trabajo'];
-    $hoyTrabaja = strpos($horario, $Hoy) !== false ? true: false;
-    preg_match('/\(/',$horario, $par, PREG_OFFSET_CAPTURE);
-    $inicio = $par[0][1] + 1;
-    preg_match('/-/',$horario, $guion, PREG_OFFSET_CAPTURE);
-    $fin = $guion[0][1]- $inicio;
-    $horaStart = substr($horario, $inicio, $fin);
-    $inicio2= $guion[0][1] + 1;
-    preg_match('/\)/',$horario, $par2, PREG_OFFSET_CAPTURE);
-    $fin2 = $par2[0][1] - $inicio2;
-    $horaFin = substr($horario, $inicio2, $fin2);
-    $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "citas.id_cita", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.usuario"],
-        "citas",
-        [["citas.id_medico", $idDoc], ["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d')", $date]],
-        [["tipocita", "citas.tipo", "tipocita.id"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
-    $datos["data"] = [];
-    $datos["hoyTrabaja"] = $hoyTrabaja;
-    $datos["horario"] = $horario;
-    $datos["hoy"] = $Hoy;
-    $time = $horaStart;
-        $conteo = 0;
-    if(strtotime($date)<time())
+    $futuras = $_POST['futuras'] == "true" ? true : false;
+    $datos = array();
+    if($futuras)
     {
-        
+        if($idDoc=="")
+        {   
+            $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.usuario FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE fecha_hora>=CURDATE();");        
+            $datos["data"] = array();
             foreach($consulta as $c)
             {
+                array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
+            }
+            return json_encode($datos);
+        }
+        else
+        {
+            $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.usuario FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE fecha_hora>=CURDATE() AND citas.id_medico = $idDoc;");        
+            $datos["data"] = array();
+            foreach($consulta as $c)
+            {
+                array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
+            }
+            return json_encode($datos);
+        }
+
+    }
+    if($idDoc!="")
+    {
+        $date = $_POST['date'];
+        $disponible = $_POST['disp'] == "true" ? true : false;
+        $Hoy = date("N", strtotime($date));
+        $Hoy = $Hoy == 1 ? "l" : ($Hoy == 2 ? "m" : ($Hoy == 3 ? "x" : ($Hoy == 4 ? "j" : ($Hoy == 5 ? "v" : ($Hoy == 6 ? "s" : "d")))));
+        $horario = dbConnection::select(["horario_trabajo", "tiempo_consulta"], "medicos", [["id_usuario", $idDoc]], [], "LIMIT 1");
+        $tiempoConsulta = $horario[0]['tiempo_consulta'];
+        $horario = $horario[0]['horario_trabajo'];
+        $hoyTrabaja = strpos($horario, $Hoy) !== false ? true: false;
+        preg_match('/\(/',$horario, $par, PREG_OFFSET_CAPTURE);
+        $inicio = $par[0][1] + 1;
+        preg_match('/-/',$horario, $guion, PREG_OFFSET_CAPTURE);
+        $fin = $guion[0][1]- $inicio;
+        $horaStart = substr($horario, $inicio, $fin);
+        $inicio2= $guion[0][1] + 1;
+        preg_match('/\)/',$horario, $par2, PREG_OFFSET_CAPTURE);
+        $fin2 = $par2[0][1] - $inicio2;
+        $horaFin = substr($horario, $inicio2, $fin2);
+        $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "citas.id_cita", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.usuario"],
+            "citas",
+            [["citas.id_medico", $idDoc], ["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d')", $date]],
+            [["tipocita", "citas.tipo", "tipocita.id"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+        $datos["data"] = [];
+        $datos["hoyTrabaja"] = $hoyTrabaja;
+        $datos["horario"] = $horario;
+        $datos["hoy"] = $Hoy;
+        $time = $horaStart;
+            $conteo = 0;
+        if(strtotime($date)<time())
+        {
+            
+                foreach($consulta as $c)
+                {
+                            array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
+                            $comprobacion = false;
+                            $tiempoExtra = $c['hora'];
+                }
+        }
+        elseif($disponible)
+        {   
+            while(strtotime($time)<strtotime($horaFin) && $conteo!=1000)
+            {
+                $comprobacion = true;
+                foreach($consulta as $c)
+                {
+                    if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
+                        {
+                            $comprobacion = false;
+                            $tiempoExtra = $c['hora'];
+                        }
+                }
+                if($comprobacion && $hoyTrabaja)
+                {
+                    array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+                    $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
+                    $time = date("H:i:s", $time);
+                }
+                elseif(!$comprobacion)
+                {
+                    $time = strtotime("+".$tiempoConsulta." minutes",strtotime($tiempoExtra));
+                    $time = date("H:i:s", $time);
+                }
+                $conteo++;
+            }
+        }
+        else
+        {
+            while(strtotime($time)<strtotime($horaFin) && $conteo!=1000)
+            {
+                $comprobacion = true;
+                foreach($consulta as $c)
+                {
+                    if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
+                    {
                         array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
                         $comprobacion = false;
                         $tiempoExtra = $c['hora'];
-            }
-    }
-    elseif($disponible)
-    {   
-        while(strtotime($time)<strtotime($horaFin) && $conteo!=1000)
-        {
-            $comprobacion = true;
-            foreach($consulta as $c)
-            {
-                if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
-                    {
-                        $comprobacion = false;
-                        $tiempoExtra = $c['hora'];
                     }
+                }
+                if($comprobacion && $hoyTrabaja)
+                {
+                    array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+                    $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
+                    $time = date("H:i:s", $time);
+                }
+                elseif(!$comprobacion)
+                {
+                    $time = strtotime("+".$tiempoConsulta." minutes",strtotime($tiempoExtra));
+                    $time = date("H:i:s", $time);
+                }
+                $conteo++;
             }
-            if($comprobacion && $hoyTrabaja)
-            {
-                array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
-                $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
-                $time = date("H:i:s", $time);
-            }
-            elseif(!$comprobacion)
-            {
-                $time = strtotime("+".$tiempoConsulta." minutes",strtotime($tiempoExtra));
-                $time = date("H:i:s", $time);
-            }
-            $conteo++;
+            
         }
+        return json_encode($datos);
     }
     else
     {
-        while(strtotime($time)<strtotime($horaFin) && $conteo!=1000)
+        $datos["data"] = [];
+        $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.usuario FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE DATE(fecha_hora)=DATE(NOW());"); 
+        foreach($consulta as $c)
         {
-            $comprobacion = true;
-            foreach($consulta as $c)
-            {
-                if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
-                {
-                    array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
-                    $comprobacion = false;
-                    $tiempoExtra = $c['hora'];
-                }
-            }
-            if($comprobacion && $hoyTrabaja)
-            {
-                array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
-                $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
-                $time = date("H:i:s", $time);
-            }
-            elseif(!$comprobacion)
-            {
-                $time = strtotime("+".$tiempoConsulta." minutes",strtotime($tiempoExtra));
-                $time = date("H:i:s", $time);
-            }
-            $conteo++;
+            array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
         }
-        
+        return json_encode($datos);
     }
-    echo json_encode($datos);
-
 });
 
 
@@ -677,6 +715,12 @@ Route::POST('/ajaxRDC' /* Recepcionista obtiene Datos de Cita*/, function() {
         "citas", 
         [["citas.id_cita", $idDate]],
         [["tipocita", "tipocita.id", "citas.tipo"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    $doctor = dbConnection::select( 
+        ["usuarios.nombre", "usuarios.usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
+        "citas", 
+        [["citas.id_cita", $idDate]],
+        [["usuarios", "usuarios.id_usuario", "citas.id_medico"]]);
+    $datos[0]["medico"]=$doctor[0];
     return json_encode($datos[0]);
 });
 

@@ -139,7 +139,7 @@ use App\myClasses\dbConnection;
                         <!-- /.panel-heading -->
                         <div class="panel-head">
                             <form action="#" method="POST">
-                                <div class="form-group" style="padding-top:15px; padding-left:15px;">
+                                <div class="form-group" style="padding-top:15px;" id="filtros">
                                     <input type="checkbox" name="proximasCitas" id="proximasCitas" />
                                     <div class="btn-group">
                                         <label for="proximasCitas" class="btn btn-default">
@@ -147,31 +147,31 @@ use App\myClasses\dbConnection;
                                             <span>&nbsp</span>
                                         </label>
                                         <label for="proximasCitas" class="btn btn-default active">
-                                            Ver solo citas registradas futuras
+                                            Citas futuras
                                         </label>
+                                        <span>&nbsp&nbsp</span>
                                     </div>
-                                </div>
-                                <div class="form-group" style="padding-top:15px;" id="filtros">
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
                                     <label class="btn">Doctor: </label>
                                     <select class="btn btn-default" name="idDoc" id="idDoc">
                                         <?php foreach($listaDoctores as $d): ?>
                                             <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
                                     &nbsp&nbsp
                                     <input type="checkbox" name="disponible" id="disponible" />
                                         <div class="btn-group">
-                                            <label for="disponible" class="btn btn-default">
+                                            <label for="disponible" id="icoDisponible" class="btn btn-default">
                                                 <span class="fa fa-check"></span>
                                                 <span>&nbsp</span>
                                             </label>
-                                            <label for="disponible" class="btn btn-default active">
+                                            <label for="disponible" id="labelDisponible" class="btn btn-default active">
                                                 Ver solo horarios disponibles
                                             </label>
                                         </div>
                                     <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
                                 </div>
+                                
                             </form>
                         </div>
                         <div class="panel-body">
@@ -330,6 +330,7 @@ use App\myClasses\dbConnection;
                         d.idDoc = $('#idDoc').val();
                         d.date = $('#date').val();
                         d.disp = $('#disponible').prop("checked");
+                        d.futuras = $('#proximasCitas').prop("checked");
                     }
                 },
                 "columns":[
@@ -354,6 +355,12 @@ use App\myClasses\dbConnection;
                 language: "es"
             });
             $('#selectTipoCita').val('').trigger("change");
+            $('#idDoc').select2({
+                placeholder: "Doctor de la cita",
+                allowClear: true,
+                language: "es"
+            });
+            $('#idDoc').val('').trigger("change");
         });
 
         function obtenerCita(cita)
@@ -373,7 +380,6 @@ use App\myClasses\dbConnection;
             {
                 $("#verCita").show();
                 $("#nuevaCita").hide();
-                $('#verCitaTitulo').html(doctor);
                 $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': csrfVal
@@ -389,7 +395,7 @@ use App\myClasses\dbConnection;
                     $("#idCitaCancelacion").val(cita);
                     $("#nombrePaciente").html(json.nombre + " " + json.apellidoPaterno + " " + json.apellidoMaterno);
                     $("#tipoCita").html(json.tipo);
-                    $('#verCitaTitulo').html(doctor + " -- " + ("0" + fecha.getDate()).slice(-2) + "/" + ("0" + (fecha.getMonth()+1)).slice(-2) + "/" + fecha.getFullYear() + " " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2));
+                    $('#verCitaTitulo').html(json.medico.usuario + " - " + json.medico.nombre + " " + json.medico.apellidoPaterno + " " + json.medico.apellidoMaterno + " -- " + ("0" + fecha.getDate()).slice(-2) + "/" + ("0" + (fecha.getMonth()+1)).slice(-2) + "/" + fecha.getFullYear() + " " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2));
                 });
             }
         }
@@ -420,11 +426,17 @@ use App\myClasses\dbConnection;
 
         $("#proximasCitas").change(function() {
             if(document.getElementById('proximasCitas').checked){
-                $("#filtros").hide();
+                $("#date").prop("disabled", true);
+                $("#disponible").prop("disabled", true);
+                $("#labelDisponible").prop("class", "btn btn-default disabled");
+                $("#icoDisponible").prop("disabled", "btn btn-default disabled");
             }
             else
             {
-                $("#filtros").show();
+                $("#date").prop("disabled", false);
+                $("#disponible").prop("disabled", false);
+                $("#labelDisponible").prop("class", "btn btn-default active");
+                $("#icoDisponible").prop("disabled", "btn btn-default active");
             }
         });
         function eliminacion(){
