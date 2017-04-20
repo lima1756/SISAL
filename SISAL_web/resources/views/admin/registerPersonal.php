@@ -109,52 +109,52 @@
 
                          <div class="form-group">
                          <label>Nombre:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" " required></textarea>
                         </div>
                         <div class="form-group">
                          <label>Apellido Paterno:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                          <label>Apellido Materno:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
 
                         <div class="form-group">
                          <label>Usuario:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                          <label>Contraseña:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                          <label>Correo:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                          <label>Domicilio:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                          <label>Municipio:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                         <label>Codigo Postal:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                         <label>Telefono:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                         <label>Celular:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                         <label>Genero:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                         <label>No. Social:</label>
@@ -162,7 +162,7 @@
                         </div>
                         <div class="form-group">
                         <label>Fecha Nacimiento:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                         <label>Ocupación:</label>
@@ -170,7 +170,7 @@
                         </div>
                         <div class="form-group">
                         <label>Puesto:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
+                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-warning">Guardar</button>

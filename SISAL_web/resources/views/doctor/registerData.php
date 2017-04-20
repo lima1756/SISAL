@@ -167,8 +167,8 @@
                                         <!-- Interrogatorio -->
                                         <div class="form-group">
                                             <h2 class="header">Interrogatorio:</h2>
-                                            <textarea class="textarea50" placeholder="Motivo de consulta:" rows="10" name="motivo" id="motivo"></textarea>
-                                            <textarea class="textarea50" placeholder="Síntomas:" rows="10" name="sintomas" id="sintomas"></textarea>
+                                            <textarea class="textarea50" placeholder="Motivo de consulta:" rows="10" name="motivo" id="motivo" required></textarea>
+                                            <textarea class="textarea50" placeholder="Síntomas:" rows="10" name="sintomas" id="sintomas" required></textarea>
                                         </div>
                                         <!-- Exploración -->
                                         <div class="form-group">
@@ -176,13 +176,13 @@
                                             <table>
                                                 <tr>
                                                     <td><label>Peso: </label></td>
-                                                    <td colspan="3"><input type="number" name="peso" id="peso"/></td>
+                                                    <td colspan="3"><input type="number" name="peso" id="peso" required/></td>
                                                     <td><label>kg</label></td>
                                                     <td rowspan="6" width="50%"><textarea placeholder="Exploración fisica:" rows="10" cols="50" name="exploracion" id="exploracion"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Talla: </label></td>
-                                                    <td  colspan="3"><input type="number" name="talla" id="talla"/></td>
+                                                    <td  colspan="3"><input type="number" name="talla" id="talla" required/></td>
                                                     <td><label>Cm</label></td>
                                                 </tr>
                                                 <tr>
@@ -212,7 +212,7 @@
                                         <!-- Diagnostico -->                  
                                         <div class="form-group">
                                             <h2 class="header">Diagnostico:</h2>
-                                            <input class="form-control" type="text" placeholder="Enfermedad" name="enfermedad" id="enfermedad"/>
+                                            <input class="form-control" type="text" placeholder="Enfermedad" name="enfermedad" id="enfermedad" required/>
                                             <div class="form-group">
                                                 <label>Estado de la enfermedad:</label>
                                                 <select id="estadoEnfermedad" name="estadoEnfermedad" class="form-control">
