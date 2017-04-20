@@ -139,7 +139,19 @@ use App\myClasses\dbConnection;
                         <!-- /.panel-heading -->
                         <div class="panel-head">
                             <form action="#" method="POST">
-                                <div class="form-group" style="padding-top:15px;">
+                                <div class="form-group" style="padding-top:15px; padding-left:15px;">
+                                    <input type="checkbox" name="proximasCitas" id="proximasCitas" />
+                                    <div class="btn-group">
+                                        <label for="proximasCitas" class="btn btn-default">
+                                            <span class="fa fa-check"></span>
+                                            <span>&nbsp</span>
+                                        </label>
+                                        <label for="proximasCitas" class="btn btn-default active">
+                                            Ver solo citas registradas futuras
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-top:15px;" id="filtros">
                                     <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
                                     <label class="btn">Doctor: </label>
                                     <select class="btn btn-default" name="idDoc" id="idDoc">
@@ -225,12 +237,12 @@ use App\myClasses\dbConnection;
                                             <span>&nbsp</span>
                                         </label>
                                         <label for="registrado" class="btn btn-default active">
-                                            ¿Usuario Nuevo?
+                                            ¿Paciente nuevo?
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group" id="usuarioRegistrado">
-                                    <select name="usuario" class="form-control especial" id="usuario" style="width: 100%">
+                                    <select name="usuario" class="form-control" id="usuario" style="width: 100%" required>
                                         <?php foreach($pacientes as $p): ?>
                                             <option value="<?php  echo $p['id_usuario'] ?>"><?php  echo $p['usuario'] . " - " . $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno'];?></option>
                                         <?php endforeach; ?>
@@ -238,14 +250,11 @@ use App\myClasses\dbConnection;
                                 </div>
                                 <div id="usuarioNuevo" hidden>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Usuario del paciente"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Nombre del paciente"/>
+                                        <input class="form-control" type="text" name="nombreRealNuevo" id="nombreRealNuevo" placeholder="Nombre del paciente"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <select name="tipoCita" class="form-control especial" id="tipoCita" style="width: 100%">
+                                    <select name="selectTipoCita" class="form-control" id="selectTipoCita" style="width: 100%" required>
                                         <?php foreach($tipoCitas as $t): ?>
                                             <option value="<?php  echo $t['id'] ?>"><?php  echo $t['nombre'];?></option>
                                         <?php endforeach; ?>
@@ -253,6 +262,8 @@ use App\myClasses\dbConnection;
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                    <input type="hidden" name="fecha_hora" id="fecha_hora" value="" hidden/>
+                                    <input type="hidden" name="id_medico" id="id_medico" value="" hidden/>
                                     <input class="btn btn-primary form-control" type="submit" value="Agregar cita"/>
                                 </div>
                             </form>
@@ -331,12 +342,18 @@ use App\myClasses\dbConnection;
                     {"data":"Hora"}
                 ]
             });
-            $('.especial').select2({
+            $('#usuario').select2({
                 placeholder: "Persona para la cita",
                 allowClear: true,
                 language: "es"
             });
             $('#usuario').val('').trigger("change");
+            $('#selectTipoCita').select2({
+                placeholder: "Tipo de cita que se realiza",
+                allowClear: true,
+                language: "es"
+            });
+            $('#selectTipoCita').val('').trigger("change");
         });
 
         function obtenerCita(cita)
@@ -349,6 +366,8 @@ use App\myClasses\dbConnection;
                 $("#nuevaCita").show();
                 $("#verCita").hide();
                 $('#nuevaCitaTitulo').html(doctor + " -- " + ("0" + fecha.getDate()).slice(-2) + "/" + ("0" + (fecha.getMonth()+1)).slice(-2) + "/" + fecha.getFullYear() + " " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2));
+                $('#fecha_hora').val(cita);
+                $('#id_medico').val($("#idDoc").val());
             }
             else
             {
@@ -386,14 +405,28 @@ use App\myClasses\dbConnection;
                 $("#usuarioRegistrado").hide();
                 $("#usuarioNuevo").show();
                 $('#usuario').val('').trigger("change");
+                document.getElementById("nombreRealNuevo").required = true;
+                document.getElementById("usuario").required = false;
             }
             else
             {
+                $("#nombreRealNuevo").val("");
                 $("#usuarioNuevo").hide();
                 $("#usuarioRegistrado").show();
+                document.getElementById("nombreRealNuevo").required = false;
+                document.getElementById("usuario").required = true;
             }
         });
 
+        $("#proximasCitas").change(function() {
+            if(document.getElementById('proximasCitas').checked){
+                $("#filtros").hide();
+            }
+            else
+            {
+                $("#filtros").show();
+            }
+        });
         function eliminacion(){
             if($("#submitCancelacion").html()=="Eliminar cita")
             {

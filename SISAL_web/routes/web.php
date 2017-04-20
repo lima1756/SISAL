@@ -599,7 +599,17 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     $datos["hoy"] = $Hoy;
     $time = $horaStart;
         $conteo = 0;
-    if($disponible)
+    if(strtotime($date)<time())
+    {
+        
+            foreach($consulta as $c)
+            {
+                        array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
+                        $comprobacion = false;
+                        $tiempoExtra = $c['hora'];
+            }
+    }
+    elseif($disponible)
     {   
         while(strtotime($time)<strtotime($horaFin) && $conteo!=1000)
         {
@@ -676,5 +686,22 @@ Route::POST('/eliminarCita', function() {
     $datoCita['razon'] = $_POST['razon'];
     dbConnection::insert("canceladas", ["id_cita", "id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "razon"] ,[[$datoCita['id_cita'], $datoCita['id_paciente'], $datoCita['id_recepcionista'], $datoCita['id_medico'], $datoCita['fecha_hora'], $datoCita['razon']]]);
     dbConnection::delete("citas", [["id_cita", $_POST['idCitaCancelacion']]]);
+    return redirect("/dashboard/dates");
+});
+
+Route::POST('/nuevaCita', function() {
+    if(isset($_POST['usuario']))
+    {
+        dbConnection::insert("citas", ["id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "tipo"],
+        [[$_POST['usuario'], logData::getData("id_usuario"), $_POST['id_medico'], $_POST['fecha_hora'], $_POST['selectTipoCita']]]);
+    }
+    else
+    {
+        $usuario = time();
+        dbConnection::insert("usuarios", ["usuario", "nombre"], [[$usuario, $_POST['nombreRealNuevo']]]);
+        $idUsuario = dbConnection::lastID();
+        dbConnection::insert("citas", ["id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "tipo"],
+        [[$idUsuario, logData::getData("id_usuario"), $_POST['id_medico'], $_POST['fecha_hora'], $_POST['selectTipoCita']]]);
+    }
     return redirect("/dashboard/dates");
 });
