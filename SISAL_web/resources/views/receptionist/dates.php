@@ -196,8 +196,15 @@ use App\myClasses\dbConnection;
                             <label>Usuario de paciente:</label> <p id="usuarioPaciente"></p>
                             <label>Nombre de paciente:</label> <p id="nombrePaciente"></p>
                             <label>Tipo de cita:</label> <p id="tipoCita"></p>
-                            <form>
-                                <input class="btn btn-danger" type="submit" value="Eliminar cita"/>
+                            
+                            <form action="#" id="cancelacionCita" name="cancelacionCita" method="POST">
+                                <div class="form-group" id="divRazon" hidden>
+                                    <label>Razón de cancelación</label>
+                                    <textarea name="razon" id="razon" class="form-control" required></textarea>
+                                </div>
+                                <input type="text" id="idCitaCancelacion" name="idCitaCancelacion" hidden/>
+                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                <button class="btn btn-danger" type="submit" id="submitCancelacion" onclick="eliminacion(); return false;">Eliminar cita</button>
                             </form>
                         </div>
                     </div>
@@ -209,7 +216,7 @@ use App\myClasses\dbConnection;
                             <label class="panel-title" id="nuevaCitaTitulo">Doc1: 28-11-2016::16:00</label>
                         </div>
                         <div class="panel-body">
-                            <form>
+                            <form action="/nuevaCita" method="POST">
                                 <div class="form-group">
                                     <input type="checkbox" id="registrado" autocomplete="off"/>
                                     <div class="btn-group">
@@ -245,6 +252,7 @@ use App\myClasses\dbConnection;
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                     <input class="btn btn-primary form-control" type="submit" value="Agregar cita"/>
                                 </div>
                             </form>
@@ -334,6 +342,7 @@ use App\myClasses\dbConnection;
         function obtenerCita(cita)
         {
             var doctor = $("#idDoc option:selected").html();
+            $("#submitCancelacion").html("Eliminar cita");
             if(isNaN(cita))
             {
                 var fecha = new Date(cita);
@@ -358,6 +367,7 @@ use App\myClasses\dbConnection;
                     var json = JSON.parse(data);  
                     var fecha = new Date(json.fecha_hora); 
                     $("#usuarioPaciente").html(json.usuario);
+                    $("#idCitaCancelacion").val(cita);
                     $("#nombrePaciente").html(json.nombre + " " + json.apellidoPaterno + " " + json.apellidoMaterno);
                     $("#tipoCita").html(json.tipo);
                     $('#verCitaTitulo').html(doctor + " -- " + ("0" + fecha.getDate()).slice(-2) + "/" + ("0" + (fecha.getMonth()+1)).slice(-2) + "/" + fecha.getFullYear() + " " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2));
@@ -383,6 +393,19 @@ use App\myClasses\dbConnection;
                 $("#usuarioRegistrado").show();
             }
         });
+
+        function eliminacion(){
+            if($("#submitCancelacion").html()=="Eliminar cita")
+            {
+                $("#submitCancelacion").html("Confirmar eliminacion");
+                $("#divRazon").show();
+            }
+            else
+            {
+                document.getElementById("cancelacionCita").action="/eliminarCita";
+                $("#cancelacionCita").send();
+            }
+        }
     </script>
 
 </body>

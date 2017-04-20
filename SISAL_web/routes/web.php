@@ -669,3 +669,12 @@ Route::POST('/ajaxRDC' /* Recepcionista obtiene Datos de Cita*/, function() {
         [["tipocita", "tipocita.id", "citas.tipo"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
     return json_encode($datos[0]);
 });
+
+Route::POST('/eliminarCita', function() {
+    $datoCita = dbConnection::select(["*"], "citas", [["id_cita", $_POST['idCitaCancelacion']]]);
+    $datoCita = $datoCita[0];
+    $datoCita['razon'] = $_POST['razon'];
+    dbConnection::insert("canceladas", ["id_cita", "id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "razon"] ,[[$datoCita['id_cita'], $datoCita['id_paciente'], $datoCita['id_recepcionista'], $datoCita['id_medico'], $datoCita['fecha_hora'], $datoCita['razon']]]);
+    dbConnection::delete("citas", [["id_cita", $_POST['idCitaCancelacion']]]);
+    return redirect("/dashboard/dates");
+});

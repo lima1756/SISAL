@@ -489,7 +489,6 @@
                 }
                 try
                 {
-                    var_dump($query);
                     $insert = self::$DBCon->prepare($query);
                     $insert->execute($data);
                     return 1;

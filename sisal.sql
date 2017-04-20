@@ -147,7 +147,6 @@ CREATE TABLE `canceladas` (
   `id_recepcionista` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
   `fecha_hora` date NOT NULL,
-  `nombre_paciente` varchar(100) NOT NULL,
   `razon` varchar(120) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
