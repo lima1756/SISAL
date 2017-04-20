@@ -186,6 +186,10 @@ Route::get('/dashboard/patients', function() {
     {
         return view('doctor/patients');
     }
+    elseif(Type::isReceptionist())
+    {
+        return view('receptionist/patients');
+    }
     else
     {
         return redirect('/dashboard');
@@ -223,7 +227,7 @@ Route::POST('/ajaxDP', function() {
     {
         $infoPacientes = array();
         $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
-                "usuarios. codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
+                "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
                 "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar", "pacientes.*"], 
             "pacientes", 
             [["pacientes.id_usuario", $_POST['patientId']]],
@@ -327,9 +331,10 @@ Route::POST('/ajaxDP', function() {
                 if(count($cafe)>0)
                     $infoPacientes['cafe'] = $cafe[0];
             }
-            return json_encode($infoPacientes);
+            
 
         }
+        return json_encode($infoPacientes);
     }
     else
     {
@@ -746,6 +751,45 @@ Route::POST('/nuevaCita', function() {
         $idUsuario = dbConnection::lastID();
         dbConnection::insert("citas", ["id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "tipo"],
         [[$idUsuario, logData::getData("id_usuario"), $_POST['id_medico'], $_POST['fecha_hora'], $_POST['selectTipoCita']]]);
+        dbConnection::insert("pacientes", ["id_usuario"], [[$idUsuario]]);
     }
     return redirect("/dashboard/dates");
+});
+
+
+Route::POST('/ajaxRP', function() {
+    if(Type::isReceptionist())
+    {
+        $infoPacientes = array();
+        $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+                "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
+                "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
+            "usuarios", 
+            [["usuarios.id_usuario", $_POST['patientId']]]
+            );
+        $infoPacientes['generales'] = $generales[0];
+        
+        return json_encode($infoPacientes);
+    }
+    else
+    {
+        return 0;
+    }
+});
+
+Route::POST('/ajaxRgP' /* Doctor guarda Paciente*/, function() {
+    if($_POST['pass']==""){
+        dbConnection::update("usuarios",
+            ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
+            [$_POST['usuario'],$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
+            [['usuarios.id_usuario', $_POST['idPaciente']]]);
+    }
+    else
+    {
+        $cipher_pass = hash("sha256", $_POST['pass']);
+        dbConnection::update("usuarios",
+            ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
+            [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
+            [['usuarios.id_usuario', $_POST['idPaciente']]]);
+    }
 });

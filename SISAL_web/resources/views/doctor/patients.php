@@ -259,6 +259,7 @@
                                                 <option>Género</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Femenino">Femenino</option>
+                                                <option value="-1">Seleccione un genero</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -743,7 +744,10 @@
             ],
             "order": [[ 3, "desc" ]]
         });
-        $('input[type=radio][name=paciente]').change(function() {
+        
+        
+        } );
+        $('input[type=radio][name=paciente]').on("click", function() {
             cancelacion();
             $('#contenidoCita').hide();
             <?php foreach ($pacientes as $key => $p): ?>
@@ -797,9 +801,6 @@
                 
             });
         });
-        
-        } );
-
         function edicion()
         {
             $('#formulario :input').prop('disabled', false);
@@ -1131,9 +1132,13 @@
             {
                 $('#genero').val("Masculino");
             }
-            else
+            else if("Femenino")
             {
                 $('#genero').val("Femenino");
+            }
+            else
+            {
+                $('#genero').val("-1");
             }
             $('#seguroSocial').val(json.generales.noSeguroSocial);
             var fecha = new Date(json.generales.fechaNacimiento);
