@@ -7,6 +7,17 @@
         [],
         [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"]]
         );
+    $existeGet = false;
+    if(isset($_GET['id']))
+    {
+        foreach($pacientes as $p)
+        {
+            if($p['id_usuario']==$_GET['id'])
+            {
+                $existeGet = true;
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,7 +179,8 @@
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-12">
-                    <form name="formulario" id="formulario" action="">
+                    <form name="formulario" id="formulario" action="/dashboard/patients" method="POST">
+                        <input type="text" name="_token" id="_token" value="<?php echo csrf_token(); ?>" hidden/>
                         <div class="panel panel-default"aria-multiselectable="true" id="toda_info" hidden>
                             <div class="panel-heading">
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" onclick="edicion(); return false;" type="submit" id="editar">Editar</button></span>
@@ -177,8 +189,8 @@
                                 <span><h2 id="nombre_completo" name="nombre_completo">alguien</h2></span>
                             </div>
                             <div id="tablist">
-                                <form name="formulario" id="formulario">
                                     <input type="text" name="idPaciente" id="idPaciente" hidden/>
+                                    
                                     <!-- Desplegable información Personal--> 
                                     <div>
                                         <a href="javascript:myToggler();" data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
@@ -239,10 +251,9 @@
                                             <div class="form-group">
                                                 <label>Genero</label>
                                                 <select class="form-control" id="genero" name="genero" disabled>
-                                                    <option>Género</option>
+                                                    <option value="-1">Seleccione un genero</option>
                                                     <option value="Masculino">Masculino</option>
                                                     <option value="Femenino">Femenino</option>
-                                                    <option value="-1">Seleccione un genero</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -264,16 +275,37 @@
                                                 <label>Ocupación</label>
                                                 <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
                                             </div>
+                                            <div class="form-group">
+                                                <input type="checkbox" name="miResponsable" id="miResponsable" autocomplete="off" disabled />
+                                                <div class="btn-group"> 
+                                                    <label for="miResponsable" class="btn btn-default" id="checkResponsable">
+                                                        <span class="[ fa fa-check ]"></span>
+                                                        <span>&nbsp</span>
+                                                    </label>
+                                                    <label for="miResponsable" class="btn btn-default" id="labelResponsable">
+                                                        ¿Cuenta con algun responsable?
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <input type="number" name="idResponsable" id="idResponsable" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->
                                         <div>
                                             <div id="responsable" hidden>
-                                                <a href="#responsableInf" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
+                                                <a href="javascript:myToggler2();" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
                                                 <div class="panel-heading">
                                                     <h4>Información Responsable</h2>
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="responsableInf" >
+                                                    <div class="form-group">
+                                                        <label>Usuario</label>
+                                                        <input class="form-control" type="text" placeholder="Usuario" id="responsableUsuario" name="responsableUsuario" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Actualizar contraseña</label>
+                                                        <input class="form-control" type="text" placeholder="Actualizar contraseña" id="responsablePass" name="responsablePass" disabled/>
+                                                    </div>
                                                     <div class="form-group">
                                                         <input class="form-control" type="text" placeholder="Nombre" id="responsableNombre" name="responsableNombre" disabled/>
                                                     </div>
@@ -306,8 +338,8 @@
                                                         <input class="form-control" type="email" placeholder="Correo Electrónico" id="responsableEmail" name="responsableEmail" disabled/>
                                                     </div>
                                                     <div class="form-group">
-                                                        <select class="form-control" id="genero" name="responsableGenero" disabled>
-                                                            <option>Género</option>
+                                                        <select class="form-control" id="responsableGenero" name="responsableGenero" disabled>
+                                                            <option value="-1">Seleccione un genero</option>
                                                             <option value="Masculino">Masculino</option>
                                                             <option value="Femenino">Femenino</option>
                                                         </select>
@@ -322,7 +354,7 @@
                                                         <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="responsableFechaNacimiento" name="responsableFechaNacimiento" disabled/>
                                                     </div>
                                                     <div class="form-group">
-                                                    <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="edad">xy años</label>
+                                                    <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="responsableEdad">xy años</label>
                                                     </div>
                                                     <div class="form-group">
                                                         <input class="form-control" type="text" placeholder="Ocupación" id="responsableOcupacion" name="responsableOcupacion" disabled/>
@@ -379,6 +411,31 @@
             ],
             "order": [[ 2, "desc" ]]
         });
+        <?php if($existeGet): ?>
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            }
+            })
+            $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
+                'patientId': '<?php echo $_GET['id']; ?>'
+            },
+            function(data, status){
+                json = JSON.parse(data);
+                if(json != 0)
+                {
+                    $('#toda_info').show();
+                    document.getElementById('toda_info').scrollIntoView();
+                    $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                    recuperarInfo();
+                    cancelacion();
+                }
+                
+            });
+            $('html, body').animate({
+                scrollTop: $("#toda_info").offset().top
+            }, 1000);
+        <?php endif; ?>
     });
     $('input[type=radio][name=paciente]').on("click", function() {
         cancelacion();
@@ -441,7 +498,7 @@
         $('#nombre').val(json.generales.nombre);
         $('#apellidoPaterno').val(json.generales.apellidoPaterno);
         $('#apellidoMaterno').val(json.generales.apellidoMaterno);
-        $('#domicilio').val(json.generales.domicilio);
+        $('#domicilio').val(json.generales.Domicilio);
         $('#codigoPostal').val(json.generales.codigoPostal);
         $('#domTel').val(json.generales.telefonoDomiciliar);
         $('#ofTel').val(json.generales.telefonoDomiciliar);
@@ -473,10 +530,69 @@
         }
         $('#edad').html(edad);
         $('#ocupacion').val(json.generales.Ocupacion);
-        if(json.sangre)
+        if(json.encargados)
         {
-            $('#sangre').val(json.sangre.id_sangre);
+            $("#responsable").show();
+            $("#miResponsable").prop("checked", true);
+            $("#idResponsable").val(json.encargados.id_usuario);
+            $('#responsableUsuario').val(json.encargados.usuario);
+            $('#responsableNombre').val(json.encargados.nombre);
+            $('#responsableApellidoPaterno').val(json.encargados.apellidoPaterno);
+            $('#responsableApellidoMaterno').val(json.encargados.apellidoMaterno);
+            $('#responsableDomicilio').val(json.encargados.Domicilio);
+            $('#responsableCodigoPostal').val(json.encargados.codigoPostal);
+            $('#responsableDomTel').val(json.encargados.telefonoDomiciliar);
+            $('#responsableOfTel').val(json.encargados.telefonoDomiciliar);
+            $('#responsableEmail').val(json.encargados.telefonoDomiciliar);
+            if(json.encargados.genero=="Masculino")
+            {
+                $('#responsableGenero').val("Masculino");
+            }
+            else if(json.encargados.genero=="Femenino")
+            {
+                $('#responsableGenero').val("Femenino");
+            }
+            else
+            {
+                $('#responsableGenero').val("-1");
+            }
+            $('#responsableSeguroSocial').val(json.encargados.noSeguroSocial);
+            var fecha = new Date(json.encargados.fechaNacimiento);
+            $('#responsableFechaNacimiento').val(json.encargados.fechaNacimiento);
+            var hoy = new Date();
+            var edad = 0;
+            if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
+            {
+                edad = hoy.getFullYear() - fecha.getFullYear() + 1;
+            }
+            else
+            {
+                edad = hoy.getFullYear() - fecha.getFullYear();
+            }
+            $('#responsableEdad').html(edad);
+            $('#responsableOcupacion').val(json.encargados.Ocupacion);
         }
+        else
+        {
+            $("#responsable").hide();
+            $("#miResponsable").prop("checked", false);
+            $("#idResponsable").val("");
+            $('#usuarioResponsable').val("");
+            $('#responsableNombre').val("");
+            $('#responsableApellidoPaterno').val("");
+            $('#responsableApellidoMaterno').val("");
+            $('#responsableDomicilio').val("");
+            $('#responsableCodigoPostal').val("");
+            $('#responsableDomTel').val("");
+            $('#responsableOfTel').val("");
+            $('#responsableEmail').val("");
+            $('#responsableGenero').val("-1");
+            $('#responsableSeguroSocial').val("");
+            $('#responsableFechaNacimiento').val("");
+            $('#responsableEdad').html("");
+            $('#responsableOcupacion').val("");
+        }
+
     }
 
     function edicion()
@@ -493,30 +609,38 @@
 
     function aceptacion()
         {
+            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': csrfVal
-                }
+                },
+                async: false
             })
             $.post("/ajaxRgP",
-                $('#formulario').serialize()
-            ,
+                $('#formulario').serialize(),
             function(data, status){
-                
+                var misdatos = data;
+                if(misdatos !== "undefined")
+                {
+                    $("#idPaciente").val(misdatos);
+                }
+                $('#formulario :input').prop('disabled', true);
+                $('#_token').prop('disabled', false);
+                $('#editar').prop('disabled', false);
+                $('#cancelar').prop('disabled', false);
+                $('#aceptar').prop('disabled', false);
+                $('label[id="checkbox"]').attr('disabled', true);
+                $('#editar').show();
+                $('#cancelar').hide();
+                $('#aceptar').hide();
+                $('#pass').val("");
+                $('#medico').attr("disabled", false);
+                $('#fechaCita').attr("disabled", false);
+                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
             });
-            $('#formulario :input').prop('disabled', true);
-            $('#editar').prop('disabled', false);
-            $('#cancelar').prop('disabled', false);
-            $('#aceptar').prop('disabled', false);
-            $('label[id="checkbox"]').attr('disabled', true);
-            $('#editar').show();
-            $('#cancelar').hide();
-            $('#aceptar').hide();
-            $('#pass').val("");
-            $('#medico').attr("disabled", false);
-            $('#fechaCita').attr("disabled", false);
             
         }
+
     var activo = false;
     function myToggler()
     {
@@ -533,6 +657,81 @@
         }
     }
 
+    function myToggler2()
+    {
+        if(!activo)
+        {
+            $('html, body').animate({
+                scrollTop: $("#responsableInf").offset().top
+            }, 1000);
+            activo = true;
+        }
+        else
+        {
+            activo= false;
+        }
+    }
+
+    $("#miResponsable").change(function() {
+        if(document.getElementById('miResponsable').checked)
+        {
+            $("#responsable").show();   
+        }
+        else
+        {
+            $("#responsable").hide();
+        }
+    });
+
+    function nuevo()
+    {
+        $('#idPaciente').val(-1);
+        $('#nombre_completo').html("Nuevo paciente: ")
+        $('#usuario').val("");
+        $('#nombre').val("");
+        $('#apellidoPaterno').val("");
+        $('#apellidoMaterno').val("");
+        $('#domicilio').val("");
+        $('#codigoPostal').val("");
+        $('#domTel').val("");
+        $('#ofTel').val("");
+        $('#email').val("");
+        $('#genero').val("-1");
+        $('#seguroSocial').val("");
+        $('#fechaNacimiento').val("");
+        $('#edad').html("");
+        $('#ocupacion').val("");
+
+        $('#edad').html("");
+        $('#ocupacion').val("");
+        $("#responsable").hide();
+        $("#miResponsable").prop("checked", false);
+        $("#idResponsable").val("");
+        $('#usuarioResponsable').val("");
+        $('#responsableNombre').val("");
+        $('#responsableApellidoPaterno').val("");
+        $('#responsableApellidoMaterno').val("");
+        $('#responsableDomicilio').val("");
+        $('#responsableCodigoPostal').val("");
+        $('#responsableDomTel').val("");
+        $('#responsableOfTel').val("");
+        $('#responsableEmail').val("");
+        $('#responsableGenero').val("-1");
+        $('#responsableSeguroSocial').val("");
+        $('#responsableFechaNacimiento').val("");
+        $('#responsableEdad').html("");
+        $('#responsableOcupacion').val("");  
+
+        $('#formulario :input').attr('disabled', false);
+        $('#editar').prop('disabled', false);
+        $('#cancelar').prop('disabled', false);
+        $('#aceptar').prop('disabled', false);
+        $('label[id="checkbox"]').attr('disabled', false);
+        $('#editar').hide();
+        $('#aceptar').show(); 
+        $('#toda_info').show();
+        return false;
+    }
     </script>
     
 </body>

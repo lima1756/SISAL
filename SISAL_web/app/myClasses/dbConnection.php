@@ -108,7 +108,7 @@
                         else
                         {
                             $query = null;
-                            echo "ERROR";
+                            echo "ERROR en Inner Join";
                             return -1;
                         }
                     }
@@ -267,8 +267,8 @@
                         }
                         else
                         {
-                            
-                            return "ERROR campos no corresponden con datos 1";
+                            echo "ERROR campos no corresponden con datos 1";
+                            return -1;
                             
                         }
                     }
@@ -295,7 +295,8 @@
                     }
                     else
                     {
-                        return "ERROR campos no corresponden con datos 2";
+                        echo "ERROR campos no corresponden con datos 2";
+                        return -1;
                     }
                 }
                 try
@@ -338,7 +339,8 @@
                 $query = "UPDATE " . $tabla . " SET ";
                 if($countCampos != $countDatos)
                 {
-                    return "ERROR, campos a editar diferente que datos";
+                    echo "ERROR, campos a editar diferente que datos";
+                    return -1;
                 }
                 else
                 {
@@ -485,7 +487,8 @@
                 }
                 else
                 {
-                    return "ERROR no puede haber un Delete sin WHERE";
+                    echo "ERROR no puede haber un Delete sin WHERE";
+                    return -1;
                 }
                 try
                 {
