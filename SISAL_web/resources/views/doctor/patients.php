@@ -7,6 +7,17 @@
         [["citas.id_medico", logData::getData("id_usuario")]],
         [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]],
         "GROUP BY citas.id_paciente");
+    $existeGet = false;
+    if(isset($_GET['id']))
+    {
+        foreach($pacientes as $p)
+        {
+            if($p['id_paciente']==$_GET['id'])
+            {
+                $existeGet = true;
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,28 +156,9 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <!-- BOTON DE TODOS -->
-                <?php if(isset($_GET['id'])):?>
-                    <div class="col-lg-12">
-                <?php else: ?>
-                    <div class="col-lg-12" style="visibility: hidden; display:none;">
-                <?php endif; ?>
-                    <form role="form">
-                    <div class="form-group input-group">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Ver todos los pacientes</button>
-                            </button>
-                        </span>
-                    </div>
-                    </form>
-                </div>
+
                 <!-- LISTA DE PACIENTES -->
-                <?php if(isset($_GET['id'])): ?>
-                    <div class="col-lg-12" style="visibility: hidden; display:none;">
-                <?php else: ?>
-                    <div class="col-lg-12" >
-                <?php endif; ?>
+                <div class="col-lg-12" >
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -217,7 +209,7 @@
                             <input type="text" name="idPaciente" id="idPaciente" hidden/>
                                 <!-- Desplegable información Personal--> 
                                 <div>
-                                    <a href="#pInf" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
+                                    <a href="javascript:myToggler('pInf');" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
                                     <div class="panel-heading">
                                         <h4>Información personal</h2>
                                     </div>
@@ -282,7 +274,7 @@
                                 <!-- Desplegable Antecedentes personales--> 
                                 <?php $sangres = dbConnection::select(["tipo", "id_sangre"], "tipo_sangre"); ?>
                                 <div>
-                                    <a href="#aPer" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
+                                    <a href="javascript:myToggler('aPer');" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
                                     <div class="panel-heading">
                                         <h4>Antecedentes personales</h2>
                                     </div>
@@ -334,7 +326,7 @@
                                 </div>
                                 <!-- Desplegable Interrogatorio de antecedentes médicos--> 
                                 <div>
-                                    <a href="#int" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
+                                    <a href="javascript:myToggler('int');" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
                                     <div class="panel-heading">
                                         <h4>Interrogatorio</h2>
                                     </div>
@@ -390,7 +382,7 @@
                                 <!-- Desplegable Estilo de vida--> 
                                 <!--Hace que si no esta check se desactive y viceversa con lo que lo ocupen-->
                                 <div>
-                                    <a href="#eVid" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
+                                    <a href="javascript:myToggler('eVid');" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
                                     <div class="panel-heading">
                                         <h4>Estilo de vida</h2>
                                     </div>
@@ -576,7 +568,7 @@
 
                                 <!-- Desplegable Alergias--> 
                                 <div>
-                                    <a href="#aler" role ="tab" data-toggle="collapse" data-target="#aler" data-parent="#tablist">
+                                    <a href="javascript:myToggler('aler');" role ="tab" data-toggle="collapse" data-target="#aler" data-parent="#tablist">
                                     <div class="panel-heading">
                                         <h4>Alergias</h2>
                                     </div>
@@ -747,7 +739,56 @@
         
         
         } );
-        $('input[type=radio][name=paciente]').on("click", function() {
+        <?php if($existeGet): ?>
+            id= "<?php echo $_GET['id'];?>";
+            $('#idPaciente').val(id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                }
+            })
+            $.post("/ajaxDP", { <?php //DP se refiere a Doctor-Patients ?>
+                'patientId': id
+            },
+            function(data, status){
+                json = JSON.parse(data);
+                if(json != 0)
+                {
+                    $('#toda_info').show();
+                    $('#toda_info').attr("style", "");
+                    document.getElementById('toda_info').scrollIntoView();
+                    $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                    recuperarInfo();
+                    cancelacion();
+                }
+                
+            });
+            $.post("/ajaxDDdP", {
+                'patientId': id
+            },
+            function(data, status){
+                document.getElementById("medico").innerHTML = "";
+                doctores = JSON.parse(data);
+                $("#medico").html("");
+                $("#fechaCita").html("");
+                if(doctores.cantidad>0)
+                {
+                    for(var x = 0; x< doctores.cantidad; x++)
+                    {
+                        document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].usuario + " - " + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
+                    }
+                    document.getElementById("fechaCita").innerHTML="";
+                    idDoctor = doctores[0].id_medico;
+                    $('#contenidoCita').hide();
+                    obtenerFechas();
+                }
+                
+            });
+            $('html, body').animate({
+                scrollTop: $("#toda_info").offset().top
+            }, 1000);
+        <?php endif; ?>
+            $('input[type=radio][name=paciente]').on("click", function() {
             cancelacion();
             $('#contenidoCita').hide();
             <?php foreach ($pacientes as $key => $p): ?>
@@ -789,18 +830,25 @@
             function(data, status){
                 document.getElementById("medico").innerHTML = "";
                 doctores = JSON.parse(data);
-                for(var x = 0; x< doctores.cantidad; x++)
+                $("#medico").html("");
+                $("#fechaCita").html("");
+                if(doctores.cantidad>0)
                 {
-                    document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].usuario + " - " + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
+                    for(var x = 0; x< doctores.cantidad; x++)
+                    {
+                        document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].usuario + " - " + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
+                    }
+                    document.getElementById("fechaCita").innerHTML="";
+                    idDoctor = doctores[0].id_medico;
+                    $('#contenidoCita').hide();
+                    obtenerFechas();
                 }
-                document.getElementById("fechaCita").innerHTML="";
-                idDoctor = doctores[0].id_medico;
-                $('#contenidoCita').hide();
-                obtenerFechas();
-                
                 
             });
         });
+
+        
+
         function edicion()
         {
             $('#formulario :input').prop('disabled', false);
@@ -1159,25 +1207,54 @@
             {
                 $('#sangre').val(json.sangre.id_sangre);
             }
-            $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
-            $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
-            $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);
-            $('#antecedentesPatologicos').val(json.antecedentes.antecedentesPatologicos);
-            $('#antecedentesNoPatologicos').val(json.antecedentes.antecedentesNoPatologicos);
-            $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
-            $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
-            
-            $('#antecedentesCardio').val(json.interrogatorio.antecedentesCardio);
-            $('#antecedentesDigest').val(json.interrogatorio.antecedentesDigesti);
-            $('#antecedentesEndocr').val(json.interrogatorio.antecedentesEndo);
-            $('#antecedentesHemo').val(json.interrogatorio.antecedentesHemoli);
-            $('#antecedentesMusc').val(json.interrogatorio.antecedentesMuscu);
-            $('#antecedentesPiel').val(json.interrogatorio.antecedentesPiel);
-            $('#antecedentesRepr').val(json.interrogatorio.antecedentesReprod);
-            $('#antecedentesResp').val(json.interrogatorio.antecedentesRespi);
-            $('#antecedentesNerv').val(json.interrogatorio.antecedentesNerv);
-            $('#antecedentesGene').val(json.interrogatorio.antecedentesGener);
-            $('#antecedentesUri').val(json.interrogatorio.antecedentesUrina);
+            if(json.antecedentes)
+            {
+                $('#tabaquismoCantidad').val(json.antecedentes.tabaquismo);
+                $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+                $('#antecedentesHereditarios').val(json.antecedentes.antecedentesHereditarios);
+                $('#antecedentesPatologicos').val(json.antecedentes.antecedentesPatologicos);
+                $('#antecedentesNoPatologicos').val(json.antecedentes.antecedentesNoPatologicos);
+                $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+                $('#alcoholismoCantidad').val(json.antecedentes.alcoholismo);
+            }
+            else
+            {
+                $('#tabaquismoCantidad').val("");
+                $('#alcoholismoCantidad').val("");
+                $('#antecedentesHereditarios').val("");
+                $('#antecedentesPatologicos').val("");
+                $('#antecedentesNoPatologicos').val("");
+                $('#alcoholismoCantidad').val("");
+                $('#alcoholismoCantidad').val("");
+            }
+            if(json.interrogatorio)
+            {
+                $('#antecedentesCardio').val(json.interrogatorio.antecedentesCardio);
+                $('#antecedentesDigest').val(json.interrogatorio.antecedentesDigesti);
+                $('#antecedentesEndocr').val(json.interrogatorio.antecedentesEndo);
+                $('#antecedentesHemo').val(json.interrogatorio.antecedentesHemoli);
+                $('#antecedentesMusc').val(json.interrogatorio.antecedentesMuscu);
+                $('#antecedentesPiel').val(json.interrogatorio.antecedentesPiel);
+                $('#antecedentesRepr').val(json.interrogatorio.antecedentesReprod);
+                $('#antecedentesResp').val(json.interrogatorio.antecedentesRespi);
+                $('#antecedentesNerv').val(json.interrogatorio.antecedentesNerv);
+                $('#antecedentesGene').val(json.interrogatorio.antecedentesGener);
+                $('#antecedentesUri').val(json.interrogatorio.antecedentesUrina);
+            }
+            else
+            {
+                $('#antecedentesCardio').val("");
+                $('#antecedentesDigest').val("");
+                $('#antecedentesEndocr').val("");
+                $('#antecedentesHemo').val("");
+                $('#antecedentesMusc').val("");
+                $('#antecedentesPiel').val("");
+                $('#antecedentesRepr').val("");
+                $('#antecedentesResp').val("");
+                $('#antecedentesNerv').val("");
+                $('#antecedentesGene').val("");
+                $('#antecedentesUri').val("");
+            }
 
             if(json.ejercicio)
             {
@@ -1278,9 +1355,12 @@
                 document.getElementById('exFumador').checked = false;
                 $('#fumaEdad').val(0);
             }
-            if(json.estiloVida.fumadorPasivo!=0)
+            if(json.estiloVida)
             {
-                document.getElementById('fumadorPasivo').checked = true;
+                if(json.estiloVida.fumadorPasivo!=0)
+                {
+                    document.getElementById('fumadorPasivo').checked = true;
+                }
             }
             else
             {
@@ -1312,8 +1392,14 @@
                 document.getElementById('exAdicto').checked = true;
                 $('#exAdictoEdad').val(json.exAdicto.edad_fin);
             }
-            $('#alergias').html(json.alergias.descripcion);
-
+            if(json.alergias)
+            {
+                $('#alergias').html(json.alergias.descripcion);
+            }
+            else
+            {
+                $('#alergias').html("");
+            }
             if(document.getElementById('exAdicto').checked){
                 $('#drogaEdad').prop('disabled', true);
                 $('#droga').prop('disabled', true);
@@ -1584,6 +1670,13 @@
             $('#medico').attr("disabled", false);
             $('#fechaCita').attr("disabled", false);
         }
+
+    function myToggler(where)
+    {
+            $('html, body').animate({
+                scrollTop: $("#" + where).offset().top
+            }, 1000);
+    }
     </script>    
 </body>
 
