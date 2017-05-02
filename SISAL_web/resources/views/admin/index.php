@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $today = date("Y-m-d") . " 00:00:00";
+    $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
+    $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+        [["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"]], 
+        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+    $cantidadCitas = count($citasHoy);
+    $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d/%m/%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
+
+?>
 <html lang="es">
 
 <head>
@@ -240,7 +254,7 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
+                <div class=" col-lg-6 col-md-6 grid-item">
                     <div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i> Notas
@@ -248,60 +262,27 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat">
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 12 mins
-                                            </small>
+                                <?php foreach($notas as $nota): ?>
+                                    <li class="clearfix">
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <small class="pull-right text-muted">
+                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo $nota['fecha']; ?>
+                                                </small>
+                                            </div>
+                                            <p>
+                                                <?php echo $nota['contenido']; ?>
+                                            </p>
                                         </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 8 mins
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 6 mins 
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> Hace 2 mins 
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                         <!-- /.panel-body -->
                         <div class="panel-footer">
-                            <form name="notesForm "id="notesForm" action="../doctor/" method="POST">
+                            <form name="notesForm "id="notesForm" action="/newNote" method="POST">
                                     <div class="input-group">
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                         <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
                                         <span class="input-group-btn">
                                             <input type="submit" class="full-size btn btn-warning btn-sm" id="submit"/>    

@@ -3,7 +3,7 @@
     var_dump($_POST);
 $regmed = $_POST['medico']; 
 $idCita = $_POST['fechaCita'];  
-$valores=["id_paciente", "id_diagnostico","fecha_hora"];
+$valores=["id_paciente", "id_diagnostico","id_registro","fecha_hora"];
 $tabla="registro_clinico";
 $where=[["registro_clinico.id_registro",$idCita]];
 $join=[];
@@ -17,6 +17,15 @@ $tabla="usuarios";
 $where=[["id_usuario",$v1]];
 $join=[];
 $datos = dbConnection::select($valores,$tabla,$where,$join);
+
+var_dump($datos1);
+
+$valu = $datos1[0]['id_registro'];
+$valores=["id_medicamento", "cada", "inicio","indicaciones"];
+$tabla="tratamiento";
+$where=[["id_registro",$valu]];
+$join=[];
+$datos3 = dbConnection::select($valores,$tabla,$where,$join);
 
 ?>
 
