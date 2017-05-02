@@ -110,6 +110,10 @@
                 {
                     self::$type = "administradores";
                 }
+                elseif(sizeof(dbConnection::select(["*"], "encargados", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "encargado";
+                }
                 else
                 {
                     self::$type = "";
@@ -134,7 +138,10 @@
                 }
                 $_SESSION['authData'] = self::$data;
                 $_SESSION['authType'] = self::$type;
-                return true;
+                if($stay)
+                    return $cipherKey;
+                else
+                    return true;
             }
             else
             {

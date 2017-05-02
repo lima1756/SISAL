@@ -17,6 +17,11 @@
             return logData::getType() == "pacientes" ? true : false;
         }
 
+        public static function isInCharge()
+        {
+            return logData::getType() == "encargado" ? true : false;
+        }
+
         public static function isReceptionist()
         {
             return logData::getType() == "recepcionistas" ? true : false;
