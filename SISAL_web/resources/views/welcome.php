@@ -206,22 +206,6 @@
             <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
                       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                   </div>
-                  
-                  <div class="row">
-                      <div class="col-xs-12">
-                          <input type="checkbox" name="stay" id="stay" autocomplete="off" />
-                            <div class="[ btn-group ]">
-                                <label for="stay" class="[ btn btn-info ]">
-                                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                                    <span> </span>
-                                </label>
-                                <label for="stay" class="[ btn btn-default active ]">
-                                    Mantener sesión iniciada
-                                </label>
-                            </div>
-                      </div>
-                      
-                  </div>
                     <div class="row">
                       <div class="col-xs-12">
                           <button type="submit" class="btn btn-green btn-block btn-flat" style="margin-top:10px;">Sign In</button>
