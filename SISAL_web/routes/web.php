@@ -36,19 +36,9 @@ Route::get('/medicine', function () {
 
 
 Route::post('/logIn', function () {
-    if(isset($_POST['stay']))
+    if(logData::logIn($_POST['email'], $_POST['pass']))
     {
-        if(logData::logIn($_POST['email'], $_POST['pass'], true))
-        {
-            return redirect('/dashboard');
-        }
-    }
-    else
-    {
-        if(logData::logIn($_POST['email'], $_POST['pass']))
-        {
-            return redirect('/dashboard');
-        }
+        return redirect('/dashboard');
     }
     return redirect('/?error=signin');
 });
@@ -933,4 +923,26 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
         }
         return $idPaciente;
     }
+});
+
+
+
+
+
+Route::POST("/android/logIn", function(){
+    $key = logData::logIn($_POST['user'], $_POST['pass'], $_POST['stay']);
+    if($key !== false)
+    {
+        $type = logData::getType();
+        $datos = array(
+            "key" => $key,
+            "type" => $type
+        );
+        if(Type::isMedic() || Type::isPatient() || Type::isInCharge())
+            return json_encode($datos);
+        else
+            return json_encode(array("error"=>true));
+    }
+    else
+        return json_encode(array("error"=>true));
 });

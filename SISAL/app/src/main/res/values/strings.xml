@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SISAL</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Usuario</string>
+    <string name="prompt_password">Constraseña</string>
+    <string name="action_sign_in">Iniciar Sesión</string>
+    <string name="action_sign_in_short">Iniciar</string>
+    <string name="error_invalid_email">Este usuario es invalido</string>
+    <string name="error_invalid_password">Esta contraseña es muy corta</string>
+    <string name="error_incorrect_password">C</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Permisos necesarios."
+    </string>
+</resources>
