@@ -70,6 +70,10 @@ Route::get('/logOut', function () {
     logData::logOut();
     return redirect('/');
 });
+Route::get('/dashboard/doctors', function () {
+   
+        return view('patient/doctors');
+});
 
 Route::post('/newNote', function () {
    dbConnection::insert("notas", ["contenido", "id_usuario"], [[$_POST['note'], logData::getData("id_usuario")]]);

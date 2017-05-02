@@ -1,3 +1,7 @@
+<?php
+     use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +63,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -77,10 +81,10 @@
                             <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
-                            <a href="../doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                            <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
                     </ul>
                 </div>
@@ -96,64 +100,80 @@
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
                                 <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar Cambios"/></span>
-                                <span><h2>Recepcionista: < inserte nombre aqui ></h2></span>
+                                <span><h2>Paciente: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
                             </div>
                             <div id="tablist">
                                 <!-- Desplegable información Personal--> 
                                 <div>
                                     <div class="panel-heading">
                                         <h4>Información personal</h2>
-                                    </div>                                    
-                                    <div class="panel-body">
+                                    </div> 
+                                        Nombre:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Nombre"/>
-                                        </div>
+                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" value="<?php echo logData::getData('nombre'); ?>" disabled/>
+                                        </div>   
+                                        Apellido Paterno:                                
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Apellido"/>
+                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Apellido Paterno" value="<?php echo logData::getData('apellidoPaterno'); ?>" disabled/>
                                         </div>
+                                        Apellido Materno:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Domicilio"/>
+                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Apellido Materno" value="<?php echo logData::getData('apellidoMaterno'); ?>" disabled/>
                                         </div>
-                                        <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
+                                        Domicilio:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" value="<?php echo logData::getData('Domicilio'); ?>" disabled/>
+                                        </div>
+                                        Estado:
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Estado"/>
                                         </div>
+                                        Ciudad:
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Ciudad"/>
                                         </div>
+                                        Código postal:
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Código Postal"/>
+                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" value="<?php echo logData::getData('codigoPostal'); ?>" disabled/>
                                         </div>
+                                        Teléfono:
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar"/>
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" value="<?php echo logData::getData('telefonoDomiciliar'); ?>" disabled/>
                                         </div>
+                                        Celular:
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Celular"/>
+                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" value="<?php echo logData::getData('telefonoCelular'); ?>" disabled/>
                                         </div>
+                                        Correo:
                                         <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Correo Electrónico"/>
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" value="<?php echo logData::getData('email'); ?>" disabled/>
                                         </div>
+                                        Sexo:
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Género</option>
-                                                <option>Masculino</option>
-                                                <option>Femenino</option>
-                                            </select>
+                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" value="<?php echo logData::getData('genero'); ?>" disabled/>
                                         </div>
+                                        No. Seguridad social:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="No. de Seguridad social"/>
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" value="<?php echo logData::getData('noSeguroSocial'); ?>" disabled/>
                                         </div>
+                                        <?php /*<div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
+                                        </div> */?>
+                                        Fecha de nacimiento:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento"/>
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" value="<?php echo logData::getData('fechaNacimiento'); ?>" disabled/>
                                         </div>
+                                        <?php
+                                            $diff = abs(strtotime(date('Y-m-d')) - strtotime(logData::getData('fechaNacimiento')));
+                                            $years = floor($diff / (365*60*60*24));
+                                        ?>
+                                        Edad:
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento"/>
+                                            <label class="form-control" id="edad"><?php echo ($years); ?></label>
                                         </div>
+                                        Ocupación:
                                         <div class="form-group">
-                                        <!--CALCULAR AQUI LA EDAD--><label class="form-control">xy años</label>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ocupación"/>
+                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" value="<?php echo logData::getData('Ocupacion'); ?>" disabled/>
                                         </div>
                                     </div>
                                 </div>
