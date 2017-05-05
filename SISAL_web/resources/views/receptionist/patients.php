@@ -102,7 +102,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="../dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -118,13 +118,13 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dates"><i class="fa fa-table fa-fw"></i> Citas</a>
+                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i> Citas</a>
                         </li>
                         <li>
-                            <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="../dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
