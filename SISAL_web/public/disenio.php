@@ -27,6 +27,7 @@ $where=[["id_registro",$valu]];
 $join=[];
 $datos3 = dbConnection::select($valores,$tabla,$where,$join);
 
+echo var_dump($datos3);
 ?>
 
 <!DOCTYPE html>

@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="dates">
+                        <a href="/dashboard/dates">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver todas</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -216,7 +216,7 @@
                                 <?php endif; ?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
+                            <a href="/dashboard/dates" class="btn btn-default btn-block">Ver citas</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>

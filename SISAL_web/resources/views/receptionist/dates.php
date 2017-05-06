@@ -140,6 +140,20 @@ use App\myClasses\dbConnection;
                         <div class="panel-head">
                             <form action="#" method="POST">
                                 <div class="form-group" style="padding-top:15px;" id="filtros">
+
+
+                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
+                                    &nbsp&nbsp
+                                    <br>
+                                    <br>
+                                    <label class="btn">Doctor: </label>
+                                    <select class="btn btn-default" name="idDoc" id="idDoc">
+                                        <?php foreach($listaDoctores as $d): ?>
+                                            <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <br>
+                                    <br>
                                     <input type="checkbox" name="proximasCitas" id="proximasCitas" />
                                     <div class="btn-group">
                                         <label for="proximasCitas" class="btn btn-default">
@@ -150,15 +164,9 @@ use App\myClasses\dbConnection;
                                             Citas futuras
                                         </label>
                                         <span>&nbsp&nbsp</span>
-                                    </div>
-                                    <label class="btn">Doctor: </label>
-                                    <select class="btn btn-default" name="idDoc" id="idDoc">
-                                        <?php foreach($listaDoctores as $d): ?>
-                                            <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
-                                    &nbsp&nbsp
+                                    </div>                                
+                                    <br>
+                                    <br>
                                     <input type="checkbox" name="disponible" id="disponible" />
                                         <div class="btn-group">
                                             <label for="disponible" id="icoDisponible" class="btn btn-default">
@@ -169,6 +177,8 @@ use App\myClasses\dbConnection;
                                                 Ver solo horarios disponibles
                                             </label>
                                         </div>
+                                        <br>
+                                        <br>
                                     <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
                                 </div>
                                 
