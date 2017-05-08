@@ -45,7 +45,6 @@
                 }
                 if(isset($_COOKIE['sessionKey']))
                 {
-                    var_dump($_COOKIE['sessionKey']);
                     self::$data = dbConnection::select(["*"], "usuarios", [["sessionKey", $_COOKIE['sessionKey']]]);
                     if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                     {
@@ -122,6 +121,7 @@
                 }
                 if($stay)
                 {
+                    
                     $tiempo = getdate();
                     $key = "";
                     foreach($tiempo as $v)
@@ -134,14 +134,11 @@
                     }
                     $cipherKey = hash("sha256", $key);
                     dbConnection::update("usuarios", ["sessionKey"], [$cipherKey], [["id_usuario", self::$data[0]['id_usuario']]]);
-                    setcookie("sessionKey", $cipherKey, time()+3600*3600*10, "/");
+                    return $cipherKey;
                 }
                 $_SESSION['authData'] = self::$data;
                 $_SESSION['authType'] = self::$type;
-                if($stay)
-                    return $cipherKey;
-                else
-                    return true;
+                return true;
             }
             else
             {
@@ -175,7 +172,6 @@
         public static function logOut()
         {
             self::retrieveSession();
-            var_dump("LIMA");
             dbConnection::update("usuarios", ["sessionKey"], [""], [["id_usuario", self::$data[0]['id_usuario']]]);
             setcookie("sessionKey", "", time() - 3600);
             self::$data = array();
@@ -202,4 +198,70 @@
         {
             trigger_error("Operación Invalida: No puedes clonar una instancia de ". get_class($this) ." class.", E_USER_ERROR );
         }
+
+        /**
+         * Inicio de sesión android
+         * Metodo para el inicio de sesión en android
+         * @param [String] $name usuario
+         * @param [String] $pass contraseña
+         * @return string||bool
+         */
+        public static function logInAndroid($name, $pass)
+        {
+            $obtainedData = dbConnection::select(["*"], "usuarios", [["usuario", $name],["pass", $pass]]);
+            if(sizeof($obtainedData) == 0)
+                $obtainedData = dbConnection::select(["*"], "usuarios", [["email", $name],["pass", $pass]]);
+            self::$data = $obtainedData;                
+            if(sizeof(self::$data)!=0)
+            {
+                if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "medicos";
+                    
+                }
+                elseif(sizeof(dbConnection::select(["*"], "recepcionistas", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "recepcionistas";
+                }
+                elseif(sizeof(dbConnection::select(["*"], "pacientes", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "pacientes";
+                }
+                elseif(sizeof(dbConnection::select(["*"], "administradores", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "administradores";
+                }
+                elseif(sizeof(dbConnection::select(["*"], "encargados", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
+                {
+                    self::$type = "encargado";
+                }
+                else
+                {
+                    self::$type = "";
+                    self::$data = array();
+                    return false;
+                }
+                $tiempo = getdate();
+                $key = "";
+                foreach($tiempo as $v)
+                {
+                    $key .= $v;
+                }
+                foreach(self::$data[0] as $v)
+                {
+                    $key .= $v;
+                }
+                $cipherKey = hash("sha256", $key);
+                dbConnection::update("usuarios", ["sessionKey"], [$cipherKey], [["id_usuario", self::$data[0]['id_usuario']]]);
+                return $cipherKey;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
+
+
+
+    

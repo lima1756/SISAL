@@ -929,20 +929,25 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
 
 
 
-Route::POST("/android/logIn", function(){
-    $key = logData::logIn($_POST['user'], $_POST['pass'], $_POST['stay']);
-    if($key !== false)
+Route::GET("/android/logIn", function(){
+    if(isset($_GET['user']) && isset($_GET['pass']))
     {
-        $type = logData::getType();
-        $datos = array(
-            "key" => $key,
-            "type" => $type
-        );
-        if(Type::isMedic() || Type::isPatient() || Type::isInCharge())
-            return json_encode($datos);
+        $key = logData::logInAndroid($_GET['user'], $_GET['pass']);
+        if($key !== false)
+        {
+            $type = logData::getType();
+            $datos = array(
+                "key" => $key,
+                "type" => $type
+            );
+            if(Type::isMedic() || Type::isPatient() || Type::isInCharge())
+                echo json_encode($datos);
+            else
+                echo json_encode(array("error1"=>true));
+        }
         else
-            return json_encode(array("error"=>true));
+            echo json_encode(array("error2"=>true));
     }
     else
-        return json_encode(array("error"=>true));
+        echo json_encode(array("error3"=>true));
 });

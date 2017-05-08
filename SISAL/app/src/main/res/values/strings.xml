@@ -12,4 +12,13 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Permisos necesarios."
     </string>
+    <string name="logInIndications">Ingrese su usuario y contraseña:</string>
+    <string name="logInError">Verifique sus datos de inicio o vuelva a intentar mas tarde:</string>
+    <string name="title_activity_start_medic">startMedic</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Cerrar Sesión</string>
+    <string name="title_activity_patient_start">Inicio</string>
 </resources>
