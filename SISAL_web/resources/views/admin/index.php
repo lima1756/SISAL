@@ -134,13 +134,13 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">Doctores</div>
-                                    <div>8 en turno</div>
+                                    <div> </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="dates">
+                        <a href="/Personal/?type=doctors">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver más</span>
+                                <span class="pull-left">Ver doctores</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -216,45 +216,48 @@
                 </div>
             </div>
             <!-- /.row -->
+            
             <div class="row">
+                <!--
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bell fa-fw"></i> Doctores en turno
                         </div>
-                        <!-- /.panel-heading -->
+                        <!-- /.panel-heading 
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES 
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Luis Iván Morett
                                     <span class="pull-right text-muted small"><em>Consultorio 1</em>
                                     </span>
                                 </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES 
                                     <i class="fa fa-calendar-check-o fa-fw"></i> José Francisco Martinez
                                     <span class="pull-right text-muted small"><em>Consultorio 6</em>
                                     </span>
                                 </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES 
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Brenda Samantha Ávila
                                     <span class="pull-right text-muted small"><em>Consultorio 3</em>
                                     </span>
                                 </a>
-                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES -->
+                                <a href="patients/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID DEL USUARIO PARA VERLO DIRECTAMENTE EN LA PAGINA DE PACIENTES 
                                     <i class="fa fa-calendar-check-o fa-fw"></i> Carlos Rosales
                                     <span class="pull-right text-muted small"><em>Consultorio 2</em>
                                     </span>
                                 </a>
                             </div>
-                            <!-- /.list-group -->
+                            <!-- /.list-group 
                             <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
                         </div>
-                        <!-- /.panel-body -->
+                        <!-- /.panel-body 
                     </div>
-                    <!-- /.panel -->
+                    <!-- /.panel 
+                    -->
                 </div>
                 <!-- /.col-lg-6 -->
-                <div class=" col-lg-6 col-md-6 grid-item">
+                <div class=" col-lg-10 col-md-6 grid-item">
                     <div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i> Notas
