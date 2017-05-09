@@ -143,7 +143,8 @@
             <div class="row">
                 <!-- BOTON DE TODOS -->
                 <div class="col-lg-12 form-group">
-                            <button type="button" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo Paciente</button>
+                            <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo Paciente</button>-->
+                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Paciente</a>
                 </div>
                 <!-- LISTA DE PACIENTES -->
                 <div class="col-lg-12">
@@ -188,7 +189,7 @@
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                                 <span><h2 id="nombre_completo" name="nombre_completo">alguien</h2></span>
                             </div>
-                            <section id="table">
+                            <section id="table" name="table">
                             </section>
                             <div id="tablist">
                                     <input type="text" name="idPaciente" id="idPaciente" hidden/>

@@ -80,7 +80,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Mis citas</a>

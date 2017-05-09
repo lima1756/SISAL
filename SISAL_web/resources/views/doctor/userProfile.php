@@ -118,12 +118,16 @@
                                 <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar Cambios"/></span>
                                 <span><h2>Médico: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
                             </div>
+                            <br>
+                            <br>
                             <div id="tablist">
                                 <!-- Desplegable información Personal--> 
                                 <div>
                                     <a href="#pInf" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Información personal</h2>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
+                                       <h4>Información personal</h4>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="pInf" >
@@ -200,9 +204,13 @@
                                 <?php $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);
                                 
                                 ?>
+                                <br>
+                                <br>
                                 <div>
                                     <a href="#aPer" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Información de contacto</h2>
                                     </div>
                                     </a>                                        
@@ -235,11 +243,14 @@
                                     </div>
                                 </div>
                                 <!-- Desplegable de información de trabajo en consulta -->
-                                
+                                <br>
+                                <br>
                                 <div>
                                     <a href="#info" role ="tab" data-toggle="collapse" data-target="#info" data-parent="#tablist">
-                                    <div class="panel-heading">
-                                        <h4>Información laboral</h2>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
+                                        <h4>Información laboral</h4>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="info">

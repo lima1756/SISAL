@@ -154,31 +154,38 @@ use App\myClasses\dbConnection;
                                     </select>
                                     <br>
                                     <br>
+                                    <span>&nbsp</span>
+                                    <span>&nbsp</span>
                                     <input type="checkbox" name="proximasCitas" id="proximasCitas" />
                                     <div class="btn-group">
                                         <label for="proximasCitas" class="btn btn-default">
                                             <span class="fa fa-check"></span>
                                             <span>&nbsp</span>
                                         </label>
-                                        <label for="proximasCitas" class="btn btn-default active">
-                                            Citas futuras
+                                        <span>&nbsp</span><label for="proximasCitas" class="btn btn-default active">
+                                            Citas     Registradas
+                                            <span>&nbsp&nbsp</span>
+                                            <span>&nbsp&nbsp</span>
                                         </label>
                                         <span>&nbsp&nbsp</span>
                                     </div>                                
                                     <br>
                                     <br>
+                                    <span>&nbsp</span>
+                                    <span>&nbsp</span>
                                     <input type="checkbox" name="disponible" id="disponible" />
                                         <div class="btn-group">
                                             <label for="disponible" id="icoDisponible" class="btn btn-default">
                                                 <span class="fa fa-check"></span>
                                                 <span>&nbsp</span>
                                             </label>
-                                            <label for="disponible" id="labelDisponible" class="btn btn-default active">
-                                                Ver solo horarios disponibles
+                                            <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
+                                                Agendar una nueva cita
                                             </label>
                                         </div>
                                         <br>
                                         <br>
+                                        <span>&nbsp</span><span>&nbsp</span><span>&nbsp</span>
                                     <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
                                 </div>
                                 
