@@ -16,6 +16,9 @@ import android.view.MenuItem;
 public class startMedic extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Menu optionsMenu;
+    MenuItem myItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +57,21 @@ public class startMedic extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.start_medic, menu);
+        //  store the menu to var when creating options menu
+        optionsMenu = menu;
+        myItem = optionsMenu.findItem(R.id.logOut);
+        myItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        new LogOut(getApplicationContext());
+                        return true;
+                    }
+                });
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -67,7 +80,7 @@ public class startMedic extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logOut) {
             return true;
         }
 

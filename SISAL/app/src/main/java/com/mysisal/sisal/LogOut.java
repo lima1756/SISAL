@@ -12,12 +12,13 @@ public class LogOut {
     public LogOut(Context x)
     {
         SharedPreferences preferences = x.getSharedPreferences("userData", 0);
-        preferences.edit().remove("shared_pref_key").commit();
+        preferences.edit().remove("type").commit();
+        preferences.edit().remove("key").commit();
 
         String type = preferences.getString("type", "");
         String key = preferences.getString("key", "");
         if(type.equals("") && key.equals("")) {
-            Intent intent = new Intent(x, startMedic.class);
+            Intent intent = new Intent(x, Login.class);
             x.startActivity(intent);
         }
     }

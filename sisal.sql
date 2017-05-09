@@ -41,6 +41,7 @@ INSERT INTO `administradores` (`id_usuario`) VALUES
 (1001),
 (1002);
 
+
 -- --------------------------------------------------------
 
 --
@@ -191,11 +192,7 @@ INSERT INTO `citas` (`id_cita`, `id_paciente`, `id_recepcionista`, `id_medico`, 
 (3, 1010, 1006, 1003, '2017-03-23 07:00:00', 1),
 (4, 1009, 1006, 1003, '2017-03-23 19:00:00', 1),
 (5, 1010, 1005, 1003, '2017-04-11 19:35:41', 1),
-(8, 1013, 1005, 1003, '2017-04-19 07:00:00', 2),
-(9, 1009, 1005, 1003, '2017-04-19 07:45:00', 2),
-(10, 1010, 1006, 1003, '2017-04-18 11:28:00', 2),
-(11, 1010, 1006, 1003, '2017-04-20 08:00:00', 2),
-(12, 1010, 1006, 1003, '2017-04-21 08:00:00', 2);
+(6, 1010, 1005, 1003, '2017-05-03 07:45:00', 2);
 
 -- --------------------------------------------------------
 
@@ -714,7 +711,8 @@ CREATE TABLE `medicos` (
 
 INSERT INTO `medicos` (`id_usuario`, `domicilioConsultorio`, `telEmergencias`, `celEmergencias`, `emailEmergencias`, `facebook`, `twitter`, `horario_trabajo`, `tiempo_consulta`, `cedula`, `especialidad`, `universidad`) VALUES
 (1003, 'Independencia 1659', '8150561', '6681030000', 'biomsedi@hotmail.com', 'BrunoCamacho Mercado', '@brucamer', 'lmxvd(07:00-15:00)', 45, '729590', 'Médico cirujano y partero', 'Universidad Michoacana de San Nicolas de Hidalgo'),
-(1004, 'Independencia 1659', '8150561', '6621014856', 'jaimecammer@outlook.com', 'Jaime Camacho', 'No', 'lmx(9:00-17:00)', 60, '569542', 'Médico cirujano traumatòlogo', 'Universidad Autónoma de Guadalajara');
+(1004, 'Independencia 1659', '8150561', '6621014856', 'jaimecammer@outlook.com', 'Jaime Camacho', 'No', 'lmx(9:00-17:00)', 60, '569542', 'Médico cirujano traumatòlogo', 'Universidad Autónoma de Guadalajara'),
+(1014, 'Benito Juarez', '6681649244', '6681649244', 'mariaIsa@gmail.com', 'No', '@DRChabe', '', 40, '3956468', 'Medico Cirujano', 'Universidad Autónoma de Sinaloa');
 
 -- --------------------------------------------------------
 
@@ -3253,7 +3251,12 @@ INSERT INTO `notas` (`id_nota`, `contenido`, `fechaHora`, `id_usuario`) VALUES
 (2, 'Informar de cambio de horario, del lunes a viernes.', '2017-02-09 08:03:28', 1004),
 (3, 'Solicitar un cambió de material clínico', '2017-03-22 17:32:36', 1003),
 (4, 'Solicitar un asistente', '2017-03-22 17:49:48', 1003),
-(5, 'asdsadas', '2017-04-11 17:25:25', 1005);
+(5, 'asdsadas', '2017-04-11 17:25:25', 1005),
+(6, 'Bañar a Selene', '2017-04-21 15:15:24', 1003),
+(7, 'ubsdbdds', '2017-04-21 15:20:53', 1005),
+(8, 'Hola prueba 1', '2017-05-02 07:32:59', 1003),
+(9, 'gregre', '2017-05-02 07:45:39', 1005),
+(10, 'iogeee\r\n', '2017-05-03 13:44:43', 1005);
 
 -- --------------------------------------------------------
 
@@ -3275,13 +3278,13 @@ INSERT INTO `notas_adicionales` (`id_notasAdicionales`, `notas`) VALUES
 (1, 'El paciente luce alterado'),
 (2, 'nada');
 
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `pacientes`
 --
 
-DROP TABLE IF EXISTS `pacientes`;
 CREATE TABLE `pacientes` (
   `id_usuario` int(11) NOT NULL,
   `id_antecedentes` int(11) DEFAULT NULL,
@@ -3295,42 +3298,14 @@ CREATE TABLE `pacientes` (
 --
 
 INSERT INTO `pacientes` (`id_usuario`, `id_antecedentes`, `id_interrogatorio`, `id_alergias`, `id_estiloVida`) VALUES
+(1007, 1, 1, 1, 1),
+(1008, 2, 2, 2, 2),
 (1009, 13, 22, 38, 20),
 (1010, 12, 21, 37, 19),
-(1013, NULL, NULL, NULL, NULL),
-(1015, NULL, NULL, NULL, NULL),
-(1021, NULL, NULL, NULL, NULL),
-(1022, NULL, NULL, NULL, NULL),
-(1024, NULL, NULL, NULL, NULL),
-(1026, NULL, NULL, NULL, NULL),
-(1027, NULL, NULL, NULL, NULL),
-(1028, NULL, NULL, NULL, NULL),
-(1029, NULL, NULL, NULL, NULL),
-(1030, NULL, NULL, NULL, NULL),
-(1031, NULL, NULL, NULL, NULL),
-(1032, NULL, NULL, NULL, NULL),
-(1033, NULL, NULL, NULL, NULL),
-(1034, NULL, NULL, NULL, NULL),
-(1035, NULL, NULL, NULL, NULL),
-(1036, NULL, NULL, NULL, NULL),
-(1037, NULL, NULL, NULL, NULL),
-(1038, NULL, NULL, NULL, NULL),
-(1039, NULL, NULL, NULL, NULL),
-(1040, NULL, NULL, NULL, NULL),
-(1041, NULL, NULL, NULL, NULL),
-(1042, NULL, NULL, NULL, NULL),
-(1043, NULL, NULL, NULL, NULL),
-(1044, NULL, NULL, NULL, NULL),
-(1045, NULL, NULL, NULL, NULL),
-(1046, NULL, NULL, NULL, NULL),
-(1047, NULL, NULL, NULL, NULL),
-(1048, NULL, NULL, NULL, NULL),
-(1049, NULL, NULL, NULL, NULL),
-(1050, NULL, NULL, NULL, NULL),
-(1051, NULL, NULL, NULL, NULL),
-(1052, NULL, NULL, NULL, NULL),
-(1053, NULL, NULL, NULL, NULL),
-(1054, NULL, NULL, NULL, NULL);
+(1011, 3, 3, 3, 3),
+(1012, 4, 4, 4, 4),
+(1017, 5, 5, 5, 5),
+(1018, 6, 6, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -3338,7 +3313,6 @@ INSERT INTO `pacientes` (`id_usuario`, `id_antecedentes`, `id_interrogatorio`, `
 -- Estructura de tabla para la tabla `recepcionistas`
 --
 
-DROP TABLE IF EXISTS `recepcionistas`;
 CREATE TABLE `recepcionistas` (
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -3349,7 +3323,10 @@ CREATE TABLE `recepcionistas` (
 
 INSERT INTO `recepcionistas` (`id_usuario`) VALUES
 (1005),
-(1006);
+(1006),
+(1013),
+(1015),
+(1016);
 
 -- --------------------------------------------------------
 
@@ -3440,7 +3417,8 @@ CREATE TABLE `registro_interrogatorio` (
 
 INSERT INTO `registro_interrogatorio` (`id_interrogatorio`, `motivoConsulta`, `sintomas`) VALUES
 (1, 'Se sentía mal', 'Dolor de  cabeza, mala digestión'),
-(2, 'Lo obligaron familiares', 'Presión alta, mareos, infección estomacal');
+(2, 'Lo obligaron familiares', 'Presión alta, mareos, infección estomacal'),
+(3, '', '');
 
 -- --------------------------------------------------------
 
@@ -3536,19 +3514,19 @@ DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `usuario` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `pass` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
-  `email` varchar(30) COLLATE utf8_unicode_ci DEFAULT '',
+  `pass` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `apellidoPaterno` varchar(30) COLLATE utf8_unicode_ci DEFAULT '',
-  `apellidoMaterno` varchar(30) COLLATE utf8_unicode_ci DEFAULT '',
-  `Domicilio` varchar(30) COLLATE utf8_unicode_ci DEFAULT '',
-  `id_municipio` int(11) DEFAULT NULL,
-  `codigoPostal` int(11) DEFAULT NULL,
-  `telefonoDomiciliar` varchar(10) COLLATE utf8_unicode_ci DEFAULT '',
-  `telefonoCelular` varchar(10) COLLATE utf8_unicode_ci DEFAULT '',
-  `genero` enum('Masculino','Femenino','-1') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `noSeguroSocial` varchar(20) COLLATE utf8_unicode_ci DEFAULT '',
-  `fechaNacimiento` date DEFAULT NULL,
+  `apellidoPaterno` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `apellidoMaterno` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `Domicilio` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `id_municipio` int(11) NOT NULL,
+  `codigoPostal` int(11) NOT NULL,
+  `telefonoDomiciliar` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `telefonoCelular` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `genero` enum('Masculino','Femenino') COLLATE utf8_unicode_ci NOT NULL,
+  `noSeguroSocial` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fechaNacimiento` date NOT NULL,
   `Ocupacion` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sessionKey` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabla que almacena los datos generales de los usuarios';
@@ -3558,19 +3536,24 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario`, `pass`, `email`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `Domicilio`, `id_municipio`, `codigoPostal`, `telefonoDomiciliar`, `telefonoCelular`, `genero`, `noSeguroSocial`, `fechaNacimiento`, `Ocupacion`, `sessionKey`) VALUES
-(1001, 'josfra21', 'panchito21', 'francisco.mtzc@hotmail.com', 'José Francisco', 'Martinez', 'Camacho', 'Santa Gertrudis 2133', 629, 45615, '36011047', '3319098665', 'Masculino', '2392-66-1324-3', '1998-07-21', 'Estudiante', NULL),
+(1001, 'josfra21', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'francisco.mtzc@hotmail.com', 'José Francisco', 'Martinez', 'Camacho', 'Santa Gertrudis 2133', 629, 45615, '36011047', '3319098665', 'Masculino', '2392-66-1324-3', '1998-07-21', 'Estudiante', NULL),
 (1002, 'LIMA', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'luisivanmorett@gmail.com', 'Luis Iván', 'Morett', 'Arévalo', 'Benito Juarez', 651, 44865, '36458745', '3311516589', 'Masculino', '5480-61-3024-8', '1998-01-07', 'Estudiante', ''),
 (1003, 'brucamer', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'doctorbrunocamacho@gmail.com', 'Bruno', 'Camacho', 'Mercado', 'Independencia 1659', 1907, 46585, '8121348', '6681030000', 'Masculino', '6840-61-3154-5', '1955-10-16', 'Doctor', ''),
-(1004, 'Jacamer', 'JaimeCM', 'doctorjaimecamacho@gmail.com', 'Jaime', 'Camacho', 'Mercado', 'Independencia 1655', 1607, 46519, '8121348', '6681456987', 'Masculino', '6315-91-3244-0', '1966-02-15', 'Doctor', NULL),
+(1004, 'JaimeMerca', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'doctorjaimecamacho@gmail.com', 'Jaime', 'Camacho', 'Mercado', 'Independencia 1655', 1607, 46519, '8121348', '6681456987', 'Masculino', '6315-91-3244-0', '1966-02-15', 'Doctor', NULL),
 (1005, 'gaby13', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'gaby@gmail.com', 'Gabriela', 'Lopez', 'Fuentes', 'Reforma 4686 int.30', 752, 46953, '34584521', '3312058456', 'Femenino', '4956-91-3875-0', '1984-01-12', 'Recepcionista', ''),
-(1006, 'annel', 'ARG34', 'annelRuiz@hotmail.com', 'Annel', 'Ruiz', 'García', 'Santa Margarita', 468, 46853, '34598465', '3356988154', 'Femenino', '4689-02-4685-7', '1979-08-22', 'Recepcionista', NULL),
+(1006, 'annel', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'annelRuiz@hotmail.com', 'Annel', 'Ruiz', 'García', 'Santa Margarita', 468, 46853, '34598465', '3356988154', 'Femenino', '4689-02-4685-7', '1979-08-22', 'Recepcionista', NULL),
+(1007, 'Herli65', 'lindita65', 'herli.cam@hotmail.com', 'Herlinda', 'Camacho', 'Mercado', 'Parques Santa Cruz  2133', 629, 45615, '36011047', '3310982477', 'Femenino', '6895-48-0245-7', '1965-04-20', 'Psicóloga ', NULL),
 (1008, 'Victoria', 'Vicko89', 'victorloco@yahoo.com', 'Victor', 'Hernandez', 'Soto', 'Revolucion 453', 612, 46452, '35968512', '3312457898', 'Masculino', '1945-91-0215-0', '1987-05-25', 'Estudiante', NULL),
-(1009, 'Marie92', 'SMG_92', '37895101', 'Selena Marie', 'Gomez', 'Torres', '', 695, 46854, '37895101', '37895101', 'Femenino', '5986-01-4544-5', '1992-07-22', 'Maestra', NULL),
-(1010, 'Roger64', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', '36254987', 'Juan', 'Rodriguez', 'Perez', '', 546, 45879, '36254987', '36254987', 'Masculino', '7895-91-3256-0', '1990-02-08', 'Notario', NULL),
+(1009, 'Marie92', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', '37895101', 'Selena Marie', 'Gomez', 'Torres', '', 695, 46854, '37895101', '37895101', 'Femenino', '5986-01-4544-5', '1992-07-22', 'Maestra', NULL),
+(1010, 'RogerH', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'juanita12@hotmail.com', 'Juana', 'Rodriguez', 'Perez', '', 546, 45879, '36254987', '36254987', 'Masculino', '7895-91-3256-0', '1990-02-08', 'Notario', ''),
 (1011, 'Roxywel', 'RosG_86', 'Roxa@outlook.com', 'Rosa', 'Gutierrez', 'Zapata', 'Santa Elena 4567', 624, 48579, '36459210', '3333265847', 'Femenino', '8795-11-3874-5', '1975-12-29', 'Empleado', NULL),
 (1012, 'Alberto14', 'Albert_1900', 'A_Avila@outlook.com', 'Alberto', 'Avila', 'Lopez', 'Juarez 56', 684, 48572, '32564187', '3310985475', 'Masculino', '6895-91-3744-0', '1982-08-14', 'Empleado', NULL),
-(1013, 'num', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', '', 'Ulises Mauricio', 'Un apellido', '', '', NULL, NULL, '', '', '-1', '', NULL, '', NULL),
-(1015, 'UnUsuario', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', '', 'Datos', 'AP', 'AM', '', NULL, NULL, '', '', '-1', '', NULL, '', NULL);
+(1013, 'Blanca12', 'BlancaM', 'blank_rosales@hotmail.com', 'Blanca Maria', 'Rosales', 'Rojo', 'Ejido Mochis Colon 312', 13, 45, '46525', '6681828787', 'Femenino', NULL, '1993-02-02', 'Enferemera', NULL),
+(1014, 'Chabe', 'Misa1992', 'Maria_isabel@gmail.com', 'Maria Isabel', 'García', 'Castro', 'Centenario 4585', 654, 46856, '8124698', '', 'Femenino', NULL, '1987-05-12', 'Doctora', NULL),
+(1015, 'Edith_91', 'EdithGarB', 'garciaEdith@hotmail.com', 'Edith', 'Garcia', 'Bojorquez', 'La Genoveva, El fuerte 81360', 1, 1, '8165565', '6681941075', 'Femenino', NULL, '1991-09-22', 'Enfermera', NULL),
+(1016, 'VickyLuc', '91Victoria', 'vicky-menba@yahoo.com.mx', 'Victoria Lucia', 'Mendoza', 'Barragan', 'Virreyes ampliacion 2775', 1, 1, '', '6682333441', 'Femenino', NULL, '1991-07-12', 'Recepcionista', NULL),
+(1017, 'Esteban', 'dvodnoe', 'EsGutierrez@gmail.com', 'Esteban', 'Gutierrez', 'Dominguez', 'Colon 4566 Jardines de la Rosa', 46, 165458, '8136598', '6681245698', 'Masculino', 'jl65jih5ctugd25', '1989-05-10', 'Empleado', NULL),
+(1018, 'BeatrizH92', 'Bety2', 'soybetty@yahoo.com.mx', 'Ana Beatriz', 'Hernandez', 'Gomez', 'Serdan 458 Insurgentes Pte', 44, 674, '49856255', '6859654111', 'Femenino', 'dgd9sg9nff9ns', '1992-02-10', 'Abogada', NULL);
 
 --
 -- Índices para tablas volcadas

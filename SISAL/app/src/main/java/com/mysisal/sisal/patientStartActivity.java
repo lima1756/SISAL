@@ -18,6 +18,11 @@ import android.view.View;
 
 public class patientStartActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Menu optionsMenu;
+    MenuItem myItem;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,27 +49,6 @@ public class patientStartActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        Menu menu = (Menu) this.findViewById(R.menu.patient_start);
-        MenuItem logOut = (MenuItem) findViewById(R.id.logOut);
-        if(logOut==null)
-            navigationView.findViewById(R.id.logOut);
-        if(logOut==null)
-            toolbar.findViewById(R.id.logOut);
-        if(logOut==null)
-            navigationView.findViewById(R.id.logOut);
-        if(logOut==null)
-            drawer.findViewById(R.id.logOut);
-        if(logOut!=null)
-        logOut.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                new LogOut(getApplicationContext());
-                return true;
-            }
-        });
-        else
-            Log.d("MessageError", "NULOS");
 
     }
 
@@ -80,8 +64,19 @@ public class patientStartActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.patient_start, menu);
+        //  store the menu to var when creating options menu
+        optionsMenu = menu;
+        myItem = optionsMenu.findItem(R.id.logOut);
+        myItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        new LogOut(getApplicationContext());
+                        return true;
+                    }
+                });
         return true;
     }
 
@@ -93,8 +88,8 @@ public class patientStartActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.logOut) {
+
         }
 
         return super.onOptionsItemSelected(item);
