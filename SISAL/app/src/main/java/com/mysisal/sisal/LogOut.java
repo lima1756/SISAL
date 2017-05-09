@@ -19,6 +19,7 @@ public class LogOut {
         String key = preferences.getString("key", "");
         if(type.equals("") && key.equals("")) {
             Intent intent = new Intent(x, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             x.startActivity(intent);
         }
     }
