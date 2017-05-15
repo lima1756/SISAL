@@ -120,92 +120,70 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
+
+
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Registrar Empleado</h1>
+                </div>
+                <div class="form-group">
+                            <button type="submit" class="btn btn-warning">Guardar</button>
+                            <button type="reset" class="btn btn-select">Reiniciar</button> 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
 
                          <div class="form-group">
-                         <label>Nombre:</label>
-                            <textarea class="form-control" rows="1" placeholder=" " required></textarea>
-                        </div>
+                            <textarea class="textarea50" placeholder="Nombre:" id="nombre" name="nombre" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Apellido paterno:" id="Ap" name="Ap" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
                         <div class="form-group">
-                         <label>Apellido Paterno:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
+                            <textarea class="textarea50" placeholder="Apellido materno:" id="Am" name="Am" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Usuario:" id="usuario" name="usuario" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
                         <div class="form-group">
-                         <label>Apellido Materno:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
+                            <textarea class="textarea50" placeholder="Contraseña:" id="pass" name="pass" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Correo:" id="email" name="email" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                         </div>
-
+                        
+                         <div class="form-group">
+                            <textarea class="textarea50" placeholder="Domicilio:" id="dom" name="dom" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Municipio:" id="municipio" name="municipio" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
+                         <div class="form-group">
+                            <textarea class="textarea50" placeholder="CP:" id="cp" name="cp" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Telefono:" id="tel" name="tel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
                         <div class="form-group">
-                         <label>Usuario:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
+                            <textarea class="textarea50" placeholder="Celular:" id="cel" name="cel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Genero:" id="genero" name="genero" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
                         <div class="form-group">
-                         <label>Contraseña:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
+                            <textarea class="textarea50" placeholder="N. Social:" id="ns" name="ns" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Fecha nacimiento:" id="fn" name="fn" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
+                         <div class="form-group">
+                            <textarea class="textarea50" placeholder="Ocupacion:" id="ocupacion" name="ocupacion" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <span>&nbsp</span>
+                            <textarea class="textarea50" placeholder="Puesto:" id="puesto" name="puesto" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                         </div>
                         <div class="form-group">
-                         <label>Correo:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                         <label>Domicilio:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                         <label>Municipio:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Codigo Postal:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Telefono:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Celular:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Genero:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>No. Social:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Fecha Nacimiento:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Ocupación:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "></textarea>
-                        </div>
-                        <div class="form-group">
-                        <label>Puesto:</label>
-                            <textarea class="form-control" rows="1" placeholder=" "required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-warning">Guardar</button>
-                            <button type="reset" class="btn btn-select">Reiniciar</button> 
-                        </div>
-
-                        <div class="form-group">
-                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" disabled />
+                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="myToggler(); return false;" disabled />
                             <div class="btn-group"> 
-                                        <label for="miDoctor" class="btn btn-default" id="checkDoctor">                                                        <span class="[ fa fa-check ]"></span>
+                                        <label for="miDoctor" class="btn btn-default" id="checkDoctor" onClick="myToggler(); return false;">                                                       
+                                         <span class="[ fa fa-check ]"></span>
                                             <span>&nbsp</span>
                                          </label>
-                                         <label for="miDoctor" class="btn btn-default" id="labelDoctor">
+                                         <label for="miDoctor" class="btn btn-default" id="labelDoctor" onClick="myToggler(); return false;">
                                                ¿Esta cuenta es doctor?
                                          </label>
                              </div>
@@ -213,12 +191,19 @@
                             <input type="number" name="idDoctor" id="idDoctor" hidden/>
 
                         <!--INFORMACIóN DOCTOR -->
-                                        <div>
                                             <div id="doctor" hidden>
-                                                <a href="javascript:myToggler2();" data-toggle="collapse" role ="tab" data-target="#doctorInf" data-parent="#tablist">
+                                                <!--<a href="#" data-toggle="collapse" role ="tab" data-target="#doctorInf" data-parent="#tablist">
                                                 <div class="panel-heading">
                                                     <h4>Información Adicional</h2>
-                                                </div>
+                                                </div>-->
+
+                                                <a href="#doctorInf" data-toggle="collapse" role ="tab" data-target="#doctorInf" data-parent="#tablist">
+                                                <span>&nbsp</span><span>&nbsp</span>
+                                                <span>&nbsp</span><span>&nbsp</span>
+                                                <div class="btn btn-primary" style="width:80%;">
+                                                    <h4>Información Adicional</h4>
+                                                </div>                                    
+
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="doctorInf" >
                                                     <div class="form-group">
@@ -289,9 +274,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <!-- FIN Doctor-->       
+                                       </div>
+                                    </div>
+                                            
+                          <!-- FIN Doctor-->       
+        </div>
         </div>
         <!-- /#page-wrapper -->
 
@@ -320,15 +307,7 @@
     var idCita = 0;
     var csrfVal="<?php echo csrf_token(); ?>";
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true,
-            "columnDefs": [
-                { "width": "10%", "targets": 0 },
-                { "width": "20%", "targets": 1 },
-                { "width": "70%", "targets": 2 }
-            ],
-            "order": [[ 2, "desc" ]]
-        });
+        
         <?php if($existeGet): ?>
             $.ajaxSetup({
             headers: {
@@ -564,14 +543,17 @@
     {
         if(!activo)
         {
+            document.getElementById("doctor").hidden=false;
             $('html, body').animate({
-                scrollTop: $("#pInf").offset().top
+                scrollTop: $("#doctor").offset().top
             }, 1000);
             activo = true;
+            
         }
         else
         {
             activo= false;
+            document.getElementById("doctor").hidden=true;
         }
     }
 

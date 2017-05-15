@@ -197,8 +197,8 @@
                                     <!-- Desplegable información Personal--> 
                                     <div>
                                         <a href="javascript:myToggler();" data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
-                                        <div class="panel-heading">
-                                            <h4>Información personal</h4>
+                                        <div class="btn btn-primary" style="width:100%;">
+                                            <h3>Información personal</h3>
                                         </div>
                                         </a>                                        
                                         <div class="panel-body collapse indent" id="pInf" >
@@ -296,7 +296,7 @@
                                         <div>
                                             <div id="responsable" hidden>
                                                 <a href="javascript:myToggler2();" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
-                                                <div class="panel-heading">
+                                                <div class="btn btn-primary" style="width:80%;">
                                                     <h4>Información Responsable</h2>
                                                 </div>
                                                 </a>                                        

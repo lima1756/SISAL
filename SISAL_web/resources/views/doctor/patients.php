@@ -208,9 +208,13 @@
                             <form name="formulario" id="formulario">
                             <input type="text" name="idPaciente" id="idPaciente" hidden/>
                                 <!-- Desplegable información Personal--> 
+                                <br>
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('pInf');" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Información personal</h2>
                                     </div>
                                     </a>                                        
@@ -273,9 +277,13 @@
                                 </div>
                                 <!-- Desplegable Antecedentes personales--> 
                                 <?php $sangres = dbConnection::select(["tipo", "id_sangre"], "tipo_sangre"); ?>
+                                <br>
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('aPer');" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Antecedentes personales</h2>
                                     </div>
                                     </a>                                        
@@ -325,9 +333,13 @@
                                     </div>
                                 </div>
                                 <!-- Desplegable Interrogatorio de antecedentes médicos--> 
+                                <br>
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('int');" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Interrogatorio</h2>
                                     </div>
                                     </a>                                        
@@ -381,9 +393,13 @@
 
                                 <!-- Desplegable Estilo de vida--> 
                                 <!--Hace que si no esta check se desactive y viceversa con lo que lo ocupen-->
+                                <br>
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('eVid');" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Estilo de vida</h2>
                                     </div>
                                     </a>                                        
@@ -567,9 +583,13 @@
                                 </div>
 
                                 <!-- Desplegable Alergias--> 
+                                <br>
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('aler');" role ="tab" data-toggle="collapse" data-target="#aler" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Alergias</h2>
                                     </div>
                                     </a>                                        
@@ -585,10 +605,14 @@
 
                                 <form name="InformacionCita" method="POST" action="/recetamedica">
                                 <!-- Desplegable Citas--> 
+                                <br>
+                                <br>
                                 <div>
                                     <input type="text" value="<?php echo csrf_token(); ?>" name="_token" hidden/>
                                     <a href="#citas" role ="tab" data-toggle="collapse" data-target="#citas" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:80%;">
                                         <h4>Expediente clinico</h2>
                                     </div>
                                     </a>                                        

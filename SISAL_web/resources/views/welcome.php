@@ -96,12 +96,13 @@
                     <li>
                         <a class="page-scroll" href="#about">Acerca de...</a>
                     </li>
+                    <!--
                     <li>
                         <a class="page-scroll" href="#services">Servicios</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#portfolio">Portafolio</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a class="page-scroll" href="#contact">Contacto</a>
                     </li>
