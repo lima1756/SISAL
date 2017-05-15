@@ -3491,7 +3491,8 @@ CREATE TABLE `tratamiento` (
   `id_tratamiento` int(11) NOT NULL,
   `id_medicamento` int(11) NOT NULL,
   `cada` int(11) DEFAULT NULL,
-  `inicio` time DEFAULT NULL,
+  `inicio` datetime NOT NULL,
+  `durante` int(11) NOT NULL,
   `indicaciones` text COLLATE utf8_unicode_ci,
   `id_registro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -3500,9 +3501,9 @@ CREATE TABLE `tratamiento` (
 -- Volcado de datos para la tabla `tratamiento`
 --
 
-INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`, `indicaciones`, `id_registro`) VALUES
-(1, 1, 6, '09:30:00', 'Tomar con alimentos', 1),
-(2, 2, 3, '15:00:00', 'Reposar media hora', 1);
+INSERT INTO `tratamiento` (`id_tratamiento`, `id_medicamento`, `cada`, `inicio`, `durante`, `indicaciones`, `id_registro`) VALUES
+(1, 1, 6, '2017-05-14 09:30:00', 72, 'Tomar con alimentos', 1),
+(2, 2, 3, '2017-05-14 15:00:00', 24, 'Reposar media hora', 1);
 
 -- --------------------------------------------------------
 
