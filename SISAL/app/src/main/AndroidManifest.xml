@@ -31,6 +31,10 @@
         <activity
             android:name=".patientStartActivity"
             android:label="@string/title_activity_patient_start"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".myDoctorsActivity"
+            android:label="@string/title_activity_my_doctors"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

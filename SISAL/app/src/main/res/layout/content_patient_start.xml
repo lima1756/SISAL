@@ -6,13 +6,63 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mysisal.sisal.patientStartActivity"
-    tools:showIn="@layout/app_bar_patient_start">
+    tools:showIn="@layout/app_bar_patient_start"
+    tools:layout_editor_absoluteY="89dp"
+    tools:layout_editor_absoluteX="0dp">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="paciente/encargado"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="99dp" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnMeds"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_size_normal"
+                android:text="Mis medicinas" />
+
+            <Button
+                android:id="@+id/btnDates"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_size_normal"
+                android:text="Mis Citas" />
+
+            <Button
+                android:id="@+id/btnDoctors"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_size_normal"
+                android:text="Mis doctores" />
+
+            <Button
+                android:id="@+id/btnClinic"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:background="@android:color/holo_blue_light"
+                android:textSize="@dimen/text_size_normal"
+                android:text="Información de la clinica" />
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

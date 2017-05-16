@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,6 +13,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -45,13 +48,17 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -70,8 +77,8 @@ import static java.nio.charset.StandardCharsets.*;
 public class Login extends AppCompatActivity {
     Button btnIngresar;
     TextView txtUsuario, txtPass;
-    ProgressBar charging;
     JSONObject serverResponse;
+    JSONObject userData;
     TextView txtIndications;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +115,13 @@ public class Login extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
 
     public String enviarDatos()
     {
@@ -208,25 +222,8 @@ public class Login extends AppCompatActivity {
                             editor.putString("key", key);
                             editor.putString("type", type);
                             editor.apply();
-                            if(type.equals("medicos")) {
-                                Intent intent = new Intent(getApplicationContext(), startMedic.class);
-                                startActivity(intent);
-                            }
-                            else
-                            {
-                                Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
-                                startActivity(intent);
-                            }
+                            getData();
 
-                            /*
-                                Leer las sharedPreferences
-                                SharedPreferences settings2 = getApplicationContext().getSharedPreferences("userData", 0);
-                                String homeKey = settings2.getString("key", "");
-                                String homeType = settings2.getString("type", "");
-
-                                Log.d("Responsekey", homeKey);
-                                Log.d("ResponseType", homeType);
-                            */
                         }
                         catch(JSONException e)
                         {
@@ -235,6 +232,9 @@ public class Login extends AppCompatActivity {
                     }
                 }
             }
+
+
+
         };
 
         Handler pdCanceller = new Handler();
@@ -244,6 +244,80 @@ public class Login extends AppCompatActivity {
     }
 
 
+    private void getData()
+    {
+        SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
+        final String key = datos.getString("key", "");
+        final String type = datos.getString("type", "");
 
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("key", key);
+        params.put("type", type);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        String url = "https://www.mysisal.com/android/retreiveData";
+
+
+        CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                userData = response;
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError response) {
+                Log.d("Response", "Error: "+ response.getMessage());
+                userData = new JSONObject();
+            }
+        });
+        queue.add(jsObjRequest);
+
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Obteniendo información");
+        progress.setMessage("Espere un momento porfavor...");
+        progress.show();
+
+        Runnable progressRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                progress.cancel();
+                if (userData.toString().equals("{}")) {
+                    txtIndications.setText("Error, porfavor vuelva a intentarlo");
+                    txtIndications.setTextColor(Color.RED);
+                } else {
+
+                    String filename = "data.json";
+                    FileOutputStream outputStream;
+
+                    try {
+                        outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                        outputStream.write(userData.toString().getBytes());
+                        outputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (type.equals("medicos")) {
+                        Intent intent = new Intent(getApplicationContext(), startMedic.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
+                        startActivity(intent);
+                    }
+
+                }
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 3000);
+
+    }
 }
 
