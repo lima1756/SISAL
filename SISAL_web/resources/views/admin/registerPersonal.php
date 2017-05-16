@@ -159,12 +159,12 @@
                          <div class="form-group">
                             <textarea class="textarea50" placeholder="CP:" id="cp" name="cp" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                             <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Telefono:" id="tel" name="tel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <textarea class="textarea50" placeholder="Teléfono:" id="tel" name="tel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                          </div>
                         <div class="form-group">
                             <textarea class="textarea50" placeholder="Celular:" id="cel" name="cel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                             <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Genero:" id="genero" name="genero" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <textarea class="textarea50" placeholder="Género:" id="genero" name="genero" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                          </div>
                         <div class="form-group">
                             <textarea class="textarea50" placeholder="N. Social:" id="ns" name="ns" rows="1"  required style="height: 30px; width: 38%;"></textarea>
@@ -172,7 +172,7 @@
                             <textarea class="textarea50" placeholder="Fecha nacimiento:" id="fn" name="fn" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                          </div>
                          <div class="form-group">
-                            <textarea class="textarea50" placeholder="Ocupacion:" id="ocupacion" name="ocupacion" rows="1"  required style="height: 30px; width: 38%;"></textarea>
+                            <textarea class="textarea50" placeholder="Ocupación:" id="ocupacion" name="ocupacion" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                             <span>&nbsp</span>
                             <textarea class="textarea50" placeholder="Puesto:" id="puesto" name="puesto" rows="1"  required style="height: 30px; width: 38%;"></textarea>
                          </div>

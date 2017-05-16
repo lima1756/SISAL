@@ -1,3 +1,25 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $pacientes = dbConnection::select(["citas.id_medico", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
+        "citas",
+        [["citas.id_paciente", logData::getData("id_usuario")]],
+        [["usuarios", "usuarios.id_usuario", "citas.id_medico"]],
+        "GROUP BY citas.id_medico");
+    $existeGet = false;
+    if(isset($_GET['id']))
+    {
+        foreach($pacientes as $p)
+        {
+            if($p['id_medico']==$_GET['id'])
+            {
+                $existeGet = true;
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +33,7 @@
 
     <title>Paciente</title>
 
-      <!-- Bootstrap Core CSS -->
+       <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -39,6 +61,23 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+        <style>
+        label input[type="radio"] ~ i.fa.fa-circle-o{
+            color: #c8c8c8;    display: inline;
+        }
+        label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+            display: none;
+        }
+        label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+            display: none;
+        }
+        label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+            color: #7AA3CC;    display: inline;
+        }
+        label:hover input[type="radio"] ~ i.fa {
+        color: #7AA3CC;
+        }
+    </style>
 </head>
 
 <body>
@@ -110,34 +149,24 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Ver información</th>
+                                        <th>Seleccionar</th>
+                                        <th>Usuario</th>
                                         <th>Doctor</th>
-                                        <th>Especialidad</th>
+                                        <th>Ultima consulta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
+                                <?php foreach($pacientes as $p): ?>
                                     <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>Doc1</td>
-                                        <td>Neumologo</td>
+                                        <td><label class="btn active">
+                                            <input type="radio" name="medico" value="<?php echo $p['id_medico']; ?>"id="<?php echo "radio".$p['id_medico']?>" style="display:none"/>
+                                            <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
+                                        </label></td>
+                                        <td><?php echo $p['usuario']; ?></td>
+                                        <td><?php echo $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno']; ?></td>
+                                        <td><?php echo $p['ultima']; ?></td>
                                     </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>Doc12</td>
-                                        <td>Ororrinolaringolo</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>Doc3</td>
-                                        <td>General</td>
-                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
