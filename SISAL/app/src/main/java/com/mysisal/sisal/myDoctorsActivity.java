@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public class myDoctorsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        LinearLayout miLayOut = (LinearLayout)findViewById(R.id.layoutContent);
+        final LinearLayout miLayOut = (LinearLayout)findViewById(R.id.layoutContent);
         TextView[] Titles = new TextView[255];
         TextView[] Contents = new TextView[255];
 
@@ -84,17 +85,18 @@ public class myDoctorsActivity extends AppCompatActivity
             Titles[i].setTextSize(30);
             Contents[i].setTextSize(20);
             Contents[i].setVisibility(View.GONE);
-            Contents[i].setId(i);
-            final int val = i+1505;
+            final int val = i+1025;
+            Contents[i].setId(val);
+            miLayOut.addView(Titles[i]);
+            miLayOut.addView(Contents[i]);
             Titles[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TextView act = (TextView)v.findViewById(val);
+                    TextView act = (TextView) findViewById(val);
                     act.setVisibility(act.isShown() ? View.GONE : View.VISIBLE );
                 }
             });
-            miLayOut.addView(Titles[i]);
-            miLayOut.addView(Contents[i]);
+
         }
 
 
