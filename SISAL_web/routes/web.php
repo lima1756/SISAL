@@ -111,6 +111,10 @@ Route::get('/dashboard/userProfile', function () {
     {
         return view('receptionist/userProfile');
     }
+    elseif(Type::isAdmin())
+    {
+        return view('admin/userProfile');
+    }
     else
     {
         return redirect('/dashboard');
