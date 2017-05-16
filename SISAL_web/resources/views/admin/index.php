@@ -73,7 +73,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="/dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -104,7 +104,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
+                            <a href="/registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
                         </li>
                         <li>
                             <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
