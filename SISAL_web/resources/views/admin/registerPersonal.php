@@ -135,47 +135,95 @@
             </div>
             <!-- /.row -->
 
-                         <div class="form-group">
-                            <textarea class="textarea50" placeholder="Nombre:" id="nombre" name="nombre" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Apellido paterno:" id="Ap" name="Ap" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
-                        <div class="form-group">
-                            <textarea class="textarea50" placeholder="Apellido materno:" id="Am" name="Am" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Usuario:" id="usuario" name="usuario" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
-                        <div class="form-group">
-                            <textarea class="textarea50" placeholder="Contraseña:" id="pass" name="pass" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Correo:" id="email" name="email" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                        </div>
-                        
-                         <div class="form-group">
-                            <textarea class="textarea50" placeholder="Domicilio:" id="dom" name="dom" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Municipio:" id="municipio" name="municipio" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
-                         <div class="form-group">
-                            <textarea class="textarea50" placeholder="CP:" id="cp" name="cp" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Teléfono:" id="tel" name="tel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
-                        <div class="form-group">
-                            <textarea class="textarea50" placeholder="Celular:" id="cel" name="cel" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Género:" id="genero" name="genero" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
-                        <div class="form-group">
-                            <textarea class="textarea50" placeholder="N. Social:" id="ns" name="ns" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Fecha nacimiento:" id="fn" name="fn" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
-                         <div class="form-group">
-                            <textarea class="textarea50" placeholder="Ocupación:" id="ocupacion" name="ocupacion" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                            <span>&nbsp</span>
-                            <textarea class="textarea50" placeholder="Puesto:" id="puesto" name="puesto" rows="1"  required style="height: 30px; width: 38%;"></textarea>
-                         </div>
+
+                               <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <tr><td>
+                                        Nombre:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 80%;"  required/>
+                                        </div>   
+                                        </td>
+                                        <td>
+                                        Apellido Paterno:                                
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" style="height: 30px; width: 80%;" placeholder="Apellido Paterno"  required/>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Apellido Materno:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" style="height: 30px; width: 80%;" placeholder="Apellido Materno" required/>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        Domicilio:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" style="height: 30px; width: 80%;"  required/>
+                                        </div>
+                                        </td>
+                                        </td>
+                                        <tr>
+                                        <td>
+                                        Código postal:
+                                        <div class="form-group">
+                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" style="height: 30px; width: 80%;"  required/>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        Teléfono:
+                                        <div class="form-group">
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 80%;"  required/>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Celular:
+                                        <div class="form-group">
+                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 80%;" required/>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        Correo:
+                                        <div class="form-group">
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" style="height: 30px; width: 80%;"  required/>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Sexo:
+                                        <div class="form-group">
+                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" style="height: 30px; width: 80%;" required/>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        No. Seguridad social:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" style="height: 30px; width: 80%;" required/>
+                                        </div>
+                                       </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Fecha de nacimiento:
+                                        <div class="form-group">
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" style="height: 30px; width: 80%;"  required/>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        Ocupación:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 80%;" required/>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                    </table>
+                         
+
+
                         <div class="form-group">
                              <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="myToggler(); return false;" disabled />
                             <div class="btn-group"> 
@@ -184,10 +232,27 @@
                                             <span>&nbsp</span>
                                          </label>
                                          <label for="miDoctor" class="btn btn-default" id="labelDoctor" onClick="myToggler(); return false;">
-                                               ¿Esta cuenta es doctor?
+                                               Cuenta Doctor
                                          </label>
                              </div>
                         </div>
+                        <div class="form-group">
+                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="l(); return false;" disabled />
+                            <div class="btn-group"> 
+                                        <label for="miRe" class="btn btn-default" id="checkDoctor" onClick="l(); return false;">                                                       
+                                         <span class="[ fa fa-check ]"></span>
+                                            <span>&nbsp</span>
+                                         </label>
+                                         <label for="miRe" class="btn btn-default" id="labelDoctor" onClick="l(); return false;">
+                                               Cuenta Recepcionista
+                                         </label>
+                             </div>
+                        </div>
+
+
+
+
+
                             <input type="number" name="idDoctor" id="idDoctor" hidden/>
 
                         <!--INFORMACIóN DOCTOR -->
@@ -206,72 +271,88 @@
 
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="doctorInf" >
-                                                    <div class="form-group">
-                                                        <label>Domicilio Consultorio Particula</label>
-                                                        <input class="form-control" type="text" placeholder="domicilioConsultorio" id="domicilioConsultorio" name="domicilioConsultorio" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Telefono Emergencias</label>
-                                                        <input class="form-control" type="text" placeholder="Telefono Emergencia" id="TelEme" name="TelEme" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Celular Emergencias</label>
-                                                        <input class="form-control" type="text" placeholder="Celular" id="CelEme" name="CelEme" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                         <label>Email Emergencias</label>
-                                                        <input class="form-control" type="email" placeholder="Email" id="EmailEme" name="EmailEme" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Facebook</label>
-                                                        <input class="form-control" type="text" placeholder="Facebook" id="Face" name="Face" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Twitter</label>
-                                                        <input class="form-control" type="text" placeholder="Twitter" id="Tw" name="TW" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Horario</label>
-                                                        <input class="form-control" type="text" placeholder="Horario" name="Horario" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Tiempo de consulta en minutos</label>
-                                                        <input class="form-control" type="number" placeholder="Minutos" id="Tiempo" name="Tiempo" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Cédula</label>
-                                                        <input class="form-control" type="number" placeholder="Cédula Profesional" id="Ced" name="Ced" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Especialidad</label>
-                                                        <input class="form-control" type="text" placeholder="Especialidad" id="Esp" name="Esp" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Especialidad</label>
-                                                        <input class="form-control" type="text" placeholder="Universidad" id="uni" name="uni" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <select class="form-control" id="responsableGenero" name="responsableGenero" disabled>
-                                                            <option value="-1">Seleccione un genero</option>
-                                                            <option value="Masculino">Masculino</option>
-                                                            <option value="Femenino">Femenino</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="No. de Seguridad social" id="responsableSeguroSocial" name="responsableSeguroSocial" disabled/>
-                                                    </div>
-                                                    <?php /*<div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
-                                                    </div> */?>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="responsableFechaNacimiento" name="responsableFechaNacimiento" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                    <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="responsableEdad">xy años</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Ocupación" id="responsableOcupacion" name="responsableOcupacion" disabled/>
-                                                    </div>
+
+
+                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                    <tr><td>
+                                                        Domicilio consultorio particular:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" id="domp" name="domp" placeholder="Domicilio" style="height: 30px; width: 80%;"  required/>
+                                                        </div>   
+                                                        </td>
+                                                        <td>
+                                                        Teléfono emergencias:                                
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" id="TelE" name="TelE" style="height: 30px; width: 80%;" placeholder="Télefono"  required/>
+                                                        </div>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td>
+                                                        Celular emergencia:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="number" id="CelE" name="CelE" style="height: 30px; width: 80%;" placeholder="Celular" required/>
+                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                        Correo Emergencias:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="email" id="CorreoE"name="CorreoE" placeholder="Correo" style="height: 30px; width: 80%;"  required/>
+                                                        </div>
+                                                        </td>
+                                                        </td>
+                                                        <tr>
+                                                        <td>
+                                                        Facebook:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" placeholder="Facebook" id="Face" name="Face" style="height: 30px; width: 80%;"  required/>
+                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                        Twitter:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" placeholder="Twitter" id="Tw" name="Tw" style="height: 30px; width: 80%;"  required/>
+                                                        </div>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td>
+                                                        Horario:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" placeholder="Horario" id="Hor" name="Hor" style="height: 30px; width: 80%;" required/>
+                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                        Tiempo de consulta en minutos:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="number" placeholder="Tiempo" id="time" name="time" style="height: 30px; width: 80%;"  required/>
+                                                        </div>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td>
+                                                        Cédula Profesonal:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="number" placeholder="Cédula" id="ced" name="ced" style="height: 30px; width: 80%;" required/>
+                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                        Especialidad:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" placeholder="Especialidad" id="Esp" name="Esp" style="height: 30px; width: 80%;" required/>
+                                                        </div>
+                                                    </td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td>
+                                                        Universidad:
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" placeholder="Universidad" id="Uni" name="Uni" style="height: 30px; width: 80%;"  required/>
+                                                        </div>
+                                                        </td>
+                                                        
+                                                        </tr>
+                                                    </table>
                                                 </div>
                                             </div>
                                        </div>
