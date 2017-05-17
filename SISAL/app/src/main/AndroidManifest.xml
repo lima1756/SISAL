@@ -35,6 +35,14 @@
         <activity
             android:name=".myDoctorsActivity"
             android:label="@string/title_activity_my_doctors"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".myDates"
+            android:label="@string/title_activity_my_dates"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".myMedicines"
+            android:label="@string/title_activity_my_medicines"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

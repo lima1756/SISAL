@@ -222,6 +222,8 @@ public class Login extends AppCompatActivity {
                             editor.putString("key", key);
                             editor.putString("type", type);
                             editor.apply();
+                            Log.d("Response_key", key);
+                            Log.d("Response_type", type);
                             getData();
 
                         }
@@ -290,6 +292,12 @@ public class Login extends AppCompatActivity {
                 if (userData.toString().equals("{}")) {
                     txtIndications.setText("Error, porfavor vuelva a intentarlo");
                     txtIndications.setTextColor(Color.RED);
+                    SharedPreferences preferences = getSharedPreferences("userData", 0);
+                    preferences.edit().remove("type").commit();
+                    preferences.edit().remove("key").commit();
+
+                    String type = preferences.getString("type", "");
+                    String key = preferences.getString("key", "");
                 } else {
 
                     String filename = "data.json";

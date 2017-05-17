@@ -22,4 +22,6 @@
     <string name="action_settings">Cerrar Sesión</string>
     <string name="title_activity_patient_start">Inicio</string>
     <string name="title_activity_my_doctors">Mis Doctores</string>
+    <string name="title_activity_my_dates">Mis Citas</string>
+    <string name="title_activity_my_medicines">Mis medicinas</string>
 </resources>

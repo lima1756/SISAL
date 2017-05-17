@@ -83,9 +83,11 @@ public class patientStartActivity extends AppCompatActivity
         if (id == R.id.nav_clinic) {
             Log.d("Response_menu", "Clinica");
         } else if (id == R.id.nav_medicines) {
-            Log.d("Response_menu", "medicinas");
+            Intent intent = new Intent(getApplicationContext(), myMedicines.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dates) {
-            Log.d("Response_menu", "Citas");
+            Intent intent = new Intent(getApplicationContext(), myDates.class);
+            startActivity(intent);
         } else if (id == R.id.nav_doctors) {
             Intent intent = new Intent(getApplicationContext(), myDoctorsActivity.class);
             startActivity(intent);

@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,12 +22,14 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class myDoctorsActivity extends AppCompatActivity
+public class myDates extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Menu optionsMenu;
@@ -37,7 +38,7 @@ public class myDoctorsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_doctors);
+        setContentView(R.layout.activity_my_dates);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -66,23 +67,39 @@ public class myDoctorsActivity extends AppCompatActivity
 
         }
         JSONObject datosJSON = new JSONObject();
-        JSONArray medicos = null;
+        JSONArray citas = null;
         try {
             datosJSON = new JSONObject(datos);
-            medicos = datosJSON.getJSONArray("medicos");
-            for(int i = 0; i < medicos.length(); i++)
+            citas = datosJSON.getJSONArray("citas");
+            for(int i = 0; i < citas.length(); i++)
             {
-                JSONObject eachDato = (JSONObject) medicos.getJSONObject(i);
+                JSONObject eachDato = (JSONObject) citas.getJSONObject(i);
                 Titles[i] = new TextView(this);
-                Titles[i].setText((String)eachDato.get("nombre") + " " + (String)eachDato.get("apellidoPaterno") + " " + (String)eachDato.get("apellidoMaterno"));
+
+                String inputPattern = "yyyy-MM-dd HH:mm:ss";
+                String outputPattern = "dd-MMM-yyyy h:mm a";
+                SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+                Date date = null;
+                String str = null;
+
+                try {
+                    date = inputFormat.parse((String)eachDato.get("fecha_hora"));
+                    str = outputFormat.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Titles[i].setText(str);
+
                 Contents[i] = new TextView(this);
-                Contents[i].setText("Especialidad: " + (String)eachDato.get("especialidad") + "\nDomicilio consultorio: " + (String)eachDato.get("domicilioConsultorio") + "\nTelefono Emergencias:" + (String)eachDato.get("telEmergencias") +
-                "\nCelular de emergencias: " + (String)eachDato.get("celEmergencias") + "\nFacebook: " + (String)eachDato.get("facebook")  +"\nTwitter: " + (String)eachDato.get("twitter"));
+                Contents[i].setText("Tipo: " + (String)eachDato.get("tipo") + "\nMédico: " + (String)eachDato.get("nombre") + " " + (String)eachDato.get("apellidoPaterno") + " " + (String)eachDato.get("apellidoMaterno"));
             }
         } catch(JSONException e) {
 
         }
-        for(int i = 0; i < medicos.length(); i++)
+        for(int i = 0; i < citas.length(); i++)
         {
             Titles[i].setTextSize(30);
             Titles[i].setTextColor(Color.BLUE);
@@ -101,8 +118,6 @@ public class myDoctorsActivity extends AppCompatActivity
             });
 
         }
-
-
     }
 
     @Override
@@ -134,7 +149,6 @@ public class myDoctorsActivity extends AppCompatActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -143,14 +157,14 @@ public class myDoctorsActivity extends AppCompatActivity
 
         if (id == R.id.nav_clinic) {
             Log.d("Response_menu", "Clinica");
+        } else if (id == R.id.nav_medicines) {
+            Intent intent = new Intent(getApplicationContext(), myMedicines.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dates) {
             Intent intent = new Intent(getApplicationContext(), myDates.class);
             startActivity(intent);
         } else if (id == R.id.nav_doctors) {
             Intent intent = new Intent(getApplicationContext(), myDoctorsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_medicines) {
-            Intent intent = new Intent(getApplicationContext(), myMedicines.class);
             startActivity(intent);
         } else if (id == R.id.nav_config) {
             Log.d("Response_menu", "Configuracion");

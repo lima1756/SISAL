@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,12 +22,15 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class myDoctorsActivity extends AppCompatActivity
+public class myMedicines extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Menu optionsMenu;
@@ -37,7 +39,7 @@ public class myDoctorsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_doctors);
+        setContentView(R.layout.activity_my_medicines);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -66,23 +68,67 @@ public class myDoctorsActivity extends AppCompatActivity
 
         }
         JSONObject datosJSON = new JSONObject();
-        JSONArray medicos = null;
+        JSONArray medicamentos = null;
         try {
             datosJSON = new JSONObject(datos);
-            medicos = datosJSON.getJSONArray("medicos");
-            for(int i = 0; i < medicos.length(); i++)
+            medicamentos = datosJSON.getJSONArray("medicamentos");
+            for(int i = 0; i < medicamentos.length(); i++)
             {
-                JSONObject eachDato = (JSONObject) medicos.getJSONObject(i);
+                JSONObject eachDato = (JSONObject) medicamentos.getJSONObject(i);
                 Titles[i] = new TextView(this);
-                Titles[i].setText((String)eachDato.get("nombre") + " " + (String)eachDato.get("apellidoPaterno") + " " + (String)eachDato.get("apellidoMaterno"));
+
+                String inputPattern = "yyyy-MM-dd HH:mm:ss";
+                String dia = "dd";
+                String mes = "MM";
+                String anio = "yyyy";
+                String hora = "HH";
+                String min = "mm";
+                String output = "dd-MM-yy HH:mm a";
+
+                SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                SimpleDateFormat outputFormatDia = new SimpleDateFormat(dia);
+                SimpleDateFormat outputFormatMes = new SimpleDateFormat(mes);
+                SimpleDateFormat outputFormatAnio = new SimpleDateFormat(anio);
+                SimpleDateFormat outputFormatHora = new SimpleDateFormat(hora);
+                SimpleDateFormat outputFormatMin = new SimpleDateFormat(min);
+                SimpleDateFormat outputFormat = new SimpleDateFormat(output);
+
+                Date date = null;
+                String strDia = null;
+                String strMes = null;
+                String strAnio = null;
+                String strHora = null;
+                String strMin = null;
+                String str = null;
+                try {
+                    date = inputFormat.parse((String)eachDato.get("inicio"));
+                    strDia = outputFormatDia.format(date);
+                    strMes = outputFormatMes.format(date);
+                    strAnio = outputFormatAnio.format(date);
+                    strHora = outputFormatHora.format(date);
+                    strMin = outputFormatMin.format(date);
+                    str = outputFormat.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Integer.parseInt(strAnio), Integer.parseInt(strMes)-1, Integer.parseInt(strDia), Integer.parseInt(strHora), Integer.parseInt(strMin), 0);
+
+                Calendar now = Calendar.getInstance();
+                Titles[i].setText((String)eachDato.get("nombre"));
+
+                while(cal.before(now)) {
+                    cal.add(Calendar.HOUR_OF_DAY, Integer.parseInt((String)eachDato.get("cada")));
+                }
                 Contents[i] = new TextView(this);
-                Contents[i].setText("Especialidad: " + (String)eachDato.get("especialidad") + "\nDomicilio consultorio: " + (String)eachDato.get("domicilioConsultorio") + "\nTelefono Emergencias:" + (String)eachDato.get("telEmergencias") +
-                "\nCelular de emergencias: " + (String)eachDato.get("celEmergencias") + "\nFacebook: " + (String)eachDato.get("facebook")  +"\nTwitter: " + (String)eachDato.get("twitter"));
+                Contents[i].setText("Inicio: " + str + "\nCada: " + (String)eachDato.get("cada") + " horas\nDurante: " + (String)eachDato.get("durante") + " horas\nIndicaciones: " + (String)eachDato.get("indicaciones") + "\nSiguiente toma: "
+                            + cal.getTime().toString());
             }
         } catch(JSONException e) {
 
         }
-        for(int i = 0; i < medicos.length(); i++)
+        for(int i = 0; i < medicamentos.length(); i++)
         {
             Titles[i].setTextSize(30);
             Titles[i].setTextColor(Color.BLUE);
@@ -101,8 +147,6 @@ public class myDoctorsActivity extends AppCompatActivity
             });
 
         }
-
-
     }
 
     @Override
@@ -133,7 +177,20 @@ public class myDoctorsActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -142,19 +199,20 @@ public class myDoctorsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_clinic) {
-            Log.d("Response_menu", "Clinica");
+            // Handle the camera action
+        } else if (id == R.id.nav_medicines) {
+            Intent intent = new Intent(getApplicationContext(), myMedicines.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dates) {
             Intent intent = new Intent(getApplicationContext(), myDates.class);
             startActivity(intent);
         } else if (id == R.id.nav_doctors) {
             Intent intent = new Intent(getApplicationContext(), myDoctorsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_medicines) {
-            Intent intent = new Intent(getApplicationContext(), myMedicines.class);
-            startActivity(intent);
         } else if (id == R.id.nav_config) {
             Log.d("Response_menu", "Configuracion");
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
