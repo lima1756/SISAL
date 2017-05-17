@@ -163,7 +163,7 @@ use App\myClasses\dbConnection;
                                             <span>&nbsp</span>
                                         </label>
                                         <span>&nbsp</span><label for="proximasCitas" class="btn btn-default active">
-                                            Citas     Registradas
+                                            Ver  citas   registradas
                                             <span>&nbsp&nbsp</span>
                                             <span>&nbsp&nbsp</span>
                                         </label>
@@ -180,13 +180,30 @@ use App\myClasses\dbConnection;
                                                 <span>&nbsp</span>
                                             </label>
                                             <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
-                                                Agendar una nueva cita
+                                                Ver horarios disponibles
                                             </label>
                                         </div>
                                         <br>
                                         <br>
+                                    <span>&nbsp</span>
+                                    <span>&nbsp</span>
+                                    <input type="checkbox" name="agenda" id="agenda" />
+                                        <div class="btn-group">
+                                            <label for="disponible" id="icoDisponible" class="btn btn-default">
+                                                <span class="fa fa-check"></span>
+                                                <span>&nbsp</span>
+                                            </label>
+                                            <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
+                                                Ver agenda completa
+                                            </label>
+                                        </div>
+                                        <br>
+                                        <br>
+
+
+
                                         <span>&nbsp</span><span>&nbsp</span><span>&nbsp</span>
-                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
+                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Buscar</button>
                                 </div>
                                 
                             </form>

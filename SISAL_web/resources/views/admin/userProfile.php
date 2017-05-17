@@ -125,8 +125,7 @@
                                     <div class="panel-heading">
                                         <h4>Información personal</h2>
                                     </div> 
-                                    <table table cellspacing="4" cellpadding="4" border="0" width=800>
-                                    <td>
+                                    
                                         Nombre:
                                         <div class="form-group">
                                             <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 38%;" value="<?php echo logData::getData('nombre'); ?>" disabled/>
@@ -159,9 +158,7 @@
                                         <div class="form-group">
                                             <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 38%;" value="<?php echo logData::getData('telefonoDomiciliar'); ?>" disabled/>
                                         </div>
-                                        </td>
-                                        <td>
-                                        <br>
+                                        
                                         Celular:
                                         <div class="form-group">
                                             <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 38%;" value="<?php echo logData::getData('telefonoCelular'); ?>" disabled/>
@@ -198,8 +195,7 @@
                                             <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 38%;" value="<?php echo logData::getData('Ocupacion'); ?>" disabled/>
                                         </div>
 
-                                        </td>
-                                        </table>
+                                        
                                     </div>
                                 </div>
                                 
