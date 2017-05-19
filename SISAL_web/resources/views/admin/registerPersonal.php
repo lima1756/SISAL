@@ -33,7 +33,7 @@
 
     <title>Administrador</title>
 
-     <!-- Bootstrap Core CSS -->
+       <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -44,6 +44,15 @@
 
     <!-- Custom Fonts -->
     <link href="../../dataSource/css/templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <link href="../../dataSource/css/templates/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- FontsAwsome CSS -->
+    <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -126,10 +135,43 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Registrar Empleado</h1>
+                    <?php
+                    echo "<script>";
+                    echo "nuevo();";
+                    echo "</script>";
+                    ?>
                 </div>
+                        <div class="form-group">
+                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="myToggler(); return false;" disabled />
+                            <div class="btn-group"> 
+                                        <label for="miDoctor" class="btn btn-default" id="checkDoctor" onClick="myToggler(); return false;">                                                       
+                                         <span class="[ fa fa-check ]"></span>
+                                            <span>&nbsp</span>
+                                         </label>
+                                         <label for="miDoctor" class="btn btn-default" id="labelDoctor" onClick="myToggler(); return false;">
+                                               Cuenta Doctor
+                                         </label>
+                             </div>
+                        </div>
+
+                            <div class="form-group">
+                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="l(); return false;" disabled />
+                             <div class="btn-group"> 
+                                        <label for="miRe" class="btn btn-default" id="checkDoctor" onClick="l(); return false;">                                                       
+                                         <span class="[ fa fa-check ]"></span>
+                                            <span>&nbsp</span>
+                                         </label>
+                                         <label for="miRe" class="btn btn-default" id="labelDoctor" onClick="l(); return false;">
+                                               Cuenta Recepcionista
+                                         </label>
+                             </div>
+                        </div>
+
+
+
                 <div class="form-group">
-                            <button type="submit" class="btn btn-warning">Guardar</button>
-                            <button type="reset" class="btn btn-select">Reiniciar</button> 
+                            <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="aceptacion();" style="display:none;">Aceptar</button></span>
+                            <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -224,30 +266,7 @@
                          
 
 
-                        <div class="form-group">
-                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="myToggler(); return false;" disabled />
-                            <div class="btn-group"> 
-                                        <label for="miDoctor" class="btn btn-default" id="checkDoctor" onClick="myToggler(); return false;">                                                       
-                                         <span class="[ fa fa-check ]"></span>
-                                            <span>&nbsp</span>
-                                         </label>
-                                         <label for="miDoctor" class="btn btn-default" id="labelDoctor" onClick="myToggler(); return false;">
-                                               Cuenta Doctor
-                                         </label>
-                             </div>
-                        </div>
-                        <div class="form-group">
-                             <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="l(); return false;" disabled />
-                            <div class="btn-group"> 
-                                        <label for="miRe" class="btn btn-default" id="checkDoctor" onClick="l(); return false;">                                                       
-                                         <span class="[ fa fa-check ]"></span>
-                                            <span>&nbsp</span>
-                                         </label>
-                                         <label for="miRe" class="btn btn-default" id="labelDoctor" onClick="l(); return false;">
-                                               Cuenta Recepcionista
-                                         </label>
-                             </div>
-                        </div>
+                        
 
 
 
@@ -571,18 +590,6 @@
             $('#responsableOcupacion').val("");
         }
 
-    }
-
-    function edicion()
-    {
-        $('#formulario :input').attr('disabled', false);
-        $('#editar').prop('disabled', false);
-        $('#cancelar').prop('disabled', false);
-        $('#aceptar').prop('disabled', false);
-        $('label[id="checkbox"]').attr('disabled', false);
-        $('#editar').hide();
-        $('#cancelar').show();
-        $('#aceptar').show();
     }
 
     function aceptacion()

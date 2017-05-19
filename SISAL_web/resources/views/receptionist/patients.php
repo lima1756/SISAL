@@ -278,6 +278,8 @@
                                                 <label>Ocupación</label>
                                                 <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
                                             </div>
+
+                                            
                                             <div class="form-group">
                                                 <input type="checkbox" name="miResponsable" id="miResponsable" autocomplete="off" disabled />
                                                 <div class="btn-group"> 
@@ -290,6 +292,8 @@
                                                     </label>
                                                 </div>
                                             </div>
+
+
                                             <input type="number" name="idResponsable" id="idResponsable" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->

@@ -3,14 +3,14 @@
     use App\myClasses\dbConnection;
     if($_GET['type']=="doctors")
     {
-$valores=["nombre", "usuario", "email"];
+$valores=["nombre", "apellidoPaterno", "apellidoMaterno", "usuario", "email"];
 $tabla="usuarios";
 $where=[];
 $join=[["medicos", "usuarios.id_usuario","medicos.id_usuario"]];
 $datos = dbConnection::select($valores,$tabla,$where,$join);
     }
     elseif($_GET['type']=="recepcionist"){
-$valores=["nombre", "usuario", "email"];
+$valores=["nombre","apellidoPaterno", "apellidoMaterno", "usuario", "email"];
 $tabla="usuarios";
 $where=[];
 $join=[["recepcionistas", "usuarios.id_usuario","recepcionistas.id_usuario"]];
@@ -143,8 +143,8 @@ $datos = dbConnection::select($valores,$tabla,$where,$join);
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Empleado</th>
                                         <th>Usuario</th>
+                                        <th>Nombre</th>
                                         <th>Correo</th>
                                     </tr>
                                 </thead>
@@ -153,9 +153,9 @@ $datos = dbConnection::select($valores,$tabla,$where,$join);
                                     foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
                                     
-                                        <td><?php echo($dato['nombre']);?></td>                                        
+                                        <td><?php echo($dato['usuario']);?></td>   
+                                        <td><?php echo($dato['nombre'] . " " . $dato['apellidoPaterno']. " " . $dato['apellidoMaterno']); ?></td>          
                                         <td><?php echo($dato['email']);?></td> 
-                                        <td><?php echo($dato['usuario']);?></td> 
                                     </tr>
                                     <?php endforeach;?>
                                     
