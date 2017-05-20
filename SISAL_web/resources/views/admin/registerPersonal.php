@@ -64,6 +64,342 @@
 </head>
 
 <body>
+<script>
+    var json = 0;
+    var id = 0;
+    var idDoctor = 0;
+    var idCita = 0;
+    var csrfVal="<?php echo csrf_token(); ?>";
+    $(document).ready(function() {
+        
+        <?php if($existeGet): ?>
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            }
+            })
+            $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
+                'patientId': '<?php echo $_GET['id']; ?>'
+            },
+            function(data, status){
+                json = JSON.parse(data);
+                if(json != 0)
+                {
+                    $('#toda_info').show();
+                    document.getElementById('toda_info').scrollIntoView();
+                    $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                    recuperarInfo();
+                    cancelacion();
+                }
+                
+            });
+            $('html, body').animate({
+                scrollTop: $("#toda_info").offset().top
+            }, 1000);
+        <?php endif; ?>
+    });
+    $('input[type=radio][name=paciente]').on("click", function() {
+        cancelacion();
+        <?php foreach ($pacientes as $key => $p): ?>
+            <?php if($key==0): ?>
+                if (this.value == <?php echo $p['id_usuario'];?>) {
+                    id=$('input:radio[name=paciente]:checked').val();
+                }
+            <?php else: ?>
+                else if (this.value == <?php echo $p['id_usuario'];?>) {
+                    id=$('input:radio[name=paciente]:checked').val();
+                }
+            <?php endif; ?>
+        <?php endforeach; ?>
+        $('#idPaciente').val(id);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            }
+        })
+        $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
+            'patientId': id
+        },
+        function(data, status){
+            json = JSON.parse(data);
+            if(json != 0)
+            {
+                $('#toda_info').show();
+                
+                document.getElementById('toda_info').scrollIntoView();
+                $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                recuperarInfo();
+                cancelacion();
+            }
+            
+        });
+    });
+    function cancelacion()
+        {
+            if(json.generales)
+            {
+            recuperarInfo();
+            }
+            $('#formulario :input').prop('disabled', true);
+            $('#editar').prop('disabled', false);
+            $('#cancelar').prop('disabled', false);
+            $('#aceptar').prop('disabled', false);
+            $('label[id="checkbox"]').attr('disabled', true);
+            /**$('#editar').show();
+            $('#cancelar').hide();
+            $('#aceptar').hide();**/
+            $('#medico').attr("disabled", false);
+            $('#fechaCita').attr("disabled", false);
+                
+        }
+
+    function recuperarInfo()
+    {
+        $('#usuario').val(json.generales.usuario);
+        $('#nombre').val(json.generales.nombre);
+        $('#apellidoPaterno').val(json.generales.apellidoPaterno);
+        $('#apellidoMaterno').val(json.generales.apellidoMaterno);
+        $('#domicilio').val(json.generales.Domicilio);
+        $('#codigoPostal').val(json.generales.codigoPostal);
+        $('#domTel').val(json.generales.telefonoDomiciliar);
+        $('#ofTel').val(json.generales.telefonoDomiciliar);
+        $('#email').val(json.generales.telefonoDomiciliar);
+        if(json.generales.genero=="Masculino")
+        {
+            $('#genero').val("Masculino");
+        }
+        else if(json.generales.genero=="Femenino")
+        {
+            $('#genero').val("Femenino");
+        }
+        else
+        {
+            $('#genero').val("-1");
+        }
+        $('#seguroSocial').val(json.generales.noSeguroSocial);
+        var fecha = new Date(json.generales.fechaNacimiento);
+        $('#fechaNacimiento').val(json.generales.fechaNacimiento);
+        var hoy = new Date();
+        var edad = 0;
+        if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
+        {
+            edad = hoy.getFullYear() - fecha.getFullYear() + 1;
+        }
+        else
+        {
+            edad = hoy.getFullYear() - fecha.getFullYear();
+        }
+        $('#edad').html(edad);
+        $('#ocupacion').val(json.generales.Ocupacion);
+        if(json.encargados)
+        {
+            $("#responsable").show();
+            $("#miDoctor").prop("checked", true);
+            $("#idResponsable").val(json.encargados.id_usuario);
+            $('#responsableUsuario').val(json.encargados.usuario);
+            $('#responsableNombre').val(json.encargados.nombre);
+            $('#responsableApellidoPaterno').val(json.encargados.apellidoPaterno);
+            $('#responsableApellidoMaterno').val(json.encargados.apellidoMaterno);
+            $('#responsableDomicilio').val(json.encargados.Domicilio);
+            $('#responsableCodigoPostal').val(json.encargados.codigoPostal);
+            $('#responsableDomTel').val(json.encargados.telefonoDomiciliar);
+            $('#responsableOfTel').val(json.encargados.telefonoDomiciliar);
+            $('#responsableEmail').val(json.encargados.telefonoDomiciliar);
+            if(json.encargados.genero=="Masculino")
+            {
+                $('#responsableGenero').val("Masculino");
+            }
+            else if(json.encargados.genero=="Femenino")
+            {
+                $('#responsableGenero').val("Femenino");
+            }
+            else
+            {
+                $('#responsableGenero').val("-1");
+            }
+            $('#responsableSeguroSocial').val(json.encargados.noSeguroSocial);
+            var fecha = new Date(json.encargados.fechaNacimiento);
+            $('#responsableFechaNacimiento').val(json.encargados.fechaNacimiento);
+            var hoy = new Date();
+            var edad = 0;
+            if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
+            {
+                edad = hoy.getFullYear() - fecha.getFullYear() + 1;
+            }
+            else
+            {
+                edad = hoy.getFullYear() - fecha.getFullYear();
+            }
+            $('#responsableEdad').html(edad);
+            $('#responsableOcupacion').val(json.encargados.Ocupacion);
+        }
+        else
+        {
+            $("#responsable").hide();
+            $("#miDoctor").prop("checked", false);
+            $("#idResponsable").val("");
+            $('#usuarioResponsable').val("");
+            $('#responsableNombre').val("");
+            $('#responsableApellidoPaterno').val("");
+            $('#responsableApellidoMaterno').val("");
+            $('#responsableDomicilio').val("");
+            $('#responsableCodigoPostal').val("");
+            $('#responsableDomTel').val("");
+            $('#responsableOfTel').val("");
+            $('#responsableEmail').val("");
+            $('#responsableGenero').val("-1");
+            $('#responsableSeguroSocial').val("");
+            $('#responsableFechaNacimiento').val("");
+            $('#responsableEdad').html("");
+            $('#responsableOcupacion').val("");
+        }
+
+    }
+    function edicion()
+    {
+        $('#formulario :input').attr('disabled', false);
+        $('#editar').prop('disabled', false);
+        $('#cancelar').prop('disabled', false);
+        $('#aceptar').prop('disabled', false);
+        $('label[id="checkbox"]').attr('disabled', false);
+        /**$('#editar').hide();
+        $('#cancelar').show();
+        $('#aceptar').show();
+        **/
+    }
+
+    function aceptacion()
+        {
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+            $.post("/ajaxRgP",
+                $('#formulario').serialize(),
+            function(data, status){
+                var misdatos = data;
+                if(misdatos !== "undefined")
+                {
+                    $("#idPaciente").val(misdatos);
+                }
+                $('#formulario :input').prop('disabled', true);
+                $('#_token').prop('disabled', false);
+                $('#editar').prop('disabled', false);
+                $('#cancelar').prop('disabled', false);
+                $('#aceptar').prop('disabled', false);
+                $('label[id="checkbox"]').attr('disabled', true);
+                /**
+                $('#editar').show();
+                $('#cancelar').hide();
+                $('#aceptar').hide();
+                **/
+                $('#pass').val("");
+                $('#medico').attr("disabled", false);
+                $('#fechaCita').attr("disabled", false);
+                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
+            });
+            
+        }
+
+    var activo = false;
+    function myToggler()
+    {
+        if(!activo)
+        {
+            document.getElementById("doctor").hidden=false;
+            $('html, body').animate({
+                scrollTop: $("#doctor").offset().top
+            }, 1000);
+            activo = true;
+            
+        }
+        else
+        {
+            activo= false;
+            document.getElementById("doctor").hidden=true;
+        }
+    }
+
+    function myToggler2()
+    {
+        if(!activo)
+        {
+            $('html, body').animate({
+                scrollTop: $("#doctorInf").offset().top
+            }, 1000);
+            activo = true;
+        }
+        else
+        {
+            activo= false;
+        }
+    }
+
+    $("#miDoctor").change(function() {
+        if(document.getElementById('miDoctor').checked)
+        {
+            $("#doctorInf").show();   
+        }
+        else
+        {
+            $("#doctorInf").hide();
+        }
+    });
+
+   
+function nuevo()
+    {
+        
+        $('#nombre_completo').html("Nuevo empleado: ")
+        $('#user').val("");
+        $('#nombre').val("");
+        $('#apellidoPaterno').val("");
+        $('#apellidoMaterno').val("");
+        $('#Domicilio').val("");
+        $('#codigoPostal').val("");
+        $('#domTel').val("");
+        $('#celTel').val("");
+        $('#email').val("");
+        $('#genero').val("-1");
+        $('#seguroSocial').val("");
+        $('#fechaNacimiento').val("");
+        $('#ocupacion').val("");
+        $('#ocupacion').val("");
+        $("#doctor").hide();
+        $("#miDoctor").prop("checked", false);
+
+
+        $('#domp').val("");
+        $('#TelE').val("");
+        $('#CelE').val("");
+        $('#CorreoE').val("");
+        $('#Face').val("");
+        $('#Tw').val("");
+        $('#Hor').val("");
+        $('#time').val("");
+        $('#Ced').val("");
+        $('#Esp').val("");
+        $('#Uni').val("");
+        
+
+        $('#formulario :input').attr('disabled', false);
+        $('#editar').prop('disabled', false);
+        $('#cancelar').prop('disabled', false);
+        $('#aceptar').prop('disabled', false);
+        $('label[id="checkbox"]').attr('disabled', false);
+        $('#editar').hide();
+        $('#aceptar').show(); 
+        $('#toda_info').show();
+        return false;
+    }
+</script>
+
+
+
+
 
     <div id="wrapper">
 
@@ -140,7 +476,13 @@
                     echo "nuevo();";
                     echo "</script>";
                     ?>
+                    <?php
+                    echo "<script>";
+                    echo "edicion();";
+                    echo "</script>";
+                    ?>
                 </div>
+                
                         <div class="form-group">
                              <input type="checkbox" name="miDoctor" id="miDoctor" autocomplete="off" onClick="myToggler(); return false;" disabled />
                             <div class="btn-group"> 
@@ -166,13 +508,11 @@
                                          </label>
                              </div>
                         </div>
-
-
-
                 <div class="form-group">
                             <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="aceptacion();" style="display:none;">Aceptar</button></span>
                             <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                 </div>
+
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
@@ -259,6 +599,14 @@
                                         Ocupación:
                                         <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 80%;" required/>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Username:
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Nombre de usuario" id="user" name="user" style="height: 30px; width: 80%;"  required/>
                                         </div>
                                         </td>
                                         </tr>
@@ -398,329 +746,6 @@
     <script src="../../dataSource/js/templates/sb-admin-2.js"></script>
 
 </body>
-
-
-<script>
-    var json = 0;
-    var id = 0;
-    var idDoctor = 0;
-    var idCita = 0;
-    var csrfVal="<?php echo csrf_token(); ?>";
-    $(document).ready(function() {
-        
-        <?php if($existeGet): ?>
-            $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': csrfVal
-            }
-            })
-            $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
-                'patientId': '<?php echo $_GET['id']; ?>'
-            },
-            function(data, status){
-                json = JSON.parse(data);
-                if(json != 0)
-                {
-                    $('#toda_info').show();
-                    document.getElementById('toda_info').scrollIntoView();
-                    $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
-                    recuperarInfo();
-                    cancelacion();
-                }
-                
-            });
-            $('html, body').animate({
-                scrollTop: $("#toda_info").offset().top
-            }, 1000);
-        <?php endif; ?>
-    });
-    $('input[type=radio][name=paciente]').on("click", function() {
-        cancelacion();
-        <?php foreach ($pacientes as $key => $p): ?>
-            <?php if($key==0): ?>
-                if (this.value == <?php echo $p['id_usuario'];?>) {
-                    id=$('input:radio[name=paciente]:checked').val();
-                }
-            <?php else: ?>
-                else if (this.value == <?php echo $p['id_usuario'];?>) {
-                    id=$('input:radio[name=paciente]:checked').val();
-                }
-            <?php endif; ?>
-        <?php endforeach; ?>
-        $('#idPaciente').val(id);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': csrfVal
-            }
-        })
-        $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
-            'patientId': id
-        },
-        function(data, status){
-            json = JSON.parse(data);
-            if(json != 0)
-            {
-                $('#toda_info').show();
-                
-                document.getElementById('toda_info').scrollIntoView();
-                $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
-                recuperarInfo();
-                cancelacion();
-            }
-            
-        });
-    });
-    function cancelacion()
-        {
-            if(json.generales)
-            {
-            recuperarInfo();
-            }
-            $('#formulario :input').prop('disabled', true);
-            $('#editar').prop('disabled', false);
-            $('#cancelar').prop('disabled', false);
-            $('#aceptar').prop('disabled', false);
-            $('label[id="checkbox"]').attr('disabled', true);
-            $('#editar').show();
-            $('#cancelar').hide();
-            $('#aceptar').hide();
-            $('#medico').attr("disabled", false);
-            $('#fechaCita').attr("disabled", false);
-                
-        }
-
-    function recuperarInfo()
-    {
-        $('#usuario').val(json.generales.usuario);
-        $('#nombre').val(json.generales.nombre);
-        $('#apellidoPaterno').val(json.generales.apellidoPaterno);
-        $('#apellidoMaterno').val(json.generales.apellidoMaterno);
-        $('#domicilio').val(json.generales.Domicilio);
-        $('#codigoPostal').val(json.generales.codigoPostal);
-        $('#domTel').val(json.generales.telefonoDomiciliar);
-        $('#ofTel').val(json.generales.telefonoDomiciliar);
-        $('#email').val(json.generales.telefonoDomiciliar);
-        if(json.generales.genero=="Masculino")
-        {
-            $('#genero').val("Masculino");
-        }
-        else if(json.generales.genero=="Femenino")
-        {
-            $('#genero').val("Femenino");
-        }
-        else
-        {
-            $('#genero').val("-1");
-        }
-        $('#seguroSocial').val(json.generales.noSeguroSocial);
-        var fecha = new Date(json.generales.fechaNacimiento);
-        $('#fechaNacimiento').val(json.generales.fechaNacimiento);
-        var hoy = new Date();
-        var edad = 0;
-        if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
-        {
-            edad = hoy.getFullYear() - fecha.getFullYear() + 1;
-        }
-        else
-        {
-            edad = hoy.getFullYear() - fecha.getFullYear();
-        }
-        $('#edad').html(edad);
-        $('#ocupacion').val(json.generales.Ocupacion);
-        if(json.encargados)
-        {
-            $("#responsable").show();
-            $("#miDoctor").prop("checked", true);
-            $("#idResponsable").val(json.encargados.id_usuario);
-            $('#responsableUsuario').val(json.encargados.usuario);
-            $('#responsableNombre').val(json.encargados.nombre);
-            $('#responsableApellidoPaterno').val(json.encargados.apellidoPaterno);
-            $('#responsableApellidoMaterno').val(json.encargados.apellidoMaterno);
-            $('#responsableDomicilio').val(json.encargados.Domicilio);
-            $('#responsableCodigoPostal').val(json.encargados.codigoPostal);
-            $('#responsableDomTel').val(json.encargados.telefonoDomiciliar);
-            $('#responsableOfTel').val(json.encargados.telefonoDomiciliar);
-            $('#responsableEmail').val(json.encargados.telefonoDomiciliar);
-            if(json.encargados.genero=="Masculino")
-            {
-                $('#responsableGenero').val("Masculino");
-            }
-            else if(json.encargados.genero=="Femenino")
-            {
-                $('#responsableGenero').val("Femenino");
-            }
-            else
-            {
-                $('#responsableGenero').val("-1");
-            }
-            $('#responsableSeguroSocial').val(json.encargados.noSeguroSocial);
-            var fecha = new Date(json.encargados.fechaNacimiento);
-            $('#responsableFechaNacimiento').val(json.encargados.fechaNacimiento);
-            var hoy = new Date();
-            var edad = 0;
-            if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
-            {
-                edad = hoy.getFullYear() - fecha.getFullYear() + 1;
-            }
-            else
-            {
-                edad = hoy.getFullYear() - fecha.getFullYear();
-            }
-            $('#responsableEdad').html(edad);
-            $('#responsableOcupacion').val(json.encargados.Ocupacion);
-        }
-        else
-        {
-            $("#responsable").hide();
-            $("#miDoctor").prop("checked", false);
-            $("#idResponsable").val("");
-            $('#usuarioResponsable').val("");
-            $('#responsableNombre').val("");
-            $('#responsableApellidoPaterno').val("");
-            $('#responsableApellidoMaterno').val("");
-            $('#responsableDomicilio').val("");
-            $('#responsableCodigoPostal').val("");
-            $('#responsableDomTel').val("");
-            $('#responsableOfTel').val("");
-            $('#responsableEmail').val("");
-            $('#responsableGenero').val("-1");
-            $('#responsableSeguroSocial').val("");
-            $('#responsableFechaNacimiento').val("");
-            $('#responsableEdad').html("");
-            $('#responsableOcupacion').val("");
-        }
-
-    }
-
-    function aceptacion()
-        {
-            
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': csrfVal
-                },
-                async: false
-            })
-            $.post("/ajaxRgP",
-                $('#formulario').serialize(),
-            function(data, status){
-                var misdatos = data;
-                if(misdatos !== "undefined")
-                {
-                    $("#idPaciente").val(misdatos);
-                }
-                $('#formulario :input').prop('disabled', true);
-                $('#_token').prop('disabled', false);
-                $('#editar').prop('disabled', false);
-                $('#cancelar').prop('disabled', false);
-                $('#aceptar').prop('disabled', false);
-                $('label[id="checkbox"]').attr('disabled', true);
-                $('#editar').show();
-                $('#cancelar').hide();
-                $('#aceptar').hide();
-                $('#pass').val("");
-                $('#medico').attr("disabled", false);
-                $('#fechaCita').attr("disabled", false);
-                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
-            });
-            
-        }
-
-    var activo = false;
-    function myToggler()
-    {
-        if(!activo)
-        {
-            document.getElementById("doctor").hidden=false;
-            $('html, body').animate({
-                scrollTop: $("#doctor").offset().top
-            }, 1000);
-            activo = true;
-            
-        }
-        else
-        {
-            activo= false;
-            document.getElementById("doctor").hidden=true;
-        }
-    }
-
-    function myToggler2()
-    {
-        if(!activo)
-        {
-            $('html, body').animate({
-                scrollTop: $("#doctorInf").offset().top
-            }, 1000);
-            activo = true;
-        }
-        else
-        {
-            activo= false;
-        }
-    }
-
-    $("#miDoctor").change(function() {
-        if(document.getElementById('miDoctor').checked)
-        {
-            $("#doctorInf").show();   
-        }
-        else
-        {
-            $("#doctorInf").hide();
-        }
-    });
-
-    function nuevo()
-    {
-        $('#idPaciente').val(-1);
-        $('#nombre_completo').html("Nuevo empleado: ")
-        $('#usuario').val("");
-        $('#nombre').val("");
-        $('#apellidoPaterno').val("");
-        $('#apellidoMaterno').val("");
-        $('#domicilio').val("");
-        $('#codigoPostal').val("");
-        $('#domTel').val("");
-        $('#ofTel').val("");
-        $('#email').val("");
-        $('#genero').val("-1");
-        $('#seguroSocial').val("");
-        $('#fechaNacimiento').val("");
-        $('#edad').html("");
-        $('#ocupacion').val("");
-        $('#edad').html("");
-        $('#ocupacion').val("");
-        $("#responsable").hide();
-        $("#miDoctor").prop("checked", false);
-        $("#idResponsable").val("");
-        $('#usuarioResponsable').val("");
-        $('#responsableNombre').val("");
-        $('#responsableApellidoPaterno').val("");
-        $('#responsableApellidoMaterno').val("");
-        $('#responsableDomicilio').val("");
-        $('#responsableCodigoPostal').val("");
-        $('#responsableDomTel').val("");
-        $('#responsableOfTel').val("");
-        $('#responsableEmail').val("");
-        $('#responsableGenero').val("-1");
-        $('#responsableSeguroSocial').val("");
-        $('#responsableFechaNacimiento').val("");
-        $('#responsableEdad').html("");
-        $('#responsableOcupacion').val("");  
-
-        $('#formulario :input').attr('disabled', false);
-        $('#editar').prop('disabled', false);
-        $('#cancelar').prop('disabled', false);
-        $('#aceptar').prop('disabled', false);
-        $('label[id="checkbox"]').attr('disabled', false);
-        $('#editar').hide();
-        $('#aceptar').show(); 
-        $('#toda_info').show();
-        return false;
-    }
-    </script>
-
 
 
 

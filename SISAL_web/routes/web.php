@@ -163,16 +163,17 @@ Route::post('/registerDate', function () {
     {
         if($_POST['medID'][$x]!=0)
         {
-            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "indicaciones", "id_registro"], 
-                [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medIndi'][$x], $idRegistro]]);
+            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
+                [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x], $_POST['medIndi'][$x], $idRegistro]]);
         }
         else
         {
-            dbConnection::insert("medicamentos", ["nombre"], 
-                [[$_POST['medName'][$x]]]);
+            var_dump($_POST['medCada'][$x]);
+            dbConnection::insert("medicamentos", ["nombre", "aprobada"], 
+                [[$_POST['medName'][$x]],'0']);
             $idMed = dbConnection::lastID();
-            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "indicaciones", "id_registro"], 
-                [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medIndi'][$x], $idRegistro]]);
+            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
+                [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x],$_POST['medIndi'][$x], $idRegistro]]);
         }
     }
     

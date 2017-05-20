@@ -1,13 +1,13 @@
 
     <?php
     use App\myClasses\dbConnection;
-    
-$nombre=["nombre", "id_medicamento"];
-$tabla="medicamentospendientes";
-$where=[];
+$true=0;   
+$nombre=["nombre", "id_medicamento","aprobada"];
+$tabla="medicamentos";
+$where=["aprobada",$true];
 $join=[];
-$datos = dbConnection::select($nombre,$tabla,$where,$join);
-   
+//$datos = dbConnection::select($nombre,$tabla,$where,$join);
+   $datos = dbConnection::RAW("SELECT nombre, id_medicamento, aprobada FROM `medicamentos` WHERE aprobada = 0");
 ?>
 
 
@@ -134,7 +134,8 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>ID Medicamento</th>
+                                        <th>Aceptar</th>
+                                        <th>Rechazar</th>
                                         <th>Nombre Medicamento</th>
                                     </tr>
                                 </thead>
@@ -142,7 +143,8 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                                     <?php
                                     foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
-                                        <td><?php echo($dato['id_medicamento']);?></td>
+                                        <td> <button class="btn btn-success" onclick="aceptar(); return false;">O</button> </td>
+                                        <td> <button class="btn btn-danger" onclick="rechazar(); return false;">X</button> </td>
                                         <td><?php echo($dato['nombre']);?></td>                                        
                                     </tr>
                                     <?php endforeach;?>
@@ -198,11 +200,23 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                 "infoFiltered": "(filtrado por _MAX_ total de medicamentos)"
             },
             "columnDefs": [
-                { "width": "10%", "targets": 0 },
-                { "width": "45%", "targets": 1 }
+                { "width": "15%", "targets": 0 },
+                { "width": "15%", "targets": 1 },
+                { "width": "70%", "targets": 2 }
             ]
         } );
     } );
+
+    function aceptar(){
+
+    }
+    function rechazar(){
+        
+    }
+
+
+
+
     </script>
 
 </body>
