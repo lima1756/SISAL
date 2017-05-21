@@ -1,16 +1,18 @@
 <?php
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
-    date_default_timezone_set("America/Mexico_City");
-    $pacientes = dbConnection::select(["usuarios.id_usuario", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
-        "usuarios",
-        [],
-        [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"]]
-        );
-    $existeGet = false;
+    if($_GET['type']=="doctors")
+    {
+$valores=["usuarios.id_usuario","nombre", "apellidoPaterno", "apellidoMaterno", "usuario", "email"];
+$tabla="usuarios";
+$where=[];
+$join=[["medicos", "usuarios.id_usuario","medicos.id_usuario"]];
+$datos = dbConnection::select($valores,$tabla,$where,$join);
+
+$existeGet = false;
     if(isset($_GET['id']))
     {
-        foreach($pacientes as $p)
+        foreach($datos as $p)
         {
             if($p['id_usuario']==$_GET['id'])
             {
@@ -18,7 +20,35 @@
             }
         }
     }
+    }
+    elseif($_GET['type']=="recepcionist"){
+$valores=["usuarios.id_usuario","nombre","apellidoPaterno", "apellidoMaterno", "usuario", "email"];
+$tabla="usuarios";
+$where=[];
+$join=[["recepcionistas", "usuarios.id_usuario","recepcionistas.id_usuario"]];
+$datos = dbConnection::select($valores,$tabla,$where,$join);
+
+$existeGet = false;
+    if(isset($_GET['id']))
+    {
+        foreach($datos as $p)
+        {
+            if($p['id_usuario']==$_GET['id'])
+            {
+                $existeGet = true;
+            }
+        }
+    }
+
+
+
+
+    }
+
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +60,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Recepcionista</title>
+    <title>Administrador</title>
 
       <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
@@ -82,7 +112,6 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -102,7 +131,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="../dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="/dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -116,15 +145,27 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
                         <li>
                             <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i> Citas</a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Personal/?type=doctors">Doctores</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/Personal/?type=recepcionist">Recepcionistas</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="../dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="/registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
+                        </li>
+                        <li>
+                            <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
                         </li>
                     </ul>
                 </div>
@@ -132,21 +173,16 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-       <div id="page-wrapper">
+
+        <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Pacientes</h1>
+                    <h1 class="page-header">Empleados</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <!-- BOTON DE TODOS -->
-                <div class="col-lg-12 form-group">
-                            <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo Paciente</button>-->
-                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Paciente</a>
-                </div>
-                <!-- LISTA DE PACIENTES -->
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
@@ -154,22 +190,25 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Seleccionar</th>
                                         <th>Usuario</th>
-                                        <th>Paciente</th>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($pacientes as $p): ?>
+                                    <?php
+                                    foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
                                         <td><label class="btn active">
-                                            <input type="radio" name="paciente" value="<?php echo $p['id_usuario']; ?>"id="<?php echo "radio".$p['id_usuario']?>" style="display:none"/>
+                                            <input type="radio" name="personal" value="<?php echo $dato['id_usuario']; ?>"id="<?php echo "radio".$dato['id_usuario']?>" style="display:none"/>
                                             <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
                                         </label></td>
-                                        <td><?php echo $p['usuario']; ?></td>
-                                        <td><?php echo $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno']; ?></td>
+                                        <td><?php echo($dato['usuario']);?></td>   
+                                        <td><?php echo($dato['nombre'] . " " . $dato['apellidoPaterno']. " " . $dato['apellidoMaterno']); ?></td>          
+                                        <td><?php echo($dato['email']);?></td> 
                                     </tr>
-                                <?php endforeach; ?>
+                                    <?php endforeach;?>
+                                    
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
@@ -179,8 +218,14 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+
+
+            <!-- /.col-lg-12 -->
                 <div class="col-lg-12">
-                    <form name="formulario" id="formulario" action="/dashboard/patients" method="POST">
+                    <form name="formulario" id="formulario" action="/dashboard/personal/"<?php logData::getType();  ?> method="POST">
                         <input type="text" name="_token" id="_token" value="<?php echo csrf_token(); ?>" hidden/>
                         <div class="panel panel-default"aria-multiselectable="true" id="toda_info" hidden>
                             <div class="panel-heading">
@@ -192,7 +237,7 @@
                             <section id="table" name="table">
                             </section>
                             <div id="tablist">
-                                    <input type="text" name="idPaciente" id="idPaciente" hidden/>
+                                    <input type="text" name="idPersonal" id="idPersonal" hidden/>
                                     
                                     <!-- Desplegable información Personal--> 
                                     <div>
@@ -202,80 +247,55 @@
                                         </div>
                                         </a>                                        
                                         <div class="panel-body collapse indent" id="pInf" >
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
-                                            <tr>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Usuario</label>
                                                 <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
                                             </div>
-                                            </td>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
                                                 <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Nombre</label>
                                                 <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
                                             </div>
-                                            </td>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Apellido Paterno</label>
                                                 <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Apellido Materno</label>
                                                 <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
                                             </div>
-                                            </td>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Domicilio</label>
                                                 <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
                                             <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
+                                            <div class="form-group">
+                                                <label>Estado</label>
+                                                <input class="form-control" type="text" placeholder="Estado" name="Estado" disabled/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ciudad</label>
+                                                <input class="form-control" type="text" placeholder="Ciudad" name="Ciudad" disabled/>
+                                            </div>
                                             <div class="form-group">
                                                 <label>Código Postal</label>
                                                 <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
                                             </div>
-                                            </td>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Teléfono domiciliar</label>
                                                 <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Teléfono oficina</label>
                                                 <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
                                             </div>
-                                            </td>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Correo Electrónico</label>
                                                 <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
                                             <div class="form-group">
                                                 <label>Genero</label>
                                                 <select class="form-control" id="genero" name="genero" disabled>
@@ -284,29 +304,25 @@
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
                                             </div>
-                                            </td>
-                                            <td>
                                             <div class="form-group">
                                                 <label>No. de Seguridad social</label>
                                                 <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
+                                            <?php /*<div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
+                                            </div> */?>
                                             <div class="form-group">
                                                 <label>Fecha de nacimiento</label>
                                                 <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
                                             </div>
-                                            </td>
-                                            <td>
+                                            <div class="form-group">
+                                                <label>Edad</label>
+                                            <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="edad">xy años</label>
+                                            </div>
                                             <div class="form-group">
                                                 <label>Ocupación</label>
                                                 <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
                                             </div>
-                                            </td>
-                                            </tr>
-                                            </table>
 
 
                                             <div class="form-group">
@@ -334,7 +350,6 @@
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="responsableInf" >
-
                                                     <div class="form-group">
                                                         <label>Usuario</label>
                                                         <input class="form-control" type="text" placeholder="Usuario" id="responsableUsuario" name="responsableUsuario" disabled/>
@@ -404,15 +419,13 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- /.col 12 -->   
-                    </div>
-                </div>
-                <!-- /.panel -->
-
-            </div>
-            <!-- /.row -->
+                            <!-- /.col 12 -->    
         </div>
         <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
 
     <!-- jQuery -->
     <script src="../../dataSource/js/jquery/jquery.min.js"></script>
@@ -430,8 +443,7 @@
     <script src="../../dataSource/js/jquery/jquery.dataTables2.js"></script>
     <script src="../../dataSource/js/templates/dataTables.bootstrap.min.js"></script>
     <script src="../../dataSource/js/templates/dataTables.responsive.js"></script>
-
-     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    
     <script>
     var json = 0;
     var id = 0;
@@ -439,20 +451,22 @@
     var idCita = 0;
     var csrfVal="<?php echo csrf_token(); ?>";
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
+         $('#dataTables-example').DataTable({
             responsive: true,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ empleados por página",
+                "zeroRecords": "No se encontro nada",
+                "info": "Mostrando página personal _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado por _MAX_ total de doctores)"
+            },
             "columnDefs": [
                 { "width": "10%", "targets": 0 },
-                { "width": "20%", "targets": 1 },
-                { "width": "70%", "targets": 2 }
-            ],
-            "order": [[ 2, "desc" ]]
-        });
-        $(document).ready(function() {
-        $('#dataTables-example2').DataTable({
-            responsive: true
-        });
-    });
+                { "width": "30%", "targets": 1 },
+                { "width": "30%", "targets": 2 },
+                { "width": "30%", "targets": 3 }
+            ]
+        } );
         <?php if($existeGet): ?>
             $.ajaxSetup({
             headers: {
@@ -479,20 +493,20 @@
             }, 1000);
         <?php endif; ?>
     });
-    $('input[type=radio][name=paciente]').on("click", function() {
+    $('input[type=radio][name=personal]').on("click", function() {
         cancelacion();
-        <?php foreach ($pacientes as $key => $p): ?>
+        <?php foreach ($datos as $key => $p): ?>
             <?php if($key==0): ?>
                 if (this.value == <?php echo $p['id_usuario'];?>) {
-                    id=$('input:radio[name=paciente]:checked').val();
+                    id=$('input:radio[name=personal]:checked').val();
                 }
             <?php else: ?>
                 else if (this.value == <?php echo $p['id_usuario'];?>) {
-                    id=$('input:radio[name=paciente]:checked').val();
+                    id=$('input:radio[name=personal]:checked').val();
                 }
             <?php endif; ?>
         <?php endforeach; ?>
-        $('#idPaciente').val(id);
+        $('#idPersonal').val(id);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrfVal
@@ -664,7 +678,7 @@
                 var misdatos = data;
                 if(misdatos !== "undefined")
                 {
-                    $("#idPaciente").val(misdatos);
+                    $("#idPersonal").val(misdatos);
                 }
                 $('#formulario :input').prop('disabled', true);
                 $('#_token').prop('disabled', false);
@@ -678,7 +692,7 @@
                 $('#pass').val("");
                 $('#medico').attr("disabled", false);
                 $('#fechaCita').attr("disabled", false);
-                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
+                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPersonal").val());
             });
             
         }
@@ -725,57 +739,8 @@
         }
     });
 
-    function nuevo()
-    {
-        $('#idPaciente').val(-1);
-        $('#nombre_completo').html("Nuevo paciente: ")
-        $('#usuario').val("");
-        $('#nombre').val("");
-        $('#apellidoPaterno').val("");
-        $('#apellidoMaterno').val("");
-        $('#domicilio').val("");
-        $('#codigoPostal').val("");
-        $('#domTel').val("");
-        $('#ofTel').val("");
-        $('#email').val("");
-        $('#genero').val("-1");
-        $('#seguroSocial').val("");
-        $('#fechaNacimiento').val("");
-        $('#edad').html("");
-        $('#ocupacion').val("");
-
-        $('#edad').html("");
-        $('#ocupacion').val("");
-        $("#responsable").hide();
-        $("#miResponsable").prop("checked", false);
-        $("#idResponsable").val("");
-        $('#usuarioResponsable').val("");
-        $('#responsableNombre').val("");
-        $('#responsableApellidoPaterno').val("");
-        $('#responsableApellidoMaterno').val("");
-        $('#responsableDomicilio').val("");
-        $('#responsableCodigoPostal').val("");
-        $('#responsableDomTel').val("");
-        $('#responsableOfTel').val("");
-        $('#responsableEmail').val("");
-        $('#responsableGenero').val("-1");
-        $('#responsableSeguroSocial').val("");
-        $('#responsableFechaNacimiento').val("");
-        $('#responsableEdad').html("");
-        $('#responsableOcupacion').val("");  
-
-        $('#formulario :input').attr('disabled', false);
-        $('#editar').prop('disabled', false);
-        $('#cancelar').prop('disabled', false);
-        $('#aceptar').prop('disabled', false);
-        $('label[id="checkbox"]').attr('disabled', false);
-        $('#editar').hide();
-        $('#aceptar').show(); 
-        $('#toda_info').show();
-        return false;
-    }
     </script>
-    
+
 </body>
 
 </html>
