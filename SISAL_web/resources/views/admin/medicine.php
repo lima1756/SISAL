@@ -143,8 +143,8 @@ $join=[];
                                     <?php
                                     foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
-                                        <td> <button class="btn btn-success" onclick="aceptar(); return false;">O</button> </td>
-                                        <td> <button class="btn btn-danger" onclick="rechazar(); return false;">X</button> </td>
+                                        <td> <button class="btn btn-success" onclick="aceptar('<?php echo $dato['id_medicamento']?>', '<?php echo$dato['nombre']?>'); ">O</button> </td>
+                                        <td> <button class="btn btn-danger" onclick="rechazar('<?php echo$dato['id_medicamento']?>', '<?php echo$dato['nombre']?>'); ">X</button> </td>
                                         <td><?php echo($dato['nombre']);?></td>                                        
                                     </tr>
                                     <?php endforeach;?>
@@ -189,6 +189,9 @@ $join=[];
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     
     <script>
+
+    var csrfVal="<?php echo csrf_token(); ?>";
+
     $(document).ready(function() {
         $('#dataTables-example').DataTable( {
             responsive: true,
@@ -207,14 +210,51 @@ $join=[];
         } );
     } );
 
-    function aceptar(){
+    function rechazar(ID, Name){
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
 
+        };
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxMR',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/medicine");
+                }
+        });
+        location.reload(true);
     }
-    function rechazar(){
-        
-    }
 
+function aceptar(ID, Name){
+      $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
 
+        };
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxMA',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/medicine");
+                }
+        });
+        location.reload(true);
+}
 
 
     </script>

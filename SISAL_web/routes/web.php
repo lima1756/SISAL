@@ -168,7 +168,7 @@ Route::post('/registerDate', function () {
         }
         else
         {
-            var_dump($_POST['medCada'][$x]);
+            //var_dump($_POST['medCada'][$x]);
             dbConnection::insert("medicamentos", ["nombre", "aprobada"], 
                 [[$_POST['medName'][$x]],'0']);
             $idMed = dbConnection::lastID();
@@ -786,6 +786,40 @@ Route::POST('/ajaxRP' /* Recepcionista obtiene Paciente*/, function() {
         return 0;
     }
 });
+
+Route::POST('/ajaxMA' /* Medicina Aprobada*/, function() {
+    if(Type::isAdmin())
+    {
+    
+    dbConnection::update("medicamentos",
+                ['nombre', 'aprobada', 'id_medicamento'],
+                [$_POST['nombre'],'1', $_POST['ID']],
+                [['medicamentos.id_medicamento', $_POST['ID']]]
+            );
+        
+    }
+    else{
+        return 0;
+    }
+
+});
+
+Route::POST('/ajaxMR' /* Medicina Rechazada*/, function() {
+if(Type::isAdmin())
+    {
+    dbConnection::update("medicamentos",
+                ['nombre', 'aprobada', 'id_medicamento'],
+                [$_POST['nombre'],'0', $_POST['ID']],
+                [['medicamentos.id_medicamento', $_POST['ID']]]
+            );  
+    
+      }
+    else{
+        return 0;
+    }
+
+});
+
 
 Route::POST('/ajaxAE' /* Admin obtiene Empleado*/, function() {
     if(Type::isReceptionist())
