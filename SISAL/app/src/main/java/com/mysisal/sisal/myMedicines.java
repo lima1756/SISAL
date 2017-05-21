@@ -67,7 +67,7 @@ public class myMedicines extends AppCompatActivity
         } catch(Exception e) {
 
         }
-        JSONObject datosJSON = new JSONObject();
+        JSONObject datosJSON;
         JSONArray medicamentos = null;
         try {
             datosJSON = new JSONObject(datos);
@@ -114,13 +114,13 @@ public class myMedicines extends AppCompatActivity
 
                 Calendar cal = Calendar.getInstance();
                 cal.set(Integer.parseInt(strAnio), Integer.parseInt(strMes)-1, Integer.parseInt(strDia), Integer.parseInt(strHora), Integer.parseInt(strMin), 0);
-
                 Calendar now = Calendar.getInstance();
                 Titles[i].setText((String)eachDato.get("nombre"));
 
                 while(cal.before(now)) {
                     cal.add(Calendar.HOUR_OF_DAY, Integer.parseInt((String)eachDato.get("cada")));
                 }
+
                 Contents[i] = new TextView(this);
                 Contents[i].setText("Inicio: " + str + "\nCada: " + (String)eachDato.get("cada") + " horas\nDurante: " + (String)eachDato.get("durante") + " horas\nIndicaciones: " + (String)eachDato.get("indicaciones") + "\nSiguiente toma: "
                             + cal.getTime().toString());
@@ -210,7 +210,8 @@ public class myMedicines extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), myDoctorsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_config) {
-            Log.d("Response_menu", "Configuracion");
+            Intent intent = new Intent(getApplicationContext(), settings.class);
+            startActivity(intent);
         }
 
 

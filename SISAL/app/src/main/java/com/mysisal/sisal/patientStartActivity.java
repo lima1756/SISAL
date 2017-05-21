@@ -2,6 +2,7 @@ package com.mysisal.sisal;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,11 +23,12 @@ public class patientStartActivity extends AppCompatActivity
 
     Menu optionsMenu;
     MenuItem myItem;
-
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settings = getApplicationContext().getSharedPreferences("settings", 0);
         setContentView(R.layout.activity_patient_start);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -92,7 +94,8 @@ public class patientStartActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), myDoctorsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_config) {
-            Log.d("Response_menu", "Configuracion");
+            Intent intent = new Intent(getApplicationContext(), settings.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

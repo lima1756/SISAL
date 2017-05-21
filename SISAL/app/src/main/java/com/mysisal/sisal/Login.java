@@ -3,7 +3,9 @@ package com.mysisal.sisal;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +51,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -63,7 +66,10 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +89,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
         String type = datos.getString("type", "");
         if(!type.equals(""))
@@ -113,7 +120,18 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        if(!settings.getBoolean("saved", false))
+        {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("saved", true);
+            editor.putInt("titleSize", 30);
+            editor.putInt("textSize", 20);
+            editor.putInt("barTextSize", 25);
+            editor.putInt("menuOptionsTextSize", 30);
+            editor.putInt("menuTitleTextSize", 40);
+            editor.apply();
+        }
     }
 
 
@@ -248,35 +266,15 @@ public class Login extends AppCompatActivity {
 
     private void getData()
     {
+        Intent servicio = new Intent(getApplicationContext(), updateInfo.class);
+        startService(servicio);
+
         SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
         final String key = datos.getString("key", "");
         final String type = datos.getString("type", "");
 
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("key", key);
-        params.put("type", type);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        String url = "https://www.mysisal.com/android/retreiveData";
-
-
-        CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                userData = response;
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError response) {
-                Log.d("Response", "Error: "+ response.getMessage());
-                userData = new JSONObject();
-            }
-        });
-        queue.add(jsObjRequest);
 
 
         final ProgressDialog progress = new ProgressDialog(this);
@@ -289,6 +287,17 @@ public class Login extends AppCompatActivity {
             @Override
             public void run() {
                 progress.cancel();
+                String datos2 ="{}";
+                FileInputStream inputStream;
+                try{
+                    inputStream = openFileInput("data.json");
+                    StringWriter writer = new StringWriter();
+                    IOUtils.copy(inputStream, writer, "UTF8");
+                    datos2 = writer.toString();
+                    userData = new JSONObject(datos2);
+                } catch(Exception e) {
+
+                }
                 if (userData.toString().equals("{}")) {
                     txtIndications.setText("Error, porfavor vuelva a intentarlo");
                     txtIndications.setTextColor(Color.RED);
@@ -315,8 +324,17 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), startMedic.class);
                         startActivity(intent);
                     } else {
+
+                        // ----  IMPORTANTE  -----
+                        // SET ALARM
+                        // setAlarm();
+                        Alarms alarms = Alarms.getInstance();
+                        alarms.setAll(getBaseContext());
+                        //alarms.unSetAll(getApplicationContext());
                         Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
                         startActivity(intent);
+
+
                     }
 
                 }
@@ -327,5 +345,6 @@ public class Login extends AppCompatActivity {
         pdCanceller.postDelayed(progressRunnable, 3000);
 
     }
+
 }
 

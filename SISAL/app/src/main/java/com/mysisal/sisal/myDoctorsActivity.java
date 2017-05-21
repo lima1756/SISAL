@@ -1,6 +1,7 @@
 package com.mysisal.sisal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,12 +32,14 @@ import java.io.StringWriter;
 public class myDoctorsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Menu optionsMenu;
-    MenuItem myItem;
+    private Menu optionsMenu;
+    private MenuItem myItem;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settings = getApplicationContext().getSharedPreferences("settings", 0);
         setContentView(R.layout.activity_my_doctors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,9 +87,9 @@ public class myDoctorsActivity extends AppCompatActivity
         }
         for(int i = 0; i < medicos.length(); i++)
         {
-            Titles[i].setTextSize(30);
+            Titles[i].setTextSize(settings.getInt("titleSize", 30));
             Titles[i].setTextColor(Color.BLUE);
-            Contents[i].setTextSize(20);
+            Contents[i].setTextSize(settings.getInt("textSize", 20));
             Contents[i].setVisibility(View.GONE);
             final int val = i+1025;
             Contents[i].setId(val);
@@ -153,7 +156,8 @@ public class myDoctorsActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), myMedicines.class);
             startActivity(intent);
         } else if (id == R.id.nav_config) {
-            Log.d("Response_menu", "Configuracion");
+            Intent intent = new Intent(getApplicationContext(), settings.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

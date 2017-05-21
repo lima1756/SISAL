@@ -1,0 +1,4 @@
+/* Constantes para obtener configuraciones*/        
+    settings.getInt("titleSize", 30)
+    settings.getInt("textSize", 20)
+

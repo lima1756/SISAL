@@ -24,4 +24,5 @@
     <string name="title_activity_my_doctors">Mis Doctores</string>
     <string name="title_activity_my_dates">Mis Citas</string>
     <string name="title_activity_my_medicines">Mis medicinas</string>
+    <string name="title_activity_settings">Configuración</string>
 </resources>
