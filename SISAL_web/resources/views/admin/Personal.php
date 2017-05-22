@@ -1,6 +1,7 @@
 <?php
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
+    use App\myClasses\Type;
     if($_GET['type']=="doctors")
     {
 $valores=["usuarios.id_usuario","nombre", "apellidoPaterno", "apellidoMaterno", "usuario", "email"];
@@ -174,7 +175,11 @@ $existeGet = false;
        <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Pacientes</h1>
+                    <?php if ($_GET['type']=="doctors") { ?>
+                    <h1 class="page-header">Personal: Doctores.</h1>
+                    <?php }elseif ($_GET['type']=="recepcionist") {?>
+                    <h1 class="page-header">Personal: Recepcionista.</h1>
+                    <?php } ?>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -183,7 +188,11 @@ $existeGet = false;
                 <!-- BOTON DE TODOS -->
                 <div class="col-lg-12 form-group">
                             <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo Paciente</button>-->
-                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Paciente</a>
+                            <?php if ($_GET['type']=="doctors") { ?>
+                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Medico</a>
+                            <?php }elseif ($_GET['type']=="recepcionist"){ ?>
+                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Recepcionista</a>
+                            <?php } ?>
                 </div>
                 <!-- LISTA DE PACIENTES -->
                 <div class="col-lg-12">
@@ -241,55 +250,80 @@ $existeGet = false;
                                         </div>
                                         </a>                                        
                                         <div class="panel-body collapse indent" id="pInf" >
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Usuario</label>
                                                 <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
                                                 <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Nombre</label>
                                                 <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Apellido Paterno</label>
                                                 <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Apellido Materno</label>
                                                 <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Domicilio</label>
                                                 <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
-                                            <div class="form-group">
-                                                <label>Estado</label>
-                                                <input class="form-control" type="text" placeholder="Estado" name="Estado" disabled/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Ciudad</label>
-                                                <input class="form-control" type="text" placeholder="Ciudad" name="Ciudad" disabled/>
-                                            </div>
                                             <div class="form-group">
                                                 <label>Código Postal</label>
                                                 <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Teléfono domiciliar</label>
                                                 <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Teléfono oficina</label>
                                                 <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Correo Electrónico</label>
                                                 <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Genero</label>
                                                 <select class="form-control" id="genero" name="genero" disabled>
@@ -298,25 +332,29 @@ $existeGet = false;
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>No. de Seguridad social</label>
                                                 <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
                                             </div>
-                                            <?php /*<div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
-                                            </div> */?>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Fecha de nacimiento</label>
                                                 <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Edad</label>
-                                            <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="edad">xy años</label>
-                                            </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Ocupación</label>
                                                 <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            </table>
 
 
                                             <div class="form-group">
@@ -336,11 +374,12 @@ $existeGet = false;
                                             <input type="number" name="idResponsable" id="idResponsable" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->
+                                        <?php if ($_GET['type']=="doctors"){ ?>
                                         <div>
                                             <div id="responsable" hidden>
-                                                <a href="javascript:myToggler2();" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
+                                                <a href="" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
                                                 <div class="btn btn-primary" style="width:80%;">
-                                                    <h4>Información Responsable</h2>
+                                                    <h4>Información Adicional Doctor</h2>
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="responsableInf" >
@@ -408,7 +447,8 @@ $existeGet = false;
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
+                                        <?php }elseif($_GET['type']=="recepcionist") {} ?>
                                         <!-- FIN RESPONSABLE-->
                                     </div>
                                 </form>
@@ -688,35 +728,7 @@ $existeGet = false;
         }
 
     var activo = false;
-    function myToggler()
-    {
-        if(!activo)
-        {
-            $('html, body').animate({
-                scrollTop: $("#pInf").offset().top
-            }, 1000);
-            activo = true;
-        }
-        else
-        {
-            activo= false;
-        }
-    }
-
-    function myToggler2()
-    {
-        if(!activo)
-        {
-            $('html, body').animate({
-                scrollTop: $("#responsableInf").offset().top
-            }, 1000);
-            activo = true;
-        }
-        else
-        {
-            activo= false;
-        }
-    }
+    
 
     $("#miResponsable").change(function() {
         if(document.getElementById('miResponsable').checked)
