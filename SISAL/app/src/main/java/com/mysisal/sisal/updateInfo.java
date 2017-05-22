@@ -71,8 +71,6 @@ public class updateInfo extends Service {
                     } catch (Exception e) {
 
                     }
-                Toast toast = Toast.makeText(getApplicationContext(), "Datos actualizados", Toast.LENGTH_SHORT);
-                toast.show();
                 Alarms alarms = Alarms.getInstance(getApplicationContext());
                 if(!alarms.isEmpty())
                     alarms.unSetAll(getApplicationContext());
@@ -94,8 +92,6 @@ public class updateInfo extends Service {
                 } catch (Exception e) {
 
                 }
-                Toast toast = Toast.makeText(getApplicationContext(), "Error en actualizacion de datos", Toast.LENGTH_SHORT);
-                toast.show();
                 stopSelf();
             }
         });
