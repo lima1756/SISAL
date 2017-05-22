@@ -68,7 +68,7 @@ public class myMedicines extends AppCompatActivity
 
         }
         JSONObject datosJSON;
-        JSONArray medicamentos = null;
+        JSONArray medicamentos;
         try {
             datosJSON = new JSONObject(datos);
             medicamentos = datosJSON.getJSONArray("medicamentos");
@@ -124,29 +124,27 @@ public class myMedicines extends AppCompatActivity
                 Contents[i] = new TextView(this);
                 Contents[i].setText("Inicio: " + str + "\nCada: " + (String)eachDato.get("cada") + " horas\nDurante: " + (String)eachDato.get("durante") + " horas\nIndicaciones: " + (String)eachDato.get("indicaciones") + "\nSiguiente toma: "
                             + cal.getTime().toString());
+
+                Titles[i].setTextSize(30);
+                Titles[i].setTextColor(Color.BLUE);
+                Contents[i].setTextSize(20);
+                Contents[i].setVisibility(View.GONE);
+                final int val = i+1025;
+                Contents[i].setId(val);
+                miLayOut.addView(Titles[i]);
+                miLayOut.addView(Contents[i]);
+                Titles[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView act = (TextView) findViewById(val);
+                        act.setVisibility(act.isShown() ? View.GONE : View.VISIBLE );
+                    }
+                });
             }
         } catch(JSONException e) {
 
         }
-        for(int i = 0; i < medicamentos.length(); i++)
-        {
-            Titles[i].setTextSize(30);
-            Titles[i].setTextColor(Color.BLUE);
-            Contents[i].setTextSize(20);
-            Contents[i].setVisibility(View.GONE);
-            final int val = i+1025;
-            Contents[i].setId(val);
-            miLayOut.addView(Titles[i]);
-            miLayOut.addView(Contents[i]);
-            Titles[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView act = (TextView) findViewById(val);
-                    act.setVisibility(act.isShown() ? View.GONE : View.VISIBLE );
-                }
-            });
 
-        }
     }
 
     @Override
@@ -170,7 +168,8 @@ public class myMedicines extends AppCompatActivity
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        new LogOut(getApplicationContext());
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
                         return true;
                     }
                 });

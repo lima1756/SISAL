@@ -166,7 +166,8 @@ public class settings extends AppCompatActivity
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        new LogOut(getApplicationContext());
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
                         return true;
                     }
                 });

@@ -1,5 +1,6 @@
 package com.mysisal.sisal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -66,7 +67,8 @@ public class startMedic extends AppCompatActivity
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        new LogOut(getApplicationContext());
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
                         return true;
                     }
                 });

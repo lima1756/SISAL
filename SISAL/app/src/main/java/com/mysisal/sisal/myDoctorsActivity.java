@@ -68,8 +68,8 @@ public class myDoctorsActivity extends AppCompatActivity
         } catch(Exception e) {
 
         }
-        JSONObject datosJSON = new JSONObject();
-        JSONArray medicos = null;
+        JSONObject datosJSON;
+        JSONArray medicos;
         try {
             datosJSON = new JSONObject(datos);
             medicos = datosJSON.getJSONArray("medicos");
@@ -81,27 +81,24 @@ public class myDoctorsActivity extends AppCompatActivity
                 Contents[i] = new TextView(this);
                 Contents[i].setText("Especialidad: " + (String)eachDato.get("especialidad") + "\nDomicilio consultorio: " + (String)eachDato.get("domicilioConsultorio") + "\nTelefono Emergencias:" + (String)eachDato.get("telEmergencias") +
                 "\nCelular de emergencias: " + (String)eachDato.get("celEmergencias") + "\nFacebook: " + (String)eachDato.get("facebook")  +"\nTwitter: " + (String)eachDato.get("twitter"));
+
+                Titles[i].setTextSize(settings.getInt("titleSize", 30));
+                Titles[i].setTextColor(Color.BLUE);
+                Contents[i].setTextSize(settings.getInt("textSize", 20));
+                Contents[i].setVisibility(View.GONE);
+                final int val = i+1025;
+                Contents[i].setId(val);
+                miLayOut.addView(Titles[i]);
+                miLayOut.addView(Contents[i]);
+                Titles[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView act = (TextView) findViewById(val);
+                        act.setVisibility(act.isShown() ? View.GONE : View.VISIBLE );
+                    }
+                });
             }
         } catch(JSONException e) {
-
-        }
-        for(int i = 0; i < medicos.length(); i++)
-        {
-            Titles[i].setTextSize(settings.getInt("titleSize", 30));
-            Titles[i].setTextColor(Color.BLUE);
-            Contents[i].setTextSize(settings.getInt("textSize", 20));
-            Contents[i].setVisibility(View.GONE);
-            final int val = i+1025;
-            Contents[i].setId(val);
-            miLayOut.addView(Titles[i]);
-            miLayOut.addView(Contents[i]);
-            Titles[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView act = (TextView) findViewById(val);
-                    act.setVisibility(act.isShown() ? View.GONE : View.VISIBLE );
-                }
-            });
 
         }
 
@@ -129,7 +126,8 @@ public class myDoctorsActivity extends AppCompatActivity
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        new LogOut(getApplicationContext());
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
                         return true;
                     }
                 });

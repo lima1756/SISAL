@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -70,6 +71,13 @@ public class updateInfo extends Service {
                     } catch (Exception e) {
 
                     }
+                Toast toast = Toast.makeText(getApplicationContext(), "Datos actualizados", Toast.LENGTH_SHORT);
+                toast.show();
+                Alarms alarms = Alarms.getInstance(getApplicationContext());
+                if(!alarms.isEmpty())
+                    alarms.unSetAll(getApplicationContext());
+                alarms.setAll(getApplicationContext());
+                stopSelf();
             }
         }, new Response.ErrorListener() {
 
@@ -86,6 +94,9 @@ public class updateInfo extends Service {
                 } catch (Exception e) {
 
                 }
+                Toast toast = Toast.makeText(getApplicationContext(), "Error en actualizacion de datos", Toast.LENGTH_SHORT);
+                toast.show();
+                stopSelf();
             }
         });
         queue.add(jsObjRequest);
@@ -93,7 +104,13 @@ public class updateInfo extends Service {
 
 
 
+
+
+
     }
 
-
+    @Override
+    public void onDestroy()
+    {
+    }
 }

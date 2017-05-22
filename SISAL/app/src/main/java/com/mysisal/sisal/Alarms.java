@@ -11,9 +11,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,10 +29,30 @@ import java.util.Date;
  *
  */
 
-class Alarms {
-    private static final Alarms ourInstance = new Alarms();
+class Alarms implements Serializable {
 
-    static Alarms getInstance() {
+    private ArrayList<Integer> IDs = new ArrayList<>();
+
+    private static Alarms ourInstance;
+
+    static Alarms getInstance(Context context) {
+        File file = context.getFileStreamPath("Alarms.data");
+        if(file.exists())
+        {
+            try{
+                FileInputStream fis = context.openFileInput("Alarms.data");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                ourInstance = (Alarms) ois.readObject();
+
+            } catch(Exception e) {
+                ourInstance = new Alarms();
+                Log.d("Response_Exception", e.getMessage());
+            }
+        }
+        else
+        {
+            ourInstance = new Alarms();
+        }
         return ourInstance;
     }
 
@@ -103,7 +130,7 @@ class Alarms {
         } catch(JSONException e) {
 
         }
-
+        saveClass(context);
     }
 
     public void setAlarm(String Titulo, String Contenido, long cada, Calendar inicio, Context context)
@@ -111,36 +138,47 @@ class Alarms {
         Intent intent = new Intent(context, notifications.class);
         intent.putExtra("Title", Titulo);
         intent.putExtra("Content", Contenido);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
+        Integer id = (int) System.currentTimeMillis();
+        IDs.add(id);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
 
         AlarmManager am = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, inicio.getTimeInMillis(), cada, pendingIntent);
 
     }
 
-    public void setIntentAlarm(Intent action, Context context, Calendar inicio, long cada)
+    public void setIntentServiceAlarm(Intent action, Context context, Calendar inicio, long cada, int code)
     {
         Calendar time = Calendar.getInstance();
         time.add(Calendar.SECOND, 10);
 
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), action, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(context, code, action, 0);
 
         AlarmManager am = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, inicio.getTimeInMillis(), cada, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, inicio.getTimeInMillis(), cada*3600000, pendingIntent);
 
     }
 
-    public void unSetAlarm(String Titulo, String Contenido, long cada, Calendar inicio, Context context)
+    public void unSetAlarm(String Titulo, String Contenido, long cada, Calendar inicio, Context context, Integer position)
     {
         Intent intent = new Intent(context, notifications.class);
         intent.putExtra("Title", Titulo);
         intent.putExtra("Content", Contenido);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Integer id = IDs.get(position);
+
+
+        Boolean existIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_NO_CREATE) != null;
+        Log.d("Response_PendingI", existIntent.toString());
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager am = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
         am.cancel(pendingIntent);
         pendingIntent.cancel();
+        IDs.remove(position);
     }
 
     public void unSetAll(Context context)
@@ -206,13 +244,40 @@ class Alarms {
                 while(cal.before(now)) {
                     cal.add(Calendar.HOUR_OF_DAY, Integer.parseInt((String)eachDato.get("cada")));
                 }
-                Log.d("Response_unSetAll", "Ok...1");
-                unSetAlarm(eachDato.getString("nombre"),"Es hora de tomar tu medicamento :)",Long.parseLong(eachDato.getString("cada"))*3600000, cal, context);
+
+                unSetAlarm(eachDato.getString("nombre"),"Es hora de tomar tu medicamento :)",Long.parseLong(eachDato.getString("cada"))*3600000, cal, context, i);
 
             }
         } catch(JSONException e) {
 
         }
 
+    }
+
+    private void saveClass(final Context context)
+    {
+        ObjectOutputStream objectOut = null;
+        try {
+            FileOutputStream fileOut = context.getApplicationContext().openFileOutput("Alarms.data", context.MODE_PRIVATE);
+            objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(ourInstance);
+            fileOut.getFD().sync();
+        } catch (IOException e) {
+            Log.e("SharedVariable", e.getMessage(), e);
+        } finally {
+            if (objectOut != null) {
+                try {
+                    objectOut.close();
+                } catch (IOException e) {
+                    Log.e("SharedVariable", e.getMessage(), e);
+                }
+            }
+        }
+
+    }
+
+    public boolean isEmpty()
+    {
+        return !(IDs.size()>0);
     }
 }

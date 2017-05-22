@@ -65,6 +65,15 @@
                         android:enabled="true" />
             </intent-filter>
         </service>
+        <service
+            android:name=".LogOut"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="NOTIFICATION_SERVICE"
+                    android:enabled="true" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

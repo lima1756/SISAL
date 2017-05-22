@@ -105,6 +105,8 @@ public class Login extends AppCompatActivity {
             }
         }
 
+        userData = new JSONObject();
+
         setContentView(R.layout.activity_login);
         txtUsuario = (EditText) findViewById(R.id.txtUser);
         txtPass = (EditText) findViewById(R.id.txtPass);
@@ -161,7 +163,6 @@ public class Login extends AppCompatActivity {
             cypherPass = hexString.toString();
         } catch(Exception ex){
             cypherPass = "";
-            Log.d("Error en cifrado",ex.getMessage());
         }
 
         Map<String, String> params = new HashMap<String, String>();
@@ -230,7 +231,6 @@ public class Login extends AppCompatActivity {
                     else {
 
 
-                        Log.d("Response_Prueba2", serverResponse.toString());
                         try {
                             String key = serverResponse.getString("key");
                             String type = serverResponse.getString("type");
@@ -240,8 +240,6 @@ public class Login extends AppCompatActivity {
                             editor.putString("key", key);
                             editor.putString("type", type);
                             editor.apply();
-                            Log.d("Response_key", key);
-                            Log.d("Response_type", type);
                             getData();
 
                         }
@@ -325,12 +323,16 @@ public class Login extends AppCompatActivity {
                         startActivity(intent);
                     } else {
 
-                        // ----  IMPORTANTE  -----
-                        // SET ALARM
-                        // setAlarm();
-                        Alarms alarms = Alarms.getInstance();
-                        alarms.setAll(getBaseContext());
-                        //alarms.unSetAll(getApplicationContext());
+                        Alarms alarms = Alarms.getInstance(getApplicationContext());
+
+
+
+                        Calendar now = Calendar.getInstance();
+                        Intent update = new Intent(getApplicationContext(), updateInfo.class);
+                        Integer cada = 24;
+                        alarms.setIntentServiceAlarm(update, getApplicationContext(), now, cada, 1505);
+
+
                         Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
                         startActivity(intent);
 

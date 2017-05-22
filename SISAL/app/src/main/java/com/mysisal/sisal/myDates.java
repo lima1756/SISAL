@@ -98,12 +98,8 @@ public class myDates extends AppCompatActivity
 
                 Contents[i] = new TextView(this);
                 Contents[i].setText("Tipo: " + (String)eachDato.get("tipo") + "\nMédico: " + (String)eachDato.get("nombre") + " " + (String)eachDato.get("apellidoPaterno") + " " + (String)eachDato.get("apellidoMaterno"));
-            }
-        } catch(JSONException e) {
 
-        }
-        if(citas != null) {
-            for (int i = 0; i < citas.length(); i++) {
+
                 Titles[i].setTextSize(settings.getInt("titleSize", 30));
                 Titles[i].setTextColor(Color.BLUE);
                 Contents[i].setTextSize(settings.getInt("textSize", 20));
@@ -119,9 +115,11 @@ public class myDates extends AppCompatActivity
                         act.setVisibility(act.isShown() ? View.GONE : View.VISIBLE);
                     }
                 });
-
             }
+        } catch(JSONException e) {
+
         }
+
     }
 
     @Override
@@ -145,7 +143,8 @@ public class myDates extends AppCompatActivity
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        new LogOut(getApplicationContext());
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
                         return true;
                     }
                 });

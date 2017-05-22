@@ -52,7 +52,8 @@ public class patientStartActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            LogOut x = new LogOut(getApplicationContext());
+            Intent x = new Intent(getApplicationContext(), LogOut.class);
+            startService(x);
         }
     }
 
@@ -67,8 +68,9 @@ public class patientStartActivity extends AppCompatActivity
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                    new LogOut(getApplicationContext());
-                    return true;
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
                     }
                 });
         return true;
