@@ -99,7 +99,6 @@
                     <form>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
-                                <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar Cambios"/></span>
                                 <span><h2>Paciente: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
                             </div>
                             <div id="tablist">

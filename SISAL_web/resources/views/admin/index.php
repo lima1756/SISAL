@@ -133,7 +133,7 @@
                                     <i class="fa fa-user-md fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">Doctores</div>
+                                    <div class="huge"><h2>Doctores</h2></div>
                                     <div> </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                     <i class="fa fa-pencil-square-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">Registro</div>
+                                    <div class="huge"><h2>Registro</h2></div>
                                     <div>Registro de personal</div>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@
                                     <i class="fa fa-hospital-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">Hospital</div>
+                                    <div class="huge"><h2>Hospital</h2></div>
                                     <div>Información</div>
                                 </div>
                             </div>
