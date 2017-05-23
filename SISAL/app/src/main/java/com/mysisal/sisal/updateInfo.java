@@ -61,17 +61,19 @@ public class updateInfo extends Service {
             @Override
             public void onResponse(JSONObject response) {
                 userData = response;
-                    String filename = "data.json";
-                    FileOutputStream outputStream;
+                String filename = "data.json";
+                FileOutputStream outputStream;
 
-                    try {
-                        outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                        outputStream.write(userData.toString().getBytes());
-                        outputStream.close();
-                    } catch (Exception e) {
+                try {
+                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                    outputStream.write(userData.toString().getBytes());
+                    outputStream.close();
+                } catch (Exception e) {
 
-                    }
+                }
+
                 Alarms alarms = Alarms.getInstance(getApplicationContext());
+
                 if(!alarms.isEmpty())
                     alarms.unSetAll(getApplicationContext());
                 alarms.setAll(getApplicationContext());
