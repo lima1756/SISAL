@@ -51,18 +51,21 @@
             android:name=".settings"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
-        <receiver android:name=".notifications" >
+
+        <receiver android:name=".notifications">
             <intent-filter>
                 <action android:name="NOTIFICATION_SERVICE" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".updateInfo"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="NOTIFICATION_SERVICE"
-                        android:enabled="true" />
+                <action
+                    android:name="NOTIFICATION_SERVICE"
+                    android:enabled="true" />
             </intent-filter>
         </service>
         <service
@@ -70,10 +73,21 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="NOTIFICATION_SERVICE"
+                <action
+                    android:name="NOTIFICATION_SERVICE"
                     android:enabled="true" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".doctorDates"
+            android:label="@string/title_activity_doctor_dates"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".settingsDoctor"
+            android:label="@string/title_activity_settings_doctor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PatientPreview"></activity>
     </application>
 
 </manifest>

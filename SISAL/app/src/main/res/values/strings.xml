@@ -14,7 +14,7 @@
     </string>
     <string name="logInIndications">Ingrese su usuario y contraseña:</string>
     <string name="logInError">Verifique sus datos de inicio o vuelva a intentar mas tarde:</string>
-    <string name="title_activity_start_medic">startMedic</string>
+    <string name="title_activity_start_medic">Inicio</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -25,4 +25,6 @@
     <string name="title_activity_my_dates">Mis Citas</string>
     <string name="title_activity_my_medicines">Mis medicinas</string>
     <string name="title_activity_settings">Configuración</string>
+    <string name="title_activity_doctor_dates">Proximas Citas</string>
+    <string name="title_activity_settings_doctor">Configuración</string>
 </resources>

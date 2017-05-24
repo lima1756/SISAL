@@ -96,9 +96,11 @@ public class startMedic extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_config) {
-            // Handle the camera action
+            Intent intent = new Intent(getApplicationContext(), settingsDoctor.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dates) {
-
+            Intent intent = new Intent(getApplicationContext(), doctorDates.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

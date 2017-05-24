@@ -77,6 +77,7 @@ public class updateInfo extends Service {
                 if(!alarms.isEmpty())
                     alarms.unSetAll(getApplicationContext());
                 alarms.setAll(getApplicationContext());
+                Log.d("Response_update", "OK");
                 stopSelf();
             }
         }, new Response.ErrorListener() {
@@ -94,6 +95,7 @@ public class updateInfo extends Service {
                 } catch (Exception e) {
 
                 }
+                Log.d("Response_update", "NO_OK");
                 stopSelf();
             }
         });

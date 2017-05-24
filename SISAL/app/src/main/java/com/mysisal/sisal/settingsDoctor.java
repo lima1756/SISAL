@@ -26,16 +26,14 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
-public class settings extends AppCompatActivity
+public class settingsDoctor extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Menu optionsMenu;
-    MenuItem myItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_settings_doctor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -144,7 +142,6 @@ public class settings extends AppCompatActivity
         }
     };
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -157,20 +154,8 @@ public class settings extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.patient_start, menu);
-        //  store the menu to var when creating options menu
-        optionsMenu = menu;
-        myItem = optionsMenu.findItem(R.id.logOut);
-        myItem.setOnMenuItemClickListener(
-                new MenuItem.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent x = new Intent(getApplicationContext(), LogOut.class);
-                        startService(x);
-                        return true;
-                    }
-                });
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.settings_doctor, menu);
         return true;
     }
 
@@ -195,19 +180,11 @@ public class settings extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_clinic) {
-            Log.d("Response_menu", "Clinica");
-        } else if (id == R.id.nav_medicines) {
-            Intent intent = new Intent(getApplicationContext(), myMedicines.class);
+        if (id == R.id.nav_config) {
+            Intent intent = new Intent(getApplicationContext(), settingsDoctor.class);
             startActivity(intent);
         } else if (id == R.id.nav_dates) {
-            Intent intent = new Intent(getApplicationContext(), myDates.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_doctors) {
-            Intent intent = new Intent(getApplicationContext(), myDoctorsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_config) {
-            Intent intent = new Intent(getApplicationContext(), settings.class);
+            Intent intent = new Intent(getApplicationContext(), doctorDates.class);
             startActivity(intent);
         }
 
@@ -275,5 +252,3 @@ public class settings extends AppCompatActivity
         btnSave.setTextSize(settings.getInt("titleSize", 30));
     }
 }
-
-
