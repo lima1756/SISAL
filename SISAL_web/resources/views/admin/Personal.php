@@ -45,6 +45,7 @@ $existeGet = false;
 
 
     }
+$masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);
 
 ?>
 <!DOCTYPE html>
@@ -187,14 +188,14 @@ $existeGet = false;
             <div class="row">
                 <!-- BOTON DE TODOS -->
                 <div class="col-lg-12 form-group">
-                            <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo Paciente</button>-->
+                            <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo </button>-->
                             <?php if ($_GET['type']=="doctors") { ?>
                             <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Medico</a>
                             <?php }elseif ($_GET['type']=="recepcionist"){ ?>
                             <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Recepcionista</a>
                             <?php } ?>
                 </div>
-                <!-- LISTA DE PACIENTES -->
+                <!-- LISTA DE Empleado -->
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <!-- /.panel-heading -->
@@ -204,14 +205,14 @@ $existeGet = false;
                                     <tr>
                                         <th>Seleccionar</th>
                                         <th>Usuario</th>
-                                        <th>Paciente</th>
+                                        <th>Empleado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php foreach($datos as $d): ?>
                                     <tr class="odd gradeX">
                                         <td><label class="btn active">
-                                            <input type="radio" name="paciente" value="<?php echo $d['id_usuario']; ?>"id="<?php echo "radio".$d['id_usuario']?>" style="display:none"/>
+                                            <input type="radio" name="empleado" value="<?php echo $d['id_usuario']; ?>"id="<?php echo "radio".$d['id_usuario']?>" style="display:none"/>
                                             <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
                                         </label></td>
                                         <td><?php echo $d['usuario']; ?></td>
@@ -240,11 +241,12 @@ $existeGet = false;
                             <section id="table" name="table">
                             </section>
                             <div id="tablist">
-                                    <input type="text" name="idPaciente" id="idPaciente" hidden/>
+                                    <input type="text" name="idEmpleado" id="idEmpleado" hidden/>
                                     
                                     <!-- Desplegable información Personal--> 
                                     <div>
-                                        <a href="javascript:myToggler();" data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
+                                        <!--href="javascript:myToggler();"-->
+                                        <a  data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
                                         <div class="btn btn-primary" style="width:100%;">
                                             <h3>Información personal</h3>
                                         </div>
@@ -356,7 +358,7 @@ $existeGet = false;
                                             </tr>
                                             </table>
 
-
+                                             <!--       
                                             <div class="form-group">
                                                 <input type="checkbox" name="miResponsable" id="miResponsable" autocomplete="off" disabled />
                                                 <div class="btn-group"> 
@@ -369,9 +371,9 @@ $existeGet = false;
                                                     </label>
                                                 </div>
                                             </div>
+                                            -->
 
-
-                                            <input type="number" name="idResponsable" id="idResponsable" hidden/>
+                                            <input type="number" name="idEmpleado" id="idEmpleado" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->
                                         <?php if ($_GET['type']=="doctors"){ ?>
@@ -383,67 +385,170 @@ $existeGet = false;
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="responsableInf" >
-                                                    <div class="form-group">
-                                                        <label>Usuario</label>
-                                                        <input class="form-control" type="text" placeholder="Usuario" id="responsableUsuario" name="responsableUsuario" disabled/>
+                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <tr>
+                                                <td>
+                                                Domicilio Particular:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Domicilio consulta particular" name="domPart" id="domPart" disabled/>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                Telefono emergencias:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Telefono de emergencias" name="telEme" id="telEme"  disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                Celular de emergencias:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Celular de emergencias" name="celEmergencias" id="celEmergencias"  disabled/>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                Correo:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="email" placeholder="Correo Electrónico" name="correoAux" id="correoAux"  disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                Facebook:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Facebook" name="face" id="face"  disabled/>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                Twitter:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Twitter" name="twitter" id="twitter"  disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                    <label>Cedula:</label>
+                                                    <input class="form-control" type="text" placeholder="cedula" id="cedula" name="cedula" disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                    <label>Especialidad:</label>
+                                                    <input class="form-control" type="text" placeholder="Especialidad" id="Especialidad" name="Especialidad" disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                    <label>Universidad:</label>    
+                                                    <input class="form-control" type="text" placeholder="Universidad" id="universidad" name="universidad"disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <label>Dias de trabajo:</label>
+                                                <div class="form-group">
+                                                    <input type="checkbox" id="lunes" name="lunes"  disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="lunes" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="lunes" class="btn btn-default active" id="checkbox" disabled>
+                                                            Lunes
+                                                        </label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Actualizar contraseña</label>
-                                                        <input class="form-control" type="text" placeholder="Actualizar contraseña" id="responsablePass" name="responsablePass" disabled/>
+                                                    <input type="checkbox" id="martes" name="martes" disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="martes" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="martes" class="btn btn-default active" id="checkbox" disabled>
+                                                            Martes
+                                                        </label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Nombre" id="responsableNombre" name="responsableNombre" disabled/>
+                                                    <input type="checkbox" id="miercoles" name="miercoles" disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="miercoles" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="miercoles" class="btn btn-default active" id="checkbox" disabled>
+                                                            Miercoles
+                                                        </label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Apellido Paterno" id="responsableApellidoPaterno" name="responsableApellidoPaterno" disabled/>
+                                                    <input type="checkbox" id="jueves" name="jueves"  disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="jueves" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="jueves" class="btn btn-default active"  id="checkbox" disabled>
+                                                            Jueves
+                                                        </label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Apellido Materno" id="responsableApellidoMaterno" name="responsableApellidoMaterno" disabled/>
+                                                    <input type="checkbox" id="viernes" name="viernes" disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="viernes" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="viernes" class="btn btn-default active" id="checkbox" disabled>
+                                                            Viernes
+                                                        </label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Domicilio" id="responsableDomicilio" name="responsableDomicilio" disabled/>
+                                                    <input type="checkbox" id="sabado" name="sabado" disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="sabado" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="sabado" class="btn btn-default active" id="checkbox" disabled>
+                                                            Sabado
+                                                        </label>
                                                     </div>
-                                                    <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Estado" name="responsableEstado" disabled/>
+                                                    <input type="checkbox" id="domingo" name="domingo" disabled hidden/>
+                                                    <div class="btn-group">
+                                                        <label for="domingo" class="btn btn-default" id="checkbox" disabled>
+                                                            <span class="[ fa fa-check ]"></span>
+                                                            <span>&nbsp</span>
+                                                        </label>
+                                                        <label for="domingo" class="btn btn-default active" id="checkbox" disabled>
+                                                            Domingo
+                                                        </label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Ciudad" name="responsableCiudad" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="number" placeholder="Código Postal" id="responsableCodigoPostal" name="responsableCodigoPostal" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="responsableDomTel" name="responsableDomTel" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="number" placeholder="Teléfono oficina" id="responsableOfTel" name="responsableOfTel" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="email" placeholder="Correo Electrónico" id="responsableEmail" name="responsableEmail" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <select class="form-control" id="responsableGenero" name="responsableGenero" disabled>
-                                                            <option value="-1">Seleccione un genero</option>
-                                                            <option value="Masculino">Masculino</option>
-                                                            <option value="Femenino">Femenino</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="No. de Seguridad social" id="responsableSeguroSocial" name="responsableSeguroSocial" disabled/>
-                                                    </div>
-                                                    <?php /*<div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
-                                                    </div> */?>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="responsableFechaNacimiento" name="responsableFechaNacimiento" disabled/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                    <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="responsableEdad">xy años</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Ocupación" id="responsableOcupacion" name="responsableOcupacion" disabled/>
-                                                    </div>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <label>Horario de trabajo:</label>
+                                                <p>Inicio:</p>
+                                                <input type="time" class="form-control" name="inicio" id="inicio"  disabled/>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <p>Fin:</p>
+                                                <input type="time" class="form-control" name="fin" id="fin" disabled/>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <label>Tiempo de consulta</label>
+                                                <input class="form-control" type="text" placeholder="Tiempo" id="tiempo" name="tiempo" disabled/>
+                                                </td>
+                                                </tr>
+                                                </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -504,7 +609,7 @@ $existeGet = false;
             }
             })
             $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
-                'patientId': '<?php echo $_GET['id']; ?>'
+                'personalId': '<?php echo $_GET['id']; ?>'
             },
             function(data, status){
                 json = JSON.parse(data);
@@ -523,27 +628,27 @@ $existeGet = false;
             }, 1000);
         <?php endif; ?>
     });
-    $('input[type=radio][name=paciente]').on("click", function() {
+    $('input[type=radio][name=empleado]').on("click", function() {
         cancelacion();
         <?php foreach ($datos as $key => $d): ?>
             <?php if($key==0): ?>
                 if (this.value == <?php echo $d['id_usuario'];?>) {
-                    id=$('input:radio[name=paciente]:checked').val();
+                    id=$('input:radio[name=empleado]:checked').val();
                 }
             <?php else: ?>
                 else if (this.value == <?php echo $d['id_usuario'];?>) {
-                    id=$('input:radio[name=paciente]:checked').val();
+                    id=$('input:radio[name=empleado]:checked').val();
                 }
             <?php endif; ?>
         <?php endforeach; ?>
-        $('#idPaciente').val(id);
+        $('#idEmpleado').val(id);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrfVal
             }
         })
         $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
-            'patientId': id
+            'personalId': id
         },
         function(data, status){
             json = JSON.parse(data);
@@ -616,67 +721,46 @@ $existeGet = false;
         }
         $('#edad').html(edad);
         $('#ocupacion').val(json.generales.Ocupacion);
-        if(json.encargados)
+        if(json.adicional)
         {
-            $("#responsable").show();
-            $("#miResponsable").prop("checked", true);
-            $("#idResponsable").val(json.encargados.id_usuario);
-            $('#responsableUsuario').val(json.encargados.usuario);
-            $('#responsableNombre').val(json.encargados.nombre);
-            $('#responsableApellidoPaterno').val(json.encargados.apellidoPaterno);
-            $('#responsableApellidoMaterno').val(json.encargados.apellidoMaterno);
-            $('#responsableDomicilio').val(json.encargados.Domicilio);
-            $('#responsableCodigoPostal').val(json.encargados.codigoPostal);
-            $('#responsableDomTel').val(json.encargados.telefonoDomiciliar);
-            $('#responsableOfTel').val(json.encargados.telefonoDomiciliar);
-            $('#responsableEmail').val(json.encargados.telefonoDomiciliar);
-            if(json.encargados.genero=="Masculino")
-            {
-                $('#responsableGenero').val("Masculino");
-            }
-            else if(json.encargados.genero=="Femenino")
-            {
-                $('#responsableGenero').val("Femenino");
-            }
-            else
-            {
-                $('#responsableGenero').val("-1");
-            }
-            $('#responsableSeguroSocial').val(json.encargados.noSeguroSocial);
-            var fecha = new Date(json.encargados.fechaNacimiento);
-            $('#responsableFechaNacimiento').val(json.encargados.fechaNacimiento);
-            var hoy = new Date();
-            var edad = 0;
-            if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
-            {
-                edad = hoy.getFullYear() - fecha.getFullYear() + 1;
-            }
-            else
-            {
-                edad = hoy.getFullYear() - fecha.getFullYear();
-            }
-            $('#responsableEdad').html(edad);
-            $('#responsableOcupacion').val(json.encargados.Ocupacion);
+            $("#idEmpleado").val(json.adicional.id_usuario);
+            $('#domPart').val(json.adicional.domicilio);
+            $('#telEme').val(json.adicional.telefono);
+            $('#celEmergencias').val(json.adicional.emergencias);
+            $('#correoAux').val(json.adicional.correo);
+            $('#Face').val(json.adicional.face);
+            $('#twitter').val(json.adicional.tw);
+            $('#cedula').val(json.adicional.cedula);
+            $('#Especialidad').val(json.adicional.especialidad);
+            $('#universidad').val(json.adicional.universidad);
+            
+
         }
         else
         {
-            $("#responsable").hide();
-            $("#miResponsable").prop("checked", false);
-            $("#idResponsable").val("");
-            $('#usuarioResponsable').val("");
-            $('#responsableNombre').val("");
-            $('#responsableApellidoPaterno').val("");
-            $('#responsableApellidoMaterno').val("");
-            $('#responsableDomicilio').val("");
-            $('#responsableCodigoPostal').val("");
-            $('#responsableDomTel').val("");
-            $('#responsableOfTel').val("");
-            $('#responsableEmail').val("");
-            $('#responsableGenero').val("-1");
-            $('#responsableSeguroSocial').val("");
-            $('#responsableFechaNacimiento').val("");
-            $('#responsableEdad').html("");
-            $('#responsableOcupacion').val("");
+            
+            $("#idEmpleado").val("");
+            $('#domPart').val("");
+            $('#teEme').val("");
+            $('#celEmergencias').val("");
+            $('#correoAux').val("");
+            $('#face').val("");
+            $('#twitter').val("");
+            $('#cedula').val("");
+            $('#Especialidad').val("");
+            $('#universidad').val("");
+
+            $('#lunes').prop("checked", false);
+            $('#martes').prop("checked", false);
+            $('#miercoles').prop("checked", false);
+            $('#jueves').prop("checked", false);
+            $('#viernes').prop("checked", false);
+            $('#sabado').prop("checked", false);
+            $('#domingo').prop("checked", false);
+
+            $('#Inicio').val("");
+            $('#Fin').val("");
+            $('#Tiempo').val("");
         }
 
     }
@@ -708,7 +792,7 @@ $existeGet = false;
                 var misdatos = data;
                 if(misdatos !== "undefined")
                 {
-                    $("#idPaciente").val(misdatos);
+                    $("#idEmpleado").val(misdatos);
                 }
                 $('#formulario :input').prop('disabled', true);
                 $('#_token').prop('disabled', false);
@@ -722,7 +806,7 @@ $existeGet = false;
                 $('#pass').val("");
                 $('#medico').attr("disabled", false);
                 $('#fechaCita').attr("disabled", false);
-                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
+                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idEmplleado").val());
             });
             
         }
@@ -730,21 +814,11 @@ $existeGet = false;
     var activo = false;
     
 
-    $("#miResponsable").change(function() {
-        if(document.getElementById('miResponsable').checked)
-        {
-            $("#responsable").show();   
-        }
-        else
-        {
-            $("#responsable").hide();
-        }
-    });
 
     function nuevo()
     {
-        $('#idPaciente').val(-1);
-        $('#nombre_completo').html("Nuevo paciente: ")
+        $('#idEmpleado').val(-1);
+        $('#nombre_completo').html("Empleado: ")
         $('#usuario').val("");
         $('#nombre').val("");
         $('#apellidoPaterno').val("");
@@ -762,23 +836,29 @@ $existeGet = false;
 
         $('#edad').html("");
         $('#ocupacion').val("");
-        $("#responsable").hide();
-        $("#miResponsable").prop("checked", false);
-        $("#idResponsable").val("");
-        $('#usuarioResponsable').val("");
-        $('#responsableNombre').val("");
-        $('#responsableApellidoPaterno').val("");
-        $('#responsableApellidoMaterno').val("");
-        $('#responsableDomicilio').val("");
-        $('#responsableCodigoPostal').val("");
-        $('#responsableDomTel').val("");
-        $('#responsableOfTel').val("");
-        $('#responsableEmail').val("");
-        $('#responsableGenero').val("-1");
-        $('#responsableSeguroSocial').val("");
-        $('#responsableFechaNacimiento').val("");
-        $('#responsableEdad').html("");
-        $('#responsableOcupacion').val("");  
+        
+            $("#idEmpleado").val("");
+            $('#domPart').val("");
+            $('#teEme').val("");
+            $('#celEmergencias').val("");
+            $('#correoAux').val("");
+            $('#face').val("");
+            $('#twitter').val("");
+            $('#cedula').val("");
+            $('#Especialidad').val("");
+            $('#universidad').val("");
+
+            $('#lunes').prop("checked", false);
+            $('#martes').prop("checked", false);
+            $('#miercoles').prop("checked", false);
+            $('#jueves').prop("checked", false);
+            $('#viernes').prop("checked", false);
+            $('#sabado').prop("checked", false);
+            $('#domingo').prop("checked", false);
+
+            $('#Inicio').val("");
+            $('#Fin').val("");
+            $('#tiempo').val("");
 
         $('#formulario :input').attr('disabled', false);
         $('#editar').prop('disabled', false);
