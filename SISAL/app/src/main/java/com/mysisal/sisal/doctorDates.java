@@ -107,11 +107,16 @@ public class doctorDates extends AppCompatActivity
                     public void onClick(View v) {
 
                         try {
+                            Log.d("Response_clickListener", "Entro a listener");
                             Intent intent = new Intent(getApplicationContext(), pinActivity.class);
                             intent.putExtra("id", eachDato.getString("id_usuario"));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(intent);
                         }
-                        catch(Exception e){}
+                        catch(Exception e){
+                            Log.d("Response_exception", e.getMessage());
+
+                        }
                     }
                 });
 

@@ -101,6 +101,8 @@ public class PatientPreview extends AppCompatActivity {
                         final int val = i + 1025;
                         Titles[i].setId(val+2025);
                         Contents[i].setId(val);
+                        Titles[i].setTextColor(Color.BLACK);
+                        Contents[i].setTextColor(Color.BLACK);
                         Titles[i].setTextSize(settings.getInt("titleSize", 30));
                         Contents[i].setTextSize(settings.getInt("contentSize", 20));
                         miLayOut.addView(Titles[i]);
