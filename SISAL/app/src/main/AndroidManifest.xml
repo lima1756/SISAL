@@ -87,7 +87,9 @@
             android:name=".settingsDoctor"
             android:label="@string/title_activity_settings_doctor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PatientPreview"></activity>
+        <activity android:name=".PatientPreview" />
+        <activity android:name=".pinActivity" />
+        <activity android:name=".newPinActivity"></activity>
     </application>
 
 </manifest>

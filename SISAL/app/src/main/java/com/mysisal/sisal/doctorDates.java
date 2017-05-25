@@ -107,7 +107,7 @@ public class doctorDates extends AppCompatActivity
                     public void onClick(View v) {
 
                         try {
-                            Intent intent = new Intent(getApplicationContext(), PatientPreview.class);
+                            Intent intent = new Intent(getApplicationContext(), pinActivity.class);
                             intent.putExtra("id", eachDato.getString("id_usuario"));
                             getApplicationContext().startActivity(intent);
                         }
@@ -133,8 +133,20 @@ public class doctorDates extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.doctor_dates, menu);
+        getMenuInflater().inflate(R.menu.my_doctors, menu);
+        //  store the menu to var when creating options menu
+        optionsMenu = menu;
+        myItem = optionsMenu.findItem(R.id.logOut);
+        myItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
         return true;
     }
 

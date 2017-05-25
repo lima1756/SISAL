@@ -29,6 +29,9 @@ import org.w3c.dom.Text;
 public class settingsDoctor extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Menu optionsMenu;
+    MenuItem myItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,8 +157,20 @@ public class settingsDoctor extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings_doctor, menu);
+        getMenuInflater().inflate(R.menu.my_doctors, menu);
+        //  store the menu to var when creating options menu
+        optionsMenu = menu;
+        myItem = optionsMenu.findItem(R.id.logOut);
+        myItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
         return true;
     }
 

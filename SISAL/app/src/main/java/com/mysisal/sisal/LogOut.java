@@ -43,18 +43,7 @@ public class LogOut extends Service {
     @Override
     public void onCreate()
     {
-        SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
-        final String key = datos.getString("key", "");
-        final String type = datos.getString("type", "");
 
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("key", key);
-        params.put("type", type);
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        String url = "https://www.mysisal.com/android/retreiveData";
         final Alarms alarms = Alarms.getInstance(getApplicationContext());
 
         if(!alarms.isEmpty())
@@ -76,6 +65,9 @@ public class LogOut extends Service {
         SharedPreferences preferences = getSharedPreferences("userData", 0);
         preferences.edit().remove("type").commit();
         preferences.edit().remove("key").commit();
+
+        SharedPreferences pinData = getSharedPreferences("pinData", 0);
+        pinData.edit().remove("pin").commit();
 
         String type2 = preferences.getString("type", "");
         String key2 = preferences.getString("key", "");

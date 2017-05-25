@@ -319,7 +319,7 @@ public class Login extends AppCompatActivity {
                     }
 
                     if (type.equals("medicos")) {
-                        Intent intent = new Intent(getApplicationContext(), startMedic.class);
+                        Intent intent = new Intent(getApplicationContext(), newPinActivity.class);
                         startActivity(intent);
                     } else {
 
