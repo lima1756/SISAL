@@ -167,8 +167,24 @@
                                         <!-- Interrogatorio -->
                                         <div class="form-group">
                                             <h2 class="header">Interrogatorio:</h2>
-                                            <textarea class="textarea50" placeholder="Motivo de consulta:" rows="10" name="motivo" id="motivo" required></textarea>
-                                            <textarea class="textarea50" placeholder="Síntomas:" rows="10" name="sintomas" id="sintomas" required></textarea>
+                                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <tr>
+                                            <td>
+                                            <h5 style="height: 0px;"> <b> Motivo de consulta </b></h5>
+                                            </td>
+                                            <td>
+                                            <h5 style="height: 10px;"><b> Síntomas</b> </h5>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <textarea  placeholder="Motivo de consulta:" rows="5" name="motivo" id="motivo" style="width: 80%;" required></textarea>
+                                            </td>
+                                            <td>
+                                            <textarea  placeholder="Síntomas:" rows="5" name="sintomas" id="sintomas" style="width: 80%;"required></textarea>
+                                            </td>
+                                            </tr>
+                                             </table>
                                         </div>
                                         <!-- Exploración -->
                                         <div class="form-group">
@@ -176,35 +192,43 @@
                                             <table>
                                                 <tr>
                                                     <td><label>Peso: </label></td>
-                                                    <td colspan="3"><input type="number" name="peso" id="peso"min="000" max="999" pattern="^[0-9][0-9]{1}[0-9]$"  required/></td>
+                                                    <td colspan="3"><input pattern="^[0-9][0-9]?[0-9]?" name="peso" id="peso"   required/></td>
                                                     <td><label>kg</label></td>
-                                                    <td rowspan="6" width="50%"><textarea placeholder="Exploración fisica:" rows="10" cols="50" name="exploracion" id="exploracion"></textarea></td>
+                                                    
+                                                    <td rowspan="4" width="50%">
+                                                    <h5 style="height: 10px;"><b>Exploración fisica:</b> </h5>
+                                                    <textarea placeholder="Exploración fisica:" rows="10" cols="50" name="exploracion" id="exploracion"></textarea>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Talla: </label></td>
-                                                    <td  colspan="3"><input type="number" name="talla" id="talla" min="000" max="999" pattern="^[0-9][0-9]{1}[0-9]$" required/></td>
+                                                    <td  colspan="3"><input pattern="^[0-9][0-9]?[0-9]?" name="talla" id="talla" required/></td>
                                                     <td><label>Cm</label></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Frec Respiratoria: </label></td>
-                                                    <td  colspan="3"><input type="number" name="frecResp" id="frecResp" min="000" max="999" pattern="^[0-9][0-9]{1}[0-9]$" required/></td>
+                                                    <td  colspan="3"><input pattern="^[0-9][0-9]?[0-9]?" name="frecResp" id="frecResp" required/></td>
                                                     <td><label>por minuto</label></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Presion alterial: </label></td>
-                                                    <td><input type="number" class="inputLowNumber" name="presBaja" id="presBaja"min="000" max="999" pattern="^[0-9][0-9]{1}[0-9]$" required/></td>
+                                                    <td><input pattern="^[0-9][0-9]?[0-9]?" class="inputLowNumber" name="presBaja" id="presBaja" required/></td>
                                                     <td align="center"><label>/</label></td>
-                                                    <td><input type="number" class="inputLowNumber" name="presAlta" id="presAlta"min="000" max="999" pattern="^[0-9][0-9]{1}[0-9]$" required/></td>
+                                                    <td><input pattern="^[0-9][0-9]?[0-9]?" class="inputLowNumber" name="presAlta" id="presAlta" required/></td>
                                                     <td><label>mmHg</label></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Temperatura: </label></td>
-                                                    <td  colspan="3"><input type="number" name="temp" id="temp"/></td>
+                                                    <td  colspan="3"><input pattern="^[0-9][0-9]?[0-9]?" name="temp" id="temp"/></td>
                                                     <td><label>°C</label></td>
                                                 </tr>
                                                 <tr>
+                                                <td><label>   </label></td>
+                                                </tr>
+                                                <tr>
+                                                   
                                                     <td><label>Frecuencia cardiaca: </label></td>
-                                                    <td  colspan="3"><input type="number" name="frecCard" id="frecCard"/></td>
+                                                    <td  colspan="3"><input pattern="^[0-9][0-9]?[0-9]?" name="frecCard" id="frecCard"/></td>
                                                     <td><label>ppm</label></td>
                                                 </tr>
                                             </table>
@@ -213,6 +237,7 @@
                                         <div class="form-group">
                                             <h2 class="header">Diagnostico:</h2>
                                             <input class="form-control" type="text" placeholder="Enfermedad" name="enfermedad" id="enfermedad" required/>
+                                            <br />
                                             <div class="form-group">
                                                 <label>Estado de la enfermedad:</label>
                                                 <select id="estadoEnfermedad" name="estadoEnfermedad" class="form-control">
@@ -222,9 +247,10 @@
                                                     <option>Leve</option>
                                                 </select>
                                             </div>
+                                            
                                             <div class="form-group">
-                                                <label>Notas:</label>
-                                                <textarea name="notasEnfermedad" id="notasEnfermedad" class="form-control" rows="3" placeholder="Notas que se requieran sobre la enfermedad o su estado"></textarea>
+                                                <label>Notas de diagnóstico:</label>
+                                                <textarea name="notasEnfermedad" id="notasEnfermedad" class="form-control" rows="3" placeholder="Notas que se requieran sobre la enfermedad o el estado del paciente atendido."></textarea>
                                             </div>
                                         </div>
                                         <!-- Tratamiento --> 
@@ -296,6 +322,12 @@
 
 
     <script>
+
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
         var anterior = 0;
         function getNameAndID()
         {
@@ -353,22 +385,22 @@
                 {
                     if((x != cantidad && typeof nombre[x] !== 'undefined') || (x == cantidad && parseInt(anterior)>parseInt(cantidad)))
                     {
-                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n                        <label>Cada:</label>\n<select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n       <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                     </select>\n<label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n            <label>Duración en horas:</label>\n                        <input type=\"number\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" min=\"000\" max=\"999\" pattern=\"^[0-9][0-9]{1}[0-9]$\"> \n                <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n                        <label>Cada:</label>\n<select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n       <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                     </select>\n<label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n            <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\"  \n                <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
                     }
                     else
                     {
-                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" >\n                        <label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n          <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                  </select>\n<label>Iniciando a las:</label>\n            <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n                 <label>Duración en horas:</label>\n                        <input type=\"number\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" min=\"000\" max=\"999\" pattern=\"^[0-9][0-9]{1}[0-9]$\"> \n                      <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" >\n                        <label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n          <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                  </select>\n<label>Iniciando a las:</label>\n            <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n                 <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\"  \n                      <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
                     }
                 }
                 else 
                 {
                     if((x != cantidad && typeof nombre[x] !== 'undefined') || (x == cantidad && parseInt(anterior) > parseInt(cantidad)))
                     {
-                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n                        <input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/><label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n<label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n                <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n            </select>\n<label>Iniciando a las:</label>\n      <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n              <label>Duración en horas:</label>\n                        <input type=\"number\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" min=\"000\" max=\"999\" pattern=\"^[0-9][0-9]{1}[0-9]$\"> \n              <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n                        <input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/><label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n<label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n                <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n            </select>\n<label>Iniciando a las:</label>\n      <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n              <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\"  \n              <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
                     }
                     else
                     {
-                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n                        <input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/><label>Nombre:</label>\n<input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]\" id=\"medName" + x + "\" />\n<label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n                 <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n           </select>\n                        <label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n           <label>Duración en horas:</label>\n                        <input type=\"number\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" min=\"000\" max=\"999\" pattern=\"^[0-9][0-9]{1}[0-9]$\"> \n            <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n                        <input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/><label>Nombre:</label>\n<input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]\" id=\"medName" + x + "\" />\n<label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n                 <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n           </select>\n                        <label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"\"> \n           <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\"  \n            <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
                      }
                 }
             }

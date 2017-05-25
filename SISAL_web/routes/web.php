@@ -158,20 +158,23 @@ Route::post('/registerDate', function () {
     $idRegistro = dbConnection::lastID();
     
     
-
+    
     for($x = 0; $x < $_POST['cantidad']; $x++)
     {
         if($_POST['medID'][$x]!=0)
         {
+            
             dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
                 [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x], $_POST['medIndi'][$x], $idRegistro]]);
         }
         else
         {
-            //var_dump($_POST['medCada'][$x]);
+            
+            
             dbConnection::insert("medicamentos", ["nombre", "aprobada"], 
-                [[$_POST['medName'][$x]],'0']);
+                [[$_POST['medName'][$x],'0']]);
             $idMed = dbConnection::lastID();
+            
             dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
                 [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x],$_POST['medIndi'][$x], $idRegistro]]);
         }
@@ -821,30 +824,26 @@ if(Type::isAdmin())
 });
 
 
-Route::POST('/ajaxAE' /* Admin obtiene Empleado*/, function() {
-    if(Type::isReceptionist())
+Route::POST('/ajaxAD' /* Admin obtiene Doctor*/, function() {
+    if(Type::isAdmin())
     {
-        $infoPacientes = array();
+        $infoDoctor = array();
         $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
                 "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
                 "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
             "usuarios", 
-            [["usuarios.id_usuario", $_POST['patientId']]]
+            [["usuarios.id_usuario", $_POST['personalId']]]
             );
-        $infoPacientes['generales'] = $generales[0];
-        $responsable = dbConnection::select(["encargados.id_usuario" , "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
-                "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
-                "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
-            "encargados", 
-            [["encargados.id_paciente", $_POST['patientId']]],
-            [["usuarios", "encargados.id_usuario", "usuarios.id_usuario"]]
+        $infoDoctor['generales'] = $generales[0];
+        $adic = dbConnection::select(["usuarios.id_usuario" , "medicos.domicilioConsultorio", "medicos.telEmergencias", "medicos.celEmergencias",
+                "medicos.emailEmergencias", "medicos.facebook", "medicos.twitter", "medicos.horario_trabajo", "medicos.tiempo_consulta", "medicos.especialidad", "medicos.universidad"], 
+            "medicos", 
+            [["medicos.id_usuario", $_POST['personalId']]],
+            [["usuarios", "medicos.id_usuario", "usuarios.id_usuario"]]
             );
-        if(count($responsable)>0)
-        {
-            $infoPacientes['encargados'] = $responsable[0];
-        }
+            $infoDoctor['adicional'] = $adic[0];
         
-        return json_encode($infoPacientes);
+        return json_encode($infoDoctor);
     }
     else
     {
@@ -852,62 +851,32 @@ Route::POST('/ajaxAE' /* Admin obtiene Empleado*/, function() {
     }
 });
 
-Route::POST('/ajaxAgE' /* Admin guarda Empleado*/, function() {
-    if($_POST['idPaciente']!=-1)
+Route::POST('/ajaxAR' /* Admin obtiene Recepcionista*/, function() {
+    if(Type::isAdmin())
+    {
+        $infoRecep = array();
+        $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+                "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
+                "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
+            "usuarios", 
+            [["usuarios.id_usuario", $_POST['personalId']]]
+            );
+        $infoRecep['generales'] = $generales[0];
+        return json_encode($infoRecep);
+    }
+    else
+    {
+        return 0;
+    }
+});
+Route::POST('/ajaxAgR' /* Admin guarda recepcionista*/, function() {
+    if($_POST['idEmpleado']!=-1)
     {
         if($_POST['pass']==''){
             dbConnection::update("usuarios",
                 ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
                 [$_POST['usuario'],$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
-                [['usuarios.id_usuario', $_POST['idPaciente']]]
-            );
-            if($_POST['idResponsable'] != "" && isset($_POST['miResponsable']))
-            {
-                if($_POST['responsablePass']=="")
-                {
-                    dbConnection::update("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
-                        [['usuarios.id_usuario', $_POST['idResponsable']]]
-                    );
-                }
-                else
-                {
-                    $cipher_pass = hash("sha256", $_POST['responsablePass']);
-                    dbConnection::update("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
-                        [['usuarios.id_usuario', $_POST['idResponsable']]]
-                    );
-                }
-            }
-            elseif($_POST['idResponsable'] == "" && isset($_POST['miResponsable']))
-            {
-                if($_POST['responsablePass']=="")
-                {
-                    dbConnection::insert("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
-                    );
-                }
-                else
-                {
-                    
-                    $cipher_pass = hash("sha256", $_POST['responsablePass']);
-                    $algo = dbConnection::insert("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
-                    );
-                }
-                $id = dbConnection::lastID();
-                dbConnection::insert("encargados", ["id_usuario", "id_paciente"], [[$id, $_POST['idPaciente']]]);
-            }
-            elseif($_POST['idResponsable'] != "" && !isset($_POST['miResponsable']))
-            {
-                dbConnection::delete("usuarios", [["id_usuario", $_POST['idResponsable']]]);
-                dbConnection::delete("encargados", [["id_usuario", $_POST['idResponsable']]]);
-            }
-
+                [['usuarios.id_usuario', $_POST['idEmpleado']]]);
         }
         else
         {
@@ -915,55 +884,9 @@ Route::POST('/ajaxAgE' /* Admin guarda Empleado*/, function() {
             dbConnection::update("usuarios",
                 ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
                 [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
-                [['usuarios.id_usuario', $_POST['idPaciente']]]);
-            if($_POST['idResponsable'] != "" && isset($_POST['miResponsable']))
-            {
-                if($_POST['responsablePass']=="")
-                {
-                    var_dump($_POST['idResponsable']);
-                    dbConnection::update("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
-                        [['usuarios.id_usuario', $_POST['idResponsable']]]);
-                }
-                else
-                {
-                    $cipher_pass = hash("sha256", $_POST['responsablePass']);
-                    dbConnection::update("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
-                        [['usuarios.id_usuario', $_POST['idResponsable']]]
-                    );
-                }
-            }
-            elseif($_POST['idResponsable'] == "" && isset($_POST['miResponsable']))
-            {
-                if($_POST['responsablePass']=="")
-                {
-                    dbConnection::insert("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
-                    );
-                }
-                else
-                {
-                    
-                    $cipher_pass = hash("sha256", $_POST['responsablePass']);
-                    $algo = dbConnection::insert("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
-                    );
-                }
-                $id = dbConnection::lastID();
-                dbConnection::insert("encargados", ["id_usuario", "id_paciente"], [[$id, $_POST['idPaciente']]]);
-            }
-            elseif($_POST['idResponsable'] != "" && !isset($_POST['miResponsable']))
-            {
-                dbConnection::delete("usuarios", [["id_usuario", $_POST['idResponsable']]]);
-                dbConnection::delete("encargados", [["id_usuario", $_POST['idResponsable']]]);
-            }
-        }
-        return $_POST['idPaciente'];
+                [['usuarios.id_usuario', $_POST['idEmpleado']]]);
+         return $_POST['idEmpleado'];
+       }
     }
     else
     {
@@ -972,33 +895,58 @@ Route::POST('/ajaxAgE' /* Admin guarda Empleado*/, function() {
             ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
             [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
             );
-        $idPaciente = dbConnection::lastID();
-        dbConnection::insert("pacientes", ["id_usuario"], [[$idPaciente]]);
-        if($_POST['idResponsable'] == "" && isset($_POST['miResponsable']))
-        {
-            if($_POST['responsablePass']=="")
-            {
-                dbConnection::insert("usuarios",
-                    ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                    [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
-                );
-            }
-            else
-            {
-                
-                $cipher_pass = hash("sha256", $_POST['responsablePass']);
-                $algo = dbConnection::insert("usuarios",
-                    ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                    [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
-                );
-            }
-            $id = dbConnection::lastID();
-            dbConnection::insert("encargados", ["id_usuario", "id_paciente"], [[$id, $idPaciente]]);
-        }
-        return $idPaciente;
+        $idEmpleado = dbConnection::lastID();
+        dbConnection::insert("recepcionistas", ["id_usuario"], [[$idEmpleado]]);
+        return $idEmpleado;
     }
 });
 
+Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
+    if($_POST['idEmpleado']!=-1)
+    {
+        if($_POST['pass']==''){
+            dbConnection::update("usuarios",
+                ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
+                [$_POST['usuario'],$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
+                [['usuarios.id_usuario', $_POST['idEmpleado']]]);
+            dbConnection::update("medicos",
+                ['domicilioConsultorio', 'telEmergencias', 'celEmergencias', 'emailEmergencia', 'facebook', 'twitter', 'horario_trabajo', 'tiempo_consulta', 'especialidad', 'universidad'],
+                [$_POST['domPart'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad']],
+                [['medicos.id_usuario', $_POST['idEmpleado']]]);
+
+        }
+        else
+        {
+            $cipher_pass = hash("sha256", $_POST['pass']);
+            dbConnection::update("usuarios",
+                ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
+                [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
+                [['usuarios.id_usuario', $_POST['idEmpleado']]]);
+             dbConnection::update("medicos",
+                ['domicilioConsultorio', 'telEmergencias', 'celEmergencias', 'emailEmergencia', 'facebook', 'twitter', 'horario_trabajo', 'tiempo_consulta', 'especialidad', 'universidad'],
+                [$_POST['domPart'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad']],
+                [['medicos.id_usuario', $_POST['idEmpleado']]]);    
+
+
+        return $_POST['idEmpleado'];
+        }
+    }
+    else
+    {
+        $cipher_pass = hash("sha256", $_POST['pass']);
+        dbConnection::insert("usuarios",
+            ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
+            [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
+            );
+        dbConnection::insert("medicos",
+                ['domicilioParticular', 'telEmergencias', 'celEmergencias', 'emailEmergencia', 'facebook', 'twitter', 'horario_trabajo', 'tiempo_consulta', 'especialidad', 'universidad'],
+                [$_POST['domPart'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad']],
+                [['medicos.id_usuario', $_POST['idEmpleado']]]);        
+        $idEmpleado = dbConnection::lastID();
+        dbConnection::insert("recepcionistas", ["id_usuario"], [[$idEmpleado]]);
+        return $idEmpleado;
+    }
+});
 
 Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
     if($_POST['idPaciente']!=-1)

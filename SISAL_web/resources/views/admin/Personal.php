@@ -373,10 +373,12 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             </div>
                                             -->
 
-                                            <input type="number" name="idEmpleado" id="idEmpleado" hidden/>
+                                        <input type="number" name="idEmpleado" id="idEmpleado" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->
-                                        <?php if ($_GET['type']=="doctors"){ ?>
+                                        <!-- FIN RESPONSABLE-->
+                                    </div>
+                                    <?php if ($_GET['type']=="doctors"){ ?>
                                         <div>
                                             <div id="responsable" hidden>
                                                 <a href="" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
@@ -554,8 +556,6 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                         </div>
                                         
                                         <?php }elseif($_GET['type']=="recepcionist") {} ?>
-                                        <!-- FIN RESPONSABLE-->
-                                    </div>
                                 </form>
                             </div>
                             <!-- /.col 12 -->   
@@ -608,9 +608,17 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 'X-CSRF-TOKEN': csrfVal
             }
             })
-            $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
+            <?php if ($_GET['type']=="doctors") { ?>
+                    $.post("/ajaxAD", { 
+                'personalId': '<?php echo $_GET['id']; ?>'
+            }, 
+            <?php }elseif ($_GET['type']=="recepcionist") {?>
+                    $.post("/ajaxAR", { 
                 'personalId': '<?php echo $_GET['id']; ?>'
             },
+            <?php } ?>
+            
+
             function(data, status){
                 json = JSON.parse(data);
                 if(json != 0)
@@ -647,9 +655,15 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 'X-CSRF-TOKEN': csrfVal
             }
         })
-        $.post("/ajaxRP", { <?php //RP se refiere a Recepcionista-Patients ?>
-            'personalId': id
-        },
+        <?php if ($_GET['type']=="doctors") { ?>
+                    $.post("/ajaxAD", { 
+                'personalId': id
+            }, 
+            <?php }elseif ($_GET['type']=="recepcionist") {?>
+                    $.post("/ajaxAR", { 
+                'personalId': id
+            },
+        <?php } ?>
         function(data, status){
             json = JSON.parse(data);
             if(json != 0)
@@ -733,7 +747,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#cedula').val(json.adicional.cedula);
             $('#Especialidad').val(json.adicional.especialidad);
             $('#universidad').val(json.adicional.universidad);
-            
+             
 
         }
         else
@@ -741,7 +755,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             
             $("#idEmpleado").val("");
             $('#domPart').val("");
-            $('#teEme').val("");
+            $('#telEme').val("");
             $('#celEmergencias').val("");
             $('#correoAux').val("");
             $('#face').val("");
@@ -786,7 +800,8 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 },
                 async: false
             })
-            $.post("/ajaxRgP",
+            <?php if ($_GET['type']=="doctors") { ?>
+                $.post("/ajaxAgD",
                 $('#formulario').serialize(),
             function(data, status){
                 var misdatos = data;
@@ -806,8 +821,35 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 $('#pass').val("");
                 $('#medico').attr("disabled", false);
                 $('#fechaCita').attr("disabled", false);
-                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idEmplleado").val());
+                location.reload(true);
+            });   
+                   
+            <?php }elseif ($_GET['type']=="recepcionist") {?>
+                $.post("/ajaxAgR",
+                $('#formulario').serialize(),
+            function(data, status){
+                var misdatos = data;
+                if(misdatos !== "undefined")
+                {
+                    $("#idEmpleado").val(misdatos);
+                }
+                $('#formulario :input').prop('disabled', true);
+                $('#_token').prop('disabled', false);
+                $('#editar').prop('disabled', false);
+                $('#cancelar').prop('disabled', false);
+                $('#aceptar').prop('disabled', false);
+                $('label[id="checkbox"]').attr('disabled', true);
+                $('#editar').show();
+                $('#cancelar').hide();
+                $('#aceptar').hide();
+                $('#pass').val("");
+                $('#medico').attr("disabled", false);
+                $('#fechaCita').attr("disabled", false);
+                location.reload(true);
             });
+         <?php } ?>
+
+            
             
         }
 
@@ -839,7 +881,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
         
             $("#idEmpleado").val("");
             $('#domPart').val("");
-            $('#teEme').val("");
+            $('#telEme').val("");
             $('#celEmergencias').val("");
             $('#correoAux').val("");
             $('#face').val("");
