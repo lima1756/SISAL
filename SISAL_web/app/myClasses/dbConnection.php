@@ -519,22 +519,30 @@
          * @param String $query
          * @return numerico or Sting
          */
-        public static function RAW($query)
+        public static function RAW($query, $execute=false)
         {
             if(self::createInstance())
             {
-                try
+                if(!$execute){
+                    try
+                    {
+                        $data = self::$DBCon->prepare($query);
+                        
+                        $data->execute();
+                        $answer = $data->fetchAll(PDO::FETCH_ASSOC);
+                        return $answer;
+                    }
+                    catch(PDOException $e)
+                    {
+                        return $e->getMessage();
+                    }
+                }
+                else
                 {
                     $data = self::$DBCon->prepare($query);
-                    
                     $data->execute();
-                    $answer = $data->fetchAll(PDO::FETCH_ASSOC);
-                    return $answer;
-                }
-                catch(PDOException $e)
-                {
-                    return $e->getMessage();
                 }
             }
         }
+
     }
