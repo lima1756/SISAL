@@ -78,6 +78,7 @@ public class updateInfo extends Service {
                     alarms.unSetAll(getApplicationContext());
                 alarms.setAll(getApplicationContext());
                 Log.d("Response_update", "OK");
+                Log.d("Response_JSON", response.toString());
                 stopSelf();
             }
         }, new Response.ErrorListener() {

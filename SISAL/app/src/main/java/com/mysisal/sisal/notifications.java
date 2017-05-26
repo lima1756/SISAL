@@ -26,7 +26,20 @@ public class notifications extends BroadcastReceiver {
     {
         String Title = intent.getStringExtra("Title");
         String Content = intent.getStringExtra("Content");
-        Intent out = new Intent(context, patientStartActivity.class);
+        String id;
+        try {
+            id = intent.getStringExtra("id");
+        } catch (NullPointerException e) {id="";}
+
+        Intent out = null;
+        if(id.equals(""))
+        {
+            out = new Intent(context, patientStartActivity.class);
+        }else
+        {
+            out = new Intent(context, pinActivity.class);
+            out.putExtra("id", id);
+        }
         long[] pattern = {0, 300, 0};
         PendingIntent pi = PendingIntent.getActivity(context, 01234, out, 0);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)

@@ -76,6 +76,7 @@ class Alarms implements Serializable {
         } catch(Exception e) {
 
         }
+
         JSONObject datosJSON;
         JSONArray medicamentos;
         try {
@@ -131,7 +132,7 @@ class Alarms implements Serializable {
                 }
                 setAlarm(eachDato.getString("nombre"), "Es hora de tomar tu medicamento :)",Long.parseLong(eachDato.getString("cada"))*3600000, cal, context);
             }
-
+            Log.d("Response_setAlarmsDates", "true");
             JSONArray citas = datosJSON.getJSONArray("citas");
             for(int i = 0; i < citas.length(); i++)
             {
@@ -153,6 +154,7 @@ class Alarms implements Serializable {
                 cita.setTime(date);
                 citaMinus.setTime(date);
 
+
                 citaMinus.add(Calendar.HOUR, -1);
 
                 setAlarm("Proxima Cita en una hora", cita.getTime().toString(), citaMinus, context);
@@ -163,13 +165,45 @@ class Alarms implements Serializable {
 
             }
         } catch(JSONException e) {
+            try {
+                datosJSON = new JSONObject(datos);
+                JSONArray citas = datosJSON.getJSONArray("citas");
+                for (int i = 0; i < citas.length(); i++) {
+                    JSONObject eachDato = citas.getJSONObject(i);
+
+                    String inputPattern = "yyyy-MM-dd HH:mm:ss";
+                    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+
+                    Date date = null;
+
+                    try {
+                        date = inputFormat.parse((String) eachDato.get("fecha_hora"));
+                    } catch (ParseException exe) {
+                        e.printStackTrace();
+                    }
+
+                    Calendar cita = Calendar.getInstance();
+                    Calendar citaMinus = Calendar.getInstance();
+                    cita.setTime(date);
+                    citaMinus.setTime(date);
+
+
+                    citaMinus.add(Calendar.MINUTE, -10);
+                    Log.d("Response_dates", citaMinus.toString());
+                    setAlarm("Proxima Cita en diez minutos", cita.getTime().toString(), citaMinus, context, eachDato.getString("id_usuario"));
+
+                }
+
+            }   catch(JSONException ex){ }
 
         }
+
         saveClass(context);
     }
 
     public void setAlarm(String Titulo, String Contenido, long cada, Calendar inicio, Context context)
     {
+
         Intent intent = new Intent(context, notifications.class);
         intent.putExtra("Title", Titulo);
         intent.putExtra("Content", Contenido);
@@ -194,6 +228,22 @@ class Alarms implements Serializable {
         AlarmManager am = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, notificacion.getTimeInMillis(), pendingIntent);
     }
+
+    public void setAlarm(String Titulo, String Contenido, Calendar notificacion, Context context, String idDate)
+    {
+        Intent intent = new Intent(context, notifications.class);
+        intent.putExtra("Title", Titulo);
+        intent.putExtra("Content", Contenido);
+        intent.putExtra("id", idDate);
+        Integer id = (int) System.currentTimeMillis();
+        IDs.add(id);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
+
+        AlarmManager am = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
+        am.set(AlarmManager.RTC_WAKEUP, notificacion.getTimeInMillis(), pendingIntent);
+    }
+
+
 
     public void setIntentServiceAlarm(Intent action, Context context, Calendar inicio, long cada, int code)
     {

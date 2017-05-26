@@ -134,6 +134,11 @@ public class Login extends AppCompatActivity {
             editor.putInt("menuTitleTextSize", 40);
             editor.apply();
         }
+
+        if(btnIngresar.getClass().getName().equals("Button"))
+        {
+
+        }
     }
 
 
@@ -249,6 +254,7 @@ public class Login extends AppCompatActivity {
                         }
                     }
                 }
+
             }
 
 
@@ -317,21 +323,19 @@ public class Login extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    Alarms alarms = Alarms.getInstance(getApplicationContext());
 
+
+
+                    Calendar now = Calendar.getInstance();
+                    Intent update = new Intent(getApplicationContext(), updateInfo.class);
+                    Integer cada = 24;
+                    alarms.setIntentServiceAlarm(update, getApplicationContext(), now, cada, 1525);
                     if (type.equals("medicos")) {
+
                         Intent intent = new Intent(getApplicationContext(), newPinActivity.class);
                         startActivity(intent);
                     } else {
-
-                        Alarms alarms = Alarms.getInstance(getApplicationContext());
-
-
-
-                        Calendar now = Calendar.getInstance();
-                        Intent update = new Intent(getApplicationContext(), updateInfo.class);
-                        Integer cada = 24;
-                        alarms.setIntentServiceAlarm(update, getApplicationContext(), now, cada, 1505);
-
 
                         Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
                         startActivity(intent);

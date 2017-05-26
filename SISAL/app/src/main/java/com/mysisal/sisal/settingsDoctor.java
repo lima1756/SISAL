@@ -246,6 +246,8 @@ public class settingsDoctor extends AppCompatActivity
         }
         editor.apply();
         adaptText();
+
+
     }
 
     private void adaptText()
