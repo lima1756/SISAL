@@ -13,9 +13,6 @@
             android:id="@+id/nav_doctors"
             android:title="Mis doctores" />
         <item
-            android:id="@+id/nav_clinic"
-            android:title="Información de la clinica" />
-        <item
             android:id="@+id/nav_config"
             android:title="Ajustes" />
     </group>

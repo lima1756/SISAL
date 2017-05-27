@@ -29,7 +29,8 @@ import org.w3c.dom.Text;
 public class settings extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Menu optionsMenu;
-    MenuItem myItem;
+    MenuItem logOutItem;
+    MenuItem synchItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,12 @@ public class settings extends AppCompatActivity
                 save();
             }
         });
+
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        final Boolean notifications = settings.getBoolean("notifications", true);
+
+        CheckBox checkBox = (CheckBox) findViewById(R.id.notifications);
+        checkBox.setChecked(notifications);
 
     }
 
@@ -160,13 +167,24 @@ public class settings extends AppCompatActivity
         getMenuInflater().inflate(R.menu.patient_start, menu);
         //  store the menu to var when creating options menu
         optionsMenu = menu;
-        myItem = optionsMenu.findItem(R.id.logOut);
-        myItem.setOnMenuItemClickListener(
+        logOutItem = optionsMenu.findItem(R.id.logOut);
+        logOutItem.setOnMenuItemClickListener(
                 new MenuItem.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
+        synchItem = optionsMenu.findItem(R.id.Synch);
+        synchItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), updateInfo.class);
                         startService(x);
                         return true;
                     }
@@ -195,9 +213,7 @@ public class settings extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_clinic) {
-            Log.d("Response_menu", "Clinica");
-        } else if (id == R.id.nav_medicines) {
+        if (id == R.id.nav_medicines) {
             Intent intent = new Intent(getApplicationContext(), myMedicines.class);
             startActivity(intent);
         } else if (id == R.id.nav_dates) {
@@ -251,6 +267,20 @@ public class settings extends AppCompatActivity
                 editor.putInt("menuOptionsTextSize", 40);
                 editor.putInt("menuTitleTextSize", 50);
                 break;
+        }
+        CheckBox checkBox = (CheckBox) findViewById(R.id.notifications);
+        if(checkBox.isChecked())
+        {
+            editor.putBoolean("notifications", true);
+            Intent intent = new Intent(getApplicationContext(), updateInfo.class);
+            startService(intent);
+        }
+        else
+        {
+            editor.putBoolean("notifications", false);
+            Alarms alarms = Alarms.getInstance(getApplicationContext());
+            alarms.unSetAll(getApplicationContext());
+
         }
         editor.apply();
         adaptText();

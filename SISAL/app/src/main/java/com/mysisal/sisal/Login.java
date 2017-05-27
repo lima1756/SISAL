@@ -270,6 +270,12 @@ public class Login extends AppCompatActivity {
 
     private void getData()
     {
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("notifications", true);
+        editor.apply();
+
+
         Intent servicio = new Intent(getApplicationContext(), updateInfo.class);
         startService(servicio);
 

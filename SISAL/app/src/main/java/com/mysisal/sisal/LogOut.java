@@ -69,6 +69,9 @@ public class LogOut extends Service {
         SharedPreferences pinData = getSharedPreferences("pinData", 0);
         pinData.edit().remove("pin").commit();
 
+        SharedPreferences settings = getSharedPreferences("settings", 0);
+        pinData.edit().remove("notifications").commit();
+
         String type2 = preferences.getString("type", "");
         String key2 = preferences.getString("key", "");
 

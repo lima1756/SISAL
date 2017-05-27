@@ -30,7 +30,8 @@ public class settingsDoctor extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Menu optionsMenu;
-    MenuItem myItem;
+    MenuItem logOutItem;
+    MenuItem synchItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,12 @@ public class settingsDoctor extends AppCompatActivity
                 save();
             }
         });
+
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        final Boolean notifications = settings.getBoolean("notifications", true);
+
+        CheckBox checkBox = (CheckBox) findViewById(R.id.notificationsMedic);
+        checkBox.setChecked(notifications);
 
     }
 
@@ -160,13 +167,25 @@ public class settingsDoctor extends AppCompatActivity
         getMenuInflater().inflate(R.menu.my_doctors, menu);
         //  store the menu to var when creating options menu
         optionsMenu = menu;
-        myItem = optionsMenu.findItem(R.id.logOut);
-        myItem.setOnMenuItemClickListener(
+        logOutItem = optionsMenu.findItem(R.id.logOut);
+        logOutItem.setOnMenuItemClickListener(
                 new MenuItem.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
+
+        synchItem = optionsMenu.findItem(R.id.Synch);
+        synchItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), updateInfo.class);
                         startService(x);
                         return true;
                     }
@@ -217,7 +236,7 @@ public class settingsDoctor extends AppCompatActivity
         settings.edit().remove("barTextSize").commit();
         settings.edit().remove("menuOptionsTextSize").commit();
         settings.edit().remove("menuTitleTextSize").commit();
-
+        settings.edit().remove("notifications").commit();
 
         SharedPreferences.Editor editor = settings.edit();
         switch(opcion)
@@ -244,6 +263,20 @@ public class settingsDoctor extends AppCompatActivity
                 editor.putInt("menuTitleTextSize", 50);
                 break;
         }
+        CheckBox checkBox = (CheckBox) findViewById(R.id.notificationsMedic);
+        if(checkBox.isChecked())
+        {
+            editor.putBoolean("notifications", true);
+            Intent intent = new Intent(getApplicationContext(), updateInfo.class);
+            startService(intent);
+        }
+        else
+        {
+            editor.putBoolean("notifications", false);
+            Alarms alarms = Alarms.getInstance(getApplicationContext());
+            alarms.unSetAll(getApplicationContext());
+
+        }
         editor.apply();
         adaptText();
 
@@ -260,7 +293,7 @@ public class settingsDoctor extends AppCompatActivity
 
         //CheckBox
 
-        CheckBox cb = (CheckBox) findViewById(R.id.notifications);
+        CheckBox cb = (CheckBox) findViewById(R.id.notificationsMedic);
         cb.setTextSize(settings.getInt("titleSize", 30));
 
         //btn save

@@ -34,7 +34,8 @@ public class myMedicines extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Menu optionsMenu;
-    MenuItem myItem;
+    MenuItem logOutItem;
+    MenuItem synchItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,13 +163,24 @@ public class myMedicines extends AppCompatActivity
         getMenuInflater().inflate(R.menu.my_doctors, menu);
         //  store the menu to var when creating options menu
         optionsMenu = menu;
-        myItem = optionsMenu.findItem(R.id.logOut);
-        myItem.setOnMenuItemClickListener(
+        logOutItem = optionsMenu.findItem(R.id.logOut);
+        logOutItem.setOnMenuItemClickListener(
                 new MenuItem.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
+        synchItem = optionsMenu.findItem(R.id.Synch);
+        synchItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), updateInfo.class);
                         startService(x);
                         return true;
                     }
@@ -197,9 +209,7 @@ public class myMedicines extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_clinic) {
-            // Handle the camera action
-        } else if (id == R.id.nav_medicines) {
+        if (id == R.id.nav_medicines) {
             Intent intent = new Intent(getApplicationContext(), myMedicines.class);
             startActivity(intent);
         } else if (id == R.id.nav_dates) {

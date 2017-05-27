@@ -373,7 +373,35 @@ class Alarms implements Serializable {
 
             }
         } catch(JSONException e) {
+            try {
+                datosJSON = new JSONObject(datos);
+                JSONArray citas = datosJSON.getJSONArray("citas");
+                for (int i = 0; i < citas.length(); i++) {
+                    JSONObject eachDato = citas.getJSONObject(i);
 
+                    String inputPattern = "yyyy-MM-dd HH:mm:ss";
+                    SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+
+                    Date date = null;
+
+                    try {
+                        date = inputFormat.parse((String) eachDato.get("fecha_hora"));
+                    } catch (ParseException exe) {
+                        e.printStackTrace();
+                    }
+
+                    Calendar cita = Calendar.getInstance();
+                    Calendar citaMinus = Calendar.getInstance();
+                    cita.setTime(date);
+                    citaMinus.setTime(date);
+
+
+                    citaMinus.add(Calendar.MINUTE, -10);
+                    unSetAlarm("Proxima Cita en diez minutos", cita.getTime().toString(), context, i);
+
+                }
+
+            }   catch(JSONException ex){ }
         }
         File file = context.getFileStreamPath("Alarms.data");
         file.delete();

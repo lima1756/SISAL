@@ -29,6 +29,7 @@ public class notifications extends BroadcastReceiver {
         String id;
         try {
             id = intent.getStringExtra("id");
+            Log.d("response_beforeFatal", id);
         } catch (NullPointerException e) {id="";}
 
         Intent out = null;

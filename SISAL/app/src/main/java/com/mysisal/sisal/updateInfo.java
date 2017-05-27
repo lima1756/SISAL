@@ -46,6 +46,9 @@ public class updateInfo extends Service {
         final String key = datos.getString("key", "");
         final String type = datos.getString("type", "");
 
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        final Boolean notifications = settings.getBoolean("notifications", true);
+
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("key", key);
@@ -71,12 +74,13 @@ public class updateInfo extends Service {
                 } catch (Exception e) {
 
                 }
+                if(notifications) {
+                    Alarms alarms = Alarms.getInstance(getApplicationContext());
 
-                Alarms alarms = Alarms.getInstance(getApplicationContext());
-
-                if(!alarms.isEmpty())
-                    alarms.unSetAll(getApplicationContext());
-                alarms.setAll(getApplicationContext());
+                    if (!alarms.isEmpty())
+                        alarms.unSetAll(getApplicationContext());
+                    alarms.setAll(getApplicationContext());
+                }
                 Log.d("Response_update", "OK");
                 Log.d("Response_JSON", response.toString());
                 stopSelf();
@@ -97,6 +101,11 @@ public class updateInfo extends Service {
 
                 }
                 Log.d("Response_update", "NO_OK");
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                settings.edit().remove("notifications").commit();
+                editor.putBoolean("notifications", false);
+                editor.apply();
                 stopSelf();
             }
         });

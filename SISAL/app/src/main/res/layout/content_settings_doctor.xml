@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
-                android:id="@+id/notifications"
+                android:id="@+id/notificationsMedic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Activar notificaciones" />

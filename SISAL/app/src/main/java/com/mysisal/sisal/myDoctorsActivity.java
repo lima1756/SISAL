@@ -33,7 +33,8 @@ public class myDoctorsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Menu optionsMenu;
-    private MenuItem myItem;
+    private MenuItem logOutItem;
+    private MenuItem synchItem;
     private SharedPreferences settings;
 
     @Override
@@ -120,13 +121,24 @@ public class myDoctorsActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.my_doctors, menu);
         //  store the menu to var when creating options menu
         optionsMenu = menu;
-        myItem = optionsMenu.findItem(R.id.logOut);
-        myItem.setOnMenuItemClickListener(
+        logOutItem = optionsMenu.findItem(R.id.logOut);
+        logOutItem.setOnMenuItemClickListener(
                 new MenuItem.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
+        synchItem = optionsMenu.findItem(R.id.Synch);
+        synchItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), updateInfo.class);
                         startService(x);
                         return true;
                     }
@@ -142,9 +154,7 @@ public class myDoctorsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_clinic) {
-            Log.d("Response_menu", "Clinica");
-        } else if (id == R.id.nav_dates) {
+        if (id == R.id.nav_dates) {
             Intent intent = new Intent(getApplicationContext(), myDates.class);
             startActivity(intent);
         } else if (id == R.id.nav_doctors) {

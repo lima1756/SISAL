@@ -18,7 +18,8 @@ public class startMedic extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Menu optionsMenu;
-    MenuItem myItem;
+    MenuItem logOutItem;
+    MenuItem synchItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +53,24 @@ public class startMedic extends AppCompatActivity
         getMenuInflater().inflate(R.menu.start_medic, menu);
         //  store the menu to var when creating options menu
         optionsMenu = menu;
-        myItem = optionsMenu.findItem(R.id.logOut);
-        myItem.setOnMenuItemClickListener(
+        logOutItem = optionsMenu.findItem(R.id.logOut);
+        logOutItem.setOnMenuItemClickListener(
                 new MenuItem.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         Intent x = new Intent(getApplicationContext(), LogOut.class);
+                        startService(x);
+                        return true;
+                    }
+                });
+        synchItem = optionsMenu.findItem(R.id.Synch);
+        synchItem.setOnMenuItemClickListener(
+                new MenuItem.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent x = new Intent(getApplicationContext(), updateInfo.class);
                         startService(x);
                         return true;
                     }
