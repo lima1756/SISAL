@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +35,7 @@ public class settingsDoctor extends AppCompatActivity
     Menu optionsMenu;
     MenuItem logOutItem;
     MenuItem synchItem;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,7 @@ public class settingsDoctor extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //SPINNER
@@ -74,6 +78,7 @@ public class settingsDoctor extends AppCompatActivity
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.notificationsMedic);
         checkBox.setChecked(notifications);
+
 
     }
 
@@ -220,6 +225,9 @@ public class settingsDoctor extends AppCompatActivity
         } else if (id == R.id.nav_dates) {
             Intent intent = new Intent(getApplicationContext(), doctorDates.class);
             startActivity(intent);
+        } else if (id == R.id.nav_start) {
+            Intent intent = new Intent(getApplicationContext(), startMedic.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -238,6 +246,9 @@ public class settingsDoctor extends AppCompatActivity
         settings.edit().remove("menuTitleTextSize").commit();
         settings.edit().remove("notifications").commit();
 
+        Toast.makeText(getApplicationContext(), "Guardado!",
+                Toast.LENGTH_LONG).show();
+
         SharedPreferences.Editor editor = settings.edit();
         switch(opcion)
         {
@@ -245,22 +256,22 @@ public class settingsDoctor extends AppCompatActivity
                 editor.putInt("titleSize", 25);
                 editor.putInt("textSize", 15);
                 editor.putInt("barTextSize", 20);
-                editor.putInt("menuOptionsTextSize", 25);
-                editor.putInt("menuTitleTextSize", 35);
+                editor.putFloat("menuOptionsTextSize", .8f);
+                editor.putFloat("menuTitleTextSize", 1f);
                 break;
             case "Mediana":
                 editor.putInt("titleSize", 30);
                 editor.putInt("textSize", 20);
                 editor.putInt("barTextSize", 25);
-                editor.putInt("menuOptionsTextSize", 30);
-                editor.putInt("menuTitleTextSize", 40);
+                editor.putFloat("menuOptionsTextSize", 1f);
+                editor.putFloat("menuTitleTextSize", 1.5f);
                 break;
             case "Grande":
                 editor.putInt("titleSize", 40);
                 editor.putInt("textSize", 30);
                 editor.putInt("barTextSize", 35);
-                editor.putInt("menuOptionsTextSize", 40);
-                editor.putInt("menuTitleTextSize", 50);
+                editor.putFloat("menuOptionsTextSize", 2f);
+                editor.putFloat("menuTitleTextSize", 3f);
                 break;
         }
         CheckBox checkBox = (CheckBox) findViewById(R.id.notificationsMedic);
@@ -278,7 +289,8 @@ public class settingsDoctor extends AppCompatActivity
 
         }
         editor.apply();
-        adaptText();
+        Intent intent = new Intent(getApplicationContext(), settingsDoctor.class);
+        startActivity(intent);
 
 
     }
@@ -300,5 +312,23 @@ public class settingsDoctor extends AppCompatActivity
 
         Button btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setTextSize(settings.getInt("titleSize", 30));
+
+        Menu menu = navigationView.getMenu();
+
+        MenuItem item1 = menu.findItem(R.id.nav_config);
+        SpannableString s = new SpannableString(item1.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item1.setTitle(s);
+
+        MenuItem item2 = menu.findItem(R.id.nav_dates);
+        s = new SpannableString(item2.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item2.setTitle(s);
+
+        MenuItem item3 = menu.findItem(R.id.nav_start);
+        s = new SpannableString(item3.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item3.setTitle(s);
+
     }
 }

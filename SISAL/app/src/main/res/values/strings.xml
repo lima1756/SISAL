@@ -28,4 +28,6 @@
     <string name="title_activity_settings">Configuración</string>
     <string name="title_activity_doctor_dates">Proximas Citas</string>
     <string name="title_activity_settings_doctor">Configuración</string>
+
+    <string name="google_android_map_api_key">AIzaSyDOvit7MUMtkh4VysM1CJ5n0xym18xXe4U</string>
 </resources>

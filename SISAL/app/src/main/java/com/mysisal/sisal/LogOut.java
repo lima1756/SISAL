@@ -70,7 +70,12 @@ public class LogOut extends Service {
         pinData.edit().remove("pin").commit();
 
         SharedPreferences settings = getSharedPreferences("settings", 0);
-        pinData.edit().remove("notifications").commit();
+        settings.edit().remove("titleSize").commit();
+        settings.edit().remove("textSize").commit();
+        settings.edit().remove("barTextSize").commit();
+        settings.edit().remove("menuOptionsTextSize").commit();
+        settings.edit().remove("menuTitleTextSize").commit();
+        settings.edit().remove("notifications").commit();
 
         String type2 = preferences.getString("type", "");
         String key2 = preferences.getString("key", "");

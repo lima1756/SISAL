@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -122,6 +124,34 @@ public class myDates extends AppCompatActivity
 
         }
 
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        Menu menu = navigationView.getMenu();
+
+        MenuItem item1 = menu.findItem(R.id.nav_config);
+        SpannableString s = new SpannableString(item1.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item1.setTitle(s);
+
+        MenuItem item2 = menu.findItem(R.id.nav_dates);
+        s = new SpannableString(item2.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item2.setTitle(s);
+
+        MenuItem item3 = menu.findItem(R.id.nav_start);
+        s = new SpannableString(item3.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item3.setTitle(s);
+
+        MenuItem item4 = menu.findItem(R.id.nav_medicines);
+        s = new SpannableString(item4.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item4.setTitle(s);
+
+        MenuItem item5 = menu.findItem(R.id.nav_doctors);
+        s = new SpannableString(item5.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item5.setTitle(s);
+
     }
 
     @Override
@@ -182,6 +212,9 @@ public class myDates extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_config) {
             Intent intent = new Intent(getApplicationContext(), settings.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_start) {
+            Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
             startActivity(intent);
         }
 

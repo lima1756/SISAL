@@ -123,6 +123,7 @@ public class Login extends AppCompatActivity {
         });
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+
         if(!settings.getBoolean("saved", false))
         {
             SharedPreferences.Editor editor = settings.edit();
@@ -130,8 +131,8 @@ public class Login extends AppCompatActivity {
             editor.putInt("titleSize", 30);
             editor.putInt("textSize", 20);
             editor.putInt("barTextSize", 25);
-            editor.putInt("menuOptionsTextSize", 30);
-            editor.putInt("menuTitleTextSize", 40);
+            editor.putFloat("menuOptionsTextSize", 1f);
+            editor.putFloat("menuTitleTextSize", 2f);
             editor.apply();
         }
 
