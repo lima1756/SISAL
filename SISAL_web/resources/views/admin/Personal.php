@@ -234,7 +234,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                         <div class="panel panel-default"aria-multiselectable="true" id="toda_info" hidden>
                             <div class="panel-heading">
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" onclick="edicion(); return false;" type="submit" id="editar">Editar</button></span>
-                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="aceptacion();" style="display:none;">Aceptar</button></span>
+                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="return aceptacion();" style="display:none;">Aceptar</button></span>
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                                 <span><h2 id="nombre_completo" name="nombre_completo">alguien</h2></span>
                             </div>
@@ -373,16 +373,15 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             </div>
                                             -->
 
-                                        <input type="number" name="idEmpleado" id="idEmpleado" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->
                                         <!-- FIN RESPONSABLE-->
                                     </div>
                                     <?php if ($_GET['type']=="doctors"){ ?>
                                         <div>
-                                            <div id="responsable" hidden>
+                                            <div id="adicional" hidden>
                                                 <a href="" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
-                                                <div class="btn btn-primary" style="width:80%;">
+                                                <div class="btn btn-primary" style="width:100%;" onclick="return false;">
                                                     <h4>Información Adicional Doctor</h2>
                                                 </div>
                                                 </a>                                        
@@ -624,6 +623,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 if(json != 0)
                 {
                     $('#toda_info').show();
+                    $('#adicional').show();
                     document.getElementById('toda_info').scrollIntoView();
                     $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
                     recuperarInfo();
@@ -649,7 +649,9 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 }
             <?php endif; ?>
         <?php endforeach; ?>
+        
         $('#idEmpleado').val(id);
+        console.log($('#idEmpleado').val());
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrfVal
@@ -669,7 +671,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             if(json != 0)
             {
                 $('#toda_info').show();
-                
+                $('#adicional').show();
                 document.getElementById('toda_info').scrollIntoView();
                 $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
                 recuperarInfo();
@@ -753,7 +755,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
         else
         {
             
-            $("#idEmpleado").val("");
+            $("#idEmpleado").val("-1");
             $('#domPart').val("");
             $('#telEme').val("");
             $('#celEmergencias').val("");
@@ -796,8 +798,8 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': csrfVal
-                },
+                    'X-CSRF-TOKEN': csrfVal,
+                                    },
                 async: false
             })
             <?php if ($_GET['type']=="doctors") { ?>
@@ -849,7 +851,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             });
          <?php } ?>
 
-            
+           return false; 
             
         }
 
@@ -859,25 +861,25 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
 
     function nuevo()
     {
-        $('#idEmpleado').val(-1);
-        $('#nombre_completo').html("Empleado: ")
-        $('#usuario').val("");
-        $('#nombre').val("");
-        $('#apellidoPaterno').val("");
-        $('#apellidoMaterno').val("");
-        $('#domicilio').val("");
-        $('#codigoPostal').val("");
-        $('#domTel').val("");
-        $('#ofTel').val("");
-        $('#email').val("");
-        $('#genero').val("-1");
-        $('#seguroSocial').val("");
-        $('#fechaNacimiento').val("");
-        $('#edad').html("");
-        $('#ocupacion').val("");
+            $('#idEmpleado').val(-1);
+            $('#nombre_completo').html("Empleado: ")
+            $('#usuario').val("");
+            $('#nombre').val("");
+            $('#apellidoPaterno').val("");
+            $('#apellidoMaterno').val("");
+            $('#domicilio').val("");
+            $('#codigoPostal').val("");
+            $('#domTel').val("");
+            $('#ofTel').val("");
+            $('#email').val("");
+            $('#genero').val("-1");
+            $('#seguroSocial').val("");
+            $('#fechaNacimiento').val("");
+            $('#edad').html("");
+            $('#ocupacion').val("");
 
-        $('#edad').html("");
-        $('#ocupacion').val("");
+            $('#edad').html("");
+            $('#ocupacion').val("");
         
             $("#idEmpleado").val("");
             $('#domPart').val("");
@@ -902,15 +904,20 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#Fin').val("");
             $('#tiempo').val("");
 
-        $('#formulario :input').attr('disabled', false);
-        $('#editar').prop('disabled', false);
-        $('#cancelar').prop('disabled', false);
-        $('#aceptar').prop('disabled', false);
-        $('label[id="checkbox"]').attr('disabled', false);
-        $('#editar').hide();
-        $('#aceptar').show(); 
-        $('#toda_info').show();
-        return false;
+            $('#formulario :input').attr('disabled', false);
+            $('#editar').prop('disabled', false);
+            $('#cancelar').prop('disabled', false);
+            $('#aceptar').prop('disabled', false);
+            $('label[id="checkbox"]').attr('disabled', false);
+            $('#editar').hide();
+            $('#aceptar').show(); 
+            $('#toda_info').show();
+            <?php if ($_GET['type']=="doctors") { ?>
+            $('#adicional').show();
+            <?php }elseif ($_GET['type']=="recepcionist") {?>
+            
+            <?php } ?>
+            return false;
     }
     </script>
     

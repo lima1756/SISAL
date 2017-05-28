@@ -41,6 +41,7 @@
     <!-- extra Fonts -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
 
+    <link rel='shortcut icon' href='/dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <script src="../../public/js/functions.js"></script>
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -96,10 +97,11 @@
                     <li>
                         <a class="page-scroll" href="#about">Acerca de...</a>
                     </li>
-                    <!--
+                    
                     <li>
                         <a class="page-scroll" href="#services">Servicios</a>
                     </li>
+                    <!--
                     <li>
                         <a class="page-scroll" href="#portfolio">Portafolio</a>
                     </li>-->
@@ -116,10 +118,12 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
+                <IMG SRC="dataSource/img/SISALLogo.png" WIDTH=240 HEIGHT=240 ALT="Clíniica San Antonio">                
                 <h1 id="homeHeading">SISAL: Sistema de integración para la salud.</h1>
-                <hr>
+                <br>
+
                 <p>Esta página web está destinada a la Clínica San Antonio, para que los procesos clínicos sean más automáticos, y se actualicen los procesos.</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Encuentra más</a>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Conoce más de la clínica.</a>
             </div>
         </div>
     </header>
@@ -128,10 +132,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Tenemos lo que necesitas!</h2>
+                    <IMG SRC="dataSource/img/CSALogo.png" WIDTH=240 HEIGHT=240 ALT="Clínica San Antonio">
+                    <h2 class="section-heading">Servicio de calidad y calidez.</h2>
                     <hr class="light">
-                    <p class="text-faded">Contamos con una plataforma Android, te invitamos a que la utilices.</p>
-                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Utilízanos!</a>
+                    <p class="text-faded">A sus órdenes desde hace 35 años.</p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Conoce nuestros servicios!</a>
                 </div>
             </div>
         </div>
@@ -140,35 +145,123 @@
     <aside class="bg-dark">  <!-- LEER yo diria que aqui mas bien ya fuera información de la clinica IMPORTANTE-->
         <div class="container text-center">
             <div class="call-to-action">
-                <h2>Utiliza nuestro sistema</h2>
-                <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Descarga ahora!</a>
+                <h2>¿Dónde estamos?</h2>
+                 <div class="row">
+                        <div class="col-lg-12 map" id="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14369.254933393431!2d-109.00826452783988!3d25.793221807911976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86bbbf9af1eca571%3A0x370073aeb704da08!2sClinica+San+Antonio!5e0!3m2!1ses-419!2smx!4v1495923536290" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                 </div>
             </div>
         </div>
     </aside>
-    <!-- LEER igual con esto, ¿tal vez aqui el mapa de google en vez de lo de contacto? IMPORTANTE-->    
-    <section id="contact">
+    <section  id="services">
         <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 map" id="map">
-                            <script async defer 
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUEI_T5-7lkH0zRdHWsJ3gpbv1Dkw4mBc&callback=initMap">
-                            </script>
-                        </div>
-                    </div>
+
+        <div class="row">
+			<div class="col-sm-6 col-md-6">
+				<div class="wow fadeInUp" data-wow-delay="0.2s">
+				<img src="dataSource/img/CSALogo.png" WIDTH=400 HEIGHT=400 />
+				</div>
+            </div>
+			<div class="col-sm-3 col-md-3">
+				
+				<div class=" " >
+                <div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-ambulance fa-3x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5 class="h-light">Urgencias</h5>
+						<p>Servicio las 24 horas, atención inmediata.</p>
+					</div>
+                </div>
+				</div>
+				
+				<div class=" " >
+				<div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-child fa-3x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5 class="h-light">Pediatría</h5>
+						<p>Servicio amigable y profesional con menores.</p>
+					</div>
+                </div>
+				</div>
+				<div class="" >
+				<div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-stethoscope fa-3x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5 class="h-light">Adultos</h5>
+						<p>Atención especializada con el mejor trato.</p>
+					</div>
+                </div>
+				</div>
+
+
+            </div>
+			<div class="col-sm-3 col-md-3">
+				
+				<div class="" >
+                <div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-plus-square fa-3x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5 class="h-light">Cirugía</h5>
+						<p>Quirófanos con lo último en tecnología a su servicio.</p>
+					</div>
+                </div>
+				</div>
+				
+				<div class="" >
+				<div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-heart-o fa-3x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5 class="h-light">Partos</h5>
+						<p>Tenemos lo necesario para atenderte, y te acompañamos en el proceso.</p>
+					</div>
+                </div>
+				</div>
+				<div class="" >
+				<div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-hospital-o fa-3x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5 class="h-light">Medicina Interna</h5>
+						<p>Tenemos habitaciones equipadas para hacer tu estancia lo mejor posible.</p>
+					</div>
+                </div>
+				</div>
+
+            </div>
+			
+        </div>		
+		</div>
+    </section>
+    <!-- LEER igual con esto, ¿tal vez aqui el mapa de google en vez de lo de contacto? IMPORTANTE-->    
+    <section class="bg-con" id="contact">
+        <div class="container">
+                   
 
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Acércate a nosostros</h2>
+                    <h2 class="section-heading">Acércate a nosostros.</h2>
                     <hr class="primary">
-                    <p>Estás interesado en este servicio para tu clínica u hospital? ¡Contáctanos!</p>
+                    <p>Clínica San Antonio.<br> Av. Independencia 1748 Pte. Colonia San Francisco Los Mochis, Sinaloa.</p>
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 text-center">
                     <i class="fa fa-phone fa-3x sr-contact"></i>
-                    <p>01-800-andochido</p>
+                    <p>815-05-61<br>812-95-41</p>
                 </div>
                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-                    <p><a href="mailto:your-email@your-domain.com">francisco.mtzc@hotmail.com</a></p>
+                    <p><a href="mailto:your-email@your-domain.com">doctorbrunocamacho@gmail.com</a></p>
                 </div>
             </div>
         </div>

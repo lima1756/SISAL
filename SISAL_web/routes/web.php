@@ -904,13 +904,14 @@ Route::POST('/ajaxAgR' /* Admin guarda recepcionista*/, function() {
 Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
     if($_POST['idEmpleado']!=-1)
     {
+        var_dump($_POST);
         if($_POST['pass']==''){
             dbConnection::update("usuarios",
                 ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
                 [$_POST['usuario'],$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
                 [['usuarios.id_usuario', $_POST['idEmpleado']]]);
             dbConnection::update("medicos",
-                ['domicilioConsultorio', 'telEmergencias', 'celEmergencias', 'emailEmergencia', 'facebook', 'twitter', 'horario_trabajo', 'tiempo_consulta', 'especialidad', 'universidad'],
+                ['domicilioConsultorio', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad'],
                 [$_POST['domPart'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad']],
                 [['medicos.id_usuario', $_POST['idEmpleado']]]);
 
@@ -923,7 +924,7 @@ Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
                 [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
                 [['usuarios.id_usuario', $_POST['idEmpleado']]]);
              dbConnection::update("medicos",
-                ['domicilioConsultorio', 'telEmergencias', 'celEmergencias', 'emailEmergencia', 'facebook', 'twitter', 'horario_trabajo', 'tiempo_consulta', 'especialidad', 'universidad'],
+                ['domicilioConsultorio', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad'],
                 [$_POST['domPart'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad']],
                 [['medicos.id_usuario', $_POST['idEmpleado']]]);    
 
@@ -939,7 +940,7 @@ Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
             [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
             );
         dbConnection::insert("medicos",
-                ['domicilioParticular', 'telEmergencias', 'celEmergencias', 'emailEmergencia', 'facebook', 'twitter', 'horario_trabajo', 'tiempo_consulta', 'especialidad', 'universidad'],
+                ['domicilioParticular', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad'],
                 [$_POST['domPart'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad']],
                 [['medicos.id_usuario', $_POST['idEmpleado']]]);        
         $idEmpleado = dbConnection::lastID();
