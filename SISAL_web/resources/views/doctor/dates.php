@@ -59,7 +59,7 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -81,7 +81,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -142,11 +144,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <?php if($tipo=="all"): ?>
-                    <h1 class="page-header">Todas las Citas proximas</h1>
+                    <h1 class="page-header">Todas las citas próximas:</h1>
                     <?php elseif($tipo=="clinic"): ?>
-                    <h1 class="page-header">Todas las Citas Clinicas proximas</h1>
+                    <h1 class="page-header">Próximas citas clinicas:</h1>
                     <?php elseif($tipo=="surgery"): ?>
-                    <h1 class="page-header">Todas las Citas Quirurgicas proximas</h1>
+                    <h1 class="page-header">Próximas citas quirúrgicas:</h1>
                     <?php endif; ?>
                     
                 </div>

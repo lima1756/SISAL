@@ -81,7 +81,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
 
     <!-- FontsAwsome CSS -->
     <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -120,7 +120,9 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -160,9 +162,6 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="/registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
                         </li>
                         <li>
                             <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
@@ -357,25 +356,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             </td>
                                             </tr>
                                             </table>
-
-                                             <!--       
-                                            <div class="form-group">
-                                                <input type="checkbox" name="miResponsable" id="miResponsable" autocomplete="off" disabled />
-                                                <div class="btn-group"> 
-                                                    <label for="miResponsable" class="btn btn-default" id="checkResponsable">
-                                                        <span class="[ fa fa-check ]"></span>
-                                                        <span>&nbsp</span>
-                                                    </label>
-                                                    <label for="miResponsable" class="btn btn-default" id="labelResponsable">
-                                                        ¿Cuenta con algun responsable?
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            -->
-
                                         </div>
-                                        <!--INFORMACIóN RESPONSABLE -->
-                                        <!-- FIN RESPONSABLE-->
                                     </div>
                                     <?php if ($_GET['type']=="doctors"){ ?>
                                         <div>

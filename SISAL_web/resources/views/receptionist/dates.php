@@ -45,7 +45,7 @@ use App\myClasses\dbConnection;
 
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
-    
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <style>
         label input[type="radio"] ~ i.fa.fa-circle-o{
                 color: #c8c8c8;    display: inline;
@@ -84,7 +84,9 @@ use App\myClasses\dbConnection;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 

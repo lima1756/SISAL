@@ -52,7 +52,7 @@
 
     <!-- FontsAwsome CSS -->
     <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -92,7 +92,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -775,9 +777,9 @@
                                             <!-- Desplegable Contenido Cita--> 
                                             <div id="contenidoCita">
                                                 <a href="#pCit" data-toggle="collapse" role ="tab" data-target="#pCit" data-parent="#tablist">
-                                                <div class="panel-heading">
-                                                    <h4>Datos de cita:</h4>
-                                                </div>
+                                                 <div class="btn btn-primary" style="width:40%;">
+                                                    <h4>Datos de la cita</h2>
+                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="pCit" >
                                                     <label><h3>Diagnóstico:</h3></label><br>
@@ -803,43 +805,71 @@
                                                         <textarea type="text" placeholder="Síntomas: " class="form-control" id="CSintomas" name="CSintomas" disabled></textarea>
                                                     </div>
                                                     <label><h3>Exploración:</h3></label><br>
-                                                    <div class="form-group">
+                                                   <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                   <tr>
+                                                   <td>
+                                                   <div class="form-group">
                                                         <h5>Peso:</h5>
                                                         <input class="form-control" type="number" placeholder="CPeso" id="CPeso" name="CPeso" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Talla:</h5>
                                                         <input class="form-control" type="number" placeholder="CTalla" id="CTalla" name="CTalla" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Exploracion Fisica:</h5>
                                                         <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CExploracion" name="CExploracion" disabled></textarea>                                                        
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Frecuencia Cardíaca:</h5>
                                                         <input class="form-control" type="number" placeholder="CFreCar" id="CFreCar" name="CFreCar" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Presion Alta:</h5>
                                                         <input class="form-control" type="number" placeholder="CPresAlta" id="CPresAlta" name="CPresAlta" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Presion Baja:</h5>
                                                         <input class="form-control" type="number" placeholder="CPresBaja" id="CPresBaja" name="CPresBaja" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <<tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Frecuencia Respiratoria:</h5>
                                                         <input class="form-control" type="number" placeholder="CFreRes" id="CFreRes" name="CFreRes" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Temperatura:</h5>
                                                         <input class="form-control" type="text" placeholder="CTemp" id="CTemp" name="CTemp" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    </table>
                                                     <label><h3>Notas Adicionales:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Notas:</h5>
                                                         <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CNA" name="CNA" disabled></textarea>                                                          
                                                     </div>
+                                                    
+
                                                     <label><h3>Estudios:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Orden:</h5>

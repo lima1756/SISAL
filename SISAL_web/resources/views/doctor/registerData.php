@@ -42,7 +42,7 @@
 
     <!-- Custom Fonts -->
     <link href="../../dataSource/css/templates/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -65,7 +65,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -211,7 +213,7 @@
                                                     <td><label>por minuto</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label>Presion alterial: </label></td>
+                                                    <td><label>Presion aRterial: </label></td>
                                                     <td><input pattern="^[0-9][0-9]?[0-9]?" class="inputLowNumber" name="presBaja" id="presBaja" required/></td>
                                                     <td align="center"><label>/</label></td>
                                                     <td><input pattern="^[0-9][0-9]?[0-9]?" class="inputLowNumber" name="presAlta" id="presAlta" required/></td>
