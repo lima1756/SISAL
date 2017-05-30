@@ -1275,3 +1275,138 @@ Route::POST("/android/retreiveData", function(){
         }
     }
 });
+
+Route::POST("/android/logIn", function(){
+    if(isset($_POST['user']) && isset($_POST['pass']))
+    {
+        $key = logData::logInAndroid($_POST['user'], $_POST['pass']);
+        if($key !== false)
+        {
+            $type = logData::getType();
+            $datos = array(
+                "key" => $key,
+                "type" => $type
+            );
+            if(Type::isMedic() || Type::isPatient() || Type::isInCharge())
+                echo json_encode($datos);
+            else
+                echo json_encode(array("error"=>"type"));
+        }
+        else
+            echo json_encode(array("error"=>"data"));
+    }
+    else
+        echo json_encode(array("error"=>"post"));
+});
+
+Route::POST("/android/retreiveData", function(){
+    if(isset($_POST['type']) && isset($_POST['key']))
+    {
+        if($_POST['type'] == "medicos")
+        {
+            $user = dbConnection::select(["id_usuario"], "usuarios", [["sessionKey", $_POST['key']]]);
+            $user = $user[0]["id_usuario"];
+	    $dates = dbConnection::RAW("SELECT citas.fecha_hora, usuarios.id_usuario, tipocita.nombre as tipo 
+		FROM citas 
+		INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente
+		INNER JOIN tipocita ON citas.tipo = tipocita.id
+                WHERE citas.fecha_hora > now()
+		AND id_medico = '$user'");
+	    $retornar = array();
+            $retornar["citas"] = $dates;
+            echo json_encode($retornar);
+
+        }
+        else if($_POST['type'] == "pacientes")
+        {
+            $user = dbConnection::select(["id_usuario"], "usuarios", [["sessionKey", $_POST['key']]]);
+            $user = $user[0]["id_usuario"];
+            $meds = dbConnection::RAW("
+                SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
+                FROM tratamiento 
+                INNER JOIN registro_clinico ON registro_clinico.id_registro = tratamiento.id_registro 
+                INNER JOIN medicamentos ON medicamentos.id_medicamento = tratamiento.id_medicamento 
+                WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
+                AND registro_clinico.id_paciente = '$user';
+            ");
+            $docs = dbConnection::select(["medicos.domicilioConsultorio", "telEmergencias", "celEmergencias", "facebook", "twitter", "especialidad", "usuarios.nombre", "usuarios.apellidoMaterno", "usuarios.apellidoPaterno"],
+                            "citas",
+                            [["citas.id_paciente", $user]],
+                            [["medicos", "medicos.id_usuario", "citas.id_medico"], ["usuarios", "usuarios.id_usuario", "medicos.id_usuario"]],
+                            "GROUP BY citas.id_medico");
+            $dates = dbConnection::RAW("SELECT citas.fecha_hora, usuarios.nombre, apellidoMaterno, apellidoPaterno, tipocita.nombre as tipo 
+		FROM citas 
+		INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
+		INNER JOIN tipocita ON citas.tipo = tipocita.id
+                WHERE citas.fecha_hora > now()
+		AND id_paciente = '$user'");
+            $retornar = array();
+            $retornar["citas"] = $dates;
+            $retornar["medicos"] = $docs;
+            $retornar["medicamentos"] = $meds;
+            echo json_encode($retornar);
+        }
+	else if($_POST['type'] == "encargado")
+	{
+	    $encargado = dbConnection::select(["id_usuario"], "usuarios", [["sessionKey", $_POST['key']]]);
+            $encargado = $encargado [0]["id_usuario"];
+	    $user = dbConnection::select(["id_paciente"], "encargados", [["id_usuario", $encargado]]);
+	    $user = $user[0]["id_paciente"];
+	    if($user!=-1)
+	    {
+                $meds = dbConnection::RAW("
+                    SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
+                    FROM tratamiento 
+                    INNER JOIN registro_clinico ON registro_clinico.id_registro = tratamiento.id_registro 
+                    INNER JOIN medicamentos ON medicamentos.id_medicamento = tratamiento.id_medicamento 
+                    WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
+                    AND registro_clinico.id_paciente = '$user';
+                ");
+                $docs = dbConnection::select(["medicos.domicilioConsultorio", "telEmergencias", "celEmergencias", "facebook", "twitter", "especialidad", "usuarios.nombre", "usuarios.apellidoMaterno", "usuarios.apellidoPaterno"],
+                                "citas",
+                                [["citas.id_paciente", $user]],
+                                [["medicos", "medicos.id_usuario", "citas.id_medico"], ["usuarios", "usuarios.id_usuario", "medicos.id_usuario"]],
+                                "GROUP BY citas.id_medico");
+                $dates = dbConnection::RAW("SELECT citas.fecha_hora, usuarios.nombre, apellidoMaterno, apellidoPaterno, tipocita.nombre as tipo 
+		    FROM citas 
+		    INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
+    		    INNER JOIN tipocita ON citas.tipo = tipocita.id
+                    WHERE citas.fecha_hora > now()
+    	            AND id_paciente = '$user'");
+                $retornar = array();
+                $retornar["citas"] = $dates;
+                $retornar["medicos"] = $docs;
+                $retornar["medicamentos"] = $meds;
+                echo json_encode($retornar);
+	    }
+	    else
+	    {
+		$error["denegado"] = "eliminado";
+		echo json_encode($error);
+	    }
+	}
+    }
+});
+
+Route::POST("/android/userData", function(){
+    if(isset($_POST['type']) && isset($_POST['key']))
+    {
+        if($_POST['type'] == "medicos")
+        {
+	    $id = $_POST['id'];
+	    $data = dbConnection::RAW("
+		SELECT usuarios.usuario, usuarios.nombre, usuarios.apellidoPaterno, usuarios.apellidoMaterno, diagnostico.enfermedad, diagnostico.estado, diagnostico.notas
+		FROM usuarios
+		INNER JOIN registro_clinico ON usuarios.id_usuario = registro_clinico.id_paciente
+		INNER JOIN diagnostico ON diagnostico.id_diagnostico = registro_clinico.id_diagnostico
+		WHERE id_usuario = ".$id."
+		AND registro_clinico.fecha_hora = (SELECT MAX(registro_clinico.fecha_hora )
+	             FROM registro_clinico 
+	             WHERE registro_clinico.id_paciente = ".$id."
+		     )
+		AND registro_clinico.fecha_hora>now();");
+		var_dump(dbConnection::RAW("SELECT now()"));
+	    echo json_encode($data);
+        }
+    }
+});
