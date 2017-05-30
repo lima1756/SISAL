@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class updateInfo extends Service {
 
-    JSONObject userData;
+    private JSONObject userData;
 
     public updateInfo() {
     }
@@ -122,5 +122,6 @@ public class updateInfo extends Service {
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
     }
 }

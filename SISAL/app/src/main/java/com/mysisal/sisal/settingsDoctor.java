@@ -253,18 +253,18 @@ public class settingsDoctor extends AppCompatActivity
         switch(opcion)
         {
             case "Pequeña":
-                editor.putInt("titleSize", 25);
-                editor.putInt("textSize", 15);
-                editor.putInt("barTextSize", 20);
-                editor.putFloat("menuOptionsTextSize", .8f);
-                editor.putFloat("menuTitleTextSize", 1f);
+                editor.putInt("titleSize", 20);
+                editor.putInt("textSize", 10);
+                editor.putInt("barTextSize", 15);
+                editor.putFloat("menuOptionsTextSize", 1f);
+                editor.putFloat("menuTitleTextSize", 1.5f);
                 break;
             case "Mediana":
                 editor.putInt("titleSize", 30);
                 editor.putInt("textSize", 20);
                 editor.putInt("barTextSize", 25);
-                editor.putFloat("menuOptionsTextSize", 1f);
-                editor.putFloat("menuTitleTextSize", 1.5f);
+                editor.putFloat("menuOptionsTextSize", 1.5f);
+                editor.putFloat("menuTitleTextSize", 2f);
                 break;
             case "Grande":
                 editor.putInt("titleSize", 40);

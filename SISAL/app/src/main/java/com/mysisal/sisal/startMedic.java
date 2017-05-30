@@ -71,7 +71,7 @@ public class startMedic extends AppCompatActivity
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 LatLng ubicacion = new LatLng(25.7861512, -108.9884567);
-                googleMap.addMarker(new MarkerOptions().position(ubicacion).title("Clinica San Antonio"));
+                googleMap.addMarker(new MarkerOptions().position(ubicacion).title("Clinica San Antonio\nAv. Independencia 1748 Poniente. Col San Francisco Los Mochis, Sinaloa"));
                 CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(ubicacion, 15);
 
                 googleMap.moveCamera(cameraPosition);

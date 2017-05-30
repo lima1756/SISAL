@@ -258,10 +258,10 @@ public class settings extends AppCompatActivity
         switch(opcion)
         {
             case "Pequeña":
-                editor.putInt("titleSize", 25);
-                editor.putInt("textSize", 15);
-                editor.putInt("barTextSize", 20);
-                editor.putFloat("menuOptionsTextSize", .8f);
+                editor.putInt("titleSize", 20);
+                editor.putInt("textSize", 10);
+                editor.putInt("barTextSize", 15);
+                editor.putFloat("menuOptionsTextSize", .65f);
                 editor.putFloat("menuTitleTextSize", 1f);
                 break;
             case "Mediana":

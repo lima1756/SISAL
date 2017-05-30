@@ -81,11 +81,12 @@ import static java.nio.charset.StandardCharsets.*;
  * A login screen that offers login via email/password.
  */
 public class Login extends AppCompatActivity {
-    Button btnIngresar;
-    TextView txtUsuario, txtPass;
-    JSONObject serverResponse;
-    JSONObject userData;
-    TextView txtIndications;
+    private Button btnIngresar;
+    private TextView txtUsuario, txtPass;
+    private JSONObject serverResponse;
+    private JSONObject userData;
+    private TextView txtIndications;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,11 +136,6 @@ public class Login extends AppCompatActivity {
             editor.putFloat("menuTitleTextSize", 2f);
             editor.apply();
         }
-
-        if(btnIngresar.getClass().getName().equals("Button"))
-        {
-
-        }
     }
 
 
@@ -149,7 +145,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public String enviarDatos()
+    public void enviarDatos()
     {
         final String usuario = txtUsuario.getText().toString();
         final String pass = txtPass.getText().toString();
@@ -264,8 +260,6 @@ public class Login extends AppCompatActivity {
 
         Handler pdCanceller = new Handler();
         pdCanceller.postDelayed(progressRunnable, 3000);
-
-        return "a";
     }
 
 
@@ -283,9 +277,6 @@ public class Login extends AppCompatActivity {
         SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
         final String key = datos.getString("key", "");
         final String type = datos.getString("type", "");
-
-
-
 
 
         final ProgressDialog progress = new ProgressDialog(this);

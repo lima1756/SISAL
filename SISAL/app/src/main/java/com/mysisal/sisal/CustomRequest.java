@@ -18,7 +18,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
  * Created by Luis Iván Morett on 07/05/2017.
  */
 
-public class CustomRequest extends Request<JSONObject> {
+class CustomRequest extends Request<JSONObject> {
     private Listener<JSONObject> listener;
     private Map<String, String> params;
 
@@ -59,7 +59,4 @@ public class CustomRequest extends Request<JSONObject> {
             return Response.error(new ParseError(je));
         }
     }
-
-
-
 }
