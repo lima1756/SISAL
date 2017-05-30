@@ -4,7 +4,7 @@
     use App\myClasses\Type;
     if($_GET['type']=="doctors")
     {
-$valores=["usuarios.id_usuario","nombre", "apellidoPaterno", "apellidoMaterno", "usuario", "email"];
+$valores=["usuarios.id_usuario","nombre", "apellidoPaterno","medicos.estado" ,"apellidoMaterno", "usuario", "email"];
 $tabla="usuarios";
 $where=[];
 $join=[["medicos", "usuarios.id_usuario","medicos.id_usuario"]];
@@ -23,7 +23,7 @@ $existeGet = false;
     }
     }
     elseif($_GET['type']=="recepcionist"){
-$valores=["usuarios.id_usuario","nombre","apellidoPaterno", "apellidoMaterno", "usuario", "email"];
+$valores=["usuarios.id_usuario","nombre","apellidoPaterno", "recepcionistas.estado","apellidoMaterno", "usuario", "email"];
 $tabla="usuarios";
 $where=[];
 $join=[["recepcionistas", "usuarios.id_usuario","recepcionistas.id_usuario"]];
@@ -203,8 +203,11 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                 <thead>
                                     <tr>
                                         <th>Seleccionar</th>
+                                        <th>Estado</th>
                                         <th>Usuario</th>
                                         <th>Empleado</th>
+                                        <th>Desactivar empleado</th>
+                                        <th>Activar empleado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -214,9 +217,15 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <input type="radio" name="empleado" value="<?php echo $d['id_usuario']; ?>"id="<?php echo "radio".$d['id_usuario']?>" style="display:none"/>
                                             <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
                                         </label></td>
+                                        <td><?php if ($d['estado']=='0'){
+                                        echo("Desactivo");
+                                        } elseif  ($d['estado']=='1'){ 
+                                        echo("Activo");
+                                        }?></td>
                                         <td><?php echo $d['usuario']; ?></td>
                                         <td><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno']; ?></td>
-                                    </tr>
+                                        <td> <button class="btn btn-danger" onclick="rechazar('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">X</button> </td>
+                                        <td> <button class="btn btn-success" onclick="alta('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">O</button> </td>
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -352,6 +361,14 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <div class="form-group">
                                                 <label>Ocupación</label>
                                                 <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
+                                            </div>
+                                            </td>                                           
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group" hidden>
+                                                <label>Estado</label>
+                                                <input class="form-control" type="text" placeholder="estado" id="estado" name="estado" disabled  />
                                             </div>
                                             </td>
                                             </tr>
@@ -718,9 +735,10 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
         }
         $('#edad').html(edad);
         $('#ocupacion').val(json.generales.Ocupacion);
+        $('#estado').val(json.adicional.estado);
         if(json.adicional)
         {
-            $("#idEmpleado").val(json.adicional.id_usuario);
+            $("#idEmpleado").val(id);
             $('#domPart').val(json.adicional.domicilio);
             $('#telEme').val(json.adicional.telefono);
             $('#celEmergencias').val(json.adicional.emergencias);
@@ -746,7 +764,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#cedula').val("");
             $('#Especialidad').val("");
             $('#universidad').val("");
-
+            $('#estado').val("");
             $('#lunes').prop("checked", false);
             $('#martes').prop("checked", false);
             $('#miercoles').prop("checked", false);
@@ -859,8 +877,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#edad').html("");
             $('#ocupacion').val("");
 
-            $('#edad').html("");
-            $('#ocupacion').val("");
+            $('#estado').val("1");
         
             $("#idEmpleado").val("");
             $('#domPart').val("");
@@ -872,6 +889,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#cedula').val("");
             $('#Especialidad').val("");
             $('#universidad').val("");
+
 
             $('#lunes').prop("checked", false);
             $('#martes').prop("checked", false);
@@ -900,6 +918,109 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             <?php } ?>
             return false;
     }
+        
+        function rechazar(ID, Name){
+         <?php if ($_GET['type']=="doctors") { ?>
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
+
+        };
+
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxAeD',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/Personal/?type=doctors");
+                }
+        });
+
+        <?php }elseif ($_GET['type']=="recepcionist") {?>
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
+
+        };
+
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxAeR',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/Personal/?type=recepcionist");
+                }
+        });
+        <?php } ?>
+        location.reload(true);
+    }
+
+
+
+
+    function alta(ID, Name){
+         <?php if ($_GET['type']=="doctors") { ?>
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
+
+        };
+
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxAaD',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/Personal/?type=doctors");
+                }
+        });
+
+        <?php }elseif ($_GET['type']=="recepcionist") {?>
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
+
+        };
+
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxAaR',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/Personal/?type=recepcionist");
+                }
+        });
+        <?php } ?>
+        location.reload(true);
+    }
+
+
+
+
     </script>
     
 </body>
