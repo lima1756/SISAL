@@ -427,7 +427,6 @@ class Alarms implements Serializable {
                 }
             }
         }
-
     }
 
     public boolean isEmpty()
