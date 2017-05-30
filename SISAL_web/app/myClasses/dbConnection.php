@@ -37,9 +37,9 @@
                 try
                 {
                     $name = "sisal";
-                    $user = "root";
-                    $password = "";
-                    self::$DBCon = new PDO('mysql:host=localhost; dbname='.$name, $user, $password, [PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'UTF8';SET time_zone = 'America/Mexico_City'"]);
+                    $user = "rootSisal";
+                    $password = "13300226-13300195";
+                    self::$DBCon = new PDO('mysql:host=sisal.cuvxvi5d2aqv.us-east-1.rds.amazonaws.com; dbname='.$name, $user, $password, [PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'UTF8';SET time_zone = 'America/Mexico_City'"]);
                     self::$DBCon->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
                     return true;
                 }
