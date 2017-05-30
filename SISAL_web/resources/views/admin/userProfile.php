@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Paciente</title>
+    <title>Administrador</title>
 
       <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
@@ -65,7 +65,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -83,10 +83,20 @@
                             <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Personal/?type=doctors">Doctores</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/Personal/?type=recepcionist">Recepcionistas</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                            <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
                         </li>
                     </ul>
                 </div>
@@ -97,17 +107,23 @@
        <div id="page-wrapper">
             <div class="row">
 
-                <div class="col-lg-12">
+                <div class="col-lg-10">
                     <form>
                         <div class="panel panel-default"aria-multiselectable="true">
+                            
                             <div class="panel-heading">
-                                <span><h2>Paciente: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
+                                <!-- QUEDA ELIMINADA LA FUNCION DE EDITAR
+                                <span style="float:right; padding-top:10px;"><input class="btn btn-lg btn-success" type="submit" value="Guardar Cambios"/></span>
+                                -->
+                                <span><h2>Administrador: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
                             </div>
+                            
                             <div id="tablist">
                                 <!-- Desplegable información Personal--> 
                                 <div>
                                     <div class="panel-heading">
                                         <h4>Información personal</h2>
+                                    </div> 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <tr><td>
                                         Nombre:

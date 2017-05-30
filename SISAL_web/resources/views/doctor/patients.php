@@ -52,7 +52,7 @@
 
     <!-- FontsAwsome CSS -->
     <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -92,7 +92,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -208,78 +210,132 @@
                             <form name="formulario" id="formulario">
                             <input type="text" name="idPaciente" id="idPaciente" hidden/>
                                 <!-- Desplegable información Personal--> 
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('pInf');" data-toggle="collapse" role ="tab" data-target="#pInf" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:100%;">
                                         <h4>Información personal</h2>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="pInf" >
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <tr>
+                                        <td>
+                                        Nombre:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
-                                        </div>
+                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 80%;"  disabled/>
+                                        </div>   
+                                        </td>
+                                        <td>
+                                        Apellido Paterno:                                
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
+                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" style="height: 30px; width: 80%;" placeholder="Apellido Paterno"  disabled/>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Apellido Materno:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
+                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" style="height: 30px; width: 80%;" placeholder="Apellido Materno"  disabled/>
                                         </div>
+                                        </td>
+                                        <td>
+                                        Domicilio:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
+                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" style="height: 30px; width: 80%;" disabled/>
                                         </div>
-                                        <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
+                                        </td>
+                                        </td>
+                                        <tr>
+                                        <td>
+                                        Código postal:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Estado" name="Estado" disabled/>
+                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" style="height: 30px; width: 80%;"  disabled/>
                                         </div>
+                                        </td>
+                                        <td>
+                                        Teléfono:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ciudad" name="Ciudad" disabled/>
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 80%;" disabled/>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Celular:
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
+                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 80%;"  disabled/>
                                         </div>
+                                        </td>
+                                        <td>
+                                        Correo:
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" style="height: 30px; width: 80%;" disabled/>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Sexo:
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
+                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" style="height: 30px; width: 80%;" disabled/>
                                         </div>
+                                        </td>
+                                        <td>
+                                        No. Seguridad social:
                                         <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" style="height: 30px; width: 80%;" disabled/>
                                         </div>
+                                       </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Fecha de nacimiento:
                                         <div class="form-group">
-                                            <select class="form-control" id="genero" name="genero" disabled>
-                                                <option>Género</option>
-                                                <option value="Masculino">Masculino</option>
-                                                <option value="Femenino">Femenino</option>
-                                                <option value="-1">Seleccione un genero</option>
-                                            </select>
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" style="height: 30px; width: 80%;"  disabled/>
                                         </div>
+                                        </td>
+                                        
+                                        <td>
+                                        <?php
+                                            $diff = abs(strtotime(date('Y-m-d')) - strtotime(logData::getData('fechaNacimiento')));
+                                            $years = floor($diff / (365*60*60*24));
+                                        ?>
+                                        Edad:
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
+                                            <label class="form-control" id="edad" style="height: 30px; width: 80%;" ><?php echo ($years); ?></label>
                                         </div>
-                                        <?php /*<div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
-                                        </div> */?>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
+                                        Ocupación:
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
+                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 80%;"  disabled/>
                                         </div>
-                                        <div class="form-group">
-                                        <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="edad">xy años</label>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
-                                        </div>
+                                        </td>
+                                        </tr>
+                                    </table>
                                     </div>
                                 </div>
                                 <!-- Desplegable Antecedentes personales--> 
                                 <?php $sangres = dbConnection::select(["tipo", "id_sangre"], "tipo_sangre"); ?>
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('aPer');" role ="tab" data-toggle="collapse" data-target="#aPer" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:100%;">
                                         <h4>Antecedentes personales</h2>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="aPer">
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Tipo de sangre</label>
                                             <select class="form-control" name="sangre" id="sangre" disabled>
@@ -288,6 +344,8 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Tabaquismo</label>
                                             <select class="form-control" name="tabaquismoCantidad" id="tabaquismoCantidad" disabled>
@@ -299,6 +357,10 @@
                                                 <option value="Otro">Otro</option>
                                             </select>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Alcoholismo</label>
                                             <select class="form-control" name="alcoholismoCantidad" id="alcoholismoCantidad" disabled>
@@ -310,84 +372,139 @@
                                                 <option>Otro</option>
                                             </select>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes hereditarios</label>
                                             <textarea class="form-control" name="antecedentesHereditarios" id="antecedentesHereditarios" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes patológicos</label>
                                             <textarea class="form-control" name="antecedentesPatologicos" id="antecedentesPatologicos" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes no patológicos</label>
                                             <textarea class="form-control" name="antecedentesNoPatologicos" id="antecedentesNoPatologicos" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        </table>
                                     </div>
                                 </div>
                                 <!-- Desplegable Interrogatorio de antecedentes médicos--> 
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('int');" role ="tab" data-toggle="collapse" data-target="#int" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:100%;">
                                         <h4>Interrogatorio</h2>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="int"  >
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">   
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes cardiovasculares</label>
                                             <textarea class="form-control" name="antecedentesCardio" id="antecedentesCardio" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes digestivos</label>
                                             <textarea class="form-control" name="antecedentesDigest" id="antecedentesDigest" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes endocrinos</label>
                                             <textarea class="form-control" name="antecedentesEndocr" id="antecedentesEndocr" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes hemolinfatico</label>
                                             <textarea class="form-control" name="antecedentesHemo" id="antecedentesHemo" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de Músculo-Esquelético</label>
                                             <textarea class="form-control" name="antecedentesMusc" id="antecedentesMusc" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de Piel y anexos</label>
                                             <textarea class="form-control" name="antecedentesPiel" id="antecedentesPiel" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de aparato reproductor</label>
                                             <textarea class="form-control" name="antecedentesRepr" id="antecedentesRepr" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de aparato respiratorio</label>
                                             <textarea class="form-control" name="antecedentesResp" id="antecedentesResp" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de sistema nervioso</label>
                                             <textarea class="form-control" name="antecedentesNerv" id="antecedentesNerv" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de sistemas generales</label>
                                             <textarea class="form-control" name="antecedentesGene" id="antecedentesGene" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Antecedentes de aparato urinario</label>
                                             <textarea class="form-control" name="antecedentesUri" id="antecedentesUri" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        </table>
                                     </div>
                                 </div>
 
                                 <!-- Desplegable Estilo de vida--> 
-                                <!--Hace que si no esta check se desactive y viceversa con lo que lo ocupen-->
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('eVid');" role ="tab" data-toggle="collapse" data-target="#eVid" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:100%;">
                                         <h4>Estilo de vida</h2>
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="eVid"  >
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">   
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="ejercicio" id="ejercicio" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -398,14 +515,22 @@
                                                 <label for="ejercicio" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Realiza ejercicio?
                                                 </label>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Veces a la semana:&nbsp</label><input type="number" id="ejercicioVecesSemana" name="ejercicioVecesSemana" class="btn btn-default" value="0" min="0" max="7" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <div class="btn-group">
                                                 <label class="btn">Horas de sueño diarias:&nbsp</label><input type="number" class="btn btn-default" name="horasSuenio" id="horasSuenio" value="0" min="0" max="20" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="desayuna" id="desayuna" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -416,9 +541,13 @@
                                                 <label for="desayuna" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Desayuna?
                                                 </label>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Comidas al día:&nbsp</label><input class="btn btn-default" type="number" name="comidasDia" id="comidasDia" value="0" min="0" max="10" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="cafe" id="cafe" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -429,9 +558,15 @@
                                                 <label for="cafe" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Toma Café?
                                                 </label>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Tazas al día:&nbsp</label><input class="btn btn-default" type="number" id="cafeAlDia" name="cafeAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="refresco" id="refresco" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -442,9 +577,13 @@
                                                 <label for="refresco" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Toma refresco?
                                                 </label>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Vasos al día:&nbsp</label><input class="btn btn-default" type="number" id="refrescoAlDia" name="refrescoAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="dieta" id="dieta" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -456,8 +595,13 @@
                                                     ¿Sigue alguna dieta?
                                                 </label>
                                             </div>
+                                            <label class="btn">Información sobre la dieta:&nbsp</label>
                                             <textarea type="text" placeholder="Información sobre la dieta" class="form-control" name="dietaInfo" id="dietaInfo" disabled></textarea>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="alcohol" id="alcohol" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -469,10 +613,13 @@
                                                     ¿Consume Alcohol?
                                                 </label>
                                                 <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" name="alcoholEdad" id="alcoholEdad" value="0" min="0" max="80" disabled/>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Vasos de bebidas alcoholicas al día:&nbsp</label><input class="btn btn-default" type="number" name="alcoholAlDia" id="alcoholAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
-                                            
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="exAlcoholico" id="exAlcoholico" autocomplete="off"/>
                                             <div class="btn-group">
@@ -486,6 +633,10 @@
                                                 <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" name="exAlcoholicoEdad" id="exAlcoholicoEdad" value="0" min="0" max="80" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="fuma" id="fuma" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -500,6 +651,8 @@
                                                 <label class="btn">Cigarrillos al día:&nbsp</label><input class="btn btn-default" name="fumaAlDia" id="fumaAlDia" type="number" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="exFumador" id="exFumador" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -512,8 +665,6 @@
                                                 </label>
                                                 <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" name="exFumadorEdad" id="exFumadorEdad" type="number" value="0" min="0" max="80" disabled/>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
                                             <input type="checkbox" name="fumadorPasivo" id="fumadorPasivo" autocomplete="off" disabled/>
                                             <div class="btn-group">
                                                 <label for="fumadorPasivo" class="btn btn-default" id="checkbox" disabled>
@@ -525,6 +676,10 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="droga" id="droga" autocomplete="off"/>
                                             <div class="btn-group">
@@ -535,6 +690,8 @@
                                                 <label for="droga" class="btn btn-default active" id="checkbox" name="checkDroga2" disabled>
                                                     ¿Consume algun tipo de droga?
                                                 </label>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" name="drogaEdad" id="drogaEdad" type="number" value="0" min="0" max="80" disabled/>
                                             </div>
                                             <input type="checkbox" name="drogaIntra" id="drogaIntra" autocomplete="off" disabled/>
@@ -544,11 +701,15 @@
                                                     <span>&nbsp</span>
                                                 </label>
                                                 <label for="drogaIntra" class="btn btn-default active" name="dogaIntraLabel2" id="checkbox" disabled>
-                                                    ¿Consume algun tipo de droga intravenosa?
+                                                    ¿Droga intravenosa?
                                                 </label>
                                             </div>
+                                            <br>
+                                            <br>
                                             <textarea type="text" placeholder="Anotación acerca de las drogas consumidas" class="form-control" name="drogaAnota" id="drogaAnota" disabled></textarea>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="exAdicto" id="exAdicto" autocomplete="off" disabled/>
                                             <div class="btn-group">
@@ -559,17 +720,24 @@
                                                 <label for="exAdicto" class="btn btn-default active" name="checkExAdicto2" id="checkbox" disabled>
                                                     ¿ex-adicto?
                                                 </label>
+                                                <br>
+                                                <br>
                                                 <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" name="exAdictoEdad" id="exAdictoEdad" type="number" value="0" min="0" max="50" disabled/>
                                             </div>
-                                            
                                         </div>
+                                        </td>
+                                        </tr>
+                                        </table>
                                     </div>
                                 </div>
 
                                 <!-- Desplegable Alergias--> 
+                                <br>
                                 <div>
                                     <a href="javascript:myToggler('aler');" role ="tab" data-toggle="collapse" data-target="#aler" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:100%;">
                                         <h4>Alergias</h2>
                                     </div>
                                     </a>                                        
@@ -585,10 +753,13 @@
 
                                 <form name="InformacionCita" method="POST" action="/recetamedica">
                                 <!-- Desplegable Citas--> 
+                                <br>
                                 <div>
                                     <input type="text" value="<?php echo csrf_token(); ?>" name="_token" hidden/>
                                     <a href="#citas" role ="tab" data-toggle="collapse" data-target="#citas" data-parent="#tablist">
-                                    <div class="panel-heading">
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <span>&nbsp</span><span>&nbsp</span>
+                                    <div class="btn btn-primary" style="width:100%;">
                                         <h4>Expediente clinico</h2>
                                     </div>
                                     </a>                                        
@@ -606,9 +777,9 @@
                                             <!-- Desplegable Contenido Cita--> 
                                             <div id="contenidoCita">
                                                 <a href="#pCit" data-toggle="collapse" role ="tab" data-target="#pCit" data-parent="#tablist">
-                                                <div class="panel-heading">
-                                                    <h4>Datos de cita:</h4>
-                                                </div>
+                                                 <div class="btn btn-primary" style="width:40%;">
+                                                    <h4>Datos de la cita</h2>
+                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="pCit" >
                                                     <label><h3>Diagnóstico:</h3></label><br>
@@ -634,43 +805,71 @@
                                                         <textarea type="text" placeholder="Síntomas: " class="form-control" id="CSintomas" name="CSintomas" disabled></textarea>
                                                     </div>
                                                     <label><h3>Exploración:</h3></label><br>
-                                                    <div class="form-group">
+                                                   <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                   <tr>
+                                                   <td>
+                                                   <div class="form-group">
                                                         <h5>Peso:</h5>
                                                         <input class="form-control" type="number" placeholder="CPeso" id="CPeso" name="CPeso" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Talla:</h5>
                                                         <input class="form-control" type="number" placeholder="CTalla" id="CTalla" name="CTalla" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Exploracion Fisica:</h5>
                                                         <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CExploracion" name="CExploracion" disabled></textarea>                                                        
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Frecuencia Cardíaca:</h5>
                                                         <input class="form-control" type="number" placeholder="CFreCar" id="CFreCar" name="CFreCar" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Presion Alta:</h5>
                                                         <input class="form-control" type="number" placeholder="CPresAlta" id="CPresAlta" name="CPresAlta" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Presion Baja:</h5>
                                                         <input class="form-control" type="number" placeholder="CPresBaja" id="CPresBaja" name="CPresBaja" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <<tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Frecuencia Respiratoria:</h5>
                                                         <input class="form-control" type="number" placeholder="CFreRes" id="CFreRes" name="CFreRes" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <h5>Temperatura:</h5>
                                                         <input class="form-control" type="text" placeholder="CTemp" id="CTemp" name="CTemp" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    </table>
                                                     <label><h3>Notas Adicionales:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Notas:</h5>
                                                         <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CNA" name="CNA" disabled></textarea>                                                          
                                                     </div>
+                                                    
+
                                                     <label><h3>Estudios:</h3></label><br>
                                                     <div class="form-group">
                                                         <h5>Orden:</h5>
@@ -1171,11 +1370,11 @@
             $('#nombre').val(json.generales.nombre);
             $('#apellidoPaterno').val(json.generales.apellidoPaterno);
             $('#apellidoMaterno').val(json.generales.apellidoMaterno);
-            $('#domicilio').val(json.generales.domicilio);
+            $('#Domicilio').val(json.generales.Domicilio);
             $('#codigoPostal').val(json.generales.codigoPostal);
             $('#domTel').val(json.generales.telefonoDomiciliar);
-            $('#ofTel').val(json.generales.telefonoDomiciliar);
-            $('#email').val(json.generales.telefonoDomiciliar);
+            $('#celTel').val(json.generales.telefonoCelular);
+            $('#email').val(json.generales.email);
             if(json.generales.genero=="Masculino")
             {
                 $('#genero').val("Masculino");
@@ -1669,6 +1868,7 @@
             $('#aceptar').hide();
             $('#medico').attr("disabled", false);
             $('#fechaCita').attr("disabled", false);
+            location.reload(true);
         }
 
     function myToggler(where)

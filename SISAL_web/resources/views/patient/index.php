@@ -1,3 +1,16 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    date_default_timezone_set("America/Mexico_City");
+    $today = date("Y-m-d") . " 00:00:00";
+    $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
+    $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+        [["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"]], 
+        [["usuarios", "usuarios.id_usuario", "citas.id_medico"]]);
+    $cantidadCitas = count($citasHoy);
+    $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d/%m/%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,7 +38,7 @@
 
     <!-- Custom Fonts -->
     <link href="../dataSource/css/templates/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,7 +61,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -59,7 +74,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="/dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -77,10 +92,10 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
-                            <a href="doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                            <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
                     </ul>
                 </div>
@@ -130,7 +145,7 @@
                                     <i class="fa fa-hospital-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">Hospital</div>
+                                    <div class="huge"><h2>Hospital</h2></div>
                                     <div>Información</div>
                                 </div>
                             </div>
@@ -218,34 +233,26 @@
                 <div class="col-lg-6 col-md-6 grid-item">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Proximas citas
+                            <i class="fa fa-bell fa-fw"></i> Citas hoy:
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
-                                    <span class="pull-right text-muted small"><em>22-01-2017 9:00</em>
-                                    </span>
-                                </a>
-                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
-                                    <span class="pull-right text-muted small"><em>23-03-2017 15:00</em>
-                                    </span>
-                                </a>
-                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
-                                    <span class="pull-right text-muted small"><em>24-04-2017 18:00</em>
-                                    </span>
-                                </a>
-                                <a href="dates/?id=IMPORTANTE" class="list-group-item"> <!-- IMPORTANTE, AL MOMENTO DE PROGRAMAR YA BIEN ESTO, HACER QUE SE GUARDE EL ID de la cita PARA VERLO DIRECTAMENTE EN LA PAGINA DE citas -->
-                                    <i class="fa fa-calendar-check-o fa-fw"></i> Doctor < Inserte nombre de docotor >
-                                    <span class="pull-right text-muted small"><em>25-05-2017 16:00</em>
-                                    </span>
-                                </a>
+                                <?php if($cantidadCitas != 0): ?>
+                                    <?php foreach($citasHoy as $cita): ?>
+                                        <a href="/dashboard/patients/?id=<?php echo $cita['id_usuario'] ?>" class="list-group-item"> 
+                                            
+                                            <i class="fa fa-calendar-check-o fa-fw"></i> Doctor:  <?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?>
+                                            <span class="pull-right text-muted small"><em><?php echo $cita['hora']; ?></em>
+                                            </span>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <i class="fa fa-calendar-check-o fa-fw"></i> No hay citas el día de hoy :)
+                                <?php endif; ?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="dates" class="btn btn-default btn-block">Ver todas</a>
+                            <a href="/dashboard/dates" class="btn btn-default btn-block">Ver todas</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -277,7 +284,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dataSource/js/templates/sb-admin-2.js"></script>
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- Masonry -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
     <script>

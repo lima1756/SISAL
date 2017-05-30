@@ -1,13 +1,13 @@
 
     <?php
     use App\myClasses\dbConnection;
-    
-$nombre=["nombre", "id_medicamento"];
-$tabla="medicamentospendientes";
-$where=[];
+$true=0;   
+$nombre=["nombre", "id_medicamento","aprobada"];
+$tabla="medicamentos";
+$where=["aprobada",$true];
 $join=[];
-$datos = dbConnection::select($nombre,$tabla,$where,$join);
-   
+//$datos = dbConnection::select($nombre,$tabla,$where,$join);
+   $datos = dbConnection::RAW("SELECT nombre, id_medicamento, aprobada FROM `medicamentos` WHERE aprobada = 0");
 ?>
 
 
@@ -42,7 +42,7 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
 
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -64,7 +64,9 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -75,7 +77,7 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="/dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -106,9 +108,6 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/registerPersonal"><i class="fa fa-edit fa-fw"></i> Registrar personal</a>
-                        </li>
-                        <li>
                             <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
                         </li>
                     </ul>
@@ -134,7 +133,8 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>ID Medicamento</th>
+                                        <th>Aceptar</th>
+                                        <th>Rechazar</th>
                                         <th>Nombre Medicamento</th>
                                     </tr>
                                 </thead>
@@ -142,7 +142,8 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                                     <?php
                                     foreach($datos as $dato):?>
                                     <tr class="odd gradeX">
-                                        <td><?php echo($dato['id_medicamento']);?></td>
+                                        <td> <button class="btn btn-success" onclick="aceptar('<?php echo $dato['id_medicamento']?>', '<?php echo$dato['nombre']?>'); ">O</button> </td>
+                                        <td> <button class="btn btn-danger" onclick="rechazar('<?php echo$dato['id_medicamento']?>', '<?php echo$dato['nombre']?>'); ">X</button> </td>
                                         <td><?php echo($dato['nombre']);?></td>                                        
                                     </tr>
                                     <?php endforeach;?>
@@ -187,6 +188,9 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     
     <script>
+
+    var csrfVal="<?php echo csrf_token(); ?>";
+
     $(document).ready(function() {
         $('#dataTables-example').DataTable( {
             responsive: true,
@@ -198,11 +202,60 @@ $datos = dbConnection::select($nombre,$tabla,$where,$join);
                 "infoFiltered": "(filtrado por _MAX_ total de medicamentos)"
             },
             "columnDefs": [
-                { "width": "10%", "targets": 0 },
-                { "width": "45%", "targets": 1 }
+                { "width": "15%", "targets": 0 },
+                { "width": "15%", "targets": 1 },
+                { "width": "70%", "targets": 2 }
             ]
         } );
     } );
+
+    function rechazar(ID, Name){
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
+
+        };
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxMR',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/medicine");
+                }
+        });
+        location.reload(true);
+    }
+
+function aceptar(ID, Name){
+      $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfVal
+                },
+                async: false
+            })
+        var parametros = {
+                "ID" : ID,
+                "nombre" : Name
+
+        };
+        $.ajax({
+                data:  parametros,
+                url:   '/ajaxMA',
+                type:  'post',
+                beforeSend: function () {
+                        $('#dataTables-example').prop('action', "/medicine");
+                }
+        });
+        location.reload(true);
+}
+
+
     </script>
 
 </body>

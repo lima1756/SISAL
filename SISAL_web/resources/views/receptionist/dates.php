@@ -45,7 +45,7 @@ use App\myClasses\dbConnection;
 
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
-    
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <style>
         label input[type="radio"] ~ i.fa.fa-circle-o{
                 color: #c8c8c8;    display: inline;
@@ -84,7 +84,9 @@ use App\myClasses\dbConnection;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -140,36 +142,70 @@ use App\myClasses\dbConnection;
                         <div class="panel-head">
                             <form action="#" method="POST">
                                 <div class="form-group" style="padding-top:15px;" id="filtros">
-                                    <input type="checkbox" name="proximasCitas" id="proximasCitas" />
-                                    <div class="btn-group">
-                                        <label for="proximasCitas" class="btn btn-default">
-                                            <span class="fa fa-check"></span>
-                                            <span>&nbsp</span>
-                                        </label>
-                                        <label for="proximasCitas" class="btn btn-default active">
-                                            Citas futuras
-                                        </label>
-                                        <span>&nbsp&nbsp</span>
-                                    </div>
+
+
+                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
+                                    &nbsp&nbsp
+                                    <br>
+                                    <br>
                                     <label class="btn">Doctor: </label>
                                     <select class="btn btn-default" name="idDoc" id="idDoc">
                                         <?php foreach($listaDoctores as $d): ?>
                                             <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
-                                    &nbsp&nbsp
+                                    <br>
+                                    <br>
+                                    <span>&nbsp</span>
+                                    <span>&nbsp</span>
+                                    <input type="checkbox" name="proximasCitas" id="proximasCitas" />
+                                    <div class="btn-group">
+                                        <label for="proximasCitas" class="btn btn-default">
+                                            <span class="fa fa-check"></span>
+                                            <span>&nbsp</span>
+                                        </label>
+                                        <span>&nbsp</span><label for="proximasCitas" class="btn btn-default active">
+                                            Ver  citas   registradas
+                                            <span>&nbsp&nbsp</span>
+                                            <span>&nbsp&nbsp</span>
+                                        </label>
+                                        <span>&nbsp&nbsp</span>
+                                    </div>                                
+                                    <br>
+                                    <br>
+                                    <span>&nbsp</span>
+                                    <span>&nbsp</span>
                                     <input type="checkbox" name="disponible" id="disponible" />
                                         <div class="btn-group">
                                             <label for="disponible" id="icoDisponible" class="btn btn-default">
                                                 <span class="fa fa-check"></span>
                                                 <span>&nbsp</span>
                                             </label>
-                                            <label for="disponible" id="labelDisponible" class="btn btn-default active">
-                                                Ver solo horarios disponibles
+                                            <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
+                                                Ver horarios disponibles
                                             </label>
                                         </div>
-                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
+                                        <br>
+                                        <br>
+                                    <span>&nbsp</span>
+                                    <span>&nbsp</span>
+                                    <input type="checkbox" name="agenda" id="agenda" />
+                                        <div class="btn-group">
+                                            <label for="disponible" id="icoDisponible" class="btn btn-default">
+                                                <span class="fa fa-check"></span>
+                                                <span>&nbsp</span>
+                                            </label>
+                                            <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
+                                                Ver agenda completa
+                                            </label>
+                                        </div>
+                                        <br>
+                                        <br>
+
+
+
+                                        <span>&nbsp</span><span>&nbsp</span><span>&nbsp</span>
+                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Buscar</button>
                                 </div>
                                 
                             </form>

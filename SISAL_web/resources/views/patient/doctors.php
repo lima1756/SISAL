@@ -1,3 +1,30 @@
+<?php
+    use App\myClasses\dbConnection;
+    use App\myClasses\logData;
+    use App\myClasses\Type;
+
+date_default_timezone_set("America/Mexico_City");
+    $datos = dbConnection::select(["citas.id_medico", "usuarios.usuario", "usuarios.id_usuario","usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
+        "citas",
+        [["citas.id_paciente", logData::getData("id_usuario")]],
+        [["usuarios", "usuarios.id_usuario", "citas.id_medico"]],
+        "GROUP BY citas.id_medico");
+    $existeGet = false;
+    if(isset($_GET['id']))
+    {
+        foreach($p as $datos)
+        {
+            if($p['id_usuario']==$_GET['id'])
+            {
+                $existeGet = true;
+            }
+        }
+    }
+    
+$masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +38,7 @@
 
     <title>Paciente</title>
 
-      <!-- Bootstrap Core CSS -->
+       <!-- Bootstrap Core CSS -->
     <link href="../../dataSource/css/templates/bootstrap.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -31,7 +58,7 @@
 
     <!-- FontsAwsome CSS -->
     <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,6 +66,23 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+        <style>
+        label input[type="radio"] ~ i.fa.fa-circle-o{
+            color: #c8c8c8;    display: inline;
+        }
+        label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+            display: none;
+        }
+        label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+            display: none;
+        }
+        label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+            color: #7AA3CC;    display: inline;
+        }
+        label:hover input[type="radio"] ~ i.fa {
+        color: #7AA3CC;
+        }
+    </style>
 </head>
 
 <body>
@@ -54,7 +98,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -65,7 +111,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="../dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -80,10 +126,10 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
@@ -110,34 +156,23 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Ver información</th>
+                                        <th>Seleccionar</th>
+                                        <th>Usuario</th>
                                         <th>Doctor</th>
-                                        <th>Especialidad</th>
+                                        <!--<th>Ultima consulta</th>-->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- ESTOS DATOS SOLO SON DE VISUALIZACIÓN LOS DATOS REALES LOS OBTENDRA MEDIANTE AJAX -->
+                                <?php foreach($datos as $d): ?>
                                     <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>Doc1</td>
-                                        <td>Neumologo</td>
+                                        <td><label class="btn active">
+                                            <input type="radio" name="empleado" value="<?php echo $d['id_usuario']; ?>"id="<?php echo "radio".$d['id_usuario']?>" style="display:none"/>
+                                            <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
+                                        </label></td>
+                                        <td><?php echo $d['usuario']; ?></td>
+                                        <td><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno']; ?></td>
                                     </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>Doc12</td>
-                                        <td>Ororrinolaringolo</td>
-                                    </tr>
-                                    <tr class="odd gradeX">
-                                        <div class="radio">
-                                            <td><input type="radio" name="optradio"/></td>
-                                        </div>
-                                        <td>Doc3</td>
-                                        <td>General</td>
-                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <!-- /.table-responsive -->
@@ -147,33 +182,210 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
-                
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <label class="panel-title">Doc1: 28-11-2016::16:00</label>
-                        </div>
-                        <div class="panel-body">
+                    <form name="formulario" id="formulario" action="/dashboard/patients" method="POST">
+                        <input type="text" name="_token" id="_token" value="<?php echo csrf_token(); ?>" hidden/>
+                        <div class="panel panel-default"aria-multiselectable="true" id="toda_info" hidden>
                             <div class="panel-heading">
-                                <a href="#general" role ="tab" data-toggle="collapse" data-target="#general" data-parent="#tablist">
-                                    <h4>Informacion general:</h4> 
-                                </a>
+                                <span><h2 id="nombre_completo" name="nombre_completo"> </h2></span>
                             </div>
-                            <div class="panel-body collapse indent" id="general" >
-                                <label>Inserte Informacion general aqui</label>
+                            <section id="table" name="table">
+                            </section>
+                            <div id="tablist">
+                                    <input type="text" name="idEmpleado" id="idEmpleado" hidden/>
+                                    
+                                    <!-- Desplegable información Personal--> 
+                                    <div>
+                                        <!--href="javascript:myToggler();"-->
+                                        <a  data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
+                                        <div class="btn btn-primary" style="width:100%;">
+                                            <h3>Información personal</h3>
+                                        </div>
+                                        </a>                                        
+                                        <div class="panel-body collapse indent" id="pInf" >
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Usuario</label>
+                                                <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Apellido Paterno</label>
+                                                <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Apellido Materno</label>
+                                                <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Domicilio</label>
+                                                <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
+                                            <div class="form-group">
+                                                <label>Código Postal</label>
+                                                <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Teléfono domiciliar</label>
+                                                <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Teléfono oficina</label>
+                                                <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Correo Electrónico</label>
+                                                <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Genero</label>
+                                                <select class="form-control" id="genero" name="genero" disabled>
+                                                    <option value="-1">Seleccione un genero</option>
+                                                    <option value="Masculino">Masculino</option>
+                                                    <option value="Femenino">Femenino</option>
+                                                </select>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>No. de Seguridad social</label>
+                                                <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Fecha de nacimiento</label>
+                                                <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Ocupación</label>
+                                                <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                        
+                                        <div>
+                                            <div id="adicional" hidden>
+                                                <a href="" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
+                                                <div class="btn btn-primary" style="width:100%;" onclick="return false;">
+                                                    <h4>Información Adicional Doctor</h2>
+                                                </div>
+                                                </a>                                        
+                                                <div class="panel-body collapse indent" id="responsableInf" >
+                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <tr>
+                                                <td>
+                                                Domicilio Particular:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Domicilio consulta particular" name="domPart" id="domPart" disabled/>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                Telefono emergencias:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Telefono de emergencias" name="telEme" id="telEme"  disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                Celular de emergencias:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Celular de emergencias" name="celEmergencias" id="celEmergencias"  disabled/>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                Correo:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="email" placeholder="Correo Electrónico" name="correoAux" id="correoAux"  disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                Facebook:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Facebook" name="face" id="face"  disabled/>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                Twitter:
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Twitter" name="twitter" id="twitter"  disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                    <label>Cedula:</label>
+                                                    <input class="form-control" type="text" placeholder="cedula" id="cedula" name="cedula" disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                    <label>Especialidad:</label>
+                                                    <input class="form-control" type="text" placeholder="Especialidad" id="Especialidad" name="Especialidad" disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <div class="form-group">
+                                                    <label>Universidad:</label>    
+                                                    <input class="form-control" type="text" placeholder="Universidad" id="universidad" name="universidad"disabled/>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                                </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </form>
                             </div>
-                            <div class="panel-heading">
-                                <a href="#contacto" role ="tab" data-toggle="collapse" data-target="#contacto" data-parent="#tablist">
-                                    <h4>Información de contacto:</h4> 
-                                </a>
-                            </div>
-                            <div class="panel-body collapse indent" id="contacto"  >
-                                <label>Inserte Información de contacto aqui</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-lg-12 -->
 
 
             </div>
@@ -200,22 +412,158 @@
 
      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
+    var json = 0;
+    var id = 0;
+    var idDoctor = 0;
+    var idCita = 0;
+    var csrfVal="<?php echo csrf_token(); ?>";
     $(document).ready(function() {
-        $('#dataTables-example').DataTable( {
+        $('#dataTables-example').DataTable({
             responsive: true,
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ doctores por página",
-                "zeroRecords": "No se encontro nada",
-                "info": "Mostrando página doctores _PAGE_ de _PAGES_",
-                "infoEmpty": "No hay registros disponibles",
-                "infoFiltered": "(filtrado por _MAX_ total de doctores)"
-            },
             "columnDefs": [
                 { "width": "10%", "targets": 0 },
-                { "width": "45%", "targets": 1 }
+                { "width": "20%", "targets": 1 },
+                { "width": "70%", "targets": 2 }
             ],
-        } );
-    } );
+            "order": [[ 2, "desc" ]]
+        });
+        <?php if($existeGet): ?>
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            }
+            })
+                    $.post("/ajaxPD", { 
+                'personalId': '<?php echo $_GET['id']; ?>'
+            }, 
+            
+
+            function(data, status){
+                json = JSON.parse(data);
+                if(json != 0)
+                {
+                    $('#toda_info').show();
+                    $('#adicional').show();
+                    document.getElementById('toda_info').scrollIntoView();
+                    $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                    recuperarInfo();
+
+                }
+                
+            });
+            $('html, body').animate({
+                scrollTop: $("#toda_info").offset().top
+            }, 1000);
+        <?php endif; ?>
+    });
+    $('input[type=radio][name=empleado]').on("click", function() {
+        <?php foreach ($datos as $key => $d): ?>
+            <?php if($key==0): ?>
+                if (this.value == <?php echo $d['id_usuario'];?>) {
+                    id=$('input:radio[name=empleado]:checked').val();
+                }
+            <?php else: ?>
+                else if (this.value == <?php echo $d['id_usuario'];?>) {
+                    id=$('input:radio[name=empleado]:checked').val();
+                }
+            <?php endif; ?>
+        <?php endforeach; ?>
+        
+        $('#idEmpleado').val(id);
+        console.log($('#idEmpleado').val());
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            }
+        })
+                $.post("/ajaxPD", { 
+                'personalId': id
+            }, 
+        function(data, status){
+            json = JSON.parse(data);
+            if(json != 0)
+            {
+                $('#toda_info').show();
+                $('#adicional').show();
+                document.getElementById('toda_info').scrollIntoView();
+                $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
+                recuperarInfo();
+            }
+            
+        });
+    });
+
+    function recuperarInfo()
+    {
+        $('#usuario').val(json.generales.usuario);
+        $('#nombre').val(json.generales.nombre);
+        $('#apellidoPaterno').val(json.generales.apellidoPaterno);
+        $('#apellidoMaterno').val(json.generales.apellidoMaterno);
+        $('#domicilio').val(json.generales.Domicilio);
+        $('#codigoPostal').val(json.generales.codigoPostal);
+        $('#domTel').val(json.generales.telefonoDomiciliar);
+        $('#ofTel').val(json.generales.telefonoDomiciliar);
+        $('#email').val(json.generales.telefonoDomiciliar);
+        if(json.generales.genero=="Masculino")
+        {
+            $('#genero').val("Masculino");
+        }
+        else if(json.generales.genero=="Femenino")
+        {
+            $('#genero').val("Femenino");
+        }
+        else
+        {
+            $('#genero').val("-1");
+        }
+        $('#seguroSocial').val(json.generales.noSeguroSocial);
+        var fecha = new Date(json.generales.fechaNacimiento);
+        $('#fechaNacimiento').val(json.generales.fechaNacimiento);
+        var hoy = new Date();
+        var edad = 0;
+        if(fecha.getDate() > hoy.getDate() && fecha.getMonth() > hoy.getMonth())
+        {
+            edad = hoy.getFullYear() - fecha.getFullYear() + 1;
+        }
+        else
+        {
+            edad = hoy.getFullYear() - fecha.getFullYear();
+        }
+        $('#edad').html(edad);
+        $('#ocupacion').val(json.generales.Ocupacion);
+        if(json.adicional)
+        {
+            $("#idEmpleado").val(json.adicional.id_usuario);
+            $('#domPart').val(json.adicional.domicilio);
+            $('#telEme').val(json.adicional.telefono);
+            $('#celEmergencias').val(json.adicional.emergencias);
+            $('#correoAux').val(json.adicional.correo);
+            $('#Face').val(json.adicional.face);
+            $('#twitter').val(json.adicional.tw);
+            $('#cedula').val(json.adicional.cedula);
+            $('#Especialidad').val(json.adicional.especialidad);
+            $('#universidad').val(json.adicional.universidad);
+             
+
+        }
+        else
+        {
+            
+            $("#idEmpleado").val("-1");
+            $('#domPart').val("");
+            $('#telEme').val("");
+            $('#celEmergencias').val("");
+            $('#correoAux').val("");
+            $('#face').val("");
+            $('#twitter').val("");
+            $('#cedula').val("");
+            $('#Especialidad').val("");
+            $('#universidad').val("");
+
+        }
+
+    }
+
     </script>
     
 </body>

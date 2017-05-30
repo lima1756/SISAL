@@ -37,9 +37,9 @@
                 try
                 {
                     $name = "sisal";
-                    $user = "rootSisal";
-                    $password = "13300226-13300195";
-                    self::$DBCon = new PDO('mysql:host=sisal.cuvxvi5d2aqv.us-east-1.rds.amazonaws.com; dbname='.$name, $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
+                    $user = "root";
+                    $password = "";
+                    self::$DBCon = new PDO('mysql:host=localhost; dbname='.$name, $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
                     self::$DBCon->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
                     return true;
                 }
@@ -519,22 +519,30 @@
          * @param String $query
          * @return numerico or Sting
          */
-        public static function RAW($query)
+        public static function RAW($query, $execute=false)
         {
             if(self::createInstance())
             {
-                try
+                if(!$execute){
+                    try
+                    {
+                        $data = self::$DBCon->prepare($query);
+                        
+                        $data->execute();
+                        $answer = $data->fetchAll(PDO::FETCH_ASSOC);
+                        return $answer;
+                    }
+                    catch(PDOException $e)
+                    {
+                        return $e->getMessage();
+                    }
+                }
+                else
                 {
                     $data = self::$DBCon->prepare($query);
-                    
                     $data->execute();
-                    $answer = $data->fetchAll(PDO::FETCH_ASSOC);
-                    return $answer;
-                }
-                catch(PDOException $e)
-                {
-                    return $e->getMessage();
                 }
             }
         }
+
     }

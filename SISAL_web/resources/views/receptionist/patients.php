@@ -52,7 +52,7 @@
 
     <!-- FontsAwsome CSS -->
     <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
-
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -91,7 +91,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..">SISAL</a>
+                <a class="navbar-brand" href="/..">
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -102,7 +104,7 @@
                         <i class="fa fa-user fa-fw"></i> Usuario <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="../userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
+                        <li><a href="../dashboard/userProfile"><i class="fa fa-user fa-fw"></i> Perfil de usuario</a>
                         </li>
                         <li><a href="/logOut"><i class="fa fa-gear fa-fw"></i> Cerrar Sesión</a>
                         </li>
@@ -118,13 +120,13 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="../dates"><i class="fa fa-table fa-fw"></i> Citas</a>
+                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i> Citas</a>
                         </li>
                         <li>
-                            <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="../dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -143,7 +145,8 @@
             <div class="row">
                 <!-- BOTON DE TODOS -->
                 <div class="col-lg-12 form-group">
-                            <button type="button" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;">Registrar Nuevo Paciente</button>
+                            <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo Paciente</button>-->
+                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Paciente</a>
                 </div>
                 <!-- LISTA DE PACIENTES -->
                 <div class="col-lg-12">
@@ -188,66 +191,93 @@
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                                 <span><h2 id="nombre_completo" name="nombre_completo">alguien</h2></span>
                             </div>
+                            <section id="table" name="table">
+                            </section>
                             <div id="tablist">
                                     <input type="text" name="idPaciente" id="idPaciente" hidden/>
                                     
                                     <!-- Desplegable información Personal--> 
                                     <div>
                                         <a href="javascript:myToggler();" data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
-                                        <div class="panel-heading">
-                                            <h4>Información personal</h2>
+                                        <div class="btn btn-primary" style="width:100%;">
+                                            <h3>Información personal</h3>
                                         </div>
                                         </a>                                        
                                         <div class="panel-body collapse indent" id="pInf" >
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Usuario</label>
                                                 <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
                                                 <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Nombre</label>
                                                 <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Apellido Paterno</label>
                                                 <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Apellido Materno</label>
                                                 <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Domicilio</label>
                                                 <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
-                                            <div class="form-group">
-                                                <label>Estado</label>
-                                                <input class="form-control" type="text" placeholder="Estado" name="Estado" disabled/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Ciudad</label>
-                                                <input class="form-control" type="text" placeholder="Ciudad" name="Ciudad" disabled/>
-                                            </div>
                                             <div class="form-group">
                                                 <label>Código Postal</label>
                                                 <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Teléfono domiciliar</label>
                                                 <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Teléfono oficina</label>
                                                 <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Correo Electrónico</label>
                                                 <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Genero</label>
                                                 <select class="form-control" id="genero" name="genero" disabled>
@@ -256,25 +286,31 @@
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
                                             </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>No. de Seguridad social</label>
                                                 <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
                                             </div>
-                                            <?php /*<div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
-                                            </div> */?>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Fecha de nacimiento</label>
                                                 <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Edad</label>
-                                            <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="edad">xy años</label>
-                                            </div>
+                                            </td>
+                                            <td>
                                             <div class="form-group">
                                                 <label>Ocupación</label>
                                                 <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
                                             </div>
+                                            </td>
+                                            </tr>
+                                            </table>
+
+
                                             <div class="form-group">
                                                 <input type="checkbox" name="miResponsable" id="miResponsable" autocomplete="off" disabled />
                                                 <div class="btn-group"> 
@@ -287,17 +323,20 @@
                                                     </label>
                                                 </div>
                                             </div>
+
+
                                             <input type="number" name="idResponsable" id="idResponsable" hidden/>
                                         </div>
                                         <!--INFORMACIóN RESPONSABLE -->
                                         <div>
                                             <div id="responsable" hidden>
                                                 <a href="javascript:myToggler2();" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
-                                                <div class="panel-heading">
+                                                <div class="btn btn-primary" style="width:80%;">
                                                     <h4>Información Responsable</h2>
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="responsableInf" >
+
                                                     <div class="form-group">
                                                         <label>Usuario</label>
                                                         <input class="form-control" type="text" placeholder="Usuario" id="responsableUsuario" name="responsableUsuario" disabled/>
@@ -367,7 +406,7 @@
                                     </div>
                                 </form>
                             </div>
-                                
+                            <!-- /.col 12 -->   
                     </div>
                 </div>
                 <!-- /.panel -->
@@ -411,6 +450,11 @@
             ],
             "order": [[ 2, "desc" ]]
         });
+        $(document).ready(function() {
+        $('#dataTables-example2').DataTable({
+            responsive: true
+        });
+    });
         <?php if($existeGet): ?>
             $.ajaxSetup({
             headers: {

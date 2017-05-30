@@ -60,10 +60,9 @@ $datos3 = dbConnection::select($valores,$tabla,$where,$join);
         <img src="./res/CSALogo.png" style="width:250px;" >
       </div>
       <h1 style="border-top-width:1px;border-top-style:solid;border-top-color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#5D6975;color:#5D6975;font-size:2.4em;line-height:1.4em;font-weight:normal;text-align:center;margin-top:0;margin-bottom:20px;margin-right:0;margin-left:0;background-color:transparent;background-image:url(dimension.png);background-repeat:repeat;background-position:top left;background-attachment:scroll;" >Receta médica</h1>
-    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
       <tr>
       <td>
-      <!--
       <div id="project" style="float:left;" >
         <div style="white-space:nowrap;" >Nombre:  <?php echo $datos[0]['nombre'];?></div>
         <div style="white-space:nowrap;" >Apellido Paterno:  <?php echo $datos[0]['apellidoPaterno'];?></div>
@@ -79,54 +78,12 @@ $datos3 = dbConnection::select($valores,$tabla,$where,$join);
         <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Especialidad: </span><?php echo $doctor[0]['especialidad'];?></div>
         <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Cédula: </span> <?php echo $doctor[0]['cedula'];?></div>
         <div style="white-space:nowrap;" ><span style="color:#5D6975;text-align:right;width:52px;margin-right:10px;display:inline-block;font-size:0.8em;" >Univeridad: </span> <?php echo $doctor[0]['universidad'];?></div>
-      </div>-->
+      </div>
       </td>
       </tr> 
     
     </table>
     </div>
- <div>   
-<table>
-        <thead>
-          <tr>
-            <th class="service" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Doctor:</th>
-            <th class="desc" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Especialidad:</th>
-            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Cedula:</th>
-            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Universidad:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $doctorname[0]['nombre']. " " .$doctorname[0]['apellidoPaterno']. " " .$doctorname[0]['apellidoMaterno'];?></td>
-            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $doctor[0]['especialidad'];?></td>
-            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo $doctor[0]['cedula'];?></td>
-            <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo $doctor[0]['universidad'];?></td>
-          </tr>
-        </tbody>
-      </table>
-</div>
-
-
- <div>   
-<table>
-        <thead>
-          <tr>
-            <th class="service" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Paciente:</th>
-            <th class="desc" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Correo:</th>
-            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Fecha:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $datos[0]['nombre']. " " .$datos[0]['apellidoPaterno']. " " .$datos[0]['apellidoMaterno'];?></td>
-            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $datos[0]['email'];?></td>
-            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo $datos1[0]['fecha_hora'];?></td>
-          </tr>
-        </tbody>
-      </table>
-</div>
-
-
     <div>
       <table>
         <thead>
