@@ -64,7 +64,7 @@
                 </button>
                               
                 <a class="navbar-brand" href="/..">
-                <IMG SRC="dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
                 </a>
                 
             </div>

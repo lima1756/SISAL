@@ -209,7 +209,7 @@ Route::post('/recetamedica', function() {
     include '\disenio.php';
     $content = ob_get_clean();
 
-    $html2pdf = new Html2Pdf('L', 'A4', 'fr');
+    $html2pdf = new Html2Pdf('P', 'A4', 'fr');//H o P dependiendo de como se necesite
     $html2pdf->setDefaultFont('Arial');
     $html2pdf->writeHTML($content);
     $html2pdf->Output('Receta.pdf');//D si se desea descargar
