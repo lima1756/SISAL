@@ -128,7 +128,7 @@
                     <?php if(sizeof($cita)>0): ?>
                         <h1 class="page-header" id="pageHeader"><?php echo date("d/m/Y") . " - "; echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?></h1>
                     <?php else: ?>
-                        <h1 class="page-header" id="pageHeader">Seleccione un paciente</h1>
+                        <h1 class="page-header" id="pageHeader">Seleccione un paciente.</h1>
                     <?php endif;?>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -141,20 +141,20 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form role="form">
-                                        <label>Cambiar paciente</label>
+                                        <label>Seleccione paciente:</label>
                                         <div class="form-group input-group">
                                             <span class="input-group-search">
                                                 <?php if(sizeof($cita)>0): ?>
                                                     <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="<?php echo $cita[0]['nombre'] . " " . $cita[0]['apellidoPaterno'] . " " . $cita[0]['apellidoMaterno']; ?>"/>
                                                 <?php else: ?>
-                                                    <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="Seleccione un paciente"/>
+                                                    <input type="text" name="patient" list="patients" id="patient" class="form-control" placeholder="Paciente..."/>
                                                 <?php endif;?>
                                                 <datalist id="patients">
                                                     <?php foreach($pacientes as $key => $p): ?>
                                                         <option value="<?php  echo $p['usuario'] . " - " . $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno'];?>">
                                                     <?php endforeach; ?>
                                                 </datalist>
-                                                <button class="btn btn-default" type="button" onclick="getNameAndID()">Seleccionar
+                                                <button class="btn btn-primary" type="button" onclick="getNameAndID()">Seleccionar
                                                 </button>
                                             </span>
                                         </div> 
@@ -169,21 +169,16 @@
                                         <!-- Interrogatorio -->
                                         <div class="form-group">
                                             <h2 class="header">Interrogatorio:</h2>
-                                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                             <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
+                                            
                                             <tr>
                                             <td>
-                                            <h5 style="height: 0px;"> <b> Motivo de consulta </b></h5>
+                                                <h5 style="height: 10px;"> <b> Motivo de consulta </b></h5>
+                                                <textarea  placeholder="Esribe los motivos de la consulta:" rows="5" name="motivo" id="motivo" style="width: 80%;" required></textarea>
                                             </td>
                                             <td>
-                                            <h5 style="height: 10px;"><b> Síntomas</b> </h5>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <textarea  placeholder="Motivo de consulta:" rows="5" name="motivo" id="motivo" style="width: 80%;" required></textarea>
-                                            </td>
-                                            <td>
-                                            <textarea  placeholder="Síntomas:" rows="5" name="sintomas" id="sintomas" style="width: 80%;"required></textarea>
+                                                <h5 style="height: 10px;"><b> Síntomas</b> </h5>
+                                                <textarea  placeholder="Escribe aquí los síntomas:" rows="5" name="sintomas" id="sintomas" style="width: 80%;"required></textarea>
                                             </td>
                                             </tr>
                                              </table>
@@ -213,7 +208,7 @@
                                                     <td><label>por minuto</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label>Presion aRterial: </label></td>
+                                                    <td><label>Presion arterial: </label></td>
                                                     <td><input pattern="^[0-9][0-9]?[0-9]?" class="inputLowNumber" name="presBaja" id="presBaja" required/></td>
                                                     <td align="center"><label>/</label></td>
                                                     <td><input pattern="^[0-9][0-9]?[0-9]?" class="inputLowNumber" name="presAlta" id="presAlta" required/></td>
@@ -272,22 +267,22 @@
                                                 </datalist>
                                             <div class="form-group">
                                                 <label>Indicaciones extra:</label>
-                                                <textarea name="indicacionesExtra" id="indicacionesExtra"  class="form-control" rows="3" placeholder="Indicaciones terapeuticas adicionales"></textarea>
+                                                <textarea name="indicacionesExtra" id="indicacionesExtra"  class="form-control" rows="3" placeholder="Indicaciones terapeuticas adicionales."></textarea>
                                             </div>
                                         </div>
                                         <!-- Estudios -->                  
                                         <div class="form-group">
                                             <h2 class="header">Estudios:</h2>
                                             <label>Orden</label>
-                                            <textarea name="estudios" id="estudios" class="form-control" rows="3" placeholder="Ingrese aqui la orden(es) que requiera el paciente, estas se incluiran en la receta"></textarea>
+                                            <textarea name="estudios" id="estudios" class="form-control" rows="3" placeholder="Ingrese aqui la orden(es) que requiera el paciente, estas se incluiran en la receta."></textarea>
                                         </div>
                                         <!-- Notas adicionales -->
                                         <div class="form-group">
                                             <h2 class="header">Notas adicionales:</h2>
-                                            <textarea name="notasAdicionales" id="notasAdicionales" class="form-control" rows="3" placeholder="Ingrese aqui las notas adicionales que requiera"></textarea>
+                                            <textarea name="notasAdicionales" id="notasAdicionales" class="form-control" rows="3" placeholder="Ingrese aqui las notas adicionales que requiera."></textarea>
                                         </div>
-                                        <input type="submit" class="btn btn-default" value="Guardar"/>
-                                        <button type="reset" class="btn btn-default">Reiniciar</button>
+                                        <input type="submit" class="btn btn-primary " value="Guardar"/>
+                                        <button type="reset" class="btn btn-danger ">Reiniciar</button>
                                         
 
                                     </form>
@@ -383,7 +378,7 @@
                 {
                     if((x != cantidad && typeof nombre[x] !== 'undefined') || (x == cantidad && parseInt(anterior)>parseInt(cantidad)))
                     {
-                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n                        <label>Cada:</label>\n<select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n       <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                     </select>\n <br> <label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\" <?php echo date("Y-m-d")."T".date("H:i"); ?>\"/>\n            <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" /> \n                <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n                        <label>Cada:</label>\n<select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n       <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                     </select>\n <br> <label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"<?php echo date("Y-m-d")."T".date("H:i"); ?>\"/>\n            <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" /> \n                <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
                     }
                     else
                     {

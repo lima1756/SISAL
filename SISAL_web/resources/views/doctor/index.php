@@ -95,7 +95,7 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i>Próximas citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/dashboard/dates/?type=surgery">Quirurgicas</a>
@@ -110,7 +110,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/dashboard/registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="/dashboard/registerData"><i class="fa fa-edit fa-fw"></i> Registro médico</a>
                         </li>
                         <li>
                             <a href="/dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
@@ -187,13 +187,13 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">Registro</div>
-                                    <div>Registro medico</div>
+                                    <div>Registro médico</div>
                                 </div>
                             </div>
                         </div>
                         <a href="/dashboard/registerData">
                             <div class="panel-footer">
-                                <span class="pull-left">Realizar registro de paciente</span>
+                                <span class="pull-left">Realizar registro médico</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -246,7 +246,7 @@
                                 <?php endif; ?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="patients/?id=all" class="btn btn-default btn-block">Ver todos</a>
+                            <a href="patients/?id=all" class="btn btn-primary btn-block">Ver todos</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -281,10 +281,10 @@
                         <div class="panel-footer">
                             <form name="notesForm "id="notesForm" action="/newNote" method="POST">
                                     <div class="input-group">
-                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                    <input type="hidden" name="_token" id="_token" value="<?php echo csrf_token(); ?>">
                                         <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
                                         <span class="input-group-btn">
-                                            <input type="submit" class="full-size btn btn-warning btn-sm" id="submit"/>    
+                                            <input type="submit" class="full-size btn btn-primary btn-sm" id="submit"/>    
                                         </span>
                                     </div>
                             </form>
