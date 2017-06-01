@@ -93,7 +93,7 @@ public class Login extends AppCompatActivity {
 
         SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
         String type = datos.getString("type", "");
-        if(!type.equals(""))
+        /*if(!type.equals(""))
         {
             if(type.equals("medicos")) {
                 Intent intent = new Intent(getApplicationContext(), startMedic.class);
@@ -104,7 +104,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
                 startActivity(intent);
             }
-        }
+        }*/
 
         userData = new JSONObject();
 
@@ -125,17 +125,14 @@ public class Login extends AppCompatActivity {
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
 
-        if(!settings.getBoolean("saved", false))
-        {
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("saved", true);
-            editor.putInt("titleSize", 30);
-            editor.putInt("textSize", 20);
-            editor.putInt("barTextSize", 25);
-            editor.putFloat("menuOptionsTextSize", 1f);
-            editor.putFloat("menuTitleTextSize", 2f);
-            editor.apply();
-        }
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("saved", true);
+        editor.putInt("titleSize", 30);
+        editor.putInt("textSize", 20);
+        editor.putInt("barTextSize", 25);
+        editor.putFloat("menuOptionsTextSize", 1f);
+        editor.putFloat("menuTitleTextSize", 2f);
+        editor.apply();
     }
 
 
