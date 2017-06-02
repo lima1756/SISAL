@@ -4,7 +4,7 @@
     use App\myClasses\Type;
 
 date_default_timezone_set("America/Mexico_City");
-    $datos = dbConnection::select(["citas.id_medico", "usuarios.usuario", "usuarios.id_usuario","usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
+    $datos = dbConnection::select(["citas.id_medico", "usuarios.usuario","usuarios.email","usuarios.telefonoDomiciliar", "usuarios.telefonoCelular","usuarios.id_usuario","usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
         "citas",
         [["citas.id_paciente", logData::getData("id_usuario")]],
         [["usuarios", "usuarios.id_usuario", "citas.id_medico"]],
@@ -157,8 +157,11 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                 <thead>
                                     <tr>
                                         <th>Seleccionar</th>
-                                        <th>Usuario</th>
                                         <th>Doctor</th>
+                                        <th>Teléfono</th>
+                                        <th>Celular</th>
+                                        <th>Correo</th>
+
                                         <!--<th>Ultima consulta</th>-->
                                     </tr>
                                 </thead>
@@ -169,8 +172,11 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <input type="radio" name="empleado" value="<?php echo $d['id_usuario']; ?>"id="<?php echo "radio".$d['id_usuario']?>" style="display:none"/>
                                             <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
                                         </label></td>
-                                        <td><?php echo $d['usuario']; ?></td>
+                                        
                                         <td><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno']; ?></td>
+                                        <td><?php echo $d['telefonoDomiciliar']; ?></td>
+                                        <td><?php echo $d['telefonoCelular']; ?></td>
+                                        <td><?php echo $d['email']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
@@ -193,118 +199,6 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                             </section>
                             <div id="tablist">
                                     <input type="text" name="idEmpleado" id="idEmpleado" hidden/>
-                                    
-                                    <!-- Desplegable información Personal--> 
-                                    <div>
-                                        <!--href="javascript:myToggler();"-->
-                                        <a  data-toggle="collapse" role ="tab" data-target="#pInf" id="toggler" data-parent="#tablist">
-                                        <div class="btn btn-primary" style="width:100%;">
-                                            <h3>Información personal</h3>
-                                        </div>
-                                        </a>                                        
-                                        <div class="panel-body collapse indent" id="pInf" >
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
-                                            <tr>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Usuario</label>
-                                                <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Nombre</label>
-                                                <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Apellido Paterno</label>
-                                                <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Apellido Materno</label>
-                                                <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Domicilio</label>
-                                                <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
-                                            <div class="form-group">
-                                                <label>Código Postal</label>
-                                                <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Teléfono domiciliar</label>
-                                                <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Teléfono oficina</label>
-                                                <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Correo Electrónico</label>
-                                                <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Genero</label>
-                                                <select class="form-control" id="genero" name="genero" disabled>
-                                                    <option value="-1">Seleccione un genero</option>
-                                                    <option value="Masculino">Masculino</option>
-                                                    <option value="Femenino">Femenino</option>
-                                                </select>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>No. de Seguridad social</label>
-                                                <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            <tr>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Fecha de nacimiento</label>
-                                                <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Ocupación</label>
-                                                <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
-                                            </div>
-                                            </td>
-                                            </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                        
                                         <div>
                                             <div id="adicional" hidden>
                                                 <a href="" data-toggle="collapse" role ="tab" data-target="#responsableInf" data-parent="#tablist">
@@ -313,16 +207,16 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                                 </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="responsableInf" >
-                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                    <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
                                                 <tr>
                                                 <td>
-                                                Domicilio Particular:
+                                                <label>Domicilio Particular:</label>
                                                 <div class="form-group">
                                                     <input class="form-control" type="text" placeholder="Domicilio consulta particular" name="domPart" id="domPart" disabled/>
                                                 </div>
                                                 </td>
                                                 <td>
-                                                Telefono emergencias:
+                                                <label>Telefono emergencias:</label>
                                                 <div class="form-group">
                                                     <input class="form-control" type="text" placeholder="Telefono de emergencias" name="telEme" id="telEme"  disabled/>
                                                 </div>
@@ -330,13 +224,13 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                                 </tr>
                                                 <tr>
                                                 <td>
-                                                Celular de emergencias:
+                                                <label>Celular de emergencias:</label>
                                                 <div class="form-group">
                                                     <input class="form-control" type="text" placeholder="Celular de emergencias" name="celEmergencias" id="celEmergencias"  disabled/>
                                                 </div>
                                                 </td>
                                                 <td>
-                                                Correo:
+                                                <label>Correo:</label>
                                                 <div class="form-group">
                                                     <input class="form-control" type="email" placeholder="Correo Electrónico" name="correoAux" id="correoAux"  disabled/>
                                                 </div>
@@ -344,13 +238,13 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                                 </tr>
                                                 <tr>
                                                 <td>
-                                                Facebook:
+                                                <label>Facebook:</label>
                                                 <div class="form-group">
                                                     <input class="form-control" type="text" placeholder="Facebook" name="face" id="face"  disabled/>
                                                 </div>
                                                 </td>
                                                 <td>
-                                                Twitter:
+                                                <label>Twitter:</label>
                                                 <div class="form-group">
                                                     <input class="form-control" type="text" placeholder="Twitter" name="twitter" id="twitter"  disabled/>
                                                 </div>
@@ -363,8 +257,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                                     <input class="form-control" type="text" placeholder="cedula" id="cedula" name="cedula" disabled/>
                                                 </div>
                                                 </td>
-                                                </tr>
-                                                <tr>
+                                                
                                                 <td>
                                                 <div class="form-group">
                                                     <label>Especialidad:</label>
@@ -422,10 +315,12 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             responsive: true,
             "columnDefs": [
                 { "width": "10%", "targets": 0 },
-                { "width": "20%", "targets": 1 },
-                { "width": "70%", "targets": 2 }
+                { "width": "30%", "targets": 1 },
+                { "width": "15%", "targets": 2 },
+                { "width": "15%", "targets": 2 },
+                { "width": "30%", "targets": 2 }
             ],
-            "order": [[ 2, "desc" ]]
+            "order": [[ 1, "asc" ]]
         });
         <?php if($existeGet): ?>
             $.ajaxSetup({

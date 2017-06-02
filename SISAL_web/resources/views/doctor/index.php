@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href=".." target="_blank">
+                        <a href="/dashboard/clinic">
                             <div class="panel-footer">
                                 <span class="pull-left">Detalles de la institución</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

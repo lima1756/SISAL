@@ -60,6 +60,10 @@ Route::get('/dashboard', function () {
     {
         return view('admin/index');
     }
+    elseif(Type::isInCharge())
+    {
+        return view('patient/index');
+    }
     else
     {
         return redirect('/');
@@ -89,6 +93,10 @@ Route::get('/dashboard/dates', function () {
     {
         return view('patient/dates');
     }
+    elseif(Type::isInCharge())
+    {
+        return view('patient/dates');
+    }
     elseif(Type::isReceptionist())
     {
         return view('receptionist/dates');
@@ -98,6 +106,34 @@ Route::get('/dashboard/dates', function () {
         return redirect('/dashboard');
     }
 });
+
+Route::get('/dashboard/clinic', function () {
+    if(Type::isMedic())
+    {
+        return view('doctor/clinic');
+    }
+    elseif(Type::isPatient())
+    {
+        return view('patient/clinic');
+    }
+    elseif(Type::isInCharge())
+    {
+        return view('patient/clinic');
+    }
+    elseif(Type::isReceptionist())
+    {
+        return view('receptionist/clinic');
+    }
+    elseif(Type::isAdmin())
+    {
+        return view('admin/clinic');
+    }
+    else
+    {
+        return redirect('/dashboard');
+    }
+});
+
 Route::get('/dashboard/userProfile', function () {
    if(Type::isMedic())
     {
