@@ -264,7 +264,7 @@ use App\myClasses\dbConnection;
                             <label class="panel-title" id="nuevaCitaTitulo">Doc1: 28-11-2016::16:00</label>
                         </div>
                         <div class="panel-body">
-                            <form action="/nuevaCita" method="POST">
+                            <form action="javascript:;" method="POST" id="formularioNueva">
                                 <div class="form-group">
                                     <input type="checkbox" id="registrado" autocomplete="off"/>
                                     <div class="btn-group">
@@ -367,7 +367,7 @@ use App\myClasses\dbConnection;
                                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                     <input type="hidden" name="fecha_hora" id="fecha_hora" value="" hidden/>
                                     <input type="hidden" name="id_medico" id="id_medico" value="" hidden/>
-                                    <input class="btn btn-primary form-control" type="submit" value="Agregar cita"/>
+                                    <input class="btn btn-primary form-control" type="submit" onclick="return revision();" value="Agregar cita"/>
                                 </div>
                             </form>
                         </div>
@@ -397,6 +397,7 @@ use App\myClasses\dbConnection;
     <script src="../../dataSource/js/jquery/jquery.dataTables.js"></script>
     <script src="../../dataSource/js/templates/dataTables.bootstrap.min.js"></script>
     <script src="../../dataSource/js/templates/dataTables.responsive.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.15/sorting/time.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dataSource/js/templates/sb-admin-2.js"></script>
@@ -448,9 +449,9 @@ use App\myClasses\dbConnection;
                     {"data":"Hora"}
                 ],
                 "columnDefs": [
-                    { "width": "10%",  "orderable": false, "targets": 0 }
+                    { type: 'time-uni', "width": "10%",  "orderable": false, "targets": 0 }
                 ],
-                "order": [[ 1, "asc" ]]
+                "order": [[ 4, "asc" ]]
             });
             $('#usuario').select2({
                 placeholder: "Persona para la cita",
@@ -576,6 +577,29 @@ use App\myClasses\dbConnection;
                 $("#cancelacionCita").send();
             }
         }
+
+        function revision()
+        {
+            if($('#formularioNueva')[0].checkValidity() && validatePasswordUser())
+            {
+                $('#formularioNueva').prop('action', "/nuevaCita");
+            }
+            return true;
+        }
+
+        function validatePasswordUser(){
+        var password = document.getElementById("pass");
+        var confirm_password = document.getElementById("pass2");
+        console.log(password.value);
+        console.log(confirm_password.value);
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("No coinciden contraseñas");
+            return false;
+        } else {
+            confirm_password.setCustomValidity('');
+            return true;
+        }
+    }
     </script>
 
 </body>
