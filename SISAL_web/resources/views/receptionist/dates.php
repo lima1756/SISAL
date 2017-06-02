@@ -367,7 +367,7 @@ use App\myClasses\dbConnection;
                                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                     <input type="hidden" name="fecha_hora" id="fecha_hora" value="" hidden/>
                                     <input type="hidden" name="id_medico" id="id_medico" value="" hidden/>
-                                    <input class="btn btn-primary form-control" type="submit" onclick="return revision();" value="Agregar cita"/>
+                                    <input class="btn btn-primary" type="submit" onclick="return revision();" value="Agregar cita"/>
                                 </div>
                             </form>
                         </div>

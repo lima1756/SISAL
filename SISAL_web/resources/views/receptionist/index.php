@@ -188,7 +188,7 @@
                                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                         <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
                                         <span class="input-group-btn">
-                                            <input type="submit" class="full-size btn btn-warning btn-sm" id="submit"/>    
+                                            <input type="submit" class="full-size btn btn-primary btn-sm" id="submit"/>    
                                         </span>
                                     </div>
                             </form>
@@ -218,7 +218,7 @@
                                 <?php endif; ?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="/dashboard/dates" class="btn btn-default btn-block">Ver citas</a>
+                            <a href="/dashboard/dates" class="btn btn-primary btn-block">Ver citas</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
