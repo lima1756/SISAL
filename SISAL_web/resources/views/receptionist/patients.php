@@ -2,7 +2,7 @@
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
     date_default_timezone_set("America/Mexico_City");
-    $pacientes = dbConnection::select(["usuarios.id_usuario", "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
+    $pacientes = dbConnection::select(["usuarios.id_usuario", "usuarios.telefonoDomiciliar as tel", "usuarios.telefonoCelular as cel", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"],
         "usuarios",
         [],
         [["pacientes", "usuarios.id_usuario", "pacientes.id_usuario"]]
@@ -157,8 +157,9 @@
                                 <thead>
                                     <tr>
                                         <th>Seleccionar</th>
-                                        <th>Usuario</th>
                                         <th>Paciente</th>
+                                        <th>Telefono</th>
+                                        <th>Celular</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -168,8 +169,10 @@
                                             <input type="radio" name="paciente" value="<?php echo $p['id_usuario']; ?>"id="<?php echo "radio".$p['id_usuario']?>" style="display:none"/>
                                             <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
                                         </label></td>
-                                        <td><?php echo $p['usuario']; ?></td>
                                         <td><?php echo $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno']; ?></td>
+                                        <td><?php echo $p['tel']; ?></td>
+                                        <td><?php echo $p['cel']; ?></td>
+                                        
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
@@ -182,12 +185,12 @@
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-12">
-                    <form name="formulario" id="formulario" action="/dashboard/patients" method="POST">
+                    <form name="formulario" id="formulario" action="javascript:;" method="POST">
                         <input type="text" name="_token" id="_token" value="<?php echo csrf_token(); ?>" hidden/>
                         <div class="panel panel-default"aria-multiselectable="true" id="toda_info" hidden>
                             <div class="panel-heading">
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" onclick="edicion(); return false;" type="submit" id="editar">Editar</button></span>
-                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="aceptacion();" style="display:none;">Aceptar</button></span>
+                                <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="return aceptacion(); " style="display:none;">Aceptar</button></span>
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
                                 <span><h2 id="nombre_completo" name="nombre_completo">alguien</h2></span>
                             </div>
@@ -209,7 +212,7 @@
                                             <td>
                                             <div class="form-group">
                                                 <label>Usuario</label>
-                                                <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
+                                                <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled required/>
                                             </div>
                                             </td>
                                             <td>
@@ -222,96 +225,124 @@
                                             <tr>
                                             <td>
                                             <div class="form-group">
-                                                <label>Nombre</label>
-                                                <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
+                                                <label>Actualizar contraseña</label>
+                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass2" name="pass2" disabled/>
                                             </div>
                                             </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled required/>
+                                            </div>
+                                            </td>
+                                            
+                                            </tr>
+                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Apellido Paterno</label>
-                                                <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
+                                                <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled required/>
                                             </div>
                                             </td>
-                                            </tr>
-                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Apellido Materno</label>
-                                                <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
+                                                <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled required/>
                                             </div>
                                             </td>
+                                            
+                                            </tr>
+                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Domicilio</label>
-                                                <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
+                                                <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled required/>
                                             </div>
                                             </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Ciudad</label>
+                                                <input class="form-control" type="text" placeholder="Ciudad" id="ciudad" name="ciudad" disabled required/>
+                                            </div>
+                                            </td>
+                                            
                                             </tr>
                                             <tr>
                                             <td>
-                                            <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
                                             <div class="form-group">
-                                                <label>Código Postal</label>
-                                                <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
+                                                <label>Estado</label>
+                                                <input class="form-control" type="text" placeholder="Estado" id="estado" name="estado" disabled required/>
                                             </div>
                                             </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Código Postal</label>
+                                                <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled required/>
+                                            </div>
+                                            </td>
+                                            
+                                            </tr>
+                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Teléfono domiciliar</label>
-                                                <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
+                                                <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled required/>
                                             </div>
                                             </td>
-                                            </tr>
-                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Teléfono oficina</label>
-                                                <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
+                                                <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled required/>
                                             </div>
                                             </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>Correo Electrónico</label>
-                                                <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
-                                            </div>
-                                            </td>
+                                            
                                             </tr>
                                             <tr>
                                             <td>
                                             <div class="form-group">
+                                                <label>Correo Electrónico</label>
+                                                <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled required/>
+                                            </div>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
                                                 <label>Genero</label>
-                                                <select class="form-control" id="genero" name="genero" disabled>
+                                                <select class="form-control" id="genero" name="genero" disabled required>
                                                     <option value="-1">Seleccione un genero</option>
                                                     <option value="Masculino">Masculino</option>
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
                                             </div>
                                             </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>No. de Seguridad social</label>
-                                                <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
-                                            </div>
-                                            </td>
+                                            
                                             </tr>
                                             <tr>
                                             <td>
                                             <div class="form-group">
-                                                <label>Fecha de nacimiento</label>
-                                                <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
+                                                <label>No. de Seguridad social</label>
+                                                <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled required/>
                                             </div>
                                             </td>
                                             <td>
                                             <div class="form-group">
+                                                <label>Fecha de nacimiento</label>
+                                                <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled required/>
+                                            </div>
+                                            </td>
+                                            
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
                                                 <label>Ocupación</label>
-                                                <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
+                                                <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled required/>
                                             </div>
                                             </td>
                                             </tr>
                                             </table>
 
 
-                                            <div class="form-group">
+                                            <div class="form-group" id="btnResponsable">
                                                 <input type="checkbox" name="miResponsable" id="miResponsable" autocomplete="off" disabled />
                                                 <div class="btn-group"> 
                                                     <label for="miResponsable" class="btn btn-default" id="checkResponsable">
@@ -346,6 +377,10 @@
                                                         <input class="form-control" type="text" placeholder="Actualizar contraseña" id="responsablePass" name="responsablePass" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label>Confirmar contraseña</label>
+                                                        <input class="form-control" type="text" placeholder="Confirmar contraseña" id="responsablePass2" name="responsablePass2" disabled/>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <input class="form-control" type="text" placeholder="Nombre" id="responsableNombre" name="responsableNombre" disabled/>
                                                     </div>
                                                     <div class="form-group">
@@ -359,10 +394,10 @@
                                                     </div>
                                                     <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
                                                     <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Estado" name="responsableEstado" disabled/>
+                                                        <input class="form-control" type="text" placeholder="Estado" name="responsableEstado" id="responsableEstado" disabled/>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Ciudad" name="responsableCiudad" disabled/>
+                                                        <input class="form-control" type="text" placeholder="Ciudad" name="responsableCiudad" id="responsableCiudad" disabled/>
                                                     </div>
                                                     <div class="form-group">
                                                         <input class="form-control" type="number" placeholder="Código Postal" id="responsableCodigoPostal" name="responsableCodigoPostal" disabled/>
@@ -444,16 +479,14 @@
         $('#dataTables-example').DataTable({
             responsive: true,
             "columnDefs": [
-                { "width": "10%", "targets": 0 },
-                { "width": "20%", "targets": 1 },
-                { "width": "70%", "targets": 2 }
+                { "width": "10%",  "orderable": false, "targets": 0 },
+                { "width": "60%", "targets": 1 },
+                { "width": "15%", "targets": 2 },
+                { "width": "15%", "targets": 3 }
             ],
-            "order": [[ 2, "desc" ]]
+            "order": [[ 1, "asc" ]]
         });
         $(document).ready(function() {
-        $('#dataTables-example2').DataTable({
-            responsive: true
-        });
     });
         <?php if($existeGet): ?>
             $.ajaxSetup({
@@ -509,7 +542,9 @@
             {
                 $('#toda_info').show();
                 
-                document.getElementById('toda_info').scrollIntoView();
+                $('html, body').animate({
+                    scrollTop: $("#toda_info").offset().top
+                }, 1000);
                 $('#nombre_completo').html(json.generales.nombre + " " + json.generales.apellidoPaterno + " "  + json.generales.apellidoMaterno)
                 recuperarInfo();
                 cancelacion();
@@ -533,7 +568,7 @@
             $('#aceptar').hide();
             $('#medico').attr("disabled", false);
             $('#fechaCita').attr("disabled", false);
-                
+                existeResponsable();
         }
 
     function recuperarInfo()
@@ -545,8 +580,10 @@
         $('#domicilio').val(json.generales.Domicilio);
         $('#codigoPostal').val(json.generales.codigoPostal);
         $('#domTel').val(json.generales.telefonoDomiciliar);
-        $('#ofTel').val(json.generales.telefonoDomiciliar);
-        $('#email').val(json.generales.telefonoDomiciliar);
+        $('#ciudad').val(json.generales.ciudad);
+        $('#estado').val(json.generales.estado);
+        $('#ofTel').val(json.generales.telefonoCelular);
+        $('#email').val(json.generales.email);
         if(json.generales.genero=="Masculino")
         {
             $('#genero').val("Masculino");
@@ -574,6 +611,7 @@
         }
         $('#edad').html(edad);
         $('#ocupacion').val(json.generales.Ocupacion);
+        $("#btnResponsable").hide();
         if(json.encargados)
         {
             $("#responsable").show();
@@ -584,6 +622,8 @@
             $('#responsableApellidoPaterno').val(json.encargados.apellidoPaterno);
             $('#responsableApellidoMaterno').val(json.encargados.apellidoMaterno);
             $('#responsableDomicilio').val(json.encargados.Domicilio);
+            $('#responsableCiudad').val(json.encargados.ciudad);
+            $('#responsableEstado').val(json.encargados.estado);
             $('#responsableCodigoPostal').val(json.encargados.codigoPostal);
             $('#responsableDomTel').val(json.encargados.telefonoDomiciliar);
             $('#responsableOfTel').val(json.encargados.telefonoDomiciliar);
@@ -621,7 +661,7 @@
             $("#responsable").hide();
             $("#miResponsable").prop("checked", false);
             $("#idResponsable").val("");
-            $('#usuarioResponsable').val("");
+            $('#responsableUsuario').val("");
             $('#responsableNombre').val("");
             $('#responsableApellidoPaterno').val("");
             $('#responsableApellidoMaterno').val("");
@@ -630,6 +670,8 @@
             $('#responsableDomTel').val("");
             $('#responsableOfTel').val("");
             $('#responsableEmail').val("");
+            $('#responsableCiudad').val("");
+            $('#responsableEstado').val("");
             $('#responsableGenero').val("-1");
             $('#responsableSeguroSocial').val("");
             $('#responsableFechaNacimiento').val("");
@@ -649,6 +691,7 @@
         $('#editar').hide();
         $('#cancelar').show();
         $('#aceptar').show();
+        $("#btnResponsable").show();
     }
 
     function aceptacion()
@@ -660,29 +703,37 @@
                 },
                 async: false
             })
-            $.post("/ajaxRgP",
-                $('#formulario').serialize(),
-            function(data, status){
-                var misdatos = data;
-                if(misdatos !== "undefined")
-                {
-                    $("#idPaciente").val(misdatos);
-                }
-                $('#formulario :input').prop('disabled', true);
-                $('#_token').prop('disabled', false);
-                $('#editar').prop('disabled', false);
-                $('#cancelar').prop('disabled', false);
-                $('#aceptar').prop('disabled', false);
-                $('label[id="checkbox"]').attr('disabled', true);
-                $('#editar').show();
-                $('#cancelar').hide();
-                $('#aceptar').hide();
-                $('#pass').val("");
-                $('#medico').attr("disabled", false);
-                $('#fechaCita').attr("disabled", false);
-                $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
-            });
-            
+            console.log($('#formulario')[0].checkValidity());
+            if($('#formulario')[0].checkValidity() && validatePasswordUser() && validatePasswordResponsable())
+            {
+                $.post("/ajaxRgP",
+                    $('#formulario').serialize(),
+                function(data, status){
+                    var misdatos = data;
+                    if(misdatos !== "undefined")
+                    {
+                        $("#idPaciente").val(misdatos);
+                    }
+                    $('#formulario :input').prop('disabled', true);
+                    $('#_token').prop('disabled', false);
+                    $('#editar').prop('disabled', false);
+                    $('#cancelar').prop('disabled', false);
+                    $('#aceptar').prop('disabled', false);
+                    $('label[id="checkbox"]').attr('disabled', true);
+                    $('#editar').show();
+                    $('#cancelar').hide();
+                    $('#aceptar').hide();
+                    $('#pass').val("");
+                    $('#medico').attr("disabled", false);
+                    $('#fechaCita').attr("disabled", false);
+                    $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
+                    return true;
+                });
+            }
+            else
+            {
+                return true;
+            }
         }
 
     var activo = false;
@@ -717,18 +768,14 @@
     }
 
     $("#miResponsable").change(function() {
-        if(document.getElementById('miResponsable').checked)
-        {
-            $("#responsable").show();   
-        }
-        else
-        {
-            $("#responsable").hide();
-        }
+        existeResponsable()
     });
 
     function nuevo()
     {
+
+        
+
         $('#idPaciente').val(-1);
         $('#nombre_completo').html("Nuevo paciente: ")
         $('#usuario').val("");
@@ -751,7 +798,7 @@
         $("#responsable").hide();
         $("#miResponsable").prop("checked", false);
         $("#idResponsable").val("");
-        $('#usuarioResponsable').val("");
+        $('#responsableUsuario').val("");
         $('#responsableNombre').val("");
         $('#responsableApellidoPaterno').val("");
         $('#responsableApellidoMaterno').val("");
@@ -774,7 +821,87 @@
         $('#editar').hide();
         $('#aceptar').show(); 
         $('#toda_info').show();
+        $('html, body').animate({
+            scrollTop: $("#toda_info").offset().top
+        }, 1000);
+        $("#btnResponsable").show();
         return false;
+        
+    }
+
+    function existeResponsable()
+    {
+        if(document.getElementById('miResponsable').checked)
+        {
+            $("#responsable").show();
+            document.getElementById('responsableUsuario').required = true;
+            document.getElementById('responsableNombre').required = true;
+            document.getElementById('responsableApellidoPaterno').required = true;
+            document.getElementById('responsableApellidoMaterno').required = true;
+            document.getElementById('responsableDomicilio').required = true;
+            document.getElementById('responsableCodigoPostal').required = true;
+            document.getElementById('responsableDomTel').required = true;
+            document.getElementById('responsableOfTel').required = true;
+            document.getElementById('responsableEmail').required = true;
+            document.getElementById('responsableCiudad').required = true;
+            document.getElementById('responsableEstado').required = true;
+            document.getElementById('responsableGenero').required = true;
+            document.getElementById('responsableSeguroSocial').required = true;
+            document.getElementById('responsableFechaNacimiento').required = true;
+            document.getElementById('responsableEdad').required = true;
+            document.getElementById('responsableOcupacion').required = true;
+            if($("#idResponsable").val()=="")
+            {
+                document.getElementById('responsablePass').required = true;
+                document.getElementById('responsablePass2').required = true;
+            }
+        }
+        else
+        {
+            $("#responsable").hide();
+            document.getElementById('responsableUsuario').required = false;
+            document.getElementById('responsableNombre').required = false;
+            document.getElementById('responsableApellidoPaterno').required = false;
+            document.getElementById('responsableApellidoMaterno').required = false;
+            document.getElementById('responsableDomicilio').required = false;
+            document.getElementById('responsableCodigoPostal').required = false;
+            document.getElementById('responsableDomTel').required = false;
+            document.getElementById('responsableOfTel').required = false;
+            document.getElementById('responsableEmail').required = false;
+            document.getElementById('responsableCiudad').required = false;
+            document.getElementById('responsableEstado').required = false;
+            document.getElementById('responsableGenero').required = false;
+            document.getElementById('responsableSeguroSocial').required = false;
+            document.getElementById('responsableFechaNacimiento').required = false;
+            document.getElementById('responsableEdad').required = false;
+            document.getElementById('responsableOcupacion').required = false;
+            document.getElementById('responsablePass').required = false;
+            document.getElementById('responsablePass2').required = false;
+        }
+    }
+
+    function validatePasswordUser(){
+        var password = document.getElementById("pass");
+        var confirm_password = document.getElementById("pass2");
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("No coinciden contraseñas");
+            return false;
+        } else {
+            confirm_password.setCustomValidity('');
+            return true;
+        }
+    }
+
+    function validatePasswordResponsable(){
+        var password = document.getElementById("responsablePass");
+        var confirm_password = document.getElementById("responsablePass2");
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+            return false;
+        } else {
+            confirm_password.setCustomValidity('');
+            return true;
+        }
     }
     </script>
     

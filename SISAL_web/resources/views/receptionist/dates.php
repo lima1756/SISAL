@@ -144,14 +144,14 @@ use App\myClasses\dbConnection;
                                 <div class="form-group" style="padding-top:15px;" id="filtros">
 
 
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date"/>
+                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date" <?php if(isset($_GET['date'])){ $date = new DateTime($_GET['date']);echo "value=\"".$date->format('Y-m-d')."\"";}?>/>
                                     &nbsp&nbsp
                                     <br>
                                     <br>
                                     <label class="btn">Doctor: </label>
-                                    <select class="btn btn-default" name="idDoc" id="idDoc">
+                                    <select class="btn btn-default" name="idDoc" id="idDoc" <?php if(isset($_GET['med'])){echo "value=\"" . $_GET['med'] . "\"";}?>>
                                         <?php foreach($listaDoctores as $d): ?>
-                                            <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['usuario'] . " - " . $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
+                                            <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     <br>
@@ -191,11 +191,11 @@ use App\myClasses\dbConnection;
                                     <span>&nbsp</span>
                                     <input type="checkbox" name="agenda" id="agenda" />
                                         <div class="btn-group">
-                                            <label for="disponible" id="icoDisponible" class="btn btn-default">
+                                            <label for="agenda" id="icoAgenda" class="btn btn-default">
                                                 <span class="fa fa-check"></span>
                                                 <span>&nbsp</span>
                                             </label>
-                                            <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
+                                            <span>&nbsp</span><label for="agenda" id="labelAgenda" class="btn btn-default active">
                                                 Ver agenda completa
                                             </label>
                                         </div>
@@ -217,7 +217,7 @@ use App\myClasses\dbConnection;
                                     <tr>
                                         <th>Seleccionar</th>
                                         <th>Paciente</th>
-                                        <th>Usuario</th>
+                                        <th>Celular</th>
                                         <th>Tipo</th>
                                         <th>Hora</th>
                                     </tr>
@@ -286,7 +286,74 @@ use App\myClasses\dbConnection;
                                 </div>
                                 <div id="usuarioNuevo" hidden>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="nombreRealNuevo" id="nombreRealNuevo" placeholder="Nombre del paciente"/>
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Usuario</label>
+                                                        <input class="form-control" type="text" placeholder="Usuario" id="usuarioNuevo" name="usuarioNuevo" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Contraseña</label>
+                                                        <input class="form-control" type="password" placeholder="Contraseña" id="pass" name="pass" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Confirmar Contraseña</label>
+                                                        <input class="form-control" type="password" placeholder="Confirmar contraseña" id="pass2" name="pass2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Nombre</label>
+                                                        <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Apellido Paterno</label>
+                                                        <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Apellido Materno</label>
+                                                        <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Teléfono domiciliar</label>
+                                                        <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Teléfono Celular</label>
+                                                        <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Correo Electronico</label>
+                                                        <input class="form-control" type="email" placeholder="Correo Electronico" id="email" name="email" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -353,7 +420,9 @@ use App\myClasses\dbConnection;
                 mm='0'+mm
             } 
             today = yyyy+'-'+mm+'-'+dd;
-            $('#date').val(today);
+            <?php if(!isset($_GET['date'])): ?>
+                $('#date').val(today);
+            <?php endif; ?>
             $miTabla = $('#dataTables-example').DataTable({
                 responsive: true,
                 "ajax": {
@@ -374,10 +443,14 @@ use App\myClasses\dbConnection;
                         return "<label class=\"btn active\">  <input type='radio' value='"+data.Seleccionar+"' id='"+data.Seleccionar.replace(/\s/g, '')+"' name='optradio' onclick='obtenerCita(\"" + data.Seleccionar + "\")' hidden/><i class=\"fa fa-circle-o fa-2x\"></i><i class=\"fa fa-dot-circle-o fa-2x\"></i> </label>";
                     }},
                     {"data":"Paciente"},
-                    {"data":"Usuario"},
+                    {"data":"celular"},
                     {"data":"Tipo"},
                     {"data":"Hora"}
-                ]
+                ],
+                "columnDefs": [
+                    { "width": "10%",  "orderable": false, "targets": 0 }
+                ],
+                "order": [[ 1, "asc" ]]
             });
             $('#usuario').select2({
                 placeholder: "Persona para la cita",
@@ -396,7 +469,9 @@ use App\myClasses\dbConnection;
                 allowClear: true,
                 language: "es"
             });
-            $('#idDoc').val('').trigger("change");
+            <?php if(!isset($_GET['med'])): ?>
+                $('#idDoc').val('').trigger("change");
+            <?php endif; ?>
         });
 
         function obtenerCita(cita)
@@ -447,7 +522,14 @@ use App\myClasses\dbConnection;
                 $("#usuarioRegistrado").hide();
                 $("#usuarioNuevo").show();
                 $('#usuario').val('').trigger("change");
-                document.getElementById("nombreRealNuevo").required = true;
+                document.getElementById("usuarioNuevo").required = true;
+                document.getElementById("pass").required  = true;
+                document.getElementById("pass2").required = true;
+                document.getElementById("nombre").required = true;
+                document.getElementById("apellidoPaterno").required = true;
+                document.getElementById("apellidoMaterno").required = true;
+                document.getElementById("domTel").required = true;
+                document.getElementById("ofTel").required = true;
                 document.getElementById("usuario").required = false;
             }
             else
@@ -455,7 +537,14 @@ use App\myClasses\dbConnection;
                 $("#nombreRealNuevo").val("");
                 $("#usuarioNuevo").hide();
                 $("#usuarioRegistrado").show();
-                document.getElementById("nombreRealNuevo").required = false;
+                document.getElementById("usuarioNuevo").required = false;
+                document.getElementById("pass").required  = false;
+                document.getElementById("pass2").required = false;
+                document.getElementById("nombre").required = false;
+                document.getElementById("apellidoPaterno").required = false;
+                document.getElementById("apellidoMaterno").required = false;
+                document.getElementById("domTel").required = false;
+                document.getElementById("ofTel").required = false;
                 document.getElementById("usuario").required = true;
             }
         });

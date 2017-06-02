@@ -582,6 +582,7 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     $idDoc = $_POST['idDoc'];
     $futuras = $_POST['futuras'] == "true" ? true : false;
     $datos = array();
+    
     if($futuras)
     {
         if($idDoc=="")
@@ -590,17 +591,17 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
             $datos["data"] = array();
             foreach($consulta as $c)
             {
-                array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
+                array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "celular" => $c['celular'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
             }
             return json_encode($datos);
         }
         else
         {
-            $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.usuario FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE fecha_hora>=CURDATE() AND citas.id_medico = $idDoc;");        
+            $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.telefonoCelular as celular FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE fecha_hora>=CURDATE() AND citas.id_medico = $idDoc;");        
             $datos["data"] = array();
             foreach($consulta as $c)
             {
-                array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
+                array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "celular" => $c['celular'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
             }
             return json_encode($datos);
         }
@@ -625,7 +626,7 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
         preg_match('/\)/',$horario, $par2, PREG_OFFSET_CAPTURE);
         $fin2 = $par2[0][1] - $inicio2;
         $horaFin = substr($horario, $inicio2, $fin2);
-        $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "citas.id_cita", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.nombre", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.usuario"],
+        $consulta = dbConnection::select(["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d') as fecha", "citas.id_cita", "DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora", "tipocita.nombre as tipo", "usuarios.telefonoCelular as celular", "usuarios.id_usuario", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "usuarios.nombre"],
             "citas",
             [["citas.id_medico", $idDoc], ["DATE_FORMAT(citas.fecha_hora, '%Y-%m-%d')", $date]],
             [["tipocita", "citas.tipo", "tipocita.id"], ["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
@@ -637,22 +638,21 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
             $conteo = 0;
         if(strtotime($date)<time())
         {
-            
                 foreach($consulta as $c)
                 {
-                            array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
+                            array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "celular" => $c['celular'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
                             $comprobacion = false;
                             $tiempoExtra = $c['hora'];
                 }
         }
         elseif($disponible)
         {   
-            while(strtotime($time)<strtotime($horaFin) && $conteo!=1000)
+            while(strtotime($time)<strtotime($horaFin) && $conteo!=10000)
             {
                 $comprobacion = true;
                 foreach($consulta as $c)
                 {
-                    if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
+                    if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
                         {
                             $comprobacion = false;
                             $tiempoExtra = $c['hora'];
@@ -660,7 +660,7 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
                 }
                 if($comprobacion && $hoyTrabaja)
                 {
-                    array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+                    array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "celular" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
                     $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
                     $time = date("H:i:s", $time);
                 }
@@ -679,16 +679,16 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
                 $comprobacion = true;
                 foreach($consulta as $c)
                 {
-                    if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) <= strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
+                    if((strtotime($c['hora']) >= strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))) || (strtotime($c['hora']) > strtotime($time) && strtotime($c['hora']) < strtotime("+".$tiempoConsulta." minutes",strtotime($time))))
                     {
-                        array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
+                        array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "celular" => $c['celular'], "Tipo" => $c['tipo'], "Hora" => $c['hora']]);
                         $comprobacion = false;
                         $tiempoExtra = $c['hora'];
                     }
                 }
                 if($comprobacion && $hoyTrabaja)
                 {
-                    array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "Usuario" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
+                    array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "celular" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
                     $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
                     $time = date("H:i:s", $time);
                 }
@@ -706,10 +706,9 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     else
     {
         $datos["data"] = [];
-        $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.usuario FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE DATE(fecha_hora)=DATE(NOW());"); 
         foreach($consulta as $c)
         {
-            array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "Usuario" => $c['usuario'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
+            array_push($datos["data"],["Seleccionar"=> $c['id_cita'], "Paciente" => $c['nombre'] . " " . $c['apellidoPaterno'] . " " . $c['apellidoMaterno'], "celular" => $c['celular'], "Tipo" => $c['tipo'], "Hora" => $c['fecha']." ".$c['hora']]);
         }
         return json_encode($datos);
     }
@@ -749,14 +748,17 @@ Route::POST('/nuevaCita', function() {
     }
     else
     {
-        $usuario = time();
-        dbConnection::insert("usuarios", ["usuario", "nombre"], [[$usuario, $_POST['nombreRealNuevo']]]);
-        $idUsuario = dbConnection::lastID();
+        $cipher_pass = hash("sha256", $_POST['pass']);
+        dbConnection::insert("usuarios",
+            ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'telefonoDomiciliar', 'telefonoCelular'],
+            [[$_POST['usuarioNuevo'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domTel'], $_POST['ofTel']]]
+            );
+        $idPaciente = dbConnection::lastID();
+        dbConnection::insert("pacientes", ["id_usuario"], [[$idPaciente]]);
         dbConnection::insert("citas", ["id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "tipo"],
-        [[$idUsuario, logData::getData("id_usuario"), $_POST['id_medico'], $_POST['fecha_hora'], $_POST['selectTipoCita']]]);
-        dbConnection::insert("pacientes", ["id_usuario"], [[$idUsuario]]);
+        [[$idPaciente, logData::getData("id_usuario"), $_POST['id_medico'], $_POST['fecha_hora'], $_POST['selectTipoCita']]]);
     }
-    return redirect("/dashboard/dates");
+    return redirect("/dashboard/dates?date=".$_POST['fecha_hora']."&med=".$_POST['id_medico']);
 });
 
 
@@ -764,14 +766,14 @@ Route::POST('/ajaxRP' /* Recepcionista obtiene Paciente*/, function() {
     if(Type::isReceptionist())
     {
         $infoPacientes = array();
-        $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+        $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.ciudad", "usuarios.estado", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
                 "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
                 "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
             "usuarios", 
             [["usuarios.id_usuario", $_POST['patientId']]]
             );
         $infoPacientes['generales'] = $generales[0];
-        $responsable = dbConnection::select(["encargados.id_usuario" , "usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+        $responsable = dbConnection::select(["encargados.id_usuario" , "usuarios.usuario", "usuarios.ciudad", "usuarios.estado", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
                 "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
                 "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
             "encargados", 
@@ -1066,9 +1068,10 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
     if($_POST['idPaciente']!=-1)
     {
         if($_POST['pass']==''){
+            
             dbConnection::update("usuarios",
-                ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                [$_POST['usuario'],$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
+                ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                [$_POST['usuario'],$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero']!="-1"?$_POST['genero']:null, $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion'], $_POST['ciudad'], $_POST['estado']],
                 [['usuarios.id_usuario', $_POST['idPaciente']]]
             );
             if($_POST['idResponsable'] != "" && isset($_POST['miResponsable']))
@@ -1077,7 +1080,7 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                 {
                     dbConnection::update("usuarios",
                         ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
+                        [$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['ciudad'], $_POST['estado']],
                         [['usuarios.id_usuario', $_POST['idResponsable']]]
                     );
                 }
@@ -1085,8 +1088,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                 {
                     $cipher_pass = hash("sha256", $_POST['responsablePass']);
                     dbConnection::update("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
+                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']],
                         [['usuarios.id_usuario', $_POST['idResponsable']]]
                     );
                 }
@@ -1096,8 +1099,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                 if($_POST['responsablePass']=="")
                 {
                     dbConnection::insert("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
+                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']]]
                     );
                 }
                 else
@@ -1105,8 +1108,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                     
                     $cipher_pass = hash("sha256", $_POST['responsablePass']);
                     $algo = dbConnection::insert("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
+                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']]]
                     );
                 }
                 $id = dbConnection::lastID();
@@ -1123,8 +1126,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
         {
             $cipher_pass = hash("sha256", $_POST['pass']);
             dbConnection::update("usuarios",
-                ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
+                ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero']!="-1"?$_POST['genero']:null, $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion'], $_POST['ciudad'], $_POST['estado']],
                 [['usuarios.id_usuario', $_POST['idPaciente']]]);
             if($_POST['idResponsable'] != "" && isset($_POST['miResponsable']))
             {
@@ -1132,16 +1135,16 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                 {
                     var_dump($_POST['idResponsable']);
                     dbConnection::update("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
+                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']],
                         [['usuarios.id_usuario', $_POST['idResponsable']]]);
                 }
                 else
                 {
                     $cipher_pass = hash("sha256", $_POST['responsablePass']);
                     dbConnection::update("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']],
+                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']],
                         [['usuarios.id_usuario', $_POST['idResponsable']]]
                     );
                 }
@@ -1151,8 +1154,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                 if($_POST['responsablePass']=="")
                 {
                     dbConnection::insert("usuarios",
-                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
+                        ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']]]
                     );
                 }
                 else
@@ -1160,8 +1163,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                     
                     $cipher_pass = hash("sha256", $_POST['responsablePass']);
                     $algo = dbConnection::insert("usuarios",
-                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                        [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
+                        ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                        [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']]]
                     );
                 }
                 $id = dbConnection::lastID();
@@ -1179,8 +1182,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
     {
         $cipher_pass = hash("sha256", $_POST['pass']);
         dbConnection::insert("usuarios",
-            ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-            [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
+            ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+            [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero']!="-1"?$_POST['genero']:null, $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion'], $_POST['ciudad'], $_POST['estado']]]
             );
         $idPaciente = dbConnection::lastID();
         dbConnection::insert("pacientes", ["id_usuario"], [[$idPaciente]]);
@@ -1189,8 +1192,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
             if($_POST['responsablePass']=="")
             {
                 dbConnection::insert("usuarios",
-                    ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                    [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
+                    ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                    [[$_POST['responsableUsuario'],$_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']]]
                 );
             }
             else
@@ -1198,8 +1201,8 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
                 
                 $cipher_pass = hash("sha256", $_POST['responsablePass']);
                 $algo = dbConnection::insert("usuarios",
-                    ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-                    [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero'], $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion']]]
+                    ['usuario', "pass", 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion', 'ciudad', 'estado'],
+                    [[$_POST['responsableUsuario'], $cipher_pass, $_POST['responsableNombre'], $_POST['responsableEmail'], $_POST['responsableApellidoPaterno'], $_POST['responsableApellidoMaterno'], $_POST['responsableDomicilio'], $_POST['responsableCodigoPostal']==""?null:$_POST['responsableCodigoPostal'], $_POST['responsableDomTel'], $_POST['responsableOfTel'], $_POST['responsableGenero']!="-1"?$_POST['responsableGenero']:null, $_POST['responsableSeguroSocial'], $_POST['responsableFechaNacimiento']==""?null: $_POST['responsableFechaNacimiento'], $_POST['responsableOcupacion'], $_POST['responsableCiudad'], $_POST['responsableEstado']]]
                 );
             }
             $id = dbConnection::lastID();
