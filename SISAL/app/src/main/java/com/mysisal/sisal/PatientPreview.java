@@ -48,6 +48,7 @@ public class PatientPreview extends AppCompatActivity {
         params.put("key", key);
         params.put("type", type);
         params.put("id", id);
+
         RequestQueue queue = Volley.newRequestQueue(this);
 
         String url = "https://www.mysisal.com/android/userData";
@@ -130,7 +131,13 @@ public class PatientPreview extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError response) {
-
+                TextView Titles[] = new TextView[5];
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+                Titles[0] = new TextView(getApplicationContext());
+                Titles[0].setTextSize(settings.getInt("titleSize", 30));
+                Titles[0].setText("Error, porfavor vuelva a intentarlo");
+                Titles[0].setTextColor(Color.RED);
+                miLayOut.addView(Titles[0]);
             }
         });
         queue.add(jsObjRequest);
