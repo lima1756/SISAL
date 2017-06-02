@@ -123,12 +123,12 @@
                                     <i class="fa fa-calendar-check-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">5</div>
+                                    <div class="huge"><!-- ingresa aquí los medicamentos--></div>
                                     <div>Medicamentos de hoy</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="dates">
+                        <a href="/dashboard/dates">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver receta</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -145,12 +145,12 @@
                                     <i class="fa fa-hospital-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><h2>Hospital</h2></div>
+                                    <div class="huge"><h2>Clínica</h2></div>
                                     <div>Información</div>
                                 </div>
                             </div>
                         </div>
-                        <a href=".." target="_blank">
+                        <a href="/dashboard/clinic">
                             <div class="panel-footer">
                                 <span class="pull-left">Detalles de la institución</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -252,7 +252,7 @@
                                 <?php endif; ?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="/dashboard/dates" class="btn btn-default btn-block">Ver todas</a>
+                            <a href="/dashboard/dates" class="btn btn-primary btn-block">Ver todas</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>

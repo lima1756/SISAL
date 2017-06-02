@@ -108,100 +108,100 @@
                                 <div>
                                     <div class="panel-heading">
                                         <h4>Información personal</h2>
-                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <table width="100%" class="table table-striped table-hover" id="dataTables-example">
                                     <tr><td>
-                                        Nombre:
+                                        <label>Nombre:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 80%;" value="<?php echo logData::getData('nombre'); ?>" disabled/>
+                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 100%;" value="<?php echo logData::getData('nombre'); ?>" disabled/>
                                         </div>   
                                         </td>
                                         <td>
-                                        Apellido Paterno:                                
+                                        <label>Apellido Paterno:</label>                                
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" style="height: 30px; width: 80%;" placeholder="Apellido Paterno" value="<?php echo logData::getData('apellidoPaterno'); ?>" disabled/>
+                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" style="height: 30px; width: 100%;" placeholder="Apellido Paterno" value="<?php echo logData::getData('apellidoPaterno'); ?>" disabled/>
                                         </div>
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Apellido Materno:
+                                        <label>Apellido Materno:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" style="height: 30px; width: 80%;" placeholder="Apellido Materno" value="<?php echo logData::getData('apellidoMaterno'); ?>" disabled/>
+                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" style="height: 30px; width: 100%;" placeholder="Apellido Materno" value="<?php echo logData::getData('apellidoMaterno'); ?>" disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        Domicilio:
+                                        <label>Domicilio:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" style="height: 30px; width: 80%;" value="<?php echo logData::getData('Domicilio'); ?>" disabled/>
+                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" style="height: 30px; width: 100%;" value="<?php echo logData::getData('Domicilio'); ?>" disabled/>
                                         </div>
                                         </td>
                                         </td>
                                         <tr>
                                         <td>
-                                        Código postal:
+                                        <label>Código postal:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" style="height: 30px; width: 80%;" value="<?php echo logData::getData('codigoPostal'); ?>" disabled/>
+                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" style="height: 30px; width: 100%;" value="<?php echo logData::getData('codigoPostal'); ?>" disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        Teléfono:
+                                        <label>Teléfono:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 80%;" value="<?php echo logData::getData('telefonoDomiciliar'); ?>" disabled/>
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 100%;" value="<?php echo logData::getData('telefonoDomiciliar'); ?>" disabled/>
                                         </div>
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Celular:
+                                        <label>Celular:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 80%;" value="<?php echo logData::getData('telefonoCelular'); ?>" disabled/>
+                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 100%;" value="<?php echo logData::getData('telefonoCelular'); ?>" disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        Correo:
+                                        <label>Correo:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" style="height: 30px; width: 80%;" value="<?php echo logData::getData('email'); ?>" disabled/>
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" style="height: 30px; width: 100%;" value="<?php echo logData::getData('email'); ?>" disabled/>
                                         </div>
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Sexo:
+                                        <label>Sexo:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" style="height: 30px; width: 80%;" value="<?php echo logData::getData('genero'); ?>" disabled/>
+                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" style="height: 30px; width: 100%;" value="<?php echo logData::getData('genero'); ?>" disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        No. Seguridad social:
+                                        <label>No. Seguridad social:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" style="height: 30px; width: 80%;" value="<?php echo logData::getData('noSeguroSocial'); ?>" disabled/>
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" style="height: 30px; width: 100%;" value="<?php echo logData::getData('noSeguroSocial'); ?>" disabled/>
                                         </div>
                                        </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Fecha de nacimiento:
+                                        <label>Fecha de nacimiento:</label>
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" style="height: 30px; width: 80%;" value="<?php echo logData::getData('fechaNacimiento'); ?>" disabled/>
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" style="height: 30px; width: 100%;" value="<?php echo logData::getData('fechaNacimiento'); ?>" disabled/>
+                                        </div>
+                                        </td>
+                                        <td>
+                                        <label>Ocupación:</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 100%;" value="<?php echo logData::getData('Ocupacion'); ?>" disabled/>
                                         </div>
                                         </td>
                                         
+                                        </tr>
+                                        <tr>
                                         <td>
                                         <?php
                                             $diff = abs(strtotime(date('Y-m-d')) - strtotime(logData::getData('fechaNacimiento')));
                                             $years = floor($diff / (365*60*60*24));
                                         ?>
-                                        Edad:
+                                        <label>Edad:</label>
                                         <div class="form-group">
-                                            <label class="form-control" id="edad" style="height: 30px; width: 80%;" ><?php echo ($years); ?></label>
-                                        </div>
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                        Ocupación:
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 80%;" value="<?php echo logData::getData('Ocupacion'); ?>" disabled/>
+                                            <label  id="edad" style="height: 30px; width: 100%;" ><?php echo ($years); ?></label>
                                         </div>
                                         </td>
                                         </tr>
