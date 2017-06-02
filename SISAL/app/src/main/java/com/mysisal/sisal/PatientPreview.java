@@ -135,7 +135,7 @@ public class PatientPreview extends AppCompatActivity {
                 SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
                 Titles[0] = new TextView(getApplicationContext());
                 Titles[0].setTextSize(settings.getInt("titleSize", 30));
-                Titles[0].setText("Error, porfavor vuelva a intentarlo");
+                Titles[0].setText("Error, porfavor vuelva a intentarlo:\n " + response.getMessage());
                 Titles[0].setTextColor(Color.RED);
                 miLayOut.addView(Titles[0]);
             }
