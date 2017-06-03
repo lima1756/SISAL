@@ -1299,6 +1299,9 @@ Route::POST("/android/logIn", function(){
         echo json_encode(array("error"=>"post"));
 });
 
+
+
+
 Route::POST("/android/retreiveData", function(){
     if(isset($_POST['type']) && isset($_POST['key']))
     {
@@ -1404,9 +1407,12 @@ Route::POST("/android/userData", function(){
 	             FROM registro_clinico 
 	             WHERE registro_clinico.id_paciente = ".$id."
 		     )
-		AND registro_clinico.fecha_hora>now();");
-		var_dump(dbConnection::RAW("SELECT now()"));
-	    echo json_encode($data);
+		AND registro_clinico.fecha_hora<now();");
+	    if(isset($data[0]))
+	        echo json_encode($data[0]);
+	    else
+                echo "{}";
+
         }
     }
 });

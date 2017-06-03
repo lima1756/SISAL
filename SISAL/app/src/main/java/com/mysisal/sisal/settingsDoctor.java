@@ -307,8 +307,5 @@ public class settingsDoctor extends AppCompatActivity
         Intent intent = new Intent(getApplicationContext(), settingsDoctor.class);
         startActivity(intent);
 
-
     }
-
-
 }

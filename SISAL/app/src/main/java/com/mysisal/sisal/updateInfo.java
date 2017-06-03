@@ -115,9 +115,4 @@ public class updateInfo extends Service {
 
     }
 
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-    }
 }
