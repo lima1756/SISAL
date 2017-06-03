@@ -63,9 +63,39 @@ public class settingsDoctor extends AppCompatActivity
         opciones.setAdapter(adapter);
         Integer x = opciones.getChildCount();
 
-        adaptText();
+        final SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
+        //Titulo1
+
+        TextView titulo = (TextView) findViewById(R.id.titulo1);
+        titulo.setTextSize(settings.getInt("titleSize", 30));
+
+        //CheckBox
+
+        CheckBox cb = (CheckBox) findViewById(R.id.notificationsMedic);
+        cb.setTextSize(settings.getInt("titleSize", 30));
+
+        //btn save
 
         Button btnSave = (Button) findViewById(R.id.btnSave);
+        btnSave.setTextSize(settings.getInt("titleSize", 30));
+
+        Menu menu = navigationView.getMenu();
+
+        MenuItem item1 = menu.findItem(R.id.nav_config);
+        SpannableString s = new SpannableString(item1.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item1.setTitle(s);
+
+        MenuItem item2 = menu.findItem(R.id.nav_dates);
+        s = new SpannableString(item2.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item2.setTitle(s);
+
+        MenuItem item3 = menu.findItem(R.id.nav_start);
+        s = new SpannableString(item3.getTitle()); //get text from our menu item.
+        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
+        item3.setTitle(s);
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +103,6 @@ public class settingsDoctor extends AppCompatActivity
             }
         });
 
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
         final Boolean notifications = settings.getBoolean("notifications", true);
 
         CheckBox checkBox = (CheckBox) findViewById(R.id.notificationsMedic);
@@ -198,20 +227,6 @@ public class settingsDoctor extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -295,40 +310,5 @@ public class settingsDoctor extends AppCompatActivity
 
     }
 
-    private void adaptText()
-    {
-        final SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
-        //Titulo1
 
-        TextView titulo = (TextView) findViewById(R.id.titulo1);
-        titulo.setTextSize(settings.getInt("titleSize", 30));
-
-        //CheckBox
-
-        CheckBox cb = (CheckBox) findViewById(R.id.notificationsMedic);
-        cb.setTextSize(settings.getInt("titleSize", 30));
-
-        //btn save
-
-        Button btnSave = (Button) findViewById(R.id.btnSave);
-        btnSave.setTextSize(settings.getInt("titleSize", 30));
-
-        Menu menu = navigationView.getMenu();
-
-        MenuItem item1 = menu.findItem(R.id.nav_config);
-        SpannableString s = new SpannableString(item1.getTitle()); //get text from our menu item.
-        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
-        item1.setTitle(s);
-
-        MenuItem item2 = menu.findItem(R.id.nav_dates);
-        s = new SpannableString(item2.getTitle()); //get text from our menu item.
-        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
-        item2.setTitle(s);
-
-        MenuItem item3 = menu.findItem(R.id.nav_start);
-        s = new SpannableString(item3.getTitle()); //get text from our menu item.
-        s.setSpan(new RelativeSizeSpan(settings.getFloat("menuOptionsTextSize", 1f)),0,s.length(),0); //here is where we are actually setting the size with a float (proportion).
-        item3.setTitle(s);
-
-    }
 }

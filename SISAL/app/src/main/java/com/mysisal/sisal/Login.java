@@ -93,7 +93,7 @@ public class Login extends AppCompatActivity {
 
         SharedPreferences datos = getApplicationContext().getSharedPreferences("userData", 0);
         String type = datos.getString("type", "");
-        /*if(!type.equals(""))
+        if(!type.equals(""))
         {
             if(type.equals("medicos")) {
                 Intent intent = new Intent(getApplicationContext(), startMedic.class);
@@ -104,7 +104,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), patientStartActivity.class);
                 startActivity(intent);
             }
-        }*/
+        }
 
         userData = new JSONObject();
 

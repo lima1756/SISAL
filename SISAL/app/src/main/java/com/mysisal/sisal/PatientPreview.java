@@ -64,9 +64,10 @@ public class PatientPreview extends AppCompatActivity {
                 Boolean error = false;
                 Boolean empty = false;
                 SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
-
+                Log.d("Response_patientPreview", userData.toString());
                 try {
-                    if (userData.toString() != "{}") {
+                    if (!userData.toString().equals("{}")) {
+                        Log.d("Response_hayDatos", "OK");
                         Titles[0] = new TextView(getApplicationContext());
                         Titles[0].setText("Usuario: ");
                         Contents[0] = new TextView(getApplicationContext());

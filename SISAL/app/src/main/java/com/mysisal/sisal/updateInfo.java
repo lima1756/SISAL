@@ -63,6 +63,9 @@ public class updateInfo extends Service {
 
             @Override
             public void onResponse(JSONObject response) {
+                Alarms alarms = Alarms.getInstance(getApplicationContext());
+                if (!alarms.isEmpty())
+                    alarms.unSetAll(getApplicationContext());
                 userData = response;
                 String filename = "data.json";
                 FileOutputStream outputStream;
@@ -74,11 +77,8 @@ public class updateInfo extends Service {
                 } catch (Exception e) {
 
                 }
-                if(notifications) {
-                    Alarms alarms = Alarms.getInstance(getApplicationContext());
-
-                    if (!alarms.isEmpty())
-                        alarms.unSetAll(getApplicationContext());
+                if(notifications)
+                {
                     alarms.setAll(getApplicationContext());
                 }
                 Log.d("Response_update", "OK");
@@ -101,11 +101,7 @@ public class updateInfo extends Service {
 
                 }
                 Log.d("Response_update", "NO_OK");
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", 0);
-                SharedPreferences.Editor editor = settings.edit();
-                settings.edit().remove("notifications").commit();
-                editor.putBoolean("notifications", false);
-                editor.apply();
+
                 stopSelf();
             }
         });
