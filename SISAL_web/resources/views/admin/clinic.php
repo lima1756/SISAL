@@ -62,7 +62,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/..">
-                <IMG SRC="dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
+                <IMG SRC="/dataSource/img/SISAL3.png" WIDTH=120 HEIGHT=37 ALT="SISAL">  
                 </a>
             </div>
             <!-- /.navbar-header -->
@@ -89,7 +89,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
@@ -114,124 +114,54 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
+                <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Inicio</h1>
+                    <h1 class="page-header">Clínica San Antonio</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user-md fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><h2>Doctores</h2></div>
-                                    <div> </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/Personal/?type=doctors">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver doctores</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
+            <div class="row grid">
+                <div class="grid-sizer col-xs-1 col-md-1 col-lg-1"></div> <!--Aunque esta linea no parezca importante NO BORRAR-->
+                
+                <div>
+                    <table>
+                        <tr>
+                        <td>
+                        <img src="../res/CSALogo.png" style="width:200px;" >
+                        </td>
+                        <td>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14369.254933393431!2d-109.00826452783988!3d25.793221807911976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86bbbf9af1eca571%3A0x370073aeb704da08!2sClinica+San+Antonio!5e0!3m2!1ses-419!2smx!4v1495923536290" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </td>
+                        </tr>
+                   </table>     
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-pencil-square-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><h2>Registro</h2></div>
-                                    <div>Registro de personal</div>
-                                </div>
+                <section class="bg-con" id="contact">
+                    <div class="container">
+                            
+
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2 text-center">
+                                <h2 class="section-heading">Información de contacto.</h2>
+                                <hr class="primary">
+                                <p>Clínica San Antonio.<br> Av. Independencia 1748 Pte. Colonia San Francisco Los Mochis, Sinaloa.</p>
+                            </div>
+                            <div class="col-lg-4 col-lg-offset-2 text-center">
+                                <i class="fa fa-phone fa-3x sr-contact"></i>
+                                <p>815-05-61<br>812-95-41</p>
+                            </div>
+                            <div class="col-lg-4 text-center">
+                                <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                                <p><a href="mailto:your-email@your-domain.com">doctorbrunocamacho@gmail.com</a></p>
+                                <p>Director General<p>
                             </div>
                         </div>
-                        <a href="registerPersonal">
-                            <div class="panel-footer">
-                                <span class="pull-left">Realizar registro.</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-hospital-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><h2>Hospital</h2></div>
-                                    <div>Información</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/dashboard/clinic">
-                            <div class="panel-footer">
-                                <span class="pull-left">Detalles de la institución</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-                <div class=" col-lg-9 col-md-6 grid-item">
-                    <div class="chat-panel panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-comments fa-fw"></i> Notas
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <ul class="chat">
-                                <?php foreach($notas as $nota): ?>
-                                    <li class="clearfix">
-                                        <div class="chat-body clearfix">
-                                            <div class="header">
-                                                <small class="pull-right text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo $nota['fecha']; ?>
-                                                </small>
-                                            </div>
-                                            <p>
-                                                <?php echo $nota['contenido']; ?>
-                                            </p>
-                                        </div>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                        <!-- /.panel-body -->
-                        <div class="panel-footer">
-                            <form name="notesForm "id="notesForm" action="/newNote" method="POST">
-                                    <div class="input-group">
-                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                        <textarea name="note" id="note" class="form-control input-sm" placeholder="Escribe tu nota aqui..."></textarea>
-                                        <span class="input-group-btn">
-                                            <input type="submit" class="full-size btn btn-primary btn-sm" id="submit"/>    
-                                        </span>
-                                    </div>
-                            </form>
-                        </div>
-                        <!-- /.panel-footer -->
-                    </div>
-                    <!-- /.panel .chat-panel -->
-                </div>
-                <!-- /.col-lg-4 -->
+                </section>
+               
+                
+                
             </div>
             <!-- /.row -->
         </div>

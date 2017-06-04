@@ -170,7 +170,7 @@
                                         <th>Seleccionar</th>
                                         <th>Usuario</th>
                                         <th>Paciente</th>
-                                        <th>Ultima consulta</th>
+                                        <th>Última consulta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -220,102 +220,101 @@
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="pInf" >
-                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
                                         <tr>
                                         <td>
-                                        Nombre:
+                                        <b>Nombre:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 80%;"  disabled/>
+                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" style="height: 30px; width: 100%;"  disabled/>
                                         </div>   
                                         </td>
                                         <td>
-                                        Apellido Paterno:                                
+                                        <b>Apellido Paterno:</b>                              
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" style="height: 30px; width: 80%;" placeholder="Apellido Paterno"  disabled/>
+                                            <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" style="height: 30px; width: 100%;" placeholder="Apellido Paterno"  disabled/>
                                         </div>
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Apellido Materno:
+                                        <b>Apellido Materno:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" style="height: 30px; width: 80%;" placeholder="Apellido Materno"  disabled/>
+                                            <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" style="height: 30px; width: 100%;" placeholder="Apellido Materno"  disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        Domicilio:
+                                        <b>Domicilio:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" style="height: 30px; width: 80%;" disabled/>
+                                            <input class="form-control" type="text" id="Domicilio"name="Domicilio" placeholder="Domicilio" style="height: 30px; width: 100%;" disabled/>
                                         </div>
                                         </td>
                                         </td>
                                         <tr>
                                         <td>
-                                        Código postal:
+                                        <b>Código postal:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" style="height: 30px; width: 80%;"  disabled/>
+                                            <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" style="height: 30px; width: 100%;"  disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        Teléfono:
+                                        <br>Teléfono:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 80%;" disabled/>
+                                            <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 100%;" disabled/>
                                         </div>
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Celular:
+                                        <b>Celular:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 80%;"  disabled/>
+                                            <input class="form-control" type="number" placeholder="Teléfono Celular" id="celTel" name="celTel" style="height: 30px; width: 100%;"  disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        Correo:
+                                        <b>Correo:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" style="height: 30px; width: 80%;" disabled/>
+                                            <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" style="height: 30px; width: 100%;" disabled/>
                                         </div>
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Sexo:
+                                        <b>Sexo:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" style="height: 30px; width: 80%;" disabled/>
+                                            <input class="form-control" type="genero" placeholder="genero" id="genero" name="genero" style="height: 30px; width: 100%;" disabled/>
                                         </div>
                                         </td>
                                         <td>
-                                        No. Seguridad social:
+                                        <b>No. Seguridad social:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" style="height: 30px; width: 80%;" disabled/>
+                                            <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" style="height: 30px; width: 100%;" disabled/>
                                         </div>
                                        </td>
                                         </tr>
                                         <tr>
                                         <td>
-                                        Fecha de nacimiento:
+                                        <b>Fecha de nacimiento:</b>
                                         <div class="form-group">
-                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" style="height: 30px; width: 80%;"  disabled/>
+                                            <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" style="height: 30px; width: 100%;"  disabled/>
                                         </div>
                                         </td>
-                                        
+                                        <td>
+                                        <b>Ocupación:</b>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 100%;"  disabled/>
+                                        </div>
+                                        </td>                                        
+                                        </tr>
+                                        <tr>                                        
                                         <td>
                                         <?php
                                             $diff = abs(strtotime(date('Y-m-d')) - strtotime(logData::getData('fechaNacimiento')));
                                             $years = floor($diff / (365*60*60*24));
                                         ?>
-                                        Edad:
-                                        <div class="form-group">
-                                            <label class="form-control" id="edad" style="height: 30px; width: 80%;" ><?php echo ($years); ?></label>
-                                        </div>
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                        Ocupación:
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion"  style="height: 30px; width: 80%;"  disabled/>
-                                        </div>
+                                        <b>Edad:</b>
+                                        
+                                            <label  id="edad" style="height: 30px; width: 100%;" ><?php echo ($years); ?> años de edad.</label>
+                                       
                                         </td>
                                         </tr>
                                     </table>
@@ -333,7 +332,7 @@
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="aPer">
-                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
                                         <tr>
                                         <td>
                                         <div class="form-group">
@@ -408,7 +407,7 @@
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="int"  >
-                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">   
+                                        <table width="100%" class="table table-striped  table-hover" id="dataTables-example">   
                                         <tr>
                                         <td>
                                         <div class="form-group">
@@ -502,29 +501,30 @@
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="eVid"  >
-                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">   
+                                        <table width="100%" class="table table-striped  table-hover" id="dataTables-example">   
                                         <tr>
                                         <td>
                                         <div class="form-group">
                                             <input type="checkbox" name="ejercicio" id="ejercicio" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="ejercicio" class="btn btn-default active" id="checkbox" disabled>
+                                                    ¿Realiza ejercicio?
+                                                </label>
                                                 <label for="ejercicio" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="ejercicio" class="btn btn-default active" id="checkbox" disabled>
-                                                    ¿Realiza ejercicio?
-                                                </label>
+                                            
                                                 <br>
                                                 <br>
-                                                <label class="btn">Veces a la semana:&nbsp</label><input type="number" id="ejercicioVecesSemana" name="ejercicioVecesSemana" class="btn btn-default" value="0" min="0" max="7" disabled/>
+                                                <label class="btn"><b>Veces a la semana:&nbsp</b></label><input type="number" id="ejercicioVecesSemana" name="ejercicioVecesSemana" class="btn btn-default" value="0" min="0" max="7" disabled/>
                                             </div>
                                         </div>
                                         </td>
                                         <td>
                                         <div class="form-group">
                                             <div class="btn-group">
-                                                <label class="btn">Horas de sueño diarias:&nbsp</label><input type="number" class="btn btn-default" name="horasSuenio" id="horasSuenio" value="0" min="0" max="20" disabled/>
+                                                <label class="btn"><b>Horas de sueño diarias:&nbsp</b></label><input type="number" class="btn btn-default" name="horasSuenio" id="horasSuenio" value="0" min="0" max="20" disabled/>
                                             </div>
                                         </div>
                                         </td>
@@ -534,16 +534,18 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="desayuna" id="desayuna" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="desayuna" class="btn btn-default active" id="checkbox" disabled>
+                                                    <b>¿Desayuna?</b>
+                                                </label>
                                                 <label for="desayuna" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="desayuna" class="btn btn-default active" id="checkbox" disabled>
-                                                    ¿Desayuna?
-                                                </label>
+                                                
                                                 <br>
                                                 <br>
-                                                <label class="btn">Comidas al día:&nbsp</label><input class="btn btn-default" type="number" name="comidasDia" id="comidasDia" value="0" min="0" max="10" disabled/>
+                                                <label class="btn"><b>Comidas al día:&nbsp</b></label> <input class="btn btn-default" type="number" name="comidasDia" id="comidasDia" value="0" min="0" max="10" disabled/>
+
                                             </div>
                                         </div>
                                         </td>
@@ -551,16 +553,18 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="cafe" id="cafe" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                
+                                                <label for="cafe" class="btn btn-default active" id="checkbox" disabled>
+                                                    ¿Toma Café?
+                                                </label>
                                                 <label for="cafe" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="cafe" class="btn btn-default active" id="checkbox" disabled>
-                                                    ¿Toma Café?
-                                                </label>
                                                 <br>
                                                 <br>
-                                                <label class="btn">Tazas al día:&nbsp</label><input class="btn btn-default" type="number" id="cafeAlDia" name="cafeAlDia" value="0" min="0" max="50" disabled/>
+                                                
+                                                <label class="btn"><b>Tazas al día:&nbsp</b></label><input class="btn btn-default" type="number" id="cafeAlDia" name="cafeAlDia" value="0" min="0" max="50" disabled/>    
                                             </div>
                                         </div>
                                         </td>
@@ -570,16 +574,18 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="refresco" id="refresco" autocomplete="off" disabled/>
                                             <div class="btn-group">
-                                                <label for="refresco" class="btn btn-default" id="checkbox" disabled>
-                                                    <span class="[ fa fa-check ]"></span>
-                                                    <span>&nbsp</span>
-                                                </label>
+                                               
                                                 <label for="refresco" class="btn btn-default active" id="checkbox" disabled>
                                                     ¿Toma refresco?
                                                 </label>
+                                                 <label for="refresco" class="btn btn-default" id="checkbox" disabled>
+                                                    <span class="[ fa fa-check ]"></span>
+                                                    <span>&nbsp</span>
+                                                </label>
                                                 <br>
                                                 <br>
-                                                <label class="btn">Vasos al día:&nbsp</label><input class="btn btn-default" type="number" id="refrescoAlDia" name="refrescoAlDia" value="0" min="0" max="50" disabled/>
+                                                <label class="btn"><b>Vasos al día:&nbsp</b></label>
+                                                <input class="btn btn-default" type="number" id="refrescoAlDia" name="refrescoAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         </td>
@@ -587,15 +593,16 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="dieta" id="dieta" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                            <label for="dieta" class="btn btn-default active" id="checkbox" disabled>
+                                                    ¿Sigue alguna dieta?
+                                                </label>
                                                 <label for="dieta" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
-                                                </label>
-                                                <label for="dieta" class="btn btn-default active" id="checkbox" disabled>
-                                                    ¿Sigue alguna dieta?
-                                                </label>
+                                                </label> 
                                             </div>
-                                            <label class="btn">Información sobre la dieta:&nbsp</label>
+                                            <br>
+                                            <label class="btn"><b>Información sobre la dieta:&nbsp</b></label>
                                             <textarea type="text" placeholder="Información sobre la dieta" class="form-control" name="dietaInfo" id="dietaInfo" disabled></textarea>
                                         </div>
                                         </td>
@@ -605,17 +612,19 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="alcohol" id="alcohol" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="alcohol" class="btn btn-default active" name="checkAlcolico2" id="checkbox" disabled>
+                                                    ¿Consume Alcohol?
+                                                </label>
                                                 <label for="alcohol" class="btn btn-default" name="checkAlcolico1" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="alcohol" class="btn btn-default active" name="checkAlcolico2" id="checkbox" disabled>
-                                                    ¿Consume Alcohol?
-                                                </label>
-                                                <label class="btn">Edad a la que comenzó a beber:&nbsp</label><input class="btn btn-default" type="number" name="alcoholEdad" id="alcoholEdad" value="0" min="0" max="80" disabled/>
+                                                
+                                                <br><br>
+                                                <label class="btn"><b>Edad a la que comenzó a beber:&nbsp</b></label><input class="btn btn-default" type="number" name="alcoholEdad" id="alcoholEdad" value="0" min="0" max="80" disabled/>
                                                 <br>
                                                 <br>
-                                                <label class="btn">Vasos de bebidas alcoholicas al día:&nbsp</label><input class="btn btn-default" type="number" name="alcoholAlDia" id="alcoholAlDia" value="0" min="0" max="50" disabled/>
+                                                <label class="btn"><b>Vasos de bebidas alcoholicas al día:&nbsp</b></label><input class="btn btn-default" type="number" name="alcoholAlDia" id="alcoholAlDia" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         </td>
@@ -623,14 +632,15 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="exAlcoholico" id="exAlcoholico" autocomplete="off"/>
                                             <div class="btn-group">
+                                                <label for="exAlcoholico" class="btn btn-default active" name="checkExAlcholico2" id="checkbox" disabled>
+                                                    ¿Ex-alcóholico?
+                                                </label>
                                                 <label for="exAlcoholico" class="btn btn-default" id="checkbox" name="checkExAlcholico1"disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="exAlcoholico" class="btn btn-default active" name="checkExAlcholico2" id="checkbox" disabled>
-                                                    ¿ex-Alcoholico?
-                                                </label>
-                                                <label class="btn">Edad a la que dejó de beber:&nbsp</label><input class="btn btn-default" type="number" name="exAlcoholicoEdad" id="exAlcoholicoEdad" value="0" min="0" max="80" disabled/>
+                                                <br><br>
+                                                <label class="btn"><b>Edad a la que dejó de beber:&nbsp</b></label><input class="btn btn-default" type="number" name="exAlcoholicoEdad" id="exAlcoholicoEdad" value="0" min="0" max="80" disabled/>
                                             </div>
                                         </div>
                                         </td>
@@ -640,15 +650,16 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="fuma" id="fuma" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="fuma" class="btn btn-default active" id="checkbox" name="checkfuma2" disabled>
+                                                    ¿Fuma?
+                                                </label>
                                                 <label for="fuma" class="btn btn-default" id="checkbox" name="checkfuma1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="fuma" class="btn btn-default active" id="checkbox" name="checkfuma2" disabled>
-                                                    ¿Fuma?
-                                                </label>
-                                                <label class="btn">Edad a la que comenzó a fumar:&nbsp</label><input class="btn btn-default" name="fumaEdad" id="fumaEdad" type="number" value="0" min="0" max="80" disabled/>
-                                                <label class="btn">Cigarrillos al día:&nbsp</label><input class="btn btn-default" name="fumaAlDia" id="fumaAlDia" type="number" value="0" min="0" max="50" disabled/>
+                                                <br>
+                                                <label class="btn"><b>Edad a la que comenzó a fumar:&nbsp</b></label><input class="btn btn-default" name="fumaEdad" id="fumaEdad" type="number" value="0" min="0" max="80" disabled/>
+                                                <label class="btn"><b>Cigarrillos al día:&nbsp</b></label><input class="btn btn-default" name="fumaAlDia" id="fumaAlDia" type="number" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         </td>
@@ -656,24 +667,26 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="exFumador" id="exFumador" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="exFumador" class="btn btn-default active" id="checkbox" name="checkExFuma2" disabled>
+                                                    ¿Ex-fumador?
+                                                </label>
                                                 <label for="exFumador" class="btn btn-default" id="checkbox" name="checkExFuma1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="exFumador" class="btn btn-default active" id="checkbox" name="checkExFuma2" disabled>
-                                                    ¿Ex-fumador?
-                                                </label>
-                                                <label class="btn">Edad a la que dejó de fumar:&nbsp</label><input class="btn btn-default" name="exFumadorEdad" id="exFumadorEdad" type="number" value="0" min="0" max="80" disabled/>
+                                                <br>
+                                                <label class="btn"><b>Edad a la que dejó de fumar:&nbsp</b></label><input class="btn btn-default" name="exFumadorEdad" id="exFumadorEdad" type="number" value="0" min="0" max="80" disabled/>
                                             </div>
                                             <input type="checkbox" name="fumadorPasivo" id="fumadorPasivo" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="fumadorPasivo" class="btn btn-default active" id="checkbox" disabled>
+                                                    ¿Fumador-pasivo?
+                                                </label>
                                                 <label for="fumadorPasivo" class="btn btn-default" id="checkbox" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="fumadorPasivo" class="btn btn-default active" id="checkbox" disabled>
-                                                    ¿Fumador-pasivo?
-                                                </label>
+                                                
                                             </div>
                                         </div>
                                         </td>
@@ -683,29 +696,32 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="droga" id="droga" autocomplete="off"/>
                                             <div class="btn-group">
+                                                <label for="droga" class="btn btn-default active" id="checkbox" name="checkDroga2" disabled>
+                                                    ¿Consume algun tipo de droga?
+                                                </label>
                                                 <label for="droga" class="btn btn-default" id="checkbox" name="checkDroga1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="droga" class="btn btn-default active" id="checkbox" name="checkDroga2" disabled>
-                                                    ¿Consume algun tipo de droga?
-                                                </label>
+                                                
                                                 <br>
                                                 <br>
-                                                <label class="btn">Edad a la que comenzó a consumir:&nbsp</label><input class="btn btn-default" name="drogaEdad" id="drogaEdad" type="number" value="0" min="0" max="80" disabled/>
+                                                <label class="btn"><b>Edad a la que comenzó a consumir:&nbsp</b></label><input class="btn btn-default" name="drogaEdad" id="drogaEdad" type="number" value="0" min="0" max="80" disabled/>
                                             </div>
                                             <input type="checkbox" name="drogaIntra" id="drogaIntra" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="drogaIntra" class="btn btn-default active" name="dogaIntraLabel2" id="checkbox" disabled>
+                                                    ¿Droga intravenosa?
+                                                </label>
                                                 <label for="drogaIntra" class="btn btn-default" id="checkbox" name="dogaIntraLabel1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="drogaIntra" class="btn btn-default active" name="dogaIntraLabel2" id="checkbox" disabled>
-                                                    ¿Droga intravenosa?
-                                                </label>
+                                                
                                             </div>
                                             <br>
                                             <br>
+                                            <b>Información adicional:</b>
                                             <textarea type="text" placeholder="Anotación acerca de las drogas consumidas" class="form-control" name="drogaAnota" id="drogaAnota" disabled></textarea>
                                         </div>
                                         </td>
@@ -713,16 +729,17 @@
                                         <div class="form-group">
                                             <input type="checkbox" name="exAdicto" id="exAdicto" autocomplete="off" disabled/>
                                             <div class="btn-group">
+                                                <label for="exAdicto" class="btn btn-default active" name="checkExAdicto2" id="checkbox" disabled>
+                                                    ¿Ex-adicto?
+                                                </label>
                                                 <label for="exAdicto" class="btn btn-default" id="checkbox" name="checkExAdicto1" disabled>
                                                     <span class="[ fa fa-check ]"></span>
                                                     <span>&nbsp</span>
                                                 </label>
-                                                <label for="exAdicto" class="btn btn-default active" name="checkExAdicto2" id="checkbox" disabled>
-                                                    ¿ex-adicto?
-                                                </label>
+                                                
                                                 <br>
                                                 <br>
-                                                <label class="btn">Edad a la que dejó de consumir:&nbsp</label><input class="btn btn-default" name="exAdictoEdad" id="exAdictoEdad" type="number" value="0" min="0" max="50" disabled/>
+                                                <label class="btn"><b>Edad a la que dejó de consumir:&nbsp</b></label><input class="btn btn-default" name="exAdictoEdad" id="exAdictoEdad" type="number" value="0" min="0" max="50" disabled/>
                                             </div>
                                         </div>
                                         </td>
@@ -740,9 +757,10 @@
                                     <div class="btn btn-primary" style="width:100%;">
                                         <h4>Alergias</h2>
                                     </div>
-                                    </a>                                        
+                                    </a>
                                     <div class="panel-body collapse indent" id="aler"  >
                                         <div class="form-group">
+                                            <b>Información acerca de alergias.</b>
                                             <textarea class="form-control" name="alergias" id="alergias" placeholder="Alergias tanto a medicamentos como a materiales o alimentos" disabled></textarea>
                                         </div>
                                     </div>
@@ -764,16 +782,24 @@
                                     </div>
                                     </a>                                        
                                     <div class="panel-body collapse indent" id="citas"  >
+                                     <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
+                                     <tr>
+                                        <td>
                                         <div class="form-group">
                                             <label>Medico: </label>
                                             <select class="form-control" name="medico" id="medico">
                                             </select>
                                         </div>
+                                        </td>
+                                        <td>
                                         <div class="form-group">
                                             <label>Fecha de cita:</label>
                                             <select class="form-control" name="fechaCita" id="fechaCita">
                                             </select>
                                         </div>
+                                        </td>
+                                       </tr>
+                                       </table> 
                                             <!-- Desplegable Contenido Cita--> 
                                             <div id="contenidoCita">
                                                 <a href="#pCit" data-toggle="collapse" role ="tab" data-target="#pCit" data-parent="#tablist">
@@ -782,40 +808,39 @@
                                                  </div>
                                                 </a>                                        
                                                 <div class="panel-body collapse indent" id="pCit" >
-                                                    <label><h3>Diagnóstico:</h3></label><br>
+                                                    <label><h3><b>Diagnóstico:</b></h3></label><br>
                                                     <div class="form-group">
-                                                        <h5>Enfermedad:</h5>
+                                                        <h5><b>Enfermedad:</b></h5>
                                                         <input class="form-control" type="text" placeholder="CEnfermedad" id="CEnfermedad" name="CEnfermedad" disabled/>
                                                     </div>
                                                     <div class="form-group">
-                                                        <h5>Estado:</h5>
+                                                        <h5><b>Estado:</b></h5>
                                                         <input class="form-control" type="text" placeholder="CEstado" id="CEstado" name="CEstado" disabled/>
                                                     </div>
                                                     <div class="form-group">
-                                                        <h5>Notas:</h5>
+                                                        <h5><b>Notas:</b></h5>
                                                         <textarea type="text" placeholder="Notas:" class="form-control" id="CNotas" name="CNotas" disabled></textarea>
                                                     </div>
-                                                    <label><h3>Interrogatorio:</h3></label><br>
+                                                    <label><h3><b>Interrogatorio:</b></h3></label><br>
                                                     <div class="form-group">
-                                                        <h5>Motivos:</h5>
+                                                        <h5><b>Motivos:</b></h5>
                                                         <textarea type="text" placeholder="Motivos de consulta:" class="form-control" id="CMotivos" name="CMotivos" disabled></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <h5>Sintomas:</h5>
+                                                        <h5><b>Sintomas:</b></h5>
                                                         <textarea type="text" placeholder="Síntomas: " class="form-control" id="CSintomas" name="CSintomas" disabled></textarea>
                                                     </div>
-                                                    <label><h3>Exploración:</h3></label><br>
-                                                   <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                    <label><h3><b>Exploración:</b></h3></label><table width="100%" class="table table-striped  table-hover" id="dataTables-example">
                                                    <tr>
                                                    <td>
                                                    <div class="form-group">
-                                                        <h5>Peso:</h5>
+                                                        <h5><b>Peso:</b></h5>
                                                         <input class="form-control" type="number" placeholder="CPeso" id="CPeso" name="CPeso" disabled/>
                                                     </div>
                                                     </td>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Talla:</h5>
+                                                        <h5><b>Talla:</b></h5>
                                                         <input class="form-control" type="number" placeholder="CTalla" id="CTalla" name="CTalla" disabled/>
                                                     </div>
                                                     </td>
@@ -823,13 +848,13 @@
                                                     <tr>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Exploracion Fisica:</h5>
+                                                        <h5><b>Exploracion Fisica:</b></h5>
                                                         <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CExploracion" name="CExploracion" disabled></textarea>                                                        
                                                     </div>
                                                     </td>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Frecuencia Cardíaca:</h5>
+                                                        <h5><b>Frecuencia Cardíaca:</b></h5>
                                                         <input class="form-control" type="number" placeholder="CFreCar" id="CFreCar" name="CFreCar" disabled/>
                                                     </div>
                                                     </td>
@@ -837,13 +862,13 @@
                                                     <tr>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Presion Alta:</h5>
+                                                        <h5><b>Presion Alta:</b></h5>
                                                         <input class="form-control" type="number" placeholder="CPresAlta" id="CPresAlta" name="CPresAlta" disabled/>
                                                     </div>
                                                     </td>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Presion Baja:</h5>
+                                                        <h5><b>Presion Baja:</b></h5>
                                                         <input class="form-control" type="number" placeholder="CPresBaja" id="CPresBaja" name="CPresBaja" disabled/>
                                                     </div>
                                                     </td>
@@ -851,34 +876,34 @@
                                                     <<tr>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Frecuencia Respiratoria:</h5>
+                                                        <h5><b>Frecuencia Respiratoria:</b></h5>
                                                         <input class="form-control" type="number" placeholder="CFreRes" id="CFreRes" name="CFreRes" disabled/>
                                                     </div>
                                                     </td>
                                                     <td>
                                                     <div class="form-group">
-                                                        <h5>Temperatura:</h5>
+                                                        <h5><b>Temperatura:</b></h5>
                                                         <input class="form-control" type="text" placeholder="CTemp" id="CTemp" name="CTemp" disabled/>
                                                     </div>
                                                     </td>
                                                     </tr>
                                                     </table>
-                                                    <label><h3>Notas Adicionales:</h3></label><br>
+                                                    <label><h3><b>Notas Adicionales:</b></h3></label><br>
                                                     <div class="form-group">
-                                                        <h5>Notas:</h5>
+                                                        <h5><b>Notas:</b></h5>
                                                         <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CNA" name="CNA" disabled></textarea>                                                          
                                                     </div>
                                                     
 
-                                                    <label><h3>Estudios:</h3></label><br>
+                                                    <label><h3><b>Estudios:</b></h3></label><br>
                                                     <div class="form-group">
-                                                        <h5>Orden:</h5>
+                                                        <h5><b>Orden:</b></h5>
                                                         <input class="form-control" type="text" placeholder="COrden" id="COrden" name="COrden" disabled/>
                                                     </div>
-                                                    <label><h3>Tratamiento:</h3></label><br>
+                                                    <label><h3><b>Tratamiento:</b></h3></label><br>
                                                     <div class="form-group">
-                                                        <h5>Receta:</h5>
-                                                        <input type="submit" class="btn btn-default" id="createPDF" value="Generar PDF"/>
+                                                        <h5><b>Receta:</b></h5>
+                                                        <input type="submit" class="btn btn-primary" id="createPDF" value="Generar PDF" style="width:20%;"/>
                                                     </div>
                                                 </div>
                                                 <!--//Panel-->
@@ -974,7 +999,7 @@
                 {
                     for(var x = 0; x< doctores.cantidad; x++)
                     {
-                        document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].usuario + " - " + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
+                        document.getElementById("medico").innerHTML = document.getElementById('medico').innerHTML + "<option value=\"" + doctores[x].id_medico + "\">" + doctores[x].nombre + " " + doctores[x].apellidoPaterno + " " + doctores[x].apellidoMaterno + "</option>"
                     }
                     document.getElementById("fechaCita").innerHTML="";
                     idDoctor = doctores[0].id_medico;
@@ -1808,10 +1833,6 @@
                 },
                 function(data, status){
                     cita = JSON.parse(data);
-                    //Tu decision como mostraria la informacion del json aqui lo que yo hago es imprimirlo al chingadazo pero pues es demasiado yolo
-                    
-                    //TODO TUYO
-                    //Considera que pueden no haber medicamentos asi que debes de revisar eso antes de imprimirlos o no
                     $('#contenidoCita').show();
                     
                     $('#CEnfermedad').val(cita.diagnotico.enfermedad);

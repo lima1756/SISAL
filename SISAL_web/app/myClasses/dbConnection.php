@@ -303,6 +303,12 @@
                 }
                 try
                 {
+                    var_dump($query);
+                    echo"<br>";
+                    var_dump($data);
+                    echo"<br>";
+                    echo"<br>";
+                    echo"<br>";
                     $insert = self::$DBCon->prepare($query);
                     $insert->execute($data);
                     return 1;

@@ -203,12 +203,10 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                 <thead>
                                     <tr>
                                         <th>Seleccionar</th>
-                                        <th>Estado</th>
                                         <th>Usuario</th>
                                         <th>Empleado</th>
-                                        <th>Desactivar empleado</th>
-                                        <th>Activar empleado</th>
-                                    </tr>
+                                        <th> </th>
+                                       </tr>
                                 </thead>
                                 <tbody>
                                 <?php foreach($datos as $d): ?>
@@ -217,15 +215,14 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <input type="radio" name="empleado" value="<?php echo $d['id_usuario']; ?>"id="<?php echo "radio".$d['id_usuario']?>" style="display:none"/>
                                             <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i>
                                         </label></td>
-                                        <td><?php if ($d['estado']=='0'){
-                                        echo("Desactivo");
-                                        } elseif  ($d['estado']=='1'){ 
-                                        echo("Activo");
-                                        }?></td>
                                         <td><?php echo $d['usuario']; ?></td>
                                         <td><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno']; ?></td>
-                                        <td> <button class="btn btn-danger" onclick="rechazar('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">X</button> </td>
-                                        <td> <button class="btn btn-success" onclick="alta('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">O</button> </td>
+                                        <td><?php if ($d['estado']=='0'){?>
+                                        <button class="btn btn-success" onclick="alta('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">O</button>
+                                        <?php } elseif  ($d['estado']=='1'){ ?>
+                                        <button class="btn btn-danger" onclick="rechazar('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">X</button>
+                                        <?php } ?>
+                                        </td>     
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -595,9 +592,10 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             "columnDefs": [
                 { "width": "10%", "targets": 0 },
                 { "width": "20%", "targets": 1 },
-                { "width": "70%", "targets": 2 }
+                { "width": "50%", "targets": 2 },
+                { "width": "20%", "targets": 3 }
             ],
-            "order": [[ 2, "desc" ]]
+            "order": [[ 2, "asc" ]]
         });
         <?php if($existeGet): ?>
             $.ajaxSetup({
