@@ -11,9 +11,6 @@
     tools:context="com.mysisal.sisal.Login">
 
 
-
-
-
     <!-- Login progress -->
     <ScrollView
         android:id="@+id/login_form"
