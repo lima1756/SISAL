@@ -1833,10 +1833,6 @@
                 },
                 function(data, status){
                     cita = JSON.parse(data);
-                    //Tu decision como mostraria la informacion del json aqui lo que yo hago es imprimirlo al chingadazo pero pues es demasiado yolo
-                    
-                    //TODO TUYO
-                    //Considera que pueden no haber medicamentos asi que debes de revisar eso antes de imprimirlos o no
                     $('#contenidoCita').show();
                     
                     $('#CEnfermedad').val(cita.diagnotico.enfermedad);

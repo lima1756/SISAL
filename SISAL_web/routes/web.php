@@ -1038,14 +1038,15 @@ Route::POST('/ajaxAgR' /* Admin guarda recepcionista*/, function() {
     }
     else
     {
-        var_dump($_POST);
         $cipher_pass = hash("sha256", $_POST['pass']);
         dbConnection::insert("usuarios",
             ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
-            [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
+            [[$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], 
+                $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
             );
         $idEmpleado = dbConnection::lastID();
-        dbConnection::insert("recepcionistas", ["id_usuario","estado"], [[$idEmpleado],$_POST['estado']]);
+        var_dump($idEmpleado);
+        dbConnection::insert("recepcionistas", ["id_usuario","estado"], [[$idEmpleado,$_POST['estado']]]);
         return $idEmpleado;
     }
 });
