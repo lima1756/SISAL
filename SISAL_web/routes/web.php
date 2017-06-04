@@ -151,6 +151,10 @@ Route::get('/dashboard/userProfile', function () {
     {
         return view('admin/userProfile');
     }
+    elseif(Type::isInCharge())
+    {
+        return view('patient/userProfile');
+    }
     else
     {
         return redirect('/dashboard');
@@ -1003,6 +1007,26 @@ Route::POST('/ajaxPD' /* Paciente obtiene Doctor*/, function() {
         
         return json_encode($infoDoctor);
     }
+    elseif(Type::isInCharge())
+    {
+        $infoDoctor = array();
+        $generales = dbConnection::select(["usuarios.usuario", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno",
+                "usuarios.codigoPostal", "usuarios.Domicilio", "usuarios.email", "usuarios.fechaNacimiento", "usuarios.genero", "usuarios.noSeguroSocial", "usuarios.Ocupacion", 
+                "usuarios.telefonoCelular", "usuarios.telefonoDomiciliar"], 
+            "usuarios", 
+            [["usuarios.id_usuario", $_POST['personalId']]]
+            );
+        $infoDoctor['generales'] = $generales[0];
+        $adic = dbConnection::select(["usuarios.id_usuario" ,"medicos.estado", "medicos.domicilioConsultorio", "medicos.telEmergencias", "medicos.celEmergencias",
+                "medicos.emailEmergencias", "medicos.facebook", "medicos.twitter", "medicos.horario_trabajo", "medicos.tiempo_consulta", "medicos.especialidad", "medicos.universidad"], 
+            "medicos", 
+            [["medicos.id_usuario", $_POST['personalId']]],
+            [["usuarios", "medicos.id_usuario", "usuarios.id_usuario"]]
+            );
+            $infoDoctor['adicional'] = $adic[0];
+        
+        return json_encode($infoDoctor);
+    }
     else
     {
         return 0;
@@ -1250,7 +1274,16 @@ Route::POST('/ajaxRgP' /* Recepcionista guarda Paciente*/, function() {
 });
 
 
-
+Route::get("/dashboard/medicines", function() {
+    if(Type::isPatient()||Type::isInCharge())
+    {
+        return view('patient/medicines');
+    }
+    else
+    {
+        return redirect('/dashboard');
+    }
+});
 
 
 Route::POST("/android/logIn", function(){

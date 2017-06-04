@@ -5,15 +5,26 @@
     date_default_timezone_set("America/Mexico_City");
     $today = date("Y-m-d") . " 00:00:00";
     if(Type::isPatient()):
-        $citas = dbConnection::RAW("SELECT DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha, TIME(fecha_hora) AS hora, usuarios.nombre, usuarios.apellidoPaterno, usuarios.apellidoMaterno FROM citas
-            INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
-            WHERE citas.id_paciente = '".logData::getData('id_usuario')."' AND citas.fecha_hora > NOW()");
+        $meds = dbConnection::RAW("
+            SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
+            FROM tratamiento 
+            INNER JOIN registro_clinico ON registro_clinico.id_registro = tratamiento.id_registro 
+            INNER JOIN medicamentos ON medicamentos.id_medicamento = tratamiento.id_medicamento 
+            WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
+            AND registro_clinico.id_paciente = '".logData::getData("id_usuario")."';
+        ");
     elseif(Type::isInCharge()):
-        $id_Usuario = dbConnection::select(['id_paciente'], 'encargados', [['id_usuario', logData::getData("id_usuario")]])[0]['id_paciente'];
-        $citas = dbConnection::RAW("SELECT DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha, TIME(fecha_hora) AS hora, usuarios.nombre, usuarios.apellidoPaterno, usuarios.apellidoMaterno FROM citas
-            INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
-            WHERE citas.id_paciente = '".$id_Usuario."' AND citas.fecha_hora > NOW()");
+        $id_Usuario = dbConnection::select(['id_paciente'], 'encargados', [['id_usuario', logData::getData("id_usuario")]])[0]['id_paciente'];;
+        $meds = dbConnection::RAW("
+            SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
+            FROM tratamiento 
+            INNER JOIN registro_clinico ON registro_clinico.id_registro = tratamiento.id_registro 
+            INNER JOIN medicamentos ON medicamentos.id_medicamento = tratamiento.id_medicamento 
+            WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
+            AND registro_clinico.id_paciente = '$id_Usuario';
+        ");
     endif;
+
 ?>
 
 
@@ -104,13 +115,13 @@
                             <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>Mis citas</a>
+                            <a href="../dashboard/dates"><i class="fa fa-table fa-fw"></i>Mis citas</a>
                         </li>
                         <li>
                             <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
                         <li>
-                            <a href="../dashboard/medicines"><i class="fa fa-medkit fa-fw"></i> Mis medicinas</a>
+                            <a href="#"><i class="fa fa-medkit fa-fw"></i> Mis medicinas</a>
                         </li>
                     </ul>
                 </div>
@@ -122,7 +133,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     
-                    <h1 class="page-header">Todas mis citas proximas</h1>                
+                    <h1 class="page-header">Mis medicamentos</h1>                
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -135,17 +146,79 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Doctor</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
+                                        <th>Medicamento</th>
+                                        <th>Inicio de tratamiento</th>
+                                        <th>Durante</th>
+                                        <th>Cada cuanto</th>
+                                        <th>Indicaciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($citas as $cita): ?>
+                                    <?php foreach($meds as $m): ?>
                                         <tr class="odd gradeX">
-                                            <td><?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?></td>                                        
-                                            <td><?php echo $cita['fecha']; ?></td>
-                                            <td class="center"><?php echo $cita['hora']; ?></td>
+                                            <td><?php echo $m['nombre']; ?></td>                                        
+                                            <td><?php echo $m['inicio']; ?></td>
+                                            <td><?php 
+                                                if((($m['durante']%31)%7)%24==0)
+                                                {
+                                                    if((($m['durante']/31)/7)/24==1)
+                                                        echo ((($m['durante']/31)/7)/24). " Mes";
+                                                    else
+                                                        echo ((($m['durante']/31)/7)/24). " Meses";
+                                                }
+                                                elseif(($m['durante']%7)%24==0)
+                                                {
+                                                    if(($m['durante']/7)/24==1)
+                                                        echo (($m['durante']/7)/24). " Semana";
+                                                    else
+                                                        echo (($m['durante']/7)/24). " Semanas";
+                                                }
+                                                elseif($m['durante']%24==0)
+                                                {
+                                                    if($m['durante']/24==1)
+                                                        echo ($m['durante']/24). " Día";
+                                                    else
+                                                        echo ($m['durante']/24). " Dias";
+                                                }
+                                                else
+                                                {
+                                                    if($m['durante']==1)
+                                                        echo $m['durante']. " Hora";
+                                                    else
+                                                        echo $m['durante']. " Horas";
+                                                }
+                                             ?></td>
+                                            <td><?php 
+                                                if((($m['cada']%24)%7)%30==0)
+                                                {
+                                                    if((($m['cada']/24)/7)/30==1)
+                                                        echo ((($m['cada']/24)/7)/30). " Mes";
+                                                    else
+                                                        echo ((($m['cada']/24)/7)/30). " Meses";
+                                                }
+                                                elseif(($m['cada']%24)%7==0)
+                                                {
+                                                    if(($m['cada']/24)/7==1)
+                                                        echo (($m['cada']/24)/7). " Semana";
+                                                    else
+                                                        echo (($m['cada']/24)/7). " Semanas";
+                                                }
+                                                elseif($m['cada']%24==0)
+                                                {
+                                                    if(($m['cada']/24)/7==1)
+                                                        echo ($m['cada']/24). " Día";
+                                                    else
+                                                        echo ($m['cada']/24). " Dias";
+                                                }
+                                                else
+                                                {
+                                                    if($m['cada']==1)
+                                                        echo $m['cada']. " Hora";
+                                                    else
+                                                        echo $m['cada']. " Horas";
+                                                }
+                                             ?></td>
+                                            <td class="center"><?php echo $m['indicaciones']; ?></td>
                                         </tr>                                    
                                     <?php endforeach; ?>
                                 </tbody>
@@ -187,12 +260,12 @@
            
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true,
-            "order": [[ 1, "asc" ]]
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true,
+                "order": [[ 0, "asc" ]]
+            });
         });
-    });
     </script>
     </body>
 

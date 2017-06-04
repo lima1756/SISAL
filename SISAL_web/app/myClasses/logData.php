@@ -87,9 +87,12 @@
         {
             $cipher_pass = hash("sha256", $pass);
             $obtainedData = dbConnection::select(["*"], "usuarios", [["usuario", $name],["pass", $cipher_pass]]);
+
+            
             if(sizeof($obtainedData) == 0)
                 $obtainedData = dbConnection::select(["*"], "usuarios", [["email", $name],["pass", $cipher_pass]]);
-            self::$data = $obtainedData;                
+            self::$data = $obtainedData;      
+                      
             if(sizeof(self::$data)!=0)
             {
                 if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
@@ -111,6 +114,7 @@
                 }
                 elseif(sizeof(dbConnection::select(["*"], "encargados", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                 {
+                    
                     self::$type = "encargado";
                 }
                 else
@@ -211,7 +215,8 @@
             $obtainedData = dbConnection::select(["*"], "usuarios", [["usuario", $name],["pass", $pass]]);
             if(sizeof($obtainedData) == 0)
                 $obtainedData = dbConnection::select(["*"], "usuarios", [["email", $name],["pass", $pass]]);
-            self::$data = $obtainedData;                
+            self::$data = $obtainedData;     
+                       
             if(sizeof(self::$data)!=0)
             {
                 if(sizeof(dbConnection::select(["*"], "medicos", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
@@ -234,6 +239,7 @@
                 elseif(sizeof(dbConnection::select(["*"], "encargados", [["id_usuario", self::$data[0]['id_usuario']]]))>0)
                 {
                     self::$type = "encargado";
+                    
                 }
                 else
                 {

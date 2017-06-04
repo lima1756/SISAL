@@ -1,6 +1,7 @@
 <?php
      use App\myClasses\dbConnection;
     use App\myClasses\logData;
+    use App\myClasses\Type;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,6 +89,9 @@
                         <li>
                             <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
                         </li>
+                        <li>
+                            <a href="../dashboard/medicines"><i class="fa fa-medkit fa-fw"></i> Mis medicinas</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -101,7 +105,11 @@
                     <form>
                         <div class="panel panel-default"aria-multiselectable="true">
                             <div class="panel-heading">
+                                <?php if(Type::isPatient()): ?>
                                 <span><h2>Paciente: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
+                                <?php elseif(Type::isInCharge()): ?>
+                                <span><h2>Encargado: <?php echo logData::getData('nombre') . " " . logData::getData('apellidoPaterno') . " " . logData::getData('apellidoMaterno'); ?></h2></span>
+                                <?php endif;?>
                             </div>
                             <div id="tablist">
                                 <!-- Desplegable información Personal--> 
