@@ -141,32 +141,23 @@ use App\myClasses\dbConnection;
                         <!-- /.panel-heading -->
                         <div class="panel-head">
                             <form action="#" method="POST">
-                                <div class="form-group" style="padding-top:15px;" id="filtros">
-
-
-                                    <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date" <?php if(isset($_GET['date'])){ $date = new DateTime($_GET['date']);echo "value=\"".$date->format('Y-m-d')."\"";}?>/>
-                                    <label class="btn">Doctor: </label>
-                                    <select class="btn btn-default" name="idDoc" id="idDoc" <?php if(isset($_GET['med'])){echo "value=\"" . $_GET['med'] . "\"";}?>>
-                                        <?php foreach($listaDoctores as $d): ?>
-                                            <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <div class="form-group" style="padding-top:15px; padding-left:10px" id="filtros">
 
                                     <input type="radio" name="opcion" id="proximasCitas" value="proximasCitas" hidden/>
                                     <div class="btn-group">
                                         <label for="proximasCitas" class="btn btn-default">
-                                            <span class="fa fa-check"></span>
+                                            <span class="" id="checkProximasCitas"></span>
                                             <span>&nbsp</span>
                                         </label>
                                         <span>&nbsp</span><label for="proximasCitas" class="btn btn-default active">
                                             Ver  citas   agendadas
                                         </label>
                                     </div>                                
-
+                                
                                     <input type="radio" name="opcion" id="disponible" value="disponible" hidden/>
                                     <div class="btn-group">
                                         <label for="disponible" id="icoDisponible" class="btn btn-default">
-                                            <span class="fa fa-check"></span>
+                                            <span class="" id="checkDisponible"></span>
                                             <span>&nbsp</span>
                                         </label>
                                         <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
@@ -177,17 +168,35 @@ use App\myClasses\dbConnection;
                                     <input type="radio" name="opcion" id="agenda" value="agenda" hidden/>
                                     <div class="btn-group">
                                         <label for="agenda" id="icoAgenda" class="btn btn-default">
-                                            <span class="fa fa-check"></span>
+                                            <span class="" id="checkAgenda"></span>
                                             <span>&nbsp</span>
                                         </label>
                                         <span>&nbsp</span><label for="agenda" id="labelAgenda" class="btn btn-default active">
                                             Ver agenda completa
                                         </label>
                                     </div>
-
-                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
                                 </div>
-                                
+
+                                <div class="form-group">
+                                    
+                                    <div id="fechaCita" style="display:none;" hidden>
+                                        <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date" <?php if(isset($_GET['date'])){ $date = new DateTime($_GET['date']);echo "value=\"".$date->format('Y-m-d')."\"";}?>/>
+                                    </div>
+
+                                    <div id="selectDoctor" style="display:none;" hidden>
+                                        <label class="btn">Doctor: </label>
+                                        <select class="btn btn-default" name="idDoc" id="idDoc" <?php if(isset($_GET['med'])){echo "value=\"" . $_GET['med'] . "\"";}?>>
+                                            <?php foreach($listaDoctores as $d): ?>
+                                                <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" style="padding-left:10px">
+                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Ver agenda</button>
+                                </div>
                             </form>
                         </div>
                         <div class="panel-body">
@@ -533,13 +542,25 @@ use App\myClasses\dbConnection;
         $(document).ready(function() {
             $('input[type=radio][name=opcion]').change(function() {
                 if (this.value == 'agenda') {
-                    alert("agenda");
+                    $("#checkAgenda").toggleClass("fa fa-check");
+                    $("#checkDisponible").removeClass("fa fa-check");
+                    $("#checkProximasCitas").removeClass("fa fa-check");
+                    $('#fechaCita').attr('style','display:inline;');
+                    $('#selectDoctor').attr('style','display:inline;');
                 }
                 else if (this.value == 'disponible') {
-                    alert("disponible");
+                    $("#checkAgenda").removeClass("fa fa-check");
+                    $("#checkDisponible").toggleClass("fa fa-check");
+                    $("#checkProximasCitas").removeClass("fa fa-check");
+                    $('#fechaCita').attr('style','display:inline;');
+                    $('#selectDoctor').attr('style','display:inline;');
                 }
                 else if (this.value == 'proximasCitas') {
-                    alert("proximasCitas");
+                    $("#checkAgenda").removeClass("fa fa-check");
+                    $("#checkDisponible").removeClass("fa fa-check");
+                    $("#checkProximasCitas").toggleClass("fa fa-check");
+                    $('#fechaCita').attr('style','display:none;');
+                    $('#selectDoctor').attr('style','display:inline;');
                 }
             });
         });

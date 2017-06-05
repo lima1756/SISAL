@@ -778,7 +778,7 @@ Route::POST('/eliminarCita', function() {
     $datoCita['razon'] = $_POST['razon'];
     dbConnection::insert("canceladas", ["id_cita", "id_paciente", "id_recepcionista", "id_medico", "fecha_hora", "razon"] ,[[$datoCita['id_cita'], $datoCita['id_paciente'], $datoCita['id_recepcionista'], $datoCita['id_medico'], $datoCita['fecha_hora'], $datoCita['razon']]]);
     dbConnection::delete("citas", [["id_cita", $_POST['idCitaCancelacion']]]);
-    return redirect("/dashboard/dates");
+    return redirect("/dashboard/dates?date=".$datoCita['fecha_hora']."&med=".$datoCita['id_medico']);
 });
 
 Route::POST('/nuevaCita', function() {
