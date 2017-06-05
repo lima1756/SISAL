@@ -201,11 +201,19 @@ Route::post('/registerDate', function () {
     
     for($x = 0; $x < $_POST['cantidad']; $x++)
     {
+        $multiplier = 1;
+        if($_POST['medDuraValue'][$x]=="hora")
+            $multiplier = 1;
+        elseif($_POST['medDuraValue'][$x]=="dias")
+            $multiplier = 24;
+        elseif($_POST['medDuraValue'][$x]=="semanas")
+            $multiplier = 24*7;
+        elseif($_POST['medDuraValue'][$x]=="meses")
+            $multiplier = 24*31;
         if($_POST['medID'][$x]!=0)
         {
-            
             dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
-                [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x], $_POST['medIndi'][$x], $idRegistro]]);
+                [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x]*$multiplier, $_POST['medIndi'][$x], $idRegistro]]);
         }
         else
         {
@@ -885,7 +893,7 @@ if(Type::isAdmin())
 
 
 Route::POST('/ajaxAeR' /* Admin elimina recepcionista*/, function() {
-var_dump($_POST);
+
 if(Type::isAdmin())
     {
     dbConnection::update("recepcionistas",
@@ -1070,7 +1078,7 @@ Route::POST('/ajaxAgR' /* Admin guarda recepcionista*/, function() {
                 $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']]]
             );
         $idEmpleado = dbConnection::lastID();
-        var_dump($idEmpleado);
+        
         dbConnection::insert("recepcionistas", ["id_usuario","estado"], [[$idEmpleado,$_POST['estado']]]);
         return $idEmpleado;
     }
@@ -1095,7 +1103,7 @@ Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
     $horario=$horario."(".$_POST['inicio']."-".$_POST['fin'].")";
     if($_POST['idEmpleado']!="")
     {
-        var_dump($_POST);
+        
         if($_POST['pass']==''){
             dbConnection::update("usuarios",
                 ['usuario', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
