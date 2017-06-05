@@ -150,6 +150,7 @@
                                         <th>Inicio de tratamiento</th>
                                         <th>Durante</th>
                                         <th>Cada cuanto</th>
+                                        <th>Proxima toma</th>
                                         <th>Indicaciones</th>
                                     </tr>
                                 </thead>
@@ -189,23 +190,23 @@
                                                 }
                                              ?></td>
                                             <td><?php 
-                                                if((($m['cada']%24)%7)%30==0)
+                                                if((($m['cada']%31)%7)%24==0)
                                                 {
-                                                    if((($m['cada']/24)/7)/30==1)
-                                                        echo ((($m['cada']/24)/7)/30). " Mes";
+                                                    if((($m['cada']/31)/7)/24==1)
+                                                        echo ((($m['cada']/31)/7)/24). " Mes";
                                                     else
-                                                        echo ((($m['cada']/24)/7)/30). " Meses";
+                                                        echo ((($m['cada']/31)/7)/24). " Meses";
                                                 }
-                                                elseif(($m['cada']%24)%7==0)
+                                                elseif(($m['cada']%7)%24==0)
                                                 {
-                                                    if(($m['cada']/24)/7==1)
-                                                        echo (($m['cada']/24)/7). " Semana";
+                                                    if(($m['cada']/7)/24==1)
+                                                        echo (($m['cada']/7)/24). " Semana";
                                                     else
-                                                        echo (($m['cada']/24)/7). " Semanas";
+                                                        echo (($m['cada']/7)/24). " Semanas";
                                                 }
                                                 elseif($m['cada']%24==0)
                                                 {
-                                                    if(($m['cada']/24)/7==1)
+                                                    if(($m['cada']/24)==1)
                                                         echo ($m['cada']/24). " Día";
                                                     else
                                                         echo ($m['cada']/24). " Dias";
@@ -218,7 +219,19 @@
                                                         echo $m['cada']. " Horas";
                                                 }
                                              ?></td>
-                                            <td class="center"><?php echo $m['indicaciones']; ?></td>
+                                            <td class="center">
+                                                <?php 
+                                                    $now = time();
+                                                    $start = strtotime($m['inicio']);
+                                                    while($start<$now)
+                                                    {
+                                                        $start+=($m['cada']*3600);
+                                                    }
+                                                    echo date("d-m-Y  H:i", $start);
+
+                                                ?>
+                                            </td>
+                                            <td class="center"><?php echo $m['indicaciones'];?></td>
                                         </tr>                                    
                                     <?php endforeach; ?>
                                 </tbody>

@@ -145,7 +145,7 @@
                                         <tr class="odd gradeX">
                                             <td><?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?></td>                                        
                                             <td><?php echo $cita['fecha']; ?></td>
-                                            <td class="center"><?php echo $cita['hora']; ?></td>
+                                            <td class="center"><?php echo date("H:i",strtotime($cita['hora'])); ?></td>
                                         </tr>                                    
                                     <?php endforeach; ?>
                                 </tbody>

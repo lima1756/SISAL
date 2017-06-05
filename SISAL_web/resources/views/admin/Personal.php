@@ -205,7 +205,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                         <th>Seleccionar</th>
                                         <th>Usuario</th>
                                         <th>Empleado</th>
-                                        <th> </th>
+                                        <th>Estado del empleado</th>
                                        </tr>
                                 </thead>
                                 <tbody>
@@ -218,9 +218,9 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                         <td><?php echo $d['usuario']; ?></td>
                                         <td><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno']; ?></td>
                                         <td><?php if ($d['estado']=='0'){?>
-                                        <button class="btn btn-success" onclick="alta('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">O</button>
+                                        <button class="btn btn-danger" onclick="alta('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">X</button>
                                         <?php } elseif  ($d['estado']=='1'){ ?>
-                                        <button class="btn btn-danger" onclick="rechazar('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">X</button>
+                                        <button class="btn btn-success" onclick="rechazar('<?php echo$d['id_usuario']?>', '<?php echo$d['nombre']?>'); ">O</button>
                                         <?php } ?>
                                         </td>     
                                 <?php endforeach; ?>

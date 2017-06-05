@@ -378,22 +378,132 @@
                 {
                     if((x != cantidad && typeof nombre[x] !== 'undefined') || (x == cantidad && parseInt(anterior)>parseInt(cantidad)))
                     {
-                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n                        <label>Cada:</label>\n<select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n       <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                     </select>\n <br> <label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"<?php echo date("Y-m-d")."T".date("H:i"); ?>\"/>\n            <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" /> \n                <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = `
+                                <div class="form-group meds">\n
+                                    <input type="number" value="0" name="medID[]" id="medId` + x + `" hidden/>\n
+                                    <label>Nombre:</label>\n
+                                    <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]" id="medName` + x + `" value="` + nombre[x-1] + `"/>\n
+                                    <label>Cada:</label>\n
+                                    <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                        <option value="1">1 hora</option>\n
+                                        <option value="2">2 horas</option>\n
+                                        <option value="4">4 horas</option>\n
+                                        <option value="6">6 horas</option>\n
+                                        <option value="8">8 horas</option>\n
+                                        <option value="12">12 horas</option>\n
+                                        <option value="24">24 horas</option>\n       
+                                        <option value="48">48 horas</option>\n
+                                        <option value="72">72 horas</option>\n
+                                    </select>\n <br> <label>Iniciando a las:</label>\n
+                                    <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n
+                                    <label>Duración de tratamiento:</label>\n
+                                <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                    <option value="hora">horas</option>\n
+                                    <option value="dias">dias</option>\n
+                                    <option value="semanas">semanas</option>\n
+                                    <option value="meses">meses</option>\n         
+                                </select>\n
+                                    <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" value="" + indi[x-1] + "" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
+                                </div>`;
                     }
                     else
                     {
-                        document.getElementById("medicamentos").innerHTML = "<div class=\"form-group meds\">\n<input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/>\n                        <label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]]\" id=\"medName" + x + "\" >\n                        <label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n          <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n                  </select>\n <br> <label>Iniciando a las:</label>\n            <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"<?php echo date("Y-m-d")."T".date("H:i"); ?>\"/>\n                  <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\"  />\n                      <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = `
+                            <div class="form-group meds">\n
+                                <input type="number" value="0" name="medID[]" id="medId` + x + `" hidden/>\n
+                                <label>Nombre:</label>\n
+                                <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]]" id="medName` + x + `" >\n
+                                <label>Cada:</label>\n
+                                <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                    <option value="1">1 hora</option>\n
+                                    <option value="2">2 horas</option>\n
+                                    <option value="4">4 horas</option>\n
+                                    <option value="6">6 horas</option>\n
+                                    <option value="8">8 horas</option>\n
+                                    <option value="12">12 horas</option>\n
+                                    <option value="24">24 horas</option>\n          
+                                    <option value="48">48 horas</option>\n
+                                    <option value="72">72 horas</option>\n
+                                </select>\n <br> <label>Iniciando a las:</label>\n            
+                                <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n
+                                <label>Duración de tratamiento:</label>\n
+                                <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                    <option value="hora">horas</option>\n
+                                    <option value="dias">dias</option>\n
+                                    <option value="semanas">semanas</option>\n
+                                    <option value="meses">meses</option>\n         
+                                </select>\n
+                                <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
+                            </div>`;
                     }
                 }
                 else 
                 {
                     if((x != cantidad && typeof nombre[x] !== 'undefined') || (x == cantidad && parseInt(anterior) > parseInt(cantidad)))
                     {
-                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n                        <input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/><label>Nombre:</label>\n                        <input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]\" id=\"medName" + x + "\" value=\"" + nombre[x-1] + "\"/>\n<label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n                <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n            </select>\n   <br> <label>Iniciando a las:</label>\n      <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"<?php echo date("Y-m-d")."T".date("H:i"); ?>\"/>\n              <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\"  />\n              <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" value=\"" + indi[x-1] + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + `
+                            <div class="form-group meds">\n
+                            <input type="number" value="0" name="medID[]" id="medId` + x + `" hidden/>
+                            <label>Nombre:</label>\n
+                            <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]" id="medName` + x + `" value="" + nombre[x-1] + ""/>\n
+                            <label>Cada:</label>\n
+                            <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                <option value="1">1 hora</option>\n
+                                <option value="2">2 horas</option>\n
+                                <option value="4">4 horas</option>\n
+                                <option value="6">6 horas</option>\n
+                                <option value="8">8 horas</option>\n
+                                <option value="12">12 horas</option>\n
+                                <option value="24">24 horas</option>\n
+                                <option value="48">48 horas</option>\n
+                                <option value="72">72 horas</option>\n            
+                            </select>\n   
+                            <br> <label>Iniciando a las:</label>\n      
+                            <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n              
+                            <label>Duración de tratamiento:</label>\n
+                                <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                    <option value="hora">horas</option>\n
+                                    <option value="dias">dias</option>\n
+                                    <option value="semanas">semanas</option>\n
+                                    <option value="meses">meses</option>\n         
+                                </select>\n
+                            <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" value="" + indi[x-1] + "" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
+                        </div>`;
                     }
                     else
                     {
-                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + "<div class=\"form-group meds\">\n                        <input type=\"number\" value=\"0\" name=\"medID[]\" id=\"medId" + x + "\" hidden/><label>Nombre:</label>\n<input type=\"text\" onchange=\"nombresMedicamento(" + x + ")\" list=\"meds\" name=\"medName[]\" id=\"medName" + x + "\" />\n<label>Cada:</label>\n                        <select name=\"medCada[]\" id=\"medCada" + x + "\" value=\"\">\n                        <option value=\"1\">1 hora</option>\n                        <option value=\"2\">2 horas</option>\n                        <option value=\"4\">4 horas</option>\n                        <option value=\"6\">6 horas</option>\n                        <option value=\"8\">8 horas</option>\n                        <option value=\"12\">12 horas</option>\n                        <option value=\"24\">24 horas</option>\n                 <option value=\"48\">48 horas</option>\n                        <option value=\"72\">72 horas</option>\n           </select>\n                   <br>     <label>Iniciando a las:</label>\n                        <input type=\"datetime-local\" name=\"medStart[]\" id=\"medStart" + x + "\" value=\"<?php echo date("Y-m-d")."T".date("H:i"); ?>\"/>\n          <label>Duración en horas:</label>\n                        <input pattern=\"^[0-9][0-9]?[0-9]?\" name=\"medDura[]\" id=\"medDura" + x + "\" value=\"\" /> \n            <input type=\"text\" class=\"form-control\" name=\"medIndi[]\" id=\"medIndi" + x + "\" placeholder=\"Cantidad, mm, mg, indicaciones adicionales del medicamento, etc.\"/>\n                        </div>";
+                        document.getElementById("medicamentos").innerHTML = document.getElementById("medicamentos").innerHTML + `
+                            <div class="form-group meds">\n
+                                <input type="number" value="0" name="medID[]" id="medId` + x + `" hidden/>
+                                <label>Nombre:</label>\n
+                                <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]" id="medName` + x + `" />\n
+                                <label>Cada:</label>\n
+                                <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                    <option value="1">1 hora</option>\n
+                                    <option value="2">2 horas</option>\n
+                                    <option value="4">4 horas</option>\n
+                                    <option value="6">6 horas</option>\n
+                                    <option value="8">8 horas</option>\n
+                                    <option value="12">12 horas</option>\n
+                                    <option value="24">24 horas</option>\n
+                                    <option value="48">48 horas</option>\n
+                                    <option value="72">72 horas</option>\n           
+                                </select>\n
+                                <br>     <label>Iniciando a las:</label>\n
+                                <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n          
+                                <label>Duración de tratamiento:</label>\n
+                                <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                    <option value="hora">horas</option>\n
+                                    <option value="dias">dias</option>\n
+                                    <option value="semanas">semanas</option>\n
+                                    <option value="meses">meses</option>\n         
+                                </select>\n
+                                <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
+                            </div>`;
                      }
                 }
             }

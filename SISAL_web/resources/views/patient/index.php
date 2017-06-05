@@ -10,7 +10,69 @@
         [["usuarios", "usuarios.id_usuario", "citas.id_medico"]]);
     $cantidadCitas = count($citasHoy);
     $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d/%m/%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
+    if(Type::isPatient()):
+        $meds = dbConnection::RAW("
+            SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
+            FROM tratamiento 
+            INNER JOIN registro_clinico ON registro_clinico.id_registro = tratamiento.id_registro 
+            INNER JOIN medicamentos ON medicamentos.id_medicamento = tratamiento.id_medicamento 
+            WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
+            AND registro_clinico.id_paciente = '".logData::getData("id_usuario")."';
+        ");
+    elseif(Type::isInCharge()):
+        $id_Usuario = dbConnection::select(['id_paciente'], 'encargados', [['id_usuario', logData::getData("id_usuario")]])[0]['id_paciente'];;
+        $meds = dbConnection::RAW("
+            SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
+            FROM tratamiento 
+            INNER JOIN registro_clinico ON registro_clinico.id_registro = tratamiento.id_registro 
+            INNER JOIN medicamentos ON medicamentos.id_medicamento = tratamiento.id_medicamento 
+            WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
+            AND registro_clinico.id_paciente = '$id_Usuario';
+        ");
+    endif;
+    $lista=[];
+    foreach($meds as $m)
+    {
+        $now = time();
+        $m['siguiente'] = strtotime($m['inicio']);
+        while($m['siguiente']<$now)
+        {
+            $m['siguiente']+=$m['cada']*3600;
+        }
+        if($m['cada']<3)
+        {
+            $inicial = $m;
+            while($inicial['siguiente']<($now+3*3600))
+            {   
+                array_push($lista,$inicial);
+                $inicial['siguiente']+=$inicial['cada']*3600;
+            }    
+        }
+        else
+        {
+            if($m['siguiente']<($now+3*3600))
+                array_push($lista,$m);
+        }
+    }
 
+    function swap(&$arr, $a, $b) {
+        $tmp = $arr[$a];
+        $arr[$a] = $arr[$b];
+        $arr[$b] = $tmp;
+    }
+
+    $size = count($lista);
+    for ($i=0; $i<$size; $i++) {
+        for ($j=0; $j<$size-1-$i; $j++) {
+            if ($lista[$j+1]['siguiente'] < $lista[$j]['siguiente']) {
+                swap($lista, $j, $j+1);
+            }
+        }
+    }
+    
+    
+    
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -124,17 +186,17 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-calendar-check-o fa-5x"></i>
+                                    <i class="fa fa-medkit fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><!-- ingresa aquí los medicamentos--></div>
-                                    <div>Medicamentos de hoy</div>
+                                    <div><h4>Mis <br> medicinas</h4></div>
                                 </div>
                             </div>
                         </div>
                         <a href="/dashboard/dates">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver receta</span>
+                                <span class="pull-left">Ver medicamentos</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -167,65 +229,32 @@
                 <div class="col-lg-6 col-md-6 grid-item">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-heartbeat fa-fw"></i>Medicamentos del día
+                            <i class="fa fa-heartbeat fa-fw"></i>Proximos medicamentos a tomar
                         </div>
                         <div class="panel-body">
                             <ul class="timeline">
-                                <li>
-                                    <div class="timeline-badge success"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Medicamento 1</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 7:00 </small>
-                                            </p>
+                                <?php $a=0; foreach($lista as $s): ?>
+                                    <?php if($a%2==0): ?>
+                                        <li>
+                                    <?php else: ?>
+                                        <li class="timeline-inverted">
+                                    <?php endif; $a++; ?>
+                                    <?php if((time()+600)<$s['siguiente']): ?>
+                                        <div class="timeline-badge warning"><i class="fa fa-minus"></i>
+                                    <?php else: ?>
+                                        <div class="timeline-badge success"><i class="fa fa-check"></i>
+                                    <?php endif?>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge success"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Medicamento 2</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 10:00 </small>
-                                            </p>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <h4 class="timeline-title"><?php echo $s['nombre']; ?></h4>
+                                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> <?php echo date("H:i", $s['siguiente']); ?></small>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge success"><i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Medicamento 3</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 12:00 </small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge warning"><i class="fa fa-minus"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Medicamento 4</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 14:00 </small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="timeline-badge warning"><i class="fa fa-minus"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <h4 class="timeline-title">Medicamento 1</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 16:00 </small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                <?php endforeach; ?>
+                                
                             </ul>
                         </div>
                         <!--/.Panel body-->
@@ -244,12 +273,11 @@
                             <div class="list-group">
                                 <?php if($cantidadCitas != 0): ?>
                                     <?php foreach($citasHoy as $cita): ?>
-                                        <a href="/dashboard/patients/?id=<?php echo $cita['id_usuario'] ?>" class="list-group-item"> 
                                             
                                             <i class="fa fa-calendar-check-o fa-fw"></i> Doctor:  <?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?>
-                                            <span class="pull-right text-muted small"><em><?php echo $cita['hora']; ?></em>
+                                            <span class="pull-right text-muted small"><em><?php echo date("H:i",strtotime($cita['hora'])); ?></em>
                                             </span>
-                                        </a>
+
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <i class="fa fa-calendar-check-o fa-fw"></i> No hay citas el día de hoy :)
