@@ -808,7 +808,17 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             var horaFin = horario.substr(inicio2, fin2);
             $('#inicio').val(horaInicio);
             $('#fin').val(horaFin);
-            $('#Tiempo').val(json.adicional.tiempo_consulta);
+            $('#tiempo').val(json.adicional.tiempo_consulta);
+            $('#domPart').val(json.adicional.domicilioConsultorio);
+            $('#telEme').val(json.adicional.telEmergencias);
+            $('#celEmergencias').val(json.adicional.celEmergencias);
+            $('#correoAux').val(json.adicional.emailEmergencias);
+            $('#face').val(json.adicional.facebook);
+            $('#twitter').val(json.adicional.twitter);
+            $('#cedula').val(json.adicional.cedula);
+            $('#Especialidad').val(json.adicional.especialidad);
+            $('#universidad').val(json.adicional.universidad);
+
         }
         else
         {
