@@ -3,25 +3,46 @@
     use App\myClasses\logData;
     use App\myClasses\Type;
 
-date_default_timezone_set("America/Mexico_City");
-    $datos = dbConnection::select(["citas.id_medico", "usuarios.usuario","usuarios.email","usuarios.telefonoDomiciliar", "usuarios.telefonoCelular","usuarios.id_usuario","usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
+    date_default_timezone_set("America/Mexico_City");
+    if(Type::isPatient()):
+        $datos = dbConnection::select(["citas.id_medico", "usuarios.usuario","usuarios.email","usuarios.telefonoDomiciliar", "usuarios.telefonoCelular","usuarios.id_usuario","usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
         "citas",
         [["citas.id_paciente", logData::getData("id_usuario")]],
         [["usuarios", "usuarios.id_usuario", "citas.id_medico"]],
         "GROUP BY citas.id_medico");
-    $existeGet = false;
-    if(isset($_GET['id']))
-    {
-        foreach($p as $datos)
+        $existeGet = false;
+        if(isset($_GET['id']))
         {
-            if($p['id_usuario']==$_GET['id'])
+            foreach($p as $datos)
             {
-                $existeGet = true;
+                if($p['id_usuario']==$_GET['id'])
+                {
+                    $existeGet = true;
+                }
             }
         }
-    }
+        $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);
+    elseif(Type::isInCharge()):
+        $id_Usuario = dbConnection::select(['id_paciente'], 'encargados', [['id_usuario', logData::getData("id_usuario")]])[0]['id_paciente'];
+        $datos = dbConnection::select(["citas.id_medico", "usuarios.usuario","usuarios.email","usuarios.telefonoDomiciliar", "usuarios.telefonoCelular","usuarios.id_usuario","usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno", "MAX(citas.fecha_hora) as ultima"],
+        "citas",
+        [["citas.id_paciente", $id_Usuario]],
+        [["usuarios", "usuarios.id_usuario", "citas.id_medico"]],
+        "GROUP BY citas.id_medico");
+        $existeGet = false;
+        if(isset($_GET['id']))
+        {
+            foreach($p as $datos)
+            {
+                if($p['id_usuario']==$_GET['id'])
+                {
+                    $existeGet = true;
+                }
+            }
+        }
+        $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", $id_Usuario]]);
+    endif;
     
-$masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getData("id_usuario")]]);
 
 ?>
 
@@ -133,6 +154,9 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                        </li>
+                        <li>
+                            <a href="../dashboard/medicines"><i class="fa fa-medkit fa-fw"></i> Mis medicinas</a>
                         </li>
                     </ul>
                 </div>
@@ -438,12 +462,9 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#cedula').val(json.adicional.cedula);
             $('#Especialidad').val(json.adicional.especialidad);
             $('#universidad').val(json.adicional.universidad);
-             
-
         }
         else
         {
-            
             $("#idEmpleado").val("-1");
             $('#domPart').val("");
             $('#telEme').val("");
@@ -454,7 +475,6 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#cedula').val("");
             $('#Especialidad').val("");
             $('#universidad').val("");
-
         }
 
     }

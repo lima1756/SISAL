@@ -1,16 +1,19 @@
 <?php
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
+    use App\myClasses\Type;
     date_default_timezone_set("America/Mexico_City");
     $today = date("Y-m-d") . " 00:00:00";
-
-        /*$citas = dbConnection::select(["DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
-            [["citas.id_medico", logData::getData("id_usuario")], ["citas.fecha_hora", $today, ">"]], 
-            [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);*/
+    if(Type::isPatient()):
         $citas = dbConnection::RAW("SELECT DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha, TIME(fecha_hora) AS hora, usuarios.nombre, usuarios.apellidoPaterno, usuarios.apellidoMaterno FROM citas
-        INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
-        WHERE citas.id_paciente = '".logData::getData('id_usuario')."' AND citas.fecha_hora > NOW()");
-    
+            INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
+            WHERE citas.id_paciente = '".logData::getData('id_usuario')."' AND citas.fecha_hora > NOW()");
+    elseif(Type::isInCharge()):
+        $id_Usuario = dbConnection::select(['id_paciente'], 'encargados', [['id_usuario', logData::getData("id_usuario")]])[0]['id_paciente'];
+        $citas = dbConnection::RAW("SELECT DATE_FORMAT(fecha_hora,'%d/%m/%Y') AS fecha, TIME(fecha_hora) AS hora, usuarios.nombre, usuarios.apellidoPaterno, usuarios.apellidoMaterno FROM citas
+            INNER JOIN usuarios ON usuarios.id_usuario = citas.id_medico
+            WHERE citas.id_paciente = '".$id_Usuario."' AND citas.fecha_hora > NOW()");
+    endif;
 ?>
 
 
@@ -105,6 +108,9 @@
                         </li>
                         <li>
                             <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                        </li>
+                        <li>
+                            <a href="../dashboard/medicines"><i class="fa fa-medkit fa-fw"></i> Mis medicinas</a>
                         </li>
                     </ul>
                 </div>

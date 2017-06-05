@@ -1,6 +1,7 @@
 <?php
     use App\myClasses\dbConnection;
     use App\myClasses\logData;
+    use App\myClasses\Type;
     date_default_timezone_set("America/Mexico_City");
     $today = date("Y-m-d") . " 00:00:00";
     $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
@@ -96,6 +97,9 @@
                         </li>
                         <li>
                             <a href="../dashboard/doctors"><i class="fa fa-user-md fa-fw"></i> Mis médicos</a>
+                        </li>
+                        <li>
+                            <a href="../dashboard/medicines"><i class="fa fa-medkit fa-fw"></i> Mis medicinas</a>
                         </li>
                     </ul>
                 </div>
