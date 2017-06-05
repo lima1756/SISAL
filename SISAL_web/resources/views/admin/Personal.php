@@ -647,7 +647,6 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
         <?php endforeach; ?>
         
         $('#idEmpleado').val(id);
-        console.log($('#idEmpleado').val());
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrfVal
@@ -746,7 +745,79 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#cedula').val(json.adicional.cedula);
             $('#Especialidad').val(json.adicional.especialidad);
             $('#universidad').val(json.adicional.universidad);
-             
+            var horario = json.adicional.horario_trabajo;
+            var lunes = horario.indexOf("l");
+            var martes = horario.indexOf("m");
+            var miercoles = horario.indexOf("x");
+            var jueves = horario.indexOf("j");
+            var viernes = horario.indexOf("v");
+            var sabado = horario.indexOf("s");
+            var domingo = horario.indexOf("d");
+            if(lunes!=-1)
+                $('#lunes').prop("checked", true);
+            else
+                $('#lunes').prop("checked", false);
+            if(martes!=-1)
+                $('#martes').prop("checked", true);
+            else
+                $('#martes').prop("checked", false);
+            if(miercoles!=-1)
+                $('#miercoles').prop("checked", true);
+            else
+                $('#miercoles').prop("checked", false);
+            if(jueves!=-1)
+                $('#jueves').prop("checked", true);
+            else
+                $('#jueves').prop("checked", false);
+            if(viernes!=-1)
+                $('#viernes').prop("checked", true);
+            else
+                $('#viernes').prop("checked", false);
+            if(sabado!=-1)
+                $('#sabado').prop("checked", true);
+            else
+                $('#sabado').prop("checked", false);
+            if(domingo!=-1)
+                $('#domingo').prop("checked", true);
+            else
+                $('#domingo').prop("checked", false);
+            
+            var match = /\(/.exec(horario);
+            var inicio = 0;
+            if (match) {
+                inicio = match.index+1;
+            }
+
+            var match = /-/.exec(horario);
+            var fin = 0;
+            if (match) {
+                fin = match.index-inicio
+            }
+            var horaInicio = horario.substr(inicio, fin);
+            var match = /-/.exec(horario);
+            var inicio2 = 0;
+            if (match) {
+                inicio2 = match.index+1;
+            }
+
+            var match = /\)/.exec(horario);
+            var fin2 = 0;
+            if (match) {
+                fin2 = match.index-inicio2;
+            }
+            var horaFin = horario.substr(inicio2, fin2);
+            $('#inicio').val(horaInicio);
+            $('#fin').val(horaFin);
+            $('#tiempo').val(json.adicional.tiempo_consulta);
+            $('#domPart').val(json.adicional.domicilioConsultorio);
+            $('#telEme').val(json.adicional.telEmergencias);
+            $('#celEmergencias').val(json.adicional.celEmergencias);
+            $('#correoAux').val(json.adicional.emailEmergencias);
+            $('#face').val(json.adicional.facebook);
+            $('#twitter').val(json.adicional.twitter);
+            $('#cedula').val(json.adicional.cedula);
+            $('#Especialidad').val(json.adicional.especialidad);
+            $('#universidad').val(json.adicional.universidad);
 
         }
         else
@@ -771,8 +842,8 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#sabado').prop("checked", false);
             $('#domingo').prop("checked", false);
 
-            $('#Inicio').val("");
-            $('#Fin').val("");
+            $('#inicio').val("");
+            $('#fin').val("");
             $('#Tiempo').val("");
         }
 
@@ -799,7 +870,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                     },
                 async: false
             })
-            <?php if ($_GET['type']=="doctors") { ?>
+            <?php if ($_GET['type']=="doctors"):  ?>
                 $.post("/ajaxAgD",
                 $('#formulario').serialize(),
             function(data, status){
@@ -823,7 +894,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 location.reload(true);
             });   
                    
-            <?php }elseif ($_GET['type']=="recepcionist") {?>
+            <?php elseif ($_GET['type']=="recepcionist"): ?>
                 $.post("/ajaxAgR",
                 $('#formulario').serialize(),
             function(data, status){
@@ -846,7 +917,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 $('#fechaCita').attr("disabled", false);
                 location.reload(true);
             });
-         <?php } ?>
+         <?php endif; ?>
 
            return false; 
             
@@ -897,8 +968,8 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#sabado').prop("checked", false);
             $('#domingo').prop("checked", false);
 
-            $('#Inicio').val("");
-            $('#Fin').val("");
+            $('#inicio').val("");
+            $('#fin').val("");
             $('#tiempo').val("");
 
             $('#formulario :input').attr('disabled', false);
