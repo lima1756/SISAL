@@ -741,6 +741,7 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
     }
     else
     {
+        $consulta = dbConnection::RAW("SELECT DATE_FORMAT(citas.fecha_hora, '%d/%m/%Y') as fecha, citas.id_cita, DATE_FORMAT(citas.fecha_hora,'%H:%i:%s') as hora, tipocita.nombre as tipo, usuarios.nombre, usuarios.id_usuario, usuarios.apellidoPaterno, usuarios.apellidoMaterno, usuarios.telefonoCelular as celular FROM citas INNER JOIN tipocita ON citas.tipo = tipocita.id INNER JOIN usuarios ON usuarios.id_usuario = citas.id_paciente WHERE DATE(fecha_hora)>DATE(NOW());");
         $datos["data"] = [];
         foreach($consulta as $c)
         {
