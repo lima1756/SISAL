@@ -145,67 +145,47 @@ use App\myClasses\dbConnection;
 
 
                                     <label class="btn">Fecha de cita: </label><input class=" btn btn-default" id="date" name="date" type="date" <?php if(isset($_GET['date'])){ $date = new DateTime($_GET['date']);echo "value=\"".$date->format('Y-m-d')."\"";}?>/>
-                                    &nbsp&nbsp
-                                    <br>
-                                    <br>
                                     <label class="btn">Doctor: </label>
                                     <select class="btn btn-default" name="idDoc" id="idDoc" <?php if(isset($_GET['med'])){echo "value=\"" . $_GET['med'] . "\"";}?>>
                                         <?php foreach($listaDoctores as $d): ?>
                                             <option value="<?php echo $d['id_usuario'];?>" ><?php echo $d['nombre'] . " " . $d['apellidoPaterno'] . " " . $d['apellidoMaterno'];?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <br>
-                                    <br>
-                                    <span>&nbsp</span>
-                                    <span>&nbsp</span>
-                                    <input type="checkbox" name="proximasCitas" id="proximasCitas" />
+
+                                    <input type="radio" name="opcion" id="proximasCitas" value="proximasCitas" hidden/>
                                     <div class="btn-group">
                                         <label for="proximasCitas" class="btn btn-default">
                                             <span class="fa fa-check"></span>
                                             <span>&nbsp</span>
                                         </label>
                                         <span>&nbsp</span><label for="proximasCitas" class="btn btn-default active">
-                                            Ver  citas   registradas
-                                            <span>&nbsp&nbsp</span>
-                                            <span>&nbsp&nbsp</span>
+                                            Ver  citas   agendadas
                                         </label>
-                                        <span>&nbsp&nbsp</span>
                                     </div>                                
-                                    <br>
-                                    <br>
-                                    <span>&nbsp</span>
-                                    <span>&nbsp</span>
-                                    <input type="checkbox" name="disponible" id="disponible" />
-                                        <div class="btn-group">
-                                            <label for="disponible" id="icoDisponible" class="btn btn-default">
-                                                <span class="fa fa-check"></span>
-                                                <span>&nbsp</span>
-                                            </label>
-                                            <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
-                                                Ver horarios disponibles
-                                            </label>
-                                        </div>
-                                        <br>
-                                        <br>
-                                    <span>&nbsp</span>
-                                    <span>&nbsp</span>
-                                    <input type="checkbox" name="agenda" id="agenda" />
-                                        <div class="btn-group">
-                                            <label for="agenda" id="icoAgenda" class="btn btn-default">
-                                                <span class="fa fa-check"></span>
-                                                <span>&nbsp</span>
-                                            </label>
-                                            <span>&nbsp</span><label for="agenda" id="labelAgenda" class="btn btn-default active">
-                                                Ver agenda completa
-                                            </label>
-                                        </div>
-                                        <br>
-                                        <br>
 
+                                    <input type="radio" name="opcion" id="disponible" value="disponible" hidden/>
+                                    <div class="btn-group">
+                                        <label for="disponible" id="icoDisponible" class="btn btn-default">
+                                            <span class="fa fa-check"></span>
+                                            <span>&nbsp</span>
+                                        </label>
+                                        <span>&nbsp</span><label for="disponible" id="labelDisponible" class="btn btn-default active">
+                                            Registrar nueva cita
+                                        </label>
+                                    </div>
 
+                                    <input type="radio" name="opcion" id="agenda" value="agenda" hidden/>
+                                    <div class="btn-group">
+                                        <label for="agenda" id="icoAgenda" class="btn btn-default">
+                                            <span class="fa fa-check"></span>
+                                            <span>&nbsp</span>
+                                        </label>
+                                        <span>&nbsp</span><label for="agenda" id="labelAgenda" class="btn btn-default active">
+                                            Ver agenda completa
+                                        </label>
+                                    </div>
 
-                                        <span>&nbsp</span><span>&nbsp</span><span>&nbsp</span>
-                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Buscar</button>
+                                    <button class="btn btn-primary" onclick="updateDates(); return false;">Ver citas</button>
                                 </div>
                                 
                             </form>
@@ -550,21 +530,20 @@ use App\myClasses\dbConnection;
             }
         });
 
-        $("#proximasCitas").change(function() {
-            if(document.getElementById('proximasCitas').checked){
-                $("#date").prop("disabled", true);
-                $("#disponible").prop("disabled", true);
-                $("#labelDisponible").prop("class", "btn btn-default disabled");
-                $("#icoDisponible").prop("disabled", "btn btn-default disabled");
-            }
-            else
-            {
-                $("#date").prop("disabled", false);
-                $("#disponible").prop("disabled", false);
-                $("#labelDisponible").prop("class", "btn btn-default active");
-                $("#icoDisponible").prop("disabled", "btn btn-default active");
-            }
+        $(document).ready(function() {
+            $('input[type=radio][name=opcion]').change(function() {
+                if (this.value == 'agenda') {
+                    alert("agenda");
+                }
+                else if (this.value == 'disponible') {
+                    alert("disponible");
+                }
+                else if (this.value == 'proximasCitas') {
+                    alert("proximasCitas");
+                }
+            });
         });
+
         function eliminacion(){
             if($("#submitCancelacion").html()=="Eliminar cita")
             {
