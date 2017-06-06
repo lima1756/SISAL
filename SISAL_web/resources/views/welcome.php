@@ -278,12 +278,12 @@
           <div class="modal-body padtrbl">
 
             <div class="login-box-body">
-            <?php
-                if(!isset($_GET['error'])):?>
-            <div id="errorlogIn" class="alert alert-danger" style="visibility:hidden;display: none;"></div>
-            <?php else: ?>
-            <script>window.alert("Datos erroneos, verifica");</script>
-            <div id="errorlogIn" class="alert alert-danger">Datos erroneos, verifica</div>
+            <?php if(isset($_GET['error'])):?>
+                <?php if($_GET['error']=="signin"): ?>
+                    <div id="errorlogIn" class="alert alert-danger">Datos erroneos, verifica</div>
+                <?php elseif($_GET['error']=="denied"): ?>
+                    <div id="errorlogIn" class="alert alert-danger">Porfavor contacte con el administrador</div>
+                <?php endif; ?>
             <?php endif; ?>
               <div class="form-group">
                 <form name="logIn" id="loginForm" action="/logIn" method="post">
@@ -326,7 +326,9 @@
     
     <!-- Theme JavaScript -->
     <script src="dataSource/js/templates/creative.js"></script>
-
+    <?php if(isset($_GET['error'])):?>
+        <script>$('#login').modal('show')  </script>
+    <?php endif; ?>
 </body>
 
 </html>

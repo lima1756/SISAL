@@ -38,7 +38,36 @@ Route::get('/medicine', function () {
 Route::post('/logIn', function () {
     if(logData::logIn($_POST['email'], $_POST['pass']))
     {
-        return redirect('/dashboard');
+        $id = logData::getData("id_usuario");
+        $check = false;
+        if(Type::isMedic())
+        {
+            var_dump(dbConnection::select(["estado"], "medicos", [["id_usuario", $id]])[0]['estado']);
+            $check = dbConnection::select(["estado"], "medicos", [["id_usuario", $id]])[0]['estado']==1?true:false;
+        }
+        elseif(Type::isPatient())
+        {
+            $check = dbConnection::select(["estado"], "pacientes", [["id_usuario", $id]])[0]['estado']==1?true:false;
+        }
+        elseif(Type::isReceptionist())
+        {
+            $check = dbConnection::select(["estado"], "recepcionistas", [["id_usuario", $id]])[0]['estado']==1?true:false;
+        }
+        elseif(Type::isAdmin())
+        {
+            $check = true;
+        }
+        elseif(Type::isInCharge())
+        {
+            $check = count(dbConnection::select(["estado"], "encargados", [["id_paciente", 0, ">"]]))>0?true:false;
+        }
+        if($check)
+            return redirect('/dashboard');
+        else
+        {
+            logData::logOut();
+            return redirect('/?error=denied');   
+        }
     }
     return redirect('/?error=signin');
 });
