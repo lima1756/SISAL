@@ -219,14 +219,14 @@
                                             <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
-                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" disabled/>
+                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" min="6" disabled/>
                                             </div>
                                             </td>
                                             </tr>
                                             <tr>
                                             <td>
                                             <div class="form-group">
-                                                <label>Actualizar contraseña</label>
+                                                <label>Confirmar contraseña</label>
                                                 <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass2" name="pass2" disabled/>
                                             </div>
                                             </td>
@@ -688,6 +688,7 @@
 
     function edicion()
     {
+        
         $('#formulario :input').attr('disabled', false);
         $('#editar').prop('disabled', false);
         $('#cancelar').prop('disabled', false);
@@ -697,6 +698,7 @@
         $('#cancelar').show();
         $('#aceptar').show();
         $("#btnResponsable").show();
+        document.getElementById('pass').required = true;
     }
 
     function aceptacion()
@@ -708,11 +710,10 @@
                 },
                 async: false
             })
-            console.log($('#formulario')[0].checkValidity());
-            if(validateUser($("#usuario").val()))
+            if(validateUser($("#usuario").val()) || $("#idPaciente").val!="")
             {
                 $("#errorUsuario").hide();
-                if(validateEmail($("#email").val()))
+                if(validateEmail($("#email").val()) || $("#idPaciente").val!="")
                 {
                     $("#errorEmail").hide();
                     if(validateUser($("#responsableUsuario").val()))
@@ -854,6 +855,7 @@
         $('#responsableFechaNacimiento').val("");
         $('#responsableEdad').html("");
         $('#responsableOcupacion').val("");  
+        document.getElementById('pass').required = true;
 
         $('#formulario :input').attr('disabled', false);
         $('#editar').prop('disabled', false);

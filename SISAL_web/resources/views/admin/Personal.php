@@ -154,17 +154,17 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                             <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/Personal/?type=doctors">Doctores</a>
+                                    <a href="/dashboard/Personal/?type=doctors">Doctores</a>
                                 </li>
                                 
                                 <li>
-                                    <a href="/Personal/?type=recepcionist">Recepcionistas</a>
+                                    <a href="/dashboard/Personal/?type=recepcionist">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
+                            <a href="/dashboard/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
                         </li>
                     </ul>
                 </div>
@@ -234,7 +234,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-12">
-                    <form name="formulario" id="formulario" action="/dashboard/patients" method="POST">
+                    <form name="formulario" id="formulario" action="#" >
                         <input type="text" name="_token" id="_token" value="<?php echo csrf_token(); ?>" hidden/>
                         <div class="panel panel-default"aria-multiselectable="true" id="toda_info" hidden>
                             <div class="panel-heading">
@@ -261,75 +261,86 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <tr>
                                             <td>
                                             <div class="form-group">
+                                                <div id="errorUsuario" class="alert alert-danger" hidden>Usuario existente, porfavor use otro</div>
                                                 <label>Usuario</label>
-                                                <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled/>
+                                                <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled required/>
                                             </div>
                                             </td>
                                             <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
-                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" disabled/>
+                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" min="6" disabled />
                                             </div>
                                             </td>
                                             </tr>
                                             <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Confirmar contraseña</label>
+                                                <input class="form-control" type="text" placeholder="Confirmar contraseña" id="pass2" name="pass2" disabled />
+                                            </div>
+                                            </td>
                                             <td>
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled/>
+                                                <input class="form-control" type="text" placeholder="Nombre" id="nombre" name="nombre" disabled required/>
                                             </div>
                                             </td>
+                                            
+                                            </tr>
+                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Apellido Paterno</label>
-                                                <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled/>
+                                                <input class="form-control" type="text" placeholder="Apellido Paterno" id="apellidoPaterno" name="apellidoPaterno" disabled required/>
                                             </div>
                                             </td>
-                                            </tr>
-                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Apellido Materno</label>
-                                                <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled/>
+                                                <input class="form-control" type="text" placeholder="Apellido Materno" id="apellidoMaterno" name="apellidoMaterno" disabled required/>
                                             </div>
                                             </td>
+                                            
+                                            </tr>
+                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Domicilio</label>
-                                                <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled/>
+                                                <input class="form-control" type="text" placeholder="Domicilio" id="domicilio" name="domicilio" disabled required/>
                                             </div>
                                             </td>
-                                            </tr>
-                                            <tr>
                                             <td>
-                                            <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
                                             <div class="form-group">
                                                 <label>Código Postal</label>
-                                                <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled/>
+                                                <input class="form-control" type="number" placeholder="Código Postal" id="codigoPostal" name="codigoPostal" disabled required/>
                                             </div>
                                             </td>
+                                            
+                                            </tr>
+                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Teléfono domiciliar</label>
-                                                <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled/>
+                                                <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" disabled required/>
                                             </div>
                                             </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Teléfono Celular</label>
+                                                <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled required/>
+                                            </div>
+                                            </td>
+                                            
                                             </tr>
                                             <tr>
                                             <td>
                                             <div class="form-group">
-                                                <label>Teléfono oficina</label>
-                                                <input class="form-control" type="number" placeholder="Teléfono oficina" id="ofTel" name="ofTel" disabled/>
-                                            </div>
-                                            </td>
-                                            <td>
-                                            <div class="form-group">
+                                                <div id="errorEmail" class="alert alert-danger" hidden>Email existente, porfavor use otro</div>
                                                 <label>Correo Electrónico</label>
-                                                <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled/>
+                                                <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled required/>
                                             </div>
                                             </td>
-                                            </tr>
-                                            <tr>
                                             <td>
                                             <div class="form-group">
                                                 <label>Genero</label>
@@ -340,32 +351,37 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                                 </select>
                                             </div>
                                             </td>
-                                            <td>
-                                            <div class="form-group">
-                                                <label>No. de Seguridad social</label>
-                                                <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled/>
-                                            </div>
-                                            </td>
+                                            
                                             </tr>
                                             <tr>
                                             <td>
                                             <div class="form-group">
-                                                <label>Fecha de nacimiento</label>
-                                                <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled/>
+                                                <label>No. de Seguridad social</label>
+                                                <input class="form-control" type="text" placeholder="No. de Seguridad social" id="seguroSocial" name="seguroSocial" disabled required/>
                                             </div>
                                             </td>
                                             <td>
                                             <div class="form-group">
-                                                <label>Ocupación</label>
-                                                <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled/>
+                                                <label>Fecha de nacimiento</label>
+                                                <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="fechaNacimiento" name="fechaNacimiento" disabled required/>
                                             </div>
-                                            </td>                                           
+                                            </td>
+                                                                                      
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Ocupación</label>
+                                                <input class="form-control" type="text" placeholder="Ocupación" id="ocupacion" name="ocupacion" disabled required/>
+                                            </div>
+                                            </td> 
+                                            
                                             </tr>
                                             <tr>
                                             <td>
                                             <div class="form-group" hidden>
                                                 <label>Estado</label>
-                                                <input class="form-control" type="text" placeholder="estado" id="estado" name="estado" disabled  />
+                                                <input class="form-control" type="text" placeholder="estado" id="estado" name="estado" disabled required />
                                             </div>
                                             </td>
                                             </tr>
@@ -703,8 +719,8 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
         $('#domicilio').val(json.generales.Domicilio);
         $('#codigoPostal').val(json.generales.codigoPostal);
         $('#domTel').val(json.generales.telefonoDomiciliar);
-        $('#ofTel').val(json.generales.telefonoDomiciliar);
-        $('#email').val(json.generales.telefonoDomiciliar);
+        $('#ofTel').val(json.generales.telefonoCelular);
+        $('#email').val(json.generales.email);
         if(json.generales.genero=="Masculino")
         {
             $('#genero').val("Masculino");
@@ -859,6 +875,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
         $('#editar').hide();
         $('#cancelar').show();
         $('#aceptar').show();
+        document.getElementById('pass').required = false;
     }
 
     function aceptacion()
@@ -870,55 +887,77 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                     },
                 async: false
             })
-            <?php if ($_GET['type']=="doctors"):  ?>
-                $.post("/ajaxAgD",
-                $('#formulario').serialize(),
-            function(data, status){
-                var misdatos = data;
-                if(misdatos !== "undefined")
+            if(validateUser($("#usuario").val()) || $("#idEmpleado").val!="")
+            {
+                $("#errorUsuario").hide();
+                if(validateEmail($("#email").val()) || $("#idEmpleado").val!="")
                 {
-                    $("#idEmpleado").val(misdatos);
+                    $("#errorEmail").hide();
+                    console.log($('#formulario')[0].checkValidity());
+                     if($('#formulario')[0].checkValidity() && validatePasswordUser())
+                     {
+                        <?php if ($_GET['type']=="doctors"):  ?>
+                            $.post("/ajaxAgD",
+                            $('#formulario').serialize(),
+                        function(data, status){
+                            var misdatos = data;
+                            if(misdatos !== "undefined")
+                            {
+                                $("#idEmpleado").val(misdatos);
+                            }
+                            $('#formulario :input').prop('disabled', true);
+                            $('#_token').prop('disabled', false);
+                            $('#editar').prop('disabled', false);
+                            $('#cancelar').prop('disabled', false);
+                            $('#aceptar').prop('disabled', false);
+                            $('label[id="checkbox"]').attr('disabled', true);
+                            $('#editar').show();
+                            $('#cancelar').hide();
+                            $('#aceptar').hide();
+                            $('#pass').val("");
+                            $('#medico').attr("disabled", false);
+                            $('#fechaCita').attr("disabled", false);
+                            location.reload(true);
+                        });       
+                        <?php elseif ($_GET['type']=="recepcionist"): ?>
+                            $.post("/ajaxAgR",
+                            $('#formulario').serialize(),
+                        function(data, status){
+                            var misdatos = data;
+                            if(misdatos !== "undefined")
+                            {
+                                $("#idEmpleado").val(misdatos);
+                            }
+                            $('#formulario :input').prop('disabled', true);
+                            $('#_token').prop('disabled', false);
+                            $('#editar').prop('disabled', false);
+                            $('#cancelar').prop('disabled', false);
+                            $('#aceptar').prop('disabled', false);
+                            $('label[id="checkbox"]').attr('disabled', true);
+                            $('#editar').show();
+                            $('#cancelar').hide();
+                            $('#aceptar').hide();
+                            $('#pass').val("");
+                            $('#medico').attr("disabled", false);
+                            $('#fechaCita').attr("disabled", false);
+                            location.reload(true);
+                        });
+                    <?php endif; ?>
+                     }
+                     else
+                    {
+                        return true;
+                    }
                 }
-                $('#formulario :input').prop('disabled', true);
-                $('#_token').prop('disabled', false);
-                $('#editar').prop('disabled', false);
-                $('#cancelar').prop('disabled', false);
-                $('#aceptar').prop('disabled', false);
-                $('label[id="checkbox"]').attr('disabled', true);
-                $('#editar').show();
-                $('#cancelar').hide();
-                $('#aceptar').hide();
-                $('#pass').val("");
-                $('#medico').attr("disabled", false);
-                $('#fechaCita').attr("disabled", false);
-                location.reload(true);
-            });   
-                   
-            <?php elseif ($_GET['type']=="recepcionist"): ?>
-                $.post("/ajaxAgR",
-                $('#formulario').serialize(),
-            function(data, status){
-                var misdatos = data;
-                if(misdatos !== "undefined")
+                else
                 {
-                    $("#idEmpleado").val(misdatos);
+                    $("#errorEmail").show();
                 }
-                $('#formulario :input').prop('disabled', true);
-                $('#_token').prop('disabled', false);
-                $('#editar').prop('disabled', false);
-                $('#cancelar').prop('disabled', false);
-                $('#aceptar').prop('disabled', false);
-                $('label[id="checkbox"]').attr('disabled', true);
-                $('#editar').show();
-                $('#cancelar').hide();
-                $('#aceptar').hide();
-                $('#pass').val("");
-                $('#medico').attr("disabled", false);
-                $('#fechaCita').attr("disabled", false);
-                location.reload(true);
-            });
-         <?php endif; ?>
-
+            }
+            else
+            {
+                $("#errorUsuario").show();
+            }
            return false; 
             
         }
@@ -971,7 +1010,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
             $('#inicio').val("");
             $('#fin').val("");
             $('#tiempo').val("");
-
+            document.getElementById('pass').required = true;
             $('#formulario :input').attr('disabled', false);
             $('#editar').prop('disabled', false);
             $('#cancelar').prop('disabled', false);
@@ -1007,7 +1046,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 url:   '/ajaxAeD',
                 type:  'post',
                 beforeSend: function () {
-                        $('#dataTables-example').prop('action', "/Personal/?type=doctors");
+                        $('#dataTables-example').prop('action', "/dashboard/Personal/?type=doctors");
                 }
         });
 
@@ -1029,7 +1068,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 url:   '/ajaxAeR',
                 type:  'post',
                 beforeSend: function () {
-                        $('#dataTables-example').prop('action', "/Personal/?type=recepcionist");
+                        $('#dataTables-example').prop('action', "/dashboard/Personal/?type=recepcionist");
                 }
         });
         <?php } ?>
@@ -1058,7 +1097,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 url:   '/ajaxAaD',
                 type:  'post',
                 beforeSend: function () {
-                        $('#dataTables-example').prop('action', "/Personal/?type=doctors");
+                        $('#dataTables-example').prop('action', "/dashboard/Personal/?type=doctors");
                 }
         });
 
@@ -1080,15 +1119,65 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 url:   '/ajaxAaR',
                 type:  'post',
                 beforeSend: function () {
-                        $('#dataTables-example').prop('action', "/Personal/?type=recepcionist");
+                        $('#dataTables-example').prop('action', "/dashboard/Personal/?type=recepcionist");
                 }
         });
         <?php } ?>
         location.reload(true);
     }
 
+    function validatePasswordUser(){
+        var password = document.getElementById("pass");
+        var confirm_password = document.getElementById("pass2");
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("No coinciden contraseñas");
+            return false;
+        } else {
+            confirm_password.setCustomValidity('');
+            return true;
+        }
+    }
 
+    function validateUser(user)
+    {
+        var regresar = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            },
+            async: false
+            
+        });
+        $.post("/ajaxCU",
+            {'user': user},
+            function(data, status){
+                json = JSON.parse(data);
+                regresar = json.ok;
+            }
+        );
+        return regresar;
+    }
 
+    function validateEmail(email)
+    {
+
+        var regresar = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            },
+            async: false
+            
+        });
+        $.post("/ajaxCE",
+            { 'email': email},
+            function(data, status){
+                json = JSON.parse(data);
+                regresar = json.ok;
+            }
+        );
+        return regresar;
+    }
 
     </script>
     

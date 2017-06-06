@@ -98,17 +98,17 @@ $join=[];
                             <a href="#"><i class="fa fa-table fa-fw"></i>Personal<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/Personal/?type=doctors">Doctores</a>
+                                    <a href="/dashboard/Personal/?type=doctors">Doctores</a>
                                 </li>
                                 
                                 <li>
-                                    <a href="/Personal/?type=recepcionist">Recepcionistas</a>
+                                    <a href="/dashboard/Personal/?type=recepcionist">Recepcionistas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
+                            <a href="/dashboard/medicine"><i class="fa fa-medkit fa-fw"></i> Medicina por aprobar</a>
                         </li>
                     </ul>
                 </div>
@@ -226,7 +226,7 @@ $join=[];
                 url:   '/ajaxMR',
                 type:  'post',
                 beforeSend: function () {
-                        $('#dataTables-example').prop('action', "/medicine");
+                        $('#dataTables-example').prop('action', "/dashboard/medicine");
                 }
         });
         location.reload(true);
@@ -249,7 +249,7 @@ function aceptar(ID, Name){
                 url:   '/ajaxMA',
                 type:  'post',
                 beforeSend: function () {
-                        $('#dataTables-example').prop('action', "/medicine");
+                        $('#dataTables-example').prop('action', "/dashboard/medicine");
                 }
         });
         location.reload(true);

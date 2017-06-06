@@ -27,10 +27,10 @@ Route::get('/registerPersonal', function () {
   return view('admin/registerPersonal');
 });
 
-Route::get('/Personal', function () {
+Route::get('/dashboard/Personal', function () {
   return view('admin/Personal');
 });
-Route::get('/medicine', function () {
+Route::get('/dashboard/medicine', function () {
   return view('admin/medicine');
 });
 

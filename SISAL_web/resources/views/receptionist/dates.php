@@ -287,7 +287,7 @@ use App\myClasses\dbConnection;
                                                 <td>
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
-                                                        <input class="form-control" type="password" placeholder="Contraseña" id="pass" name="pass" />
+                                                        <input class="form-control" type="password" placeholder="Contraseña" min="6" id="pass" name="pass" />
                                                     </div>
                                                 </td>
                                             </tr>
@@ -608,7 +608,7 @@ use App\myClasses\dbConnection;
             return false;
         }
 
-        function validatePasswordUser(){
+    function validatePasswordUser(){
         var password = document.getElementById("pass");
         var confirm_password = document.getElementById("pass2");
         console.log(password.value);
