@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `sisal` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `sisal`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: sisal
@@ -182,7 +184,7 @@ CREATE TABLE `citas` (
   `fecha_hora` datetime NOT NULL,
   `tipo` int(11) NOT NULL,
   PRIMARY KEY (`id_cita`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +193,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (1,1010,1006,1003,'2017-03-23 20:00:00',1),(2,1010,1006,1003,'2017-03-23 21:50:00',2),(3,1010,1006,1003,'2017-03-23 07:00:00',1),(4,1009,1006,1003,'2017-03-23 19:00:00',1),(5,1010,1005,1003,'2017-04-11 19:35:41',1),(6,1010,1005,1003,'2017-05-03 07:45:00',2),(13,1010,1005,1003,'2017-05-17 11:30:00',2),(14,1010,1005,1004,'2017-05-22 14:00:00',2),(15,1007,1005,1003,'2017-05-29 07:00:00',2),(19,1011,1005,1003,'2017-06-02 07:00:00',2),(17,1029,1005,1003,'2017-06-02 07:45:00',2),(18,1027,1005,1003,'2017-06-02 09:15:00',2),(20,1011,1005,1003,'2017-06-02 07:45:00',2),(21,1031,1005,1003,'2017-06-02 08:30:00',2);
+INSERT INTO `citas` VALUES (1,1010,1006,1003,'2017-03-23 20:00:00',1),(2,1010,1006,1003,'2017-03-23 21:50:00',2),(3,1010,1006,1003,'2017-03-23 07:00:00',1),(4,1009,1006,1003,'2017-03-23 19:00:00',1),(5,1010,1005,1003,'2017-04-11 19:35:41',1),(6,1010,1005,1003,'2017-05-03 07:45:00',2),(13,1010,1005,1003,'2017-05-17 11:30:00',2),(14,1010,1005,1004,'2017-05-22 14:00:00',2),(15,1007,1005,1003,'2017-05-29 07:00:00',2),(19,1011,1005,1003,'2017-06-02 07:00:00',2),(17,1029,1005,1003,'2017-06-02 07:45:00',2),(18,1027,1005,1003,'2017-06-02 09:15:00',2),(20,1011,1005,1003,'2017-06-02 07:45:00',2),(21,1031,1005,1003,'2017-06-02 08:30:00',2),(22,1010,1005,1003,'2017-06-21 08:30:30',1);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +235,7 @@ CREATE TABLE `diagnostico` (
   `estado` enum('Sin determinar','Leve','Controlado','Grave') COLLATE utf8_unicode_ci NOT NULL,
   `notas` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_diagnostico`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +244,7 @@ CREATE TABLE `diagnostico` (
 
 LOCK TABLES `diagnostico` WRITE;
 /*!40000 ALTER TABLE `diagnostico` DISABLE KEYS */;
-INSERT INTO `diagnostico` VALUES (1,'2','Grave','Esta empeorando con el paso del tiempo, debido a sus alergias'),(2,'6','Sin determinar','Aun no se sabe que ocasiono estos síntomas'),(3,'Cancer','Controlado','bibpib'),(4,'Cancer','Grave','hpg'),(5,'Cancer','Grave','hpg'),(6,'Cancer','Controlado',''),(7,'Cancer','Controlado','dgg'),(8,'Cancer','Leve','fhgjhbkjlnkm'),(9,'Cancer','Grave','vhbkjlnkmkl'),(10,'nñn','Controlado','yfghbjlnkmñl'),(11,'Esquizofrenia','Controlado','Descanso constante'),(12,'Examen PLANEA','Controlado','kasncakn'),(13,'DIarrea','Controlado',''),(14,'koko','Controlado',''),(15,'koko','Controlado','Nada'),(16,'koko','Controlado','Nada'),(17,'lsss','Controlado','oihjvhgcvhbjn'),(18,'lsss','Controlado','oihjvhgcvhbjn'),(19,'Esquizofrenia','Leve','cgvhbjlnkm'),(20,'Esquizofrenia','Leve','cgvhbjlnkm'),(21,'Esquizofrenia','Leve','cgvhbjlnkm'),(22,'Esquizofrenia','Leve','cgvhbjlnkm'),(23,'Esquizofrenia','Leve','cgvhbjlnkm'),(24,'121','Leve','fasdfsdaffs'),(25,'121','Leve','fasdfsdaffs'),(26,'121','Leve','fasdfsdaffs'),(27,'121','Leve','fasdfsdaffs'),(28,'121','Leve','fasdfsdaffs'),(29,'121','Leve','fasdfsdaffs'),(30,'121','Leve','fasdfsdaffs'),(31,'121','Leve','fasdfsdaffs'),(32,'121','Leve','fasdfsdaffs'),(33,'121','Leve','fasdfsdaffs'),(34,'Soledad','Controlado',''),(35,'Sindrome del pendejo','Grave','');
+INSERT INTO `diagnostico` VALUES (1,'2','Grave','Esta empeorando con el paso del tiempo, debido a sus alergias'),(2,'6','Sin determinar','Aun no se sabe que ocasiono estos síntomas'),(3,'Cancer','Controlado','bibpib'),(4,'Cancer','Grave','hpg'),(5,'Cancer','Grave','hpg'),(6,'Cancer','Controlado',''),(7,'Cancer','Controlado','dgg'),(8,'Cancer','Leve','fhgjhbkjlnkm'),(9,'Cancer','Grave','vhbkjlnkmkl'),(10,'nñn','Controlado','yfghbjlnkmñl'),(11,'Esquizofrenia','Controlado','Descanso constante'),(12,'Examen PLANEA','Controlado','kasncakn'),(13,'DIarrea','Controlado',''),(14,'koko','Controlado',''),(15,'koko','Controlado','Nada'),(16,'koko','Controlado','Nada'),(17,'lsss','Controlado','oihjvhgcvhbjn'),(18,'lsss','Controlado','oihjvhgcvhbjn'),(19,'Esquizofrenia','Leve','cgvhbjlnkm'),(20,'Esquizofrenia','Leve','cgvhbjlnkm'),(21,'Esquizofrenia','Leve','cgvhbjlnkm'),(22,'Esquizofrenia','Leve','cgvhbjlnkm'),(23,'Esquizofrenia','Leve','cgvhbjlnkm'),(24,'121','Leve','fasdfsdaffs'),(25,'121','Leve','fasdfsdaffs'),(26,'121','Leve','fasdfsdaffs'),(27,'121','Leve','fasdfsdaffs'),(28,'121','Leve','fasdfsdaffs'),(29,'121','Leve','fasdfsdaffs'),(30,'121','Leve','fasdfsdaffs'),(31,'121','Leve','fasdfsdaffs'),(32,'121','Leve','fasdfsdaffs'),(33,'121','Leve','fasdfsdaffs'),(34,'Soledad','Controlado',''),(35,'Sindrome del pendejo','Grave',''),(36,'123123','Grave','123123123123');
 /*!40000 ALTER TABLE `diagnostico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +366,7 @@ CREATE TABLE `encargados` (
 
 LOCK TABLES `encargados` WRITE;
 /*!40000 ALTER TABLE `encargados` DISABLE KEYS */;
-INSERT INTO `encargados` VALUES (1023,-1),(1025,1024),(1030,1012);
+INSERT INTO `encargados` VALUES (1023,1010),(1025,1024),(1030,1012);
 /*!40000 ALTER TABLE `encargados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,7 +444,7 @@ CREATE TABLE `estudios` (
   `id_estudios` int(11) NOT NULL AUTO_INCREMENT,
   `orden` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_estudios`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -451,7 +453,7 @@ CREATE TABLE `estudios` (
 
 LOCK TABLES `estudios` WRITE;
 /*!40000 ALTER TABLE `estudios` DISABLE KEYS */;
-INSERT INTO `estudios` VALUES (1,'Preparatoria'),(2,'Solo secundaria'),(3,'knó'),(4,'asdfg'),(5,'asdfg'),(6,''),(7,''),(8,''),(9,''),(10,''),(11,'ninguno'),(12,'ninguno'),(13,''),(14,''),(15,'nada'),(16,'nada'),(17,''),(18,''),(19,'vhbkjlkm'),(20,'vhbkjlkm'),(21,'vhbkjlkm'),(22,'vhbkjlkm'),(23,'vhbkjlkm'),(24,''),(25,''),(26,''),(27,''),(28,''),(29,''),(30,''),(31,''),(32,''),(33,''),(34,'Hacer prueba  de orina.'),(35,'');
+INSERT INTO `estudios` VALUES (1,'Preparatoria'),(2,'Solo secundaria'),(3,'knó'),(4,'asdfg'),(5,'asdfg'),(6,''),(7,''),(8,''),(9,''),(10,''),(11,'ninguno'),(12,'ninguno'),(13,''),(14,''),(15,'nada'),(16,'nada'),(17,''),(18,''),(19,'vhbkjlkm'),(20,'vhbkjlkm'),(21,'vhbkjlkm'),(22,'vhbkjlkm'),(23,'vhbkjlkm'),(24,''),(25,''),(26,''),(27,''),(28,''),(29,''),(30,''),(31,''),(32,''),(33,''),(34,'Hacer prueba  de orina.'),(35,''),(36,'Nada');
 /*!40000 ALTER TABLE `estudios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,7 +547,7 @@ CREATE TABLE `exploracion` (
   `frecuenciaCardiaca` int(11) NOT NULL,
   `exploracionFisica` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_exploracion`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -554,7 +556,7 @@ CREATE TABLE `exploracion` (
 
 LOCK TABLES `exploracion` WRITE;
 /*!40000 ALTER TABLE `exploracion` DISABLE KEYS */;
-INSERT INTO `exploracion` VALUES (1,88,36,22,112,0,31,75,'todo bien'),(2,69,32,21,102,0,28,92,'todo bien'),(3,89,10,86,65,65,164,656,''),(4,84,10,86,65,65,164,98,'jbpi'),(5,84,10,86,65,65,164,98,'jbpi'),(6,84,5,86,65,65,164,656,'kñno´n+'),(7,84,10,86,65,65,164,656,'shdsg'),(8,84,10,86,65,65,164,656,'fghjlkñl'),(9,84,5,86,65,65,164,656,'fcgjvhkbjlnkm'),(10,84,10,86,65,65,164,656,'gyihoijpokpl'),(11,6,9,9,12,10,8,9,'bien'),(12,49,89,50,110,79,35,53,'Nada importante'),(13,64,12,60,120,70,45,54,''),(14,10,10,10,10,10,10,10,'dggsg'),(15,10,10,10,10,10,10,10,'dggsg'),(16,10,10,10,10,10,10,10,'dggsg'),(17,55,555,555,5,55,55,55,'555'),(18,55,555,555,5,55,55,55,'555'),(19,1,616,1,616,16,684,6,'pdvdb6'),(20,1,616,1,616,16,684,6,'pdvdb6'),(21,1,616,1,616,16,684,6,'pdvdb6'),(22,1,616,1,616,16,684,6,'pdvdb6'),(23,1,616,1,616,16,684,6,'pdvdb6'),(24,21,221,12,100,211,212,21,'1221'),(25,21,221,12,100,211,212,21,'1221'),(26,21,221,12,100,211,212,21,'1221'),(27,21,221,12,100,211,212,21,'1221'),(28,21,221,12,100,211,212,21,'1221'),(29,21,221,12,100,211,212,21,'1221'),(30,21,221,12,100,211,212,21,'1221'),(31,21,221,12,100,211,212,21,'1221'),(32,21,221,12,100,211,212,21,'1221'),(33,21,221,12,100,211,212,21,'1221'),(34,80,45,80,110,50,35,120,'Nada importante.'),(35,70,167,80,90,120,36,75,'No se');
+INSERT INTO `exploracion` VALUES (1,88,36,22,112,0,31,75,'todo bien'),(2,69,32,21,102,0,28,92,'todo bien'),(3,89,10,86,65,65,164,656,''),(4,84,10,86,65,65,164,98,'jbpi'),(5,84,10,86,65,65,164,98,'jbpi'),(6,84,5,86,65,65,164,656,'kñno´n+'),(7,84,10,86,65,65,164,656,'shdsg'),(8,84,10,86,65,65,164,656,'fghjlkñl'),(9,84,5,86,65,65,164,656,'fcgjvhkbjlnkm'),(10,84,10,86,65,65,164,656,'gyihoijpokpl'),(11,6,9,9,12,10,8,9,'bien'),(12,49,89,50,110,79,35,53,'Nada importante'),(13,64,12,60,120,70,45,54,''),(14,10,10,10,10,10,10,10,'dggsg'),(15,10,10,10,10,10,10,10,'dggsg'),(16,10,10,10,10,10,10,10,'dggsg'),(17,55,555,555,5,55,55,55,'555'),(18,55,555,555,5,55,55,55,'555'),(19,1,616,1,616,16,684,6,'pdvdb6'),(20,1,616,1,616,16,684,6,'pdvdb6'),(21,1,616,1,616,16,684,6,'pdvdb6'),(22,1,616,1,616,16,684,6,'pdvdb6'),(23,1,616,1,616,16,684,6,'pdvdb6'),(24,21,221,12,100,211,212,21,'1221'),(25,21,221,12,100,211,212,21,'1221'),(26,21,221,12,100,211,212,21,'1221'),(27,21,221,12,100,211,212,21,'1221'),(28,21,221,12,100,211,212,21,'1221'),(29,21,221,12,100,211,212,21,'1221'),(30,21,221,12,100,211,212,21,'1221'),(31,21,221,12,100,211,212,21,'1221'),(32,21,221,12,100,211,212,21,'1221'),(33,21,221,12,100,211,212,21,'1221'),(34,80,45,80,110,50,35,120,'Nada importante.'),(35,70,167,80,90,120,36,75,'No se'),(36,123,123,123,123,123,123,123,'123');
 /*!40000 ALTER TABLE `exploracion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -629,7 +631,7 @@ CREATE TABLE `medicamentos` (
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `aprobada` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_medicamento`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -638,7 +640,7 @@ CREATE TABLE `medicamentos` (
 
 LOCK TABLES `medicamentos` WRITE;
 /*!40000 ALTER TABLE `medicamentos` DISABLE KEYS */;
-INSERT INTO `medicamentos` VALUES (1,'Ibuprofeno',1),(2,'Paracetamol',0),(3,'Absorcol',1),(4,'Aceclofenaco',1),(5,'koko',1),(6,'medicamento',0);
+INSERT INTO `medicamentos` VALUES (1,'Ibuprofeno',1),(2,'Paracetamol',0),(3,'Absorcol',1),(4,'Aceclofenaco',1),(5,'koko',1),(6,'medicamento',0),(7,'Oxcarbazepina',0);
 /*!40000 ALTER TABLE `medicamentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -717,7 +719,7 @@ CREATE TABLE `notas` (
   `fechaHora` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id_nota`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -726,7 +728,7 @@ CREATE TABLE `notas` (
 
 LOCK TABLES `notas` WRITE;
 /*!40000 ALTER TABLE `notas` DISABLE KEYS */;
-INSERT INTO `notas` VALUES (1,'Tengo que pedir un nuevo estetoscopio, y algodón en la bodega.','2017-02-09 16:27:24',1003),(2,'Informar de cambio de horario, del lunes a viernes.','2017-02-09 08:03:28',1004),(3,'Solicitar un cambió de material clínico','2017-03-22 17:32:36',1003),(4,'Solicitar un asistente','2017-03-22 17:49:48',1003),(5,'asdsadas','2017-04-11 17:25:25',1005),(6,'Bañar a Selene','2017-04-21 15:15:24',1003),(7,'ubsdbdds','2017-04-21 15:20:53',1005),(8,'Hola prueba 1','2017-05-02 07:32:59',1003),(9,'gregre','2017-05-02 07:45:39',1005),(10,'iogeee\r\n','2017-05-03 13:44:43',1005),(11,'Moy está tonto','2017-05-23 09:53:25',1003),(12,'Prueba de nota 1','2017-05-23 22:20:14',1002),(13,'creo','2017-05-26 15:47:16',1002),(14,'Yuni estuvo aquí','2017-05-29 13:13:33',1003),(15,'','2017-05-29 13:13:36',1003);
+INSERT INTO `notas` VALUES (1,'Tengo que pedir un nuevo estetoscopio, y algodón en la bodega.','2017-02-09 16:27:24',1003),(2,'Informar de cambio de horario, del lunes a viernes.','2017-02-09 08:03:28',1004),(3,'Solicitar un cambió de material clínico','2017-03-22 17:32:36',1003),(4,'Solicitar un asistente','2017-03-22 17:49:48',1003),(5,'asdsadas','2017-04-11 17:25:25',1005),(6,'Bañar a Selene','2017-04-21 15:15:24',1003),(7,'ubsdbdds','2017-04-21 15:20:53',1005),(8,'Hola prueba 1','2017-05-02 07:32:59',1003),(9,'gregre','2017-05-02 07:45:39',1005),(10,'iogeee\r\n','2017-05-03 13:44:43',1005),(11,'Moy está tonto','2017-05-23 09:53:25',1003),(12,'Prueba de nota 1','2017-05-23 22:20:14',1002),(13,'creo','2017-05-26 15:47:16',1002),(14,'Yuni estuvo aquí','2017-05-29 13:13:33',1003),(15,'','2017-05-29 13:13:36',1003),(16,'algo\r\n','2017-06-05 18:40:40',1003),(17,'help','2017-06-05 18:41:11',1003);
 /*!40000 ALTER TABLE `notas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -741,7 +743,7 @@ CREATE TABLE `notas_adicionales` (
   `id_notasAdicionales` int(11) NOT NULL AUTO_INCREMENT,
   `notas` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_notasAdicionales`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -750,7 +752,7 @@ CREATE TABLE `notas_adicionales` (
 
 LOCK TABLES `notas_adicionales` WRITE;
 /*!40000 ALTER TABLE `notas_adicionales` DISABLE KEYS */;
-INSERT INTO `notas_adicionales` VALUES (1,'El paciente luce alterado'),(2,'nada'),(3,'mjnó'),(4,'srydtcvhbj'),(5,'srydtcvhbj'),(6,''),(7,''),(8,''),(9,''),(10,''),(11,'kokoko'),(12,'nada'),(13,''),(14,''),(15,'nada'),(16,'nada'),(17,''),(18,''),(19,'vhbjnkm'),(20,'vhbjnkm'),(21,'vhbjnkm'),(22,'vhbjnkm'),(23,'vhbjnkm'),(24,''),(25,''),(26,''),(27,''),(28,''),(29,''),(30,''),(31,''),(32,''),(33,''),(34,''),(35,'');
+INSERT INTO `notas_adicionales` VALUES (1,'El paciente luce alterado'),(2,'nada'),(3,'mjnó'),(4,'srydtcvhbj'),(5,'srydtcvhbj'),(6,''),(7,''),(8,''),(9,''),(10,''),(11,'kokoko'),(12,'nada'),(13,''),(14,''),(15,'nada'),(16,'nada'),(17,''),(18,''),(19,'vhbjnkm'),(20,'vhbjnkm'),(21,'vhbjnkm'),(22,'vhbjnkm'),(23,'vhbjnkm'),(24,''),(25,''),(26,''),(27,''),(28,''),(29,''),(30,''),(31,''),(32,''),(33,''),(34,''),(35,''),(36,'nada');
 /*!40000 ALTER TABLE `notas_adicionales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -767,6 +769,7 @@ CREATE TABLE `pacientes` (
   `id_interrogatorio` int(11) DEFAULT NULL,
   `id_alergias` int(11) DEFAULT NULL,
   `id_estiloVida` int(11) DEFAULT NULL,
+  `estado` tinyint(4) NOT NULL DEFAULT '1',
   UNIQUE KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -777,7 +780,7 @@ CREATE TABLE `pacientes` (
 
 LOCK TABLES `pacientes` WRITE;
 /*!40000 ALTER TABLE `pacientes` DISABLE KEYS */;
-INSERT INTO `pacientes` VALUES (1007,NULL,1,1,1),(1008,2,2,2,2),(1009,13,22,38,20),(1010,17,26,42,24),(1011,3,3,3,3),(1012,4,4,4,4),(1017,5,5,5,5),(1018,6,6,6,6),(1027,NULL,NULL,NULL,NULL),(1028,NULL,NULL,NULL,NULL),(1031,NULL,NULL,NULL,NULL);
+INSERT INTO `pacientes` VALUES (1007,NULL,1,1,1,1),(1008,2,2,2,2,1),(1009,13,22,38,20,1),(1010,17,26,42,24,1),(1011,3,3,3,3,1),(1012,4,4,4,4,1),(1017,5,5,5,5,1),(1018,6,6,6,6,1),(1027,NULL,NULL,NULL,NULL,1),(1028,NULL,NULL,NULL,NULL,1),(1031,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `pacientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -847,7 +850,7 @@ CREATE TABLE `registro_clinico` (
   `id_notasAdicionales` int(11) NOT NULL,
   `id_estudios` int(11) NOT NULL,
   PRIMARY KEY (`id_registro`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -856,7 +859,7 @@ CREATE TABLE `registro_clinico` (
 
 LOCK TABLES `registro_clinico` WRITE;
 /*!40000 ALTER TABLE `registro_clinico` DISABLE KEYS */;
-INSERT INTO `registro_clinico` VALUES (1,'2017-02-23 13:08:22',1003,1010,1,1,1,1,1),(2,'2017-02-24 15:03:13',1003,1010,2,2,2,2,2),(3,'2017-05-19 20:17:46',1003,1009,4,6,4,4,4),(4,'2017-05-19 20:21:07',1003,1009,5,7,5,5,5),(5,'2017-05-19 20:25:05',1003,1009,6,10,6,6,6),(6,'2017-05-19 20:44:48',1003,1009,7,11,7,7,7),(7,'2017-05-19 20:46:33',1003,1010,8,12,8,8,8),(8,'2017-05-19 20:49:17',1003,1010,9,13,9,9,9),(9,'2017-05-19 20:51:30',1003,1009,10,14,10,10,10),(10,'2017-05-20 14:02:59',1003,1009,11,16,11,11,11),(11,'2017-05-20 14:29:58',1003,1009,12,17,12,12,12),(12,'2017-05-23 07:43:20',1003,1009,13,18,13,13,13),(13,'2017-05-23 22:40:49',1003,1009,14,19,14,14,14),(14,'2017-05-23 22:43:35',1003,1009,15,20,15,15,15),(15,'2017-05-23 22:44:44',1003,1009,16,21,16,16,16),(16,'2017-05-23 23:01:07',1003,1010,17,22,17,17,17),(17,'2017-05-23 23:03:10',1003,1009,18,23,18,18,18),(18,'2017-05-23 23:18:39',1003,1010,19,24,19,19,19),(19,'2017-05-23 23:20:33',1003,1010,20,25,20,20,20),(20,'2017-05-23 23:20:55',1003,1010,21,26,21,21,21),(21,'2017-05-23 23:22:40',1003,1010,22,27,22,22,22),(22,'2017-05-23 23:23:08',1003,1010,23,28,23,23,23),(23,'2017-05-24 11:44:47',1003,1010,24,29,24,24,24),(24,'2017-05-24 11:45:29',1003,1009,25,30,25,25,25),(25,'2017-05-24 11:45:51',1003,1009,26,31,26,26,26),(26,'2017-05-24 11:46:41',1003,1010,27,32,27,27,27),(27,'2017-05-24 11:50:13',1003,1010,28,33,28,28,28),(28,'2017-05-24 11:50:32',1003,1010,29,34,29,29,29),(29,'2017-05-24 11:50:44',1003,1010,30,35,30,30,30),(30,'2017-05-24 11:50:57',1003,1010,31,36,31,31,31),(31,'2017-05-24 11:51:11',1003,1010,32,37,32,32,32),(32,'2017-05-24 11:52:19',1003,1010,33,38,33,33,33),(33,'2017-05-28 21:23:28',1003,1009,34,39,34,34,34),(34,'2017-05-29 13:16:48',1003,1010,35,40,35,35,35);
+INSERT INTO `registro_clinico` VALUES (1,'2017-02-23 13:08:22',1003,1010,1,1,1,1,1),(2,'2017-02-24 15:03:13',1003,1010,2,2,2,2,2),(3,'2017-05-19 20:17:46',1003,1009,4,6,4,4,4),(4,'2017-05-19 20:21:07',1003,1009,5,7,5,5,5),(5,'2017-05-19 20:25:05',1003,1009,6,10,6,6,6),(6,'2017-05-19 20:44:48',1003,1009,7,11,7,7,7),(7,'2017-05-19 20:46:33',1003,1010,8,12,8,8,8),(8,'2017-05-19 20:49:17',1003,1010,9,13,9,9,9),(9,'2017-05-19 20:51:30',1003,1009,10,14,10,10,10),(10,'2017-05-20 14:02:59',1003,1009,11,16,11,11,11),(11,'2017-05-20 14:29:58',1003,1009,12,17,12,12,12),(12,'2017-05-23 07:43:20',1003,1009,13,18,13,13,13),(13,'2017-05-23 22:40:49',1003,1009,14,19,14,14,14),(14,'2017-05-23 22:43:35',1003,1009,15,20,15,15,15),(15,'2017-05-23 22:44:44',1003,1009,16,21,16,16,16),(16,'2017-05-23 23:01:07',1003,1010,17,22,17,17,17),(17,'2017-05-23 23:03:10',1003,1009,18,23,18,18,18),(18,'2017-05-23 23:18:39',1003,1010,19,24,19,19,19),(19,'2017-05-23 23:20:33',1003,1010,20,25,20,20,20),(20,'2017-05-23 23:20:55',1003,1010,21,26,21,21,21),(21,'2017-05-23 23:22:40',1003,1010,22,27,22,22,22),(22,'2017-05-23 23:23:08',1003,1010,23,28,23,23,23),(23,'2017-05-24 11:44:47',1003,1010,24,29,24,24,24),(24,'2017-05-24 11:45:29',1003,1009,25,30,25,25,25),(25,'2017-05-24 11:45:51',1003,1009,26,31,26,26,26),(26,'2017-05-24 11:46:41',1003,1010,27,32,27,27,27),(27,'2017-05-24 11:50:13',1003,1010,28,33,28,28,28),(28,'2017-05-24 11:50:32',1003,1010,29,34,29,29,29),(29,'2017-05-24 11:50:44',1003,1010,30,35,30,30,30),(30,'2017-05-24 11:50:57',1003,1010,31,36,31,31,31),(31,'2017-05-24 11:51:11',1003,1010,32,37,32,32,32),(32,'2017-05-24 11:52:19',1003,1010,33,38,33,33,33),(33,'2017-05-28 21:23:28',1003,1009,34,39,34,34,34),(34,'2017-05-29 13:16:48',1003,1010,35,40,35,35,35),(35,'2017-06-05 18:09:01',1003,1010,36,41,36,36,36);
 /*!40000 ALTER TABLE `registro_clinico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -872,7 +875,7 @@ CREATE TABLE `registro_interrogatorio` (
   `motivoConsulta` text COLLATE utf8_unicode_ci NOT NULL,
   `sintomas` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_interrogatorio`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -881,7 +884,7 @@ CREATE TABLE `registro_interrogatorio` (
 
 LOCK TABLES `registro_interrogatorio` WRITE;
 /*!40000 ALTER TABLE `registro_interrogatorio` DISABLE KEYS */;
-INSERT INTO `registro_interrogatorio` VALUES (1,'Se sentía mal','Dolor de  cabeza, mala digestión'),(2,'Lo obligaron familiares','Presión alta, mareos, infección estomacal'),(3,'',''),(4,'bpbpb','jlbpibpb'),(5,'dfk','bbibpi'),(6,'kln','ñho'),(7,'kln','ñho'),(8,'klbñ','ljbñ'),(9,'sds','sd'),(10,'knnó','pb ob'),(11,'dfh','dh'),(12,'tugyhjik','rdytugyhjk'),(13,'fchgjvhbkjnlkml,','ghvbkjkl'),(14,'fyguhjk','cgvhbjnkml'),(15,'jjnkñlñ','fhgjhkbjlkm'),(16,'Fiebre','Dolor de cabeza'),(17,'Muere de fiebre','Se está muriendo'),(18,'Se sentia mal','Dolor de cabeza'),(19,'ndsln','pibpssp'),(20,'ndsln','pibpssp'),(21,'ndsln','pibpssp'),(22,'jb','bpb'),(23,'jb','bpb'),(24,'ovjvpj','p'),(25,'ovjvpj','p'),(26,'ovjvpj','p'),(27,'ovjvpj','p'),(28,'ovjvpj','p'),(29,'fsddsafds','sdsfsdaf'),(30,'fsddsafds','sdsfsdaf'),(31,'fsddsafds','sdsfsdaf'),(32,'fsddsafds','sdsfsdaf'),(33,'fsddsafds','sdsfsdaf'),(34,'fsddsafds','sdsfsdaf'),(35,'fsddsafds','sdsfsdaf'),(36,'fsddsafds','sdsfsdaf'),(37,'fsddsafds','sdsfsdaf'),(38,'fsddsafds','sdsfsdaf'),(39,'Dolor de espalda','Mareo y malestar en la zona lumbar.'),(40,'Operación de cerebro','Pendejez');
+INSERT INTO `registro_interrogatorio` VALUES (1,'Se sentía mal','Dolor de  cabeza, mala digestión'),(2,'Lo obligaron familiares','Presión alta, mareos, infección estomacal'),(3,'',''),(4,'bpbpb','jlbpibpb'),(5,'dfk','bbibpi'),(6,'kln','ñho'),(7,'kln','ñho'),(8,'klbñ','ljbñ'),(9,'sds','sd'),(10,'knnó','pb ob'),(11,'dfh','dh'),(12,'tugyhjik','rdytugyhjk'),(13,'fchgjvhbkjnlkml,','ghvbkjkl'),(14,'fyguhjk','cgvhbjnkml'),(15,'jjnkñlñ','fhgjhkbjlkm'),(16,'Fiebre','Dolor de cabeza'),(17,'Muere de fiebre','Se está muriendo'),(18,'Se sentia mal','Dolor de cabeza'),(19,'ndsln','pibpssp'),(20,'ndsln','pibpssp'),(21,'ndsln','pibpssp'),(22,'jb','bpb'),(23,'jb','bpb'),(24,'ovjvpj','p'),(25,'ovjvpj','p'),(26,'ovjvpj','p'),(27,'ovjvpj','p'),(28,'ovjvpj','p'),(29,'fsddsafds','sdsfsdaf'),(30,'fsddsafds','sdsfsdaf'),(31,'fsddsafds','sdsfsdaf'),(32,'fsddsafds','sdsfsdaf'),(33,'fsddsafds','sdsfsdaf'),(34,'fsddsafds','sdsfsdaf'),(35,'fsddsafds','sdsfsdaf'),(36,'fsddsafds','sdsfsdaf'),(37,'fsddsafds','sdsfsdaf'),(38,'fsddsafds','sdsfsdaf'),(39,'Dolor de espalda','Mareo y malestar en la zona lumbar.'),(40,'Operación de cerebro','Pendejez'),(41,'Algunos','Otros');
 /*!40000 ALTER TABLE `registro_interrogatorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -974,7 +977,7 @@ CREATE TABLE `tratamiento` (
   `id_registro` int(11) NOT NULL,
   `unatoma` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id_tratamiento`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -983,7 +986,7 @@ CREATE TABLE `tratamiento` (
 
 LOCK TABLES `tratamiento` WRITE;
 /*!40000 ALTER TABLE `tratamiento` DISABLE KEYS */;
-INSERT INTO `tratamiento` VALUES (1,1,6,'2017-05-14 09:30:00',72,'Tomar con alimentos',1,0),(2,2,3,'2017-05-14 15:00:00',24,'Reposar media hora',1,0),(3,1,4,'2017-05-21 10:00:00',56,'no tomar alcohol',11,0),(4,3,24,'2017-05-21 00:00:00',48,'Dormir bien',11,0),(5,6,6,'2017-05-23 08:00:00',72,'',12,0),(6,5,4,'2017-05-24 08:00:00',48,'',12,0),(7,1,4,'2017-05-24 10:00:00',48,'En cápsula',15,NULL),(8,6,6,'2017-05-24 12:00:00',72,'Nada importante',15,NULL),(9,5,8,'2017-05-24 12:30:00',29,'',17,NULL),(10,4,4,'2017-05-24 23:00:00',14,'',17,NULL),(11,1,72,'2017-05-15 16:00:00',43,'',17,NULL),(12,2,72,'2017-05-26 12:00:00',72,'sfxdgcfhgjbhknlkm',22,NULL),(13,3,8,'2017-01-01 13:00:00',3,'ljlkjlkjkljlk',23,NULL),(14,6,48,'2017-01-01 01:00:00',12,'2112132213',26,NULL),(15,2,48,'2017-01-01 01:00:00',12,'2112132213',27,NULL),(16,2,48,'2017-01-01 01:00:00',12,'2112132213',28,NULL),(17,2,48,'2017-01-01 01:00:00',12,'2112132213',29,NULL),(18,3,48,'2017-01-01 01:00:00',12,'2112132213',30,NULL),(19,1,48,'2017-01-01 01:00:00',12,'2112132213',31,NULL),(20,6,48,'2017-01-01 01:00:00',12,'2112132213',32,NULL),(21,4,6,'2017-05-29 08:00:00',40,'Tomar en ayunas',33,NULL),(22,3,8,'2017-05-29 10:00:00',80,'Tomas con alimentos',33,NULL);
+INSERT INTO `tratamiento` VALUES (1,1,6,'2017-05-14 09:30:00',72,'Tomar con alimentos',1,0),(2,2,3,'2017-05-14 15:00:00',24,'Reposar media hora',1,0),(3,1,4,'2017-05-21 10:00:00',56,'no tomar alcohol',11,0),(4,3,24,'2017-05-21 00:00:00',48,'Dormir bien',11,0),(5,6,6,'2017-05-23 08:00:00',72,'',12,0),(6,5,4,'2017-05-24 08:00:00',48,'',12,0),(7,1,4,'2017-05-24 10:00:00',48,'En cápsula',15,NULL),(8,6,6,'2017-05-24 12:00:00',72,'Nada importante',15,NULL),(9,5,8,'2017-05-24 12:30:00',29,'',17,NULL),(10,4,4,'2017-05-24 23:00:00',14,'',17,NULL),(11,1,72,'2017-05-15 16:00:00',43,'',17,NULL),(12,2,72,'2017-05-26 12:00:00',72,'sfxdgcfhgjbhknlkm',22,NULL),(13,3,8,'2017-01-01 13:00:00',3,'ljlkjlkjkljlk',23,NULL),(14,6,48,'2017-01-01 01:00:00',12,'2112132213',26,NULL),(15,2,48,'2017-01-01 01:00:00',12,'2112132213',27,NULL),(16,2,48,'2017-01-01 01:00:00',12,'2112132213',28,NULL),(17,2,48,'2017-01-01 01:00:00',12,'2112132213',29,NULL),(18,3,48,'2017-01-01 01:00:00',12,'2112132213',30,NULL),(19,1,48,'2017-01-01 01:00:00',12,'2112132213',31,NULL),(20,6,48,'2017-01-01 01:00:00',12,'2112132213',32,NULL),(21,4,6,'2017-05-29 08:00:00',40,'Tomar en ayunas',33,NULL),(22,3,8,'2017-05-29 10:00:00',240,'Tomas con alimentos',34,NULL),(23,7,8,'2017-06-05 19:00:00',72,'3 tomas al dia',35,NULL);
 /*!40000 ALTER TABLE `tratamiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1023,7 +1026,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1001,'josfra21','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','francisco.mtzc@hotmail.com','José Francisco','Martinez','Camacho','Santa Gertrudis 2133',NULL,NULL,45615,'36011047','3319098665','Masculino','2392-66-1324-3','1998-07-21','Estudiante',NULL),(1002,'LIMA','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','luisivanmorett@gmail.com','Luis Iván','Morett','Arévalo','Benito Juarez',NULL,NULL,44865,'36458745','3311516589','Masculino','5480-61-3024-8','1998-01-07','Estudiante',''),(1003,'brucamer','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','55555','Bruno','Camacho','Mercado','Independencia 16500',NULL,NULL,465,'55555','55555','Masculino','6840-61-5555','1955-10-16','Doctor',''),(1004,'Jaimemerca12','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','8121348','Jaime','Camacho','Mercado','Independencia 1655',NULL,NULL,46519,'8121348','8121348','Masculino','6315-91-3244-0','1966-02-15','Doctor',NULL),(1005,'gaby13','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','gaby@gmail.com','Gabriela','Lopez','Fuentes','Reforma 4686 int.30',NULL,NULL,46953,'34584521','3312058456','Femenino','4956-91-3875-0','1984-01-12','Recepcionista',''),(1006,'annel','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','annelRuiz@hotmail.com','Annel','Ruiz','García','Santa Margarita',NULL,NULL,46853,'34598465','3356988154','Femenino','4689-02-4685-7','1979-08-22','Recepcionista',NULL),(1007,'Herli65','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','herli.cam@hotmail.com','Herlinda','Camacho','Mercado','Parques Santa Cruz  2133',NULL,NULL,45615,'36011047','3310982477','Femenino','6895-48-0245-7','1965-04-20','Psicóloga ',''),(1008,'Victoria','Vicko89','victorloco@yahoo.com','Victor','Hernandez','Soto','Revolucion 453',NULL,NULL,46452,'35968512','3312457898','Masculino','1945-91-0215-0','1987-05-25','Estudiante',NULL),(1009,'Marie92','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','smarie@yahoo.com.mx','Selena Marie','Gomez','Torres','Venustiano Carranza 4596 col Moderna, Guadalajara, Jalisco',NULL,NULL,46854,'37895101','37895101','Femenino','5986-01-4544-5','1992-07-22','Maestra',NULL),(1010,'RogerH','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','juanita12@hotmail.com','Juan','Rodriguez','Perez','Av Revolucion 1728 fraccionamiento Reforma, Zapopan, Jalisco',NULL,NULL,45879,'36254987','3310982477','Masculino','7895-91-3256-0','1990-02-08','Notario',''),(1011,'Roxywel','RosG_86','Roxa@outlook.com','Rosa','Gutierrez','Zapata','Santa Elena 4567',NULL,NULL,48579,'36459210','3333265847','Femenino','8795-11-3874-5','1975-12-29','Empleado',NULL),(1012,'Alberto14','Albert_1900','32564187','Alberto','Avila','Lopez','Juarez 56',NULL,NULL,48572,'32564187','32564187','Masculino','6895-91-3744-0','1982-08-14','Empleado',NULL),(1013,'Blanca12','BlancaM','blank_rosales@hotmail.com','Blanca Maria','Rosales','Rojo','Ejido Mochis Colon 312',NULL,NULL,45,'46525','6681828787','Femenino',NULL,'1993-02-02','Enferemera',NULL),(1014,'Chabela','Misa1992','8124698','Maria Isabel','García','Castro','Centenario 4585',NULL,NULL,46856,'8124698','8124698','Femenino','','1987-05-12','Doctora',NULL),(1015,'Edith_91','EdithGarB','garciaEdith@hotmail.com','Edith','Garcia','Bojorquez','La Genoveva, El fuerte 81360',NULL,NULL,1,'8165565','6681941075','Femenino',NULL,'1991-09-22','Enfermera',NULL),(1016,'VickyLucasfasdf','91Victoria','','Victoria Lucia','Mendoza','Barragan','Virreyes ampliacion 2775',NULL,NULL,1,'','','Femenino','','1991-07-12','Recepcionista',NULL),(1017,'Esteban','dvodnoe','EsGutierrez@gmail.com','Esteban','Gutierrez','Dominguez','Colon 4566 Jardines de la Rosa',NULL,NULL,165458,'8136598','6681245698','Masculino','jl65jih5ctugd25','1989-05-10','Empleado',NULL),(1018,'BeatrizH92','Bety2','soybetty@yahoo.com.mx','Ana Beatriz','Hernandez','Gomez','Serdan 458 Insurgentes Pte',NULL,NULL,674,'49856255','6859654111','Femenino','dgd9sg9nff9ns','1992-02-10','Abogada',NULL),(1020,'lnñin','5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5','bkblkjl@hotmail.com','vljvl','jñb','bñnñ','kbñkn',NULL,NULL,56436,'35468','48648','Femenino','35344','1998-05-01','tghkhlkjñkl',NULL),(1021,'lnñin','5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5','bkblkjl@hotmail.com','vljvl','jñb','bñnñ','kbñkn',NULL,NULL,56436,'35468','48648','Femenino','35344','1998-05-01','tghkhlkjñkl',NULL),(1022,'hfcghkhljkñ','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','fghkljkñl@hotmail.com','fgkjlkjñlk','gjhkbjlnk','hgjhkjk','fhcgjvhkbjlnkml',NULL,NULL,6533,'54531','531','Masculino','5986-01-4544-8','1998-12-05','hfgh,jnkm',NULL),(1023,'loko','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','53','ghkgjhkñjl','vhjbk','hvbjnk','hvkbjnk',NULL,NULL,54,'35','53','Masculino','4352.','1998-01-12','ñhlikjghg',NULL),(1024,'loko','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','jfmc210171998@facebook.com','gfchgjhk','ryfgjhkjlknm','fgjhkljk','etsrdytygk',NULL,NULL,656,'7568','4646','Masculino','54654','1997-05-12','ghbnk',NULL),(1025,'hkkjl','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','wcisco.mtzc@hotmail.com','jvvhbkjln','vhbjn','hkb','ljnkñm',NULL,NULL,854,'864684','6844','Femenino','64664','1998-05-04','hvgcgvhbn',NULL),(1026,'juju','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','jfmc210171998@facebook.com','iugyfhgchvhbj','ghvbkjlk','km{,','ojhggnnvb',NULL,NULL,6345,'683512','312','Femenino','353','1998-06-13','jgjhkjlk',NULL),(1027,'alguien123','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','312@asd.com','alguien123','alguien123','alguien123','alguien123',NULL,NULL,12345,'12564213','213213','Masculino','1223123','2017-01-01','23123',NULL),(1028,'usuarioChingon','f6f2ea8f45d8a057c9566a33f99474da2e5c6a6604d736121650e2730c6fb0a3','persona@live.com','123456789','987654321','123789456','asdfsdf','ciudad chingona','estado chingon',55612,'852147963','01335468',NULL,'1234','2017-01-01','qqqq',NULL),(1030,'asdfghjkñ','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','23123@a.com','123456789','123456789','123456789','123123',NULL,NULL,223123,'123231','21231','Masculino','1232','2017-01-01','asdf',NULL),(1031,'usuarioNuevo','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','123456@limaa.com','123','123','123',NULL,NULL,NULL,NULL,'123','123',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `usuarios` VALUES (1001,'josfra21','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','francisco.mtzc@hotmail.com','José Francisco','Martinez','Camacho','Santa Gertrudis 2133',NULL,NULL,45615,'36011047','3319098665','Masculino','2392-66-1324-3','1998-07-21','Estudiante',NULL),(1002,'LIMA','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','luisivanmorett@gmail.com','Luis Iván','Morett','Arévalo','Benito Juarez',NULL,NULL,44865,'36458745','3311516589','Masculino','5480-61-3024-8','1998-01-07','Estudiante',''),(1003,'brucamer','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','55555@algo.com','Bruno','Camacho','Mercado','Independencia 16500',NULL,NULL,465,'55555','55555','Masculino','6840-61-5555','1955-10-16','Doctor',''),(1004,'Jaimemerca12','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','8121348','Jaime','Camacho','Mercado','Independencia 1655',NULL,NULL,46519,'8121348','8121348','Masculino','6315-91-3244-0','1966-02-15','Doctor',NULL),(1005,'gaby13','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','gaby@gmail.com','Gabriela','Lopez','Fuentes','Reforma 4686 int.30',NULL,NULL,46953,'34584521','3312058456','Femenino','4956-91-3875-0','1984-01-12','Recepcionista',''),(1006,'annel','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','annelRuiz@hotmail.com','Annel','Ruiz','García','Santa Margarita',NULL,NULL,46853,'34598465','3356988154','Femenino','4689-02-4685-7','1979-08-22','Recepcionista',NULL),(1007,'Herli65','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','herli.cam@hotmail.com','Herlinda','Camacho','Mercado','Parques Santa Cruz  2133',NULL,NULL,45615,'36011047','3310982477','Femenino','6895-48-0245-7','1965-04-20','Psicóloga ',''),(1008,'Victoria','Vicko89','victorloco@yahoo.com','Victor','Hernandez','Soto','Revolucion 453',NULL,NULL,46452,'35968512','3312457898','Masculino','1945-91-0215-0','1987-05-25','Estudiante',NULL),(1009,'Marie92','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','smarie@yahoo.com.mx','Selena Marie','Gomez','Torres','Venustiano Carranza 4596 col Moderna, Guadalajara, Jalisco',NULL,NULL,46854,'37895101','37895101','Femenino','5986-01-4544-5','1992-07-22','Maestra',NULL),(1010,'RogerH','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','juanita12@hotmail.com','Juan','Rodriguez','Perez','Av Revolucion 1728 fraccionamiento Reforma, Zapopan, Jalisco',NULL,NULL,45879,'36254987','3310982477','Masculino','7895-91-3256-0','1990-02-08','Notario',''),(1011,'Roxywel','RosG_86','Roxa@outlook.com','Rosa','Gutierrez','Zapata','Santa Elena 4567',NULL,NULL,48579,'36459210','3333265847','Femenino','8795-11-3874-5','1975-12-29','Empleado',NULL),(1012,'Alberto14','Albert_1900','32564187','Alberto','Avila','Lopez','Juarez 56',NULL,NULL,48572,'32564187','32564187','Masculino','6895-91-3744-0','1982-08-14','Empleado',NULL),(1013,'Blanca12','BlancaM','blank_rosales@hotmail.com','Blanca Maria','Rosales','Rojo','Ejido Mochis Colon 312',NULL,NULL,45,'46525','6681828787','Femenino',NULL,'1993-02-02','Enferemera',NULL),(1014,'Chabela','Misa1992','8124698','Maria Isabel','García','Castro','Centenario 4585',NULL,NULL,46856,'8124698','8124698','Femenino','','1987-05-12','Doctora',NULL),(1015,'Edith_91','EdithGarB','garciaEdith@hotmail.com','Edith','Garcia','Bojorquez','La Genoveva, El fuerte 81360',NULL,NULL,1,'8165565','6681941075','Femenino',NULL,'1991-09-22','Enfermera',NULL),(1016,'VickyLucasfasdf','91Victoria','asdsadasd','Victoria Lucia','Mendoza','Barragan','Virreyes ampliacion 2775',NULL,NULL,1,'','','Femenino','','1991-07-12','Recepcionista',NULL),(1017,'Esteban','dvodnoe','EsGutierrez@gmail.com','Esteban','Gutierrez','Dominguez','Colon 4566 Jardines de la Rosa',NULL,NULL,165458,'8136598','6681245698','Masculino','jl65jih5ctugd25','1989-05-10','Empleado',NULL),(1018,'BeatrizH92','Bety2','soybetty@yahoo.com.mx','Ana Beatriz','Hernandez','Gomez','Serdan 458 Insurgentes Pte',NULL,NULL,674,'49856255','6859654111','Femenino','dgd9sg9nff9ns','1992-02-10','Abogada',NULL),(1020,'lnñin','5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5','bkblkjl@hotmail.com','vljvl','jñb','bñnñ','kbñkn',NULL,NULL,56436,'35468','48648','Femenino','35344','1998-05-01','tghkhlkjñkl',NULL),(1021,'lnñin','5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5','bkblkjl@hotmail.com','vljvl','jñb','bñnñ','kbñkn',NULL,NULL,56436,'35468','48648','Femenino','35344','1998-05-01','tghkhlkjñkl',NULL),(1022,'hfcghkhljkñ','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','fghkljkñl@hotmail.com','fgkjlkjñlk','gjhkbjlnk','hgjhkjk','fhcgjvhkbjlnkml',NULL,NULL,6533,'54531','531','Masculino','5986-01-4544-8','1998-12-05','hfgh,jnkm',NULL),(1023,'loko','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','53','ghkgjhkñjl','vhjbk','hvbjnk','hvkbjnk',NULL,NULL,54,'35','53','Masculino','4352.','1998-01-12','ñhlikjghg',''),(1024,'loko1','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','jfmc210171998@facebook.com','gfchgjhk','ryfgjhkjlknm','fgjhkljk','etsrdytygk',NULL,NULL,656,'7568','4646','Masculino','54654','1997-05-12','ghbnk',''),(1025,'hkkjl','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','wcisco.mtzc@hotmail.com','jvvhbkjln','vhbjn','hkb','ljnkñm',NULL,NULL,854,'864684','6844','Femenino','64664','1998-05-04','hvgcgvhbn',NULL),(1026,'juju','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','jfmc210171998@facebook.com','iugyfhgchvhbj','ghvbkjlk','km{,','ojhggnnvb',NULL,NULL,6345,'683512','312','Femenino','353','1998-06-13','jgjhkjlk',NULL),(1027,'alguien123','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','312@asd.com','alguien123','alguien123','alguien123','alguien123',NULL,NULL,12345,'12564213','213213','Masculino','1223123','2017-01-01','23123',NULL),(1028,'usuarioChingon','f6f2ea8f45d8a057c9566a33f99474da2e5c6a6604d736121650e2730c6fb0a3','persona@live.com','123456789','987654321','123789456','asdfsdf','ciudad chingona','estado chingon',55612,'852147963','01335468',NULL,'1234','2017-01-01','qqqq',NULL),(1030,'asdfghjkñ','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','23123@a.com','123456789','123456789','123456789','123123',NULL,NULL,223123,'123231','21231','Masculino','1232','2017-01-01','asdf',NULL),(1031,'usuarioNuevo','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','123456@limaa.com','123','123','123',NULL,NULL,NULL,NULL,'123','123',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1036,4 +1039,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-02 18:34:57
+-- Dump completed on 2017-06-05 21:22:15
