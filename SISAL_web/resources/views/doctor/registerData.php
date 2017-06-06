@@ -141,6 +141,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form role="form">
+                                        <div id="seleccionarPaciente" class="alert alert-danger" hidden>No se olvide de seleccionar un paciente</div>
                                         <label>Seleccione paciente:</label>
                                         <div class="form-group input-group">
                                             <span class="input-group-search">
@@ -159,7 +160,7 @@
                                             </span>
                                         </div> 
                                     </form>
-                                    <form role="form" action="/registerDate" method="POST">   
+                                    <form role="form" action="/registerDate" onclick="return beforeSend();" method="POST">   
                                         <?php if(sizeof($cita)>0): ?>
                                             <input type="text" name="idPatient" id="idPatient" value="<?php echo $cita[0]['id_usuario']?>" required hidden/> 
                                         <?php else: ?>
@@ -343,6 +344,10 @@
                     $("#patient").attr('placeholder', name.substring(2));
                     break;
                 }
+            }
+            if($("#seleccionarPaciente").is(":visible") )
+            {
+                $("#seleccionarPaciente").hide();
             }
             
         }
@@ -530,6 +535,20 @@
                     break;
                 }
             }
+        }
+
+        function beforeSend()
+        {
+            if($("#idPatient").val()=="")
+            {
+                $("#seleccionarPaciente").show();
+                $('html, body').animate({
+                    scrollTop: $("#seleccionarPaciente").offset().top
+                }, 500);
+                return false;
+            }
+            else
+            return true;
         }
         
     </script>

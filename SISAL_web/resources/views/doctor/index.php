@@ -237,7 +237,7 @@
                                     <?php foreach($citasHoy as $cita): ?>
                                         <a href="/dashboard/patients/?id=<?php echo $cita['id_usuario'] ?>" class="list-group-item"> 
                                             <i class="fa fa-calendar-check-o fa-fw"></i> <?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?>
-                                            <span class="pull-right text-muted small"><em><?php echo $cita['hora']; ?></em>
+                                            <span class="pull-right text-muted small"><em><?php echo date("H:i", strtotime($cita['hora'])); ?></em>
                                             </span>
                                         </a>
                                     <?php endforeach; ?>
@@ -266,7 +266,7 @@
                                         <div class="chat-body clearfix">
                                             <div class="header">
                                                 <small class="pull-right text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo $nota['fecha']; ?>
+                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo date("m-d-Y H:i", strtotime($nota['fecha'])) ; ?>
                                                 </small>
                                             </div>
                                             <p>

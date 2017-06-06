@@ -110,28 +110,28 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href=".."><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i>Proximas Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="?type=surgery">Quirurgicas</a>
+                                    <a href="/dashboard/dates?type=surgery">Quirurgicas</a>
                                 </li>
                                 <li>
-                                    <a href="?type=clinic">Clinicas</a>
+                                    <a href="/dashboard/dates?type=clinic">Clinicas</a>
                                 </li>
                                 <li>
-                                    <a href="?type=all">Todas</a>
+                                    <a href="/dashboard/dates?type=all">Todas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="../registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
+                            <a href="/dashboard/registerData"><i class="fa fa-edit fa-fw"></i> Registro medico</a>
                         </li>
                         <li>
-                            <a href="../patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
+                            <a href="/dashboard/patients"><i class="fa fa-users fa-fw"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -173,7 +173,7 @@
                                         <tr class="odd gradeX">
                                             <td><?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?></td>                                        
                                             <td><?php echo $cita['fecha']; ?></td>
-                                            <td class="center"><?php echo $cita['hora']; ?></td>
+                                            <td class="center"><?php echo date("H:i", strtotime($cita['hora'])); ?></td>
                                         </tr>                                    
                                     <?php endforeach; ?>
                                 </tbody>
