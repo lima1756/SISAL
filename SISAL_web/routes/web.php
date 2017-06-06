@@ -42,7 +42,6 @@ Route::post('/logIn', function () {
         $check = false;
         if(Type::isMedic())
         {
-            var_dump(dbConnection::select(["estado"], "medicos", [["id_usuario", $id]])[0]['estado']);
             $check = dbConnection::select(["estado"], "medicos", [["id_usuario", $id]])[0]['estado']==1?true:false;
         }
         elseif(Type::isPatient())
@@ -1419,7 +1418,26 @@ Route::POST("/android/logIn", function(){
                 "key" => $key,
                 "type" => $type
             );
-            if(Type::isMedic() || Type::isPatient() || Type::isInCharge())
+            $check = false;
+            $id = logData::getData("id_usuario");
+            if(Type::isMedic())
+            {
+                $check = dbConnection::select(["estado"], "medicos", [["id_usuario", $id]])[0]['estado']==1?true:false;
+            }
+            elseif(Type::isPatient())
+            {
+                $check = dbConnection::select(["estado"], "pacientes", [["id_usuario", $id]])[0]['estado']==1?true:false;
+            }
+            elseif(Type::isInCharge())
+            {
+                $check = count(dbConnection::select(["id_paciente"], "encargados", [["id_paciente", 0, ">"]]))>0?true:false;
+                if($check)
+                {
+                    $id = dbConnection::select(["*"], "encargados", [['id_usuario', $id]])[0]['id_paciente'];
+                    $check = dbConnection::select(["estado"], "pacientes", [["id_usuario", $id]])[0]['estado']==1?true:false;
+                }
+            }
+            if($check)
                 echo json_encode($datos);
             else
                 echo json_encode(array("error"=>"type"));
