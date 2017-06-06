@@ -833,7 +833,7 @@ Route::POST('/nuevaCita', function() {
         $cipher_pass = hash("sha256", $_POST['pass']);
         dbConnection::insert("usuarios",
             ['usuario', 'pass', 'nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'telefonoDomiciliar', 'telefonoCelular'],
-            [[$_POST['usuarioNuevo'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domTel'], $_POST['ofTel']]]
+            [[$_POST['userNuevo'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domTel'], $_POST['ofTel']]]
             );
         $idPaciente = dbConnection::lastID();
         dbConnection::insert("pacientes", ["id_usuario"], [[$idPaciente]]);

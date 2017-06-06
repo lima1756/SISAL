@@ -698,7 +698,7 @@
         $('#cancelar').show();
         $('#aceptar').show();
         $("#btnResponsable").show();
-        document.getElementById('pass').required = true;
+        document.getElementById('pass').required = false;
     }
 
     function aceptacion()
@@ -716,10 +716,10 @@
                 if(validateEmail($("#email").val()) || $("#idPaciente").val!="")
                 {
                     $("#errorEmail").hide();
-                    if(validateUser($("#responsableUsuario").val()))
+                    if(validateUser($("#responsableUsuario").val()) || $("#idResponsable").val!="")
                     {
                         $("#errorUsuarioResponsable").hide();
-                        if(validateEmail($("#responsableEmail").val()))
+                        if(validateEmail($("#responsableEmail").val()) || $("#idResponsable").val!="")
                         {
                             $("#errorEmailResponsable").hide();
                             if($('#formulario')[0].checkValidity() && validatePasswordUser() && validatePasswordResponsable())

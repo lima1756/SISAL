@@ -182,7 +182,7 @@
                                         </label></td>
                                         <td><?php echo $p['usuario']; ?></td>
                                         <td><?php echo $p['nombre'] . " " . $p['apellidoPaterno'] . " " . $p['apellidoMaterno']; ?></td>
-                                        <td><?php echo $p['ultima']; ?></td>
+                                        <td><?php echo date("d-m-Y H:i", strtotime($p['ultima'])); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>

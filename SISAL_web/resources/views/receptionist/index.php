@@ -170,7 +170,7 @@
                                         <div class="chat-body clearfix">
                                             <div class="header">
                                                 <small class="pull-right text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo $nota['fecha']; ?>
+                                                    <i class="fa fa-clock-o fa-fw"></i> <?php echo date("d-m-Y H:i", strtotime($nota['fecha'])); ?>
                                                 </small>
                                             </div>
                                             <p>
