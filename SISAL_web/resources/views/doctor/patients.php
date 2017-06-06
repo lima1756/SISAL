@@ -257,7 +257,7 @@
                                         </div>
                                         </td>
                                         <td>
-                                        <br>Teléfono:</b>
+                                        <b>Teléfono:</b>
                                         <div class="form-group">
                                             <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 100%;" disabled/>
                                         </div>

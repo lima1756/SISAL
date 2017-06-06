@@ -207,7 +207,7 @@
                                         </div>
                                         </a>                                        
                                         <div class="panel-body collapse indent" id="pInf" >
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                            <table width="100%" class="table table-striped table-hover" id="dataTables-example2">
                                             <tr>
                                             <td>
                                             <div class="form-group">
@@ -367,78 +367,145 @@
                                                 <div class="btn btn-primary" style="width:80%;">
                                                     <h4>Información Responsable</h2>
                                                 </div>
-                                                </a>                                        
+                                                </a>
                                                 <div class="panel-body collapse indent" id="responsableInf" >
-
+                                                
+                                            <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
+                                       
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <div id="errorUsuarioResponsable" class="alert alert-danger" hidden>Usuario existente, porfavor use otro</div>
                                                         <label>Usuario</label>
                                                         <input class="form-control" type="text" placeholder="Usuario" id="responsableUsuario" name="responsableUsuario" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
                                                         <label>Actualizar contraseña</label>
                                                         <input class="form-control" type="text" placeholder="Actualizar contraseña" id="responsablePass" name="responsablePass" disabled/>
                                                     </div>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <label>Confirmar contraseña</label>
                                                         <input class="form-control" type="text" placeholder="Confirmar contraseña" id="responsablePass2" name="responsablePass2" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
-                                                        
+                                                        <label>Nombre:</label>
                                                         <input class="form-control" type="text" placeholder="Nombre" id="responsableNombre" name="responsableNombre" disabled/>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Apellido Paterno:</label>
                                                         <input class="form-control" type="text" placeholder="Apellido Paterno" id="responsableApellidoPaterno" name="responsableApellidoPaterno" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Apellido Materno:</label>
                                                         <input class="form-control" type="text" placeholder="Apellido Materno" id="responsableApellidoMaterno" name="responsableApellidoMaterno" disabled/>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Domicilio:</label>
                                                         <input class="form-control" type="text" placeholder="Domicilio" id="responsableDomicilio" name="responsableDomicilio" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <!--Ver si esto se puede hacer dinamicamente con un select y una tabla de ciudades, estados y paises-->
                                                     <div class="form-group">
+                                                        <label>Esatdo:</label>
                                                         <input class="form-control" type="text" placeholder="Estado" name="responsableEstado" id="responsableEstado" disabled/>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Ciudad:</label>
                                                         <input class="form-control" type="text" placeholder="Ciudad" name="responsableCiudad" id="responsableCiudad" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Código Postal:</label>
                                                         <input class="form-control" type="number" placeholder="Código Postal" id="responsableCodigoPostal" name="responsableCodigoPostal" disabled/>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Telefono:</label>
                                                         <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="responsableDomTel" name="responsableDomTel" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Celular:</label>
                                                         <input class="form-control" type="number" placeholder="Teléfono oficina" id="responsableOfTel" name="responsableOfTel" disabled/>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
                                                         <div id="errorEmailResponsable" class="alert alert-danger" hidden>Email existente, porfavor use otro</div>
+                                                        <label>Email:</label>
                                                         <input class="form-control" type="email" placeholder="Correo Electrónico" id="responsableEmail" name="responsableEmail" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <div class="form-group">
+                                                        <label>Género:</label>
                                                         <select class="form-control" id="responsableGenero" name="responsableGenero" disabled>
                                                             <option value="-1">Seleccione un genero</option>
                                                             <option value="Masculino">Masculino</option>
                                                             <option value="Femenino">Femenino</option>
                                                         </select>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
+                                                    <label>No. Seguro:</label>
                                                         <input class="form-control" type="text" placeholder="No. de Seguridad social" id="responsableSeguroSocial" name="responsableSeguroSocial" disabled/>
                                                     </div>
+                                                    </td>
+                                                    <td>
                                                     <?php /*<div class="form-group">
                                                         <input class="form-control" type="text" placeholder="Lugar de nacimiento" id="lugarNacimiento" name="lugarNacimiento" disabled/>
                                                     </div> */?>
                                                     <div class="form-group">
+                                                        <label>Fecha Nacimiento:</label>
                                                         <input class="form-control" type="date" placeholder="Fecha de nacimiento" id="responsableFechaNacimiento" name="responsableFechaNacimiento" disabled/>
                                                     </div>
+                                                     </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
                                                     <div class="form-group">
-                                                    <!--CALCULAR AQUI LA EDAD--><label class="form-control" id="responsableEdad">xy años</label>
-                                                    </div>
-                                                    <div class="form-group">
+                                                        <label>Ocupación:</label>
                                                         <input class="form-control" type="text" placeholder="Ocupación" id="responsableOcupacion" name="responsableOcupacion" disabled/>
                                                     </div>
-                                                </div>
+                                                    </td>
+                                                    </tr>
+
+                                                                                                  
+                                                 </table>
+                                                 </div>      
                                             </div>
                                         </div>
 
@@ -892,7 +959,6 @@
             document.getElementById('responsableGenero').required = true;
             document.getElementById('responsableSeguroSocial').required = true;
             document.getElementById('responsableFechaNacimiento').required = true;
-            document.getElementById('responsableEdad').required = true;
             document.getElementById('responsableOcupacion').required = true;
             if($("#idResponsable").val()=="")
             {
@@ -917,7 +983,6 @@
             document.getElementById('responsableGenero').required = false;
             document.getElementById('responsableSeguroSocial').required = false;
             document.getElementById('responsableFechaNacimiento').required = false;
-            document.getElementById('responsableEdad').required = false;
             document.getElementById('responsableOcupacion').required = false;
             document.getElementById('responsablePass').required = false;
             document.getElementById('responsablePass2').required = false;
