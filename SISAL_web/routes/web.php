@@ -59,7 +59,12 @@ Route::post('/logIn', function () {
         }
         elseif(Type::isInCharge())
         {
-            $check = count(dbConnection::select(["estado"], "encargados", [["id_paciente", 0, ">"]]))>0?true:false;
+            $check = count(dbConnection::select(["id_paciente"], "encargados", [["id_paciente", 0, ">"]]))>0?true:false;
+            if($check)
+            {
+                $id = dbConnection::select(["*"], "encargados", [['id_usuario', $id]])[0]['id_paciente'];
+                $check = dbConnection::select(["estado"], "pacientes", [["id_usuario", $id]])[0]['estado']==1?true:false;
+            }
         }
         if($check)
             return redirect('/dashboard');
