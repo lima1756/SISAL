@@ -211,6 +211,7 @@
                                             <tr>
                                             <td>
                                             <div class="form-group">
+                                                <div id="errorUsuario" class="alert alert-danger" hidden>Usuario existente, porfavor use otro</div>
                                                 <label>Usuario</label>
                                                 <input class="form-control" type="text" placeholder="Usuario" id="usuario" name="usuario" disabled required/>
                                             </div>
@@ -300,6 +301,7 @@
                                             <tr>
                                             <td>
                                             <div class="form-group">
+                                                <div id="errorEmail" class="alert alert-danger" hidden>Email existente, porfavor use otro</div>
                                                 <label>Correo Electrónico</label>
                                                 <input class="form-control" type="email" placeholder="Correo Electrónico" id="email" name="email" disabled required/>
                                             </div>
@@ -369,6 +371,7 @@
                                                 <div class="panel-body collapse indent" id="responsableInf" >
 
                                                     <div class="form-group">
+                                                        <div id="errorUsuarioResponsable" class="alert alert-danger" hidden>Usuario existente, porfavor use otro</div>
                                                         <label>Usuario</label>
                                                         <input class="form-control" type="text" placeholder="Usuario" id="responsableUsuario" name="responsableUsuario" disabled/>
                                                     </div>
@@ -381,6 +384,7 @@
                                                         <input class="form-control" type="text" placeholder="Confirmar contraseña" id="responsablePass2" name="responsablePass2" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        
                                                         <input class="form-control" type="text" placeholder="Nombre" id="responsableNombre" name="responsableNombre" disabled/>
                                                     </div>
                                                     <div class="form-group">
@@ -409,6 +413,7 @@
                                                         <input class="form-control" type="number" placeholder="Teléfono oficina" id="responsableOfTel" name="responsableOfTel" disabled/>
                                                     </div>
                                                     <div class="form-group">
+                                                        <div id="errorEmailResponsable" class="alert alert-danger" hidden>Email existente, porfavor use otro</div>
                                                         <input class="form-control" type="email" placeholder="Correo Electrónico" id="responsableEmail" name="responsableEmail" disabled/>
                                                     </div>
                                                     <div class="form-group">
@@ -704,36 +709,73 @@
                 async: false
             })
             console.log($('#formulario')[0].checkValidity());
-            if($('#formulario')[0].checkValidity() && validatePasswordUser() && validatePasswordResponsable())
+            if(validateUser($("#usuario").val()))
             {
-                $.post("/ajaxRgP",
-                    $('#formulario').serialize(),
-                function(data, status){
-                    var misdatos = data;
-                    if(misdatos !== "undefined")
+                $("#errorUsuario").hide();
+                if(validateEmail($("#email").val()))
+                {
+                    $("#errorEmail").hide();
+                    if(validateUser($("#responsableUsuario").val()))
                     {
-                        $("#idPaciente").val(misdatos);
+                        $("#errorUsuarioResponsable").hide();
+                        if(validateEmail($("#responsableEmail").val()))
+                        {
+                            $("#errorEmailResponsable").hide();
+                            if($('#formulario')[0].checkValidity() && validatePasswordUser() && validatePasswordResponsable())
+                            {
+                                $.post("/ajaxRgP",
+                                    $('#formulario').serialize(),
+                                function(data, status){
+                                    var misdatos = data;
+                                    if(misdatos !== "undefined")
+                                    {
+                                        $("#idPaciente").val(misdatos);
+                                    }
+                                    $('#formulario :input').prop('disabled', true);
+                                    $('#_token').prop('disabled', false);
+                                    $('#editar').prop('disabled', false);
+                                    $('#cancelar').prop('disabled', false);
+                                    $('#aceptar').prop('disabled', false);
+                                    $('label[id="checkbox"]').attr('disabled', true);
+                                    $('#editar').show();
+                                    $('#cancelar').hide();
+                                    $('#aceptar').hide();
+                                    $('#pass').val("");
+                                    $('#medico').attr("disabled", false);
+                                    $('#fechaCita').attr("disabled", false);
+                                    $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
+                                    return true;
+                                });
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            $("#errorEmailResponsable").show();
+                        }
                     }
-                    $('#formulario :input').prop('disabled', true);
-                    $('#_token').prop('disabled', false);
-                    $('#editar').prop('disabled', false);
-                    $('#cancelar').prop('disabled', false);
-                    $('#aceptar').prop('disabled', false);
-                    $('label[id="checkbox"]').attr('disabled', true);
-                    $('#editar').show();
-                    $('#cancelar').hide();
-                    $('#aceptar').hide();
-                    $('#pass').val("");
-                    $('#medico').attr("disabled", false);
-                    $('#fechaCita').attr("disabled", false);
-                    $('#formulario').prop('action', "/dashboard/patients?id=" + $("#idPaciente").val());
-                    return true;
-                });
+                    else
+                    {
+                        $("#errorUsuarioResponsable").show();
+                    }
+                    
+                }
+                else
+                {
+                    $("#errorEmail").show();
+                }
             }
             else
             {
-                return true;
+                $("#errorUsuario").show();
             }
+            
+            
+            
+            
         }
 
     var activo = false;
@@ -902,6 +944,47 @@
             confirm_password.setCustomValidity('');
             return true;
         }
+    }
+
+    function validateUser(user)
+    {
+        var regresar = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            },
+            async: false
+            
+        });
+        $.post("/ajaxCU",
+            {'user': user},
+            function(data, status){
+                json = JSON.parse(data);
+                regresar = json.ok;
+            }
+        );
+        return regresar;
+    }
+
+    function validateEmail(email)
+    {
+        console.log("email");
+        var regresar = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            },
+            async: false
+            
+        });
+        $.post("/ajaxCE",
+            { 'email': email},
+            function(data, status){
+                json = JSON.parse(data);
+                regresar = json.ok;
+            }
+        );
+        return regresar;
     }
     </script>
     

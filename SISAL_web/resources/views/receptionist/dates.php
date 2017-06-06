@@ -279,8 +279,9 @@ use App\myClasses\dbConnection;
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
+                                                        <div id="errorUsuario" class="alert alert-danger" hidden>Usuario existente, porfavor use otro</div>
                                                         <label>Usuario</label>
-                                                        <input class="form-control" type="text" placeholder="Usuario" id="usuarioNuevo" name="usuarioNuevo" />
+                                                        <input class="form-control" type="text" placeholder="Usuario" id="userNuevo" name="userNuevo" />
                                                     </div>
                                                 </td>
                                                 <td>
@@ -335,6 +336,7 @@ use App\myClasses\dbConnection;
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
+                                                        <div id="errorEmail" class="alert alert-danger" hidden>Email existente, porfavor use otro</div>
                                                         <label>Correo Electronico</label>
                                                         <input class="form-control" type="email" placeholder="Correo Electronico" id="email" name="email" />
                                                     </div>
@@ -580,11 +582,30 @@ use App\myClasses\dbConnection;
 
         function revision()
         {
-            if($('#formularioNueva')[0].checkValidity() && validatePasswordUser())
+            if(validateUser($("#userNuevo").val()))
             {
-                $('#formularioNueva').prop('action', "/nuevaCita");
+                console.log($("#usuarioNuevo").val());
+                $("#errorUsuario").hide();
+                if(validateEmail($("#email").val()))
+                {
+                    $("#errorEmail").hide();
+                    if($('#formularioNueva')[0].checkValidity() && validatePasswordUser())
+                    {
+                        $('#formularioNueva').prop('action', "/nuevaCita");
+                    }
+                    return true;
+                }
+                else
+                {
+                    $("#errorEmail").show();
+                    
+                }
             }
-            return true;
+            else
+            {
+                $("#errorUsuario").show();
+            }
+            return false;
         }
 
         function validatePasswordUser(){
@@ -599,6 +620,47 @@ use App\myClasses\dbConnection;
             confirm_password.setCustomValidity('');
             return true;
         }
+    }
+
+    function validateUser(user)
+    {
+        var regresar = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            },
+            async: false
+            
+        });
+        $.post("/ajaxCU",
+            {'user': user},
+            function(data, status){
+                json = JSON.parse(data);
+                regresar = json.ok;
+            }
+        );
+        return regresar;
+    }
+
+    function validateEmail(email)
+    {
+        console.log("email");
+        var regresar = false;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfVal
+            },
+            async: false
+            
+        });
+        $.post("/ajaxCE",
+            { 'email': email},
+            function(data, status){
+                json = JSON.parse(data);
+                regresar = json.ok;
+            }
+        );
+        return regresar;
     }
     </script>
 

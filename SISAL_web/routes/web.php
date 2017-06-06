@@ -1548,3 +1548,17 @@ Route::POST("/android/userData", function(){
         }
     }
 });
+
+Route::POST("/ajaxCU" /*Check User*/, function(){
+    if(count(dbConnection::select(["*"], "usuarios", [["usuario", $_POST['user']]]))>0)
+        echo json_encode(["ok"=>false]);
+    else
+        echo json_encode(["ok"=>true]);
+});
+
+Route::POST("/ajaxCE" /*Check email*/, function(){
+    if(count(dbConnection::select(["*"], "usuarios", [["email", $_POST['email']]]))>0)
+        echo json_encode(["ok"=>false]);
+    else
+        echo json_encode(["ok"=>true]);
+});
