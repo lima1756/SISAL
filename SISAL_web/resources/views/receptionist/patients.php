@@ -207,7 +207,7 @@
                                         </div>
                                         </a>                                        
                                         <div class="panel-body collapse indent" id="pInf" >
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                            <table width="100%" class="table table-striped table-hover" id="dataTables-example2">
                                             <tr>
                                             <td>
                                             <div class="form-group">
@@ -367,8 +367,11 @@
                                                 <div class="btn btn-primary" style="width:80%;">
                                                     <h4>Información Responsable</h2>
                                                 </div>
-                                                </a>                                        
+                                                </a>
                                                 <div class="panel-body collapse indent" id="responsableInf" >
+                                                
+                                            <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
+                                       
                                                     <tr>
                                                     <td>
                                                     <div class="form-group">
@@ -499,8 +502,10 @@
                                                     </div>
                                                     </td>
                                                     </tr>
-                                                    </table>
-                                                </div>
+
+                                                                                                  
+                                                 </table>
+                                                 </div>      
                                             </div>
                                         </div>
 
@@ -954,7 +959,6 @@
             document.getElementById('responsableGenero').required = true;
             document.getElementById('responsableSeguroSocial').required = true;
             document.getElementById('responsableFechaNacimiento').required = true;
-            document.getElementById('responsableEdad').required = true;
             document.getElementById('responsableOcupacion').required = true;
             if($("#idResponsable").val()=="")
             {
@@ -979,7 +983,6 @@
             document.getElementById('responsableGenero').required = false;
             document.getElementById('responsableSeguroSocial').required = false;
             document.getElementById('responsableFechaNacimiento').required = false;
-            document.getElementById('responsableEdad').required = false;
             document.getElementById('responsableOcupacion').required = false;
             document.getElementById('responsablePass').required = false;
             document.getElementById('responsablePass2').required = false;
