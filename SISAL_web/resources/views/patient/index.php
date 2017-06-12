@@ -181,7 +181,7 @@
             <div class="row grid">
                 <div class="grid-sizer col-xs-1 col-md-1 col-lg-1"></div> <!--Aunque esta linea no parezca importante NO BORRAR-->
                 
-                <div class="col-lg-3 col-md-6 grid-item">
+                <div class="col-lg-6 col-md-6 grid-item">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -189,8 +189,9 @@
                                     <i class="fa fa-medkit fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><!-- ingresa aquí los medicamentos--></div>
-                                    <div><h4>Mis <br> medicinas</h4></div>
+                                    <div class="huge"><h2>Mis medicinas</h2></div>
+                                    <div></div>
+                                    <div>tratamiento activo</div>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +204,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 grid-item">
+                <div class="col-lg-6 col-md-6 grid-item">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
