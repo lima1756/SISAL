@@ -81,7 +81,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
 
     <!-- FontsAwsome CSS -->
     <link href="../../dataSource/css/templates/font-awesome.css" rel="stylesheet">
-    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
+    <link rel='shortcut icon' href='/dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -189,9 +189,9 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                 <div class="col-lg-12 form-group">
                             <!--<button type="button" href="#table" class="btn btn-warning btn-lg" style="width:100%;" onclick="nuevo(); return false;" > Registrar Nuevo </button>-->
                             <?php if ($_GET['type']=="doctors") { ?>
-                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Medico</a>
+                            <a href="#table" class="btn btn-primary  page-scroll"   onclick="nuevo(); return false;"  >Registrar Nuevo Medico</a>
                             <?php }elseif ($_GET['type']=="recepcionist"){ ?>
-                            <a href="#table" class="btn btn-primary btn-xl page-scroll"   onclick="nuevo(); return false;"  style="width:100%;">Registrar Nuevo Recepcionista</a>
+                            <a href="#table" class="btn btn-primary  page-scroll"   onclick="nuevo(); return false;"  >Registrar Nuevo Recepcionista</a>
                             <?php } ?>
                 </div>
                 <!-- LISTA DE Empleado -->
@@ -241,7 +241,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-warning" onclick="edicion(); return false;" type="submit" id="editar">Editar</button></span>
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-success" type="submit" id="aceptar" onclick="return aceptacion();" style="display:none;">Aceptar</button></span>
                                 <span style="float:right; padding-top:10px;"><button class="btn btn-lg btn-danger" type="submit" id="cancelar" onclick="cancelacion(); return false;" style="display:none;">Cancelar</button></span>
-                                <span><h2 id="nombre_completo" name="nombre_completo">alguien</h2></span>
+                                <span><h2 id="nombre_completo" name="nombre_completo"></h2></span>
                             </div>
                             <section id="table" name="table">
                             </section>
@@ -269,7 +269,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
-                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" min="6" disabled />
+                                                <input class="form-control" type="password" placeholder="Actualizar contraseña" id="pass" name="pass" min="6" disabled />
                                             </div>
                                             </td>
                                             </tr>
@@ -277,7 +277,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
                                             <td>
                                             <div class="form-group">
                                                 <label>Confirmar contraseña</label>
-                                                <input class="form-control" type="text" placeholder="Confirmar contraseña" id="pass2" name="pass2" disabled />
+                                                <input class="form-control" type="password" placeholder="Confirmar contraseña" id="pass2" name="pass2" disabled />
                                             </div>
                                             </td>
                                             <td>
@@ -969,7 +969,7 @@ $masInfo = dbConnection::select(["*"], "medicos", [["id_usuario", logData::getDa
     function nuevo()
     {
             $('#idEmpleado').val(-1);
-            $('#nombre_completo').html("Empleado: ")
+            $('#nombre_completo').html("Nuevo empleado: ")
             $('#usuario').val("");
             $('#nombre').val("");
             $('#apellidoPaterno').val("");

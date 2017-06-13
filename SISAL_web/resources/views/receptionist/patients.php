@@ -219,7 +219,7 @@
                                             <td>
                                             <div class="form-group">
                                                 <label>Actualizar contraseña</label>
-                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass" name="pass" min="6" disabled/>
+                                                <input class="form-control" type="password" placeholder="Actualizar contraseña" id="pass" name="pass" min="6" disabled/>
                                             </div>
                                             </td>
                                             </tr>
@@ -227,7 +227,7 @@
                                             <td>
                                             <div class="form-group">
                                                 <label>Confirmar contraseña</label>
-                                                <input class="form-control" type="text" placeholder="Actualizar contraseña" id="pass2" name="pass2" disabled/>
+                                                <input class="form-control" type="password" placeholder="Actualizar contraseña" id="pass2" name="pass2" disabled/>
                                             </div>
                                             </td>
                                             <td>
@@ -383,7 +383,7 @@
                                                     <td>
                                                     <div class="form-group">
                                                         <label>Actualizar contraseña</label>
-                                                        <input class="form-control" type="text" placeholder="Actualizar contraseña" id="responsablePass" name="responsablePass" disabled/>
+                                                        <input class="form-control" type="password" placeholder="Actualizar contraseña" id="responsablePass" name="responsablePass" disabled/>
                                                     </div>
                                                     </td>
                                                     </tr>
@@ -391,7 +391,7 @@
                                                     <td>
                                                     <div class="form-group">
                                                         <label>Confirmar contraseña</label>
-                                                        <input class="form-control" type="text" placeholder="Confirmar contraseña" id="responsablePass2" name="responsablePass2" disabled/>
+                                                        <input class="form-control" type="password" placeholder="Confirmar contraseña" id="responsablePass2" name="responsablePass2" disabled/>
                                                     </div>
                                                     </td>
                                                     <td>
