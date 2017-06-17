@@ -114,6 +114,7 @@ public class PatientPreview extends AppCompatActivity {
                 else if(empty)
                 {
                     Titles[0] = new TextView(getApplicationContext());
+                    Titles[0].setTextColor(Color.BLACK);
                     Titles[0].setTextSize(settings.getInt("titleSize", 30));
                     Titles[0].setText("No existe información previa");
                     miLayOut.addView(Titles[0]);
