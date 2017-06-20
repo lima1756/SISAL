@@ -56,7 +56,7 @@ public class updateInfo extends Service {
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "https://www.mysisal.com/android/retreiveData";
+            String url = "https://www.mysisal.com/android/retreiveData";
 
 
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {

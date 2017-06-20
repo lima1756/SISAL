@@ -126,8 +126,53 @@ public class myMedicines extends AppCompatActivity
                 }
 
                 Contents[i] = new TextView(this);
-                Contents[i].setText("Inicio: " + str + "\nCada: " + (String)eachDato.get("cada") + " horas\nDurante: " + (String)eachDato.get("durante") + " horas\nIndicaciones: " + (String)eachDato.get("indicaciones") + "\nSiguiente toma: "
+                Integer durante = Integer.parseInt(eachDato.getString("durante"));
+                Integer cada = Integer.parseInt(eachDato.getString("cada"));
+                if(durante == 24*365*100) {
+                    Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: Siempre\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
                             + cal.getTime().toString());
+                }
+                else if(((durante%31)%7)%24==0)
+                {
+                    if(((durante/31)/7)/24==1)
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + (((durante/31)/7)/24) + " Mes\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                    else
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + (((durante/31)/7)/24) + " Meses\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                }
+                else if((durante%7)%24==0)
+                {
+                    if((durante/7)/24==1)
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + ((durante/7)/24) + " Semana\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                    else
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + ((durante/7)/24) + " Semanas\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                }
+                else if(durante%24==0)
+                {
+                    if(durante/24==1)
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + (durante/24) + " Día\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                    else
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + (durante/24) + " Días\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                }
+                else
+                {
+                    if(durante==1)
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + durante + " Hora\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                    else
+                        Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + durante + " Horas\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
+                                + cal.getTime().toString());
+                }
+                {
+
+                }
+
+                
 
                 Titles[i].setTextSize(30);
                 Titles[i].setTextColor(Color.BLUE);
