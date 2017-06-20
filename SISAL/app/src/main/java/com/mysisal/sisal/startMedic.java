@@ -84,18 +84,21 @@ public class startMedic extends AppCompatActivity
 
         TextView titulo = (TextView) findViewById(R.id.clinicNameView);
         titulo.setTextSize(settings.getInt("titleSize", 30) + 15);
-
+        titulo.setTextColor(Color.BLACK);
         TextView slogan = (TextView) findViewById(R.id.slogan);
         slogan.setTextSize(settings.getInt("textSize", 20) + 3);
-        slogan.setTextColor(Color.GRAY);
+        slogan.setTextColor(Color.BLACK);
 
         TextView servicios = (TextView) findViewById(R.id.Servicios);
         servicios.setTextSize(settings.getInt("titleSize", 30)+5);
-
+        servicios.setTextColor(Color.BLACK);
 
         final TextView listaServicios = (TextView) findViewById(R.id.listaServicios);
         listaServicios.setTextSize(settings.getInt("textSize", 20));
         listaServicios.setVisibility(View.GONE);
+        listaServicios.setTextColor(Color.BLACK);
+
+
         servicios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +110,8 @@ public class startMedic extends AppCompatActivity
         miLayOut.setVisibility(View.GONE);
         miLayOut.setVisibility(View.GONE);
         TextView contacto = (TextView) findViewById(R.id.contacto);
+        contacto.setTextColor(Color.BLACK);
+
         contacto.setTextSize(settings.getInt("titleSize", 30)+5);
         contacto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,9 +121,13 @@ public class startMedic extends AppCompatActivity
         });
 
         TextView telView = (TextView) findViewById(R.id.telView);
+        telView.setTextColor(Color.BLACK);
+
         telView.setTextSize(settings.getInt("titleSize", 30));
 
         TextView tel1 = (TextView) findViewById(R.id.tel1);
+        tel1.setTextColor(Color.BLACK);
+
         tel1.setTextSize(settings.getInt("textSize", 20));
         tel1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +141,8 @@ public class startMedic extends AppCompatActivity
 
         TextView tel2 = (TextView) findViewById(R.id.tel2);
         tel2.setTextSize(settings.getInt("textSize", 20));
+        tel2.setTextColor(Color.BLACK);
+
         tel2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +155,8 @@ public class startMedic extends AppCompatActivity
 
         TextView tel3 = (TextView) findViewById(R.id.tel3);
         tel3.setTextSize(settings.getInt("textSize", 20));
+        tel3.setTextColor(Color.BLACK);
+
         tel3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,9 +168,13 @@ public class startMedic extends AppCompatActivity
         });
 
         TextView celView = (TextView) findViewById(R.id.celView);
+        celView.setTextColor(Color.BLACK);
+
         celView.setTextSize(settings.getInt("titleSize", 30));
 
         TextView cel1 = (TextView) findViewById(R.id.cel1);
+        cel1.setTextColor(Color.BLACK);
+
         cel1.setTextSize(settings.getInt("textSize", 20));
         cel1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +187,8 @@ public class startMedic extends AppCompatActivity
         });
 
         TextView cel2 = (TextView) findViewById(R.id.cel2);
+        cel2.setTextColor(Color.BLACK);
+
         cel2.setTextSize(settings.getInt("textSize", 20));
         cel2.setOnClickListener(new View.OnClickListener() {
             @Override
