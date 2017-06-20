@@ -132,7 +132,7 @@ public class myMedicines extends AppCompatActivity
                     Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: Siempre\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
                             + cal.getTime().toString());
                 }
-                else if(((durante%31)%7)%24==0)
+                else if(durante%31 == 0 && durante%31%7 == 0 &&((durante%31)%7)%24==0)
                 {
                     if(((durante/31)/7)/24==1)
                         Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + (((durante/31)/7)/24) + " Mes\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
@@ -141,7 +141,7 @@ public class myMedicines extends AppCompatActivity
                         Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + (((durante/31)/7)/24) + " Meses\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
                                 + cal.getTime().toString());
                 }
-                else if((durante%7)%24==0)
+                else if(durante%24 ==0 && durante%7 == 0 && (durante%7)%24==0)
                 {
                     if((durante/7)/24==1)
                         Contents[i].setText("Inicio: " + str + "\nCada: " + (String) eachDato.get("cada") + " horas\nDurante: " + ((durante/7)/24) + " Semana\nIndicaciones: " + (String) eachDato.get("indicaciones") + "\nSiguiente toma: "
@@ -172,7 +172,7 @@ public class myMedicines extends AppCompatActivity
 
                 }
 
-                
+
 
                 Titles[i].setTextSize(30);
                 Titles[i].setTextColor(Color.BLUE);

@@ -100,6 +100,7 @@ public class patientStartActivity extends AppCompatActivity
         miLayOut.setVisibility(View.GONE);
         miLayOut.setVisibility(View.GONE);
         TextView contacto = (TextView) findViewById(R.id.contacto);
+        contacto.setTextColor(Color.BLACK);
         contacto.setTextSize(settings.getInt("titleSize", 30)+5);
         contacto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +152,7 @@ public class patientStartActivity extends AppCompatActivity
         });
 
         TextView celView = (TextView) findViewById(R.id.celView);
+        celView.setTextColor(Color.BLACK);
         celView.setTextSize(settings.getInt("titleSize", 30));
 
         TextView cel1 = (TextView) findViewById(R.id.cel1);
