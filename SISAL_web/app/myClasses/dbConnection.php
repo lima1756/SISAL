@@ -36,17 +36,11 @@
             {
                 try
                 {
-                    /*$name = "sisal";
+                    $name = "sisal";
                     $user = "rootSisal";
                     $password = "13300226-13300195";
-                    self::$DBCon = new PDO('mysql:host=sisal.cuvxvi5d2aqv.us-east-1.rds.amazonaws.com; dbname='.$name, $user, $password, [PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'UTF8', time_zone = 'America/Mexico_City';"]);*/
-                    $name = "sisal";
-                    $user = "root";
-                    $password = "";
-                    self::$DBCon = new PDO('mysql:host=localhost; dbname='.$name, $user, $password, [PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'UTF8';"]);
-                    self::$DBCon->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-                    
-
+		    self::$DBCon = new PDO('mysql:host=sisal.cuvxvi5d2aqv.us-east-1.rds.amazonaws.com; dbname='.$name, $user, $password, [PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'UTF8', time_zone = 'America/Mexico_City';"]);
+ 		    self::$DBCon->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
                     return true;
                 }
                 catch(PDOException $e)
@@ -145,7 +139,7 @@
                             }
                         }
                         else
-                        {
+                        {   
                             if(count($where[$x])==2)
                             {
                                 $query = $query . " AND " . $where[$x][0] . " = " . "?";
@@ -307,12 +301,6 @@
                 }
                 try
                 {
-                    var_dump($query);
-                    echo"<br>";
-                    var_dump($data);
-                    echo"<br>";
-                    echo"<br>";
-                    echo"<br>";
                     $insert = self::$DBCon->prepare($query);
                     $insert->execute($data);
                     return 1;

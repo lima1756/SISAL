@@ -235,6 +235,10 @@ Route::post('/registerDate', function () {
     for($x = 0; $x < $_POST['cantidad']; $x++)
     {
         $multiplier = 1;
+        if($_POST['medCada'][$x]==0){
+            $multiplier = 0;
+            $_POST['medDura'] = 0;
+        }
         if($_POST['medDuraValue'][$x]=="hora")
             $multiplier = 1;
         elseif($_POST['medDuraValue'][$x]=="dias")
@@ -243,21 +247,47 @@ Route::post('/registerDate', function () {
             $multiplier = 24*7;
         elseif($_POST['medDuraValue'][$x]=="meses")
             $multiplier = 24*31;
-        if($_POST['medID'][$x]!=0)
+        elseif($_POST['medDuraValue'][$x]=="siempre")
         {
-            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
-                [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x]*$multiplier, $_POST['medIndi'][$x], $idRegistro]]);
+            $multiplier = 24*365*100;
+        }
+        if($_POST['medDura'][$x] != NULL)
+        {
+            if($_POST['medID'][$x]!=0)
+            {
+                dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
+                    [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x]*$multiplier, $_POST['medIndi'][$x], $idRegistro]]);
+            }
+            else
+            {
+                
+                
+                dbConnection::insert("medicamentos", ["nombre", "aprobada"], 
+                    [[$_POST['medName'][$x],null]]);
+                $idMed = dbConnection::lastID();
+                
+                dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
+                    [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x]*$multiplier,$_POST['medIndi'][$x], $idRegistro]]);
+            }
         }
         else
         {
-            
-            
-            dbConnection::insert("medicamentos", ["nombre", "aprobada"], 
-                [[$_POST['medName'][$x],'0']]);
-            $idMed = dbConnection::lastID();
-            
-            dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
-                [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $_POST['medDura'][$x],$_POST['medIndi'][$x], $idRegistro]]);
+            if($_POST['medID'][$x]!=0)
+            {
+                dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
+                    [[$_POST['medID'][$x], $_POST['medCada'][$x], $_POST['medStart'][$x], $multiplier, $_POST['medIndi'][$x], $idRegistro]]);
+            }
+            else
+            {
+                
+                
+                dbConnection::insert("medicamentos", ["nombre", "aprobada"], 
+                    [[$_POST['medName'][$x],null]]);
+                $idMed = dbConnection::lastID();
+                
+                dbConnection::insert("tratamiento", ["id_medicamento", "cada", "inicio", "durante", "indicaciones", "id_registro"], 
+                    [[$idMed, $_POST['medCada'][$x], $_POST['medStart'][$x], $multiplier,$_POST['medIndi'][$x], $idRegistro]]);
+            }
         }
     }
     
@@ -287,7 +317,165 @@ Route::get('/receta', function() {
 Route::post('/recetamedica', function() {
    try {
     ob_start();
-    include '\disenio.php';
+
+$regmed = $_POST['medico']; 
+$idCita = $_POST['fechaCita'];  
+$valores=["id_paciente", "id_medico","id_diagnostico","id_registro","fecha_hora"];
+$tabla="registro_clinico";
+$where=[["registro_clinico.id_registro",$idCita]];
+$join=[];
+$datos1 = dbConnection::select($valores,$tabla,$where,$join);
+
+
+
+$v1 = $datos1[0]['id_paciente'];
+$valores=["nombre", "apellidoPaterno", "apellidoMaterno","email"];
+$tabla="usuarios";
+$where=[["id_usuario",$v1]];
+$join=[];
+$datos = dbConnection::select($valores,$tabla,$where,$join);
+
+$v11 = $datos1[0]['id_medico'];
+$valores=["especialidad", "cedula", "universidad"];
+$tabla="medicos";
+$where=[["id_usuario",$v11]];
+$join=[];
+$doctor = dbConnection::select($valores,$tabla,$where,$join);
+
+$v111 = $datos1[0]['id_medico'];
+$valores=["nombre", "apellidoPaterno", "apellidoMaterno"];
+$tabla="usuarios";
+$where=[["id_usuario",$v111]];
+$join=[];
+$doctorname = dbConnection::select($valores,$tabla,$where,$join);
+
+
+
+
+$valu = $datos1[0]['id_registro'];
+$valores=["id_medicamento","durante","cada", "inicio","indicaciones"];
+$tabla="tratamiento";
+$where=[["id_registro",$valu]];
+$join=[];
+$datos3 = dbConnection::select($valores,$tabla,$where,$join);
+
+
+?>
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Receta</title>
+
+  </head>
+  <body style="position:relative;width:21cm;height:29.7cm;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;color:#001028;background-color:#FFFFFF;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;font-family:Arial;font-size:12px;" >
+    <div id="header" class="clearfix" style="padding-top:10px;padding-bottom:10px;padding-right:0;padding-left:0;margin-bottom:30px;" >
+      <div id="logo" style="text-align:center;margin-bottom:10px;" >
+        <img src="./res/CSALogo.png" style="width:250px;" >
+      </div>
+      <h1 style="border-top-width:1px;border-top-style:solid;border-top-color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#5D6975;color:#5D6975;font-size:2.4em;line-height:1.4em;font-weight:normal;text-align:center;margin-top:0;margin-bottom:20px;margin-right:0;margin-left:0;background-color:transparent;background-image:url(dimension.png);background-repeat:repeat;background-position:top left;background-attachment:scroll;" >Receta médica</h1>
+    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+      <tr>
+      <td>
+
+      </td>
+      </tr> 
+    
+    </table>
+    </div>
+ <div>   
+<table>
+        <thead>
+          <tr>
+            <th class="service" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Doctor:</th>
+            <th class="desc" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Especialidad:</th>
+            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Cedula:</th>
+            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Universidad:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $doctorname[0]['nombre']. " " .$doctorname[0]['apellidoPaterno']. " " .$doctorname[0]['apellidoMaterno'];?></td>
+            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $doctor[0]['especialidad'];?></td>
+            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo $doctor[0]['cedula'];?></td>
+            <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo $doctor[0]['universidad'];?></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+ <div>   
+<table>
+        <thead>
+          <tr>
+            <th class="service" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Paciente:</th>
+            <th class="desc" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Correo:</th>
+            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Fecha:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $datos[0]['nombre']. " " .$datos[0]['apellidoPaterno']. " " .$datos[0]['apellidoMaterno'];?></td>
+            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $datos[0]['email'];?></td>
+            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo date("d-m-Y", strtotime($datos1[0]['fecha_hora']));?></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th class="service" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Nombre Medicina:</th>
+            <th class="desc" style="padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;text-align:left;" >Cada:</th>
+            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Durante:</th>
+            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Inicio de toma:</th>
+            <th style="text-align:center;padding-top:5px;padding-bottom:5px;padding-right:20px;padding-left:20px;color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#C1CED9;white-space:nowrap;font-weight:normal;" >Indicaciones extra:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php 
+          foreach($datos3 as $da): 
+          $nom = dbConnection::RAW("SELECT nombre from medicamentos where id_medicamento  = '".$da['id_medicamento']."'");
+          ?>
+          <tr>
+            <td class="service" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php echo $nom[0]['nombre'];?></td>
+            <td class="desc" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:left;vertical-align:top;" ><?php if($da['cada']==0) echo '-'; else echo $da['cada'];?></td>
+            <td class="unit" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php if($da['durante']==24*365*100) echo 'Siempre'; elseif($da['cada']==0) echo "una toma"; else echo $da['durante'];?></td>
+            <td class="qty" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo date("d-m-Y H:i", strtotime($da['inicio']));?></td>
+            <td class="total" style="padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;text-align:right;font-size:1.2em;" ><?php echo $da['indicaciones'];?></td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+      <br><br>
+      <div id="notices">
+        <div>Firma doctor:</div>
+        <br><br>
+        <div class="notice" style="color:#5D6975;font-size:1.2em;" >____________________________________________________________________________________________________________</div>
+      </div>
+     </div>
+      <div id="company" class="clearfix" style="float:left;text-align:left;" >
+        <div style="white-space:nowrap;" >                       </div>
+        <div style="white-space:nowrap;" >Clinica San Antonio</div>
+        <div style="white-space:nowrap;" >Av. Independencia 1748 Pte.<br /> Los Mochis, Sianaloa.</div>
+        <div style="white-space:nowrap;" >(668) 812-1348</div>
+        <div style="white-space:nowrap;" >(044) 6681-30-2436</div>
+        <div style="white-space:nowrap;" ><a href="mailto:brucamer@gmail.com" style="color:#5D6975;text-decoration:underline;" >brucamer@gmail.com</a></div>
+      </div>
+
+    <div id="footer"style="color:#5D6975;width:100%;height:30px;position:absolute;bottom:0;border-top-width:1px;border-top-style:solid;border-top-color:#C1CED9;padding-top:8px;padding-bottom:8px;padding-right:0;padding-left:0;text-align:center;" >
+      SISAL 2017.
+    </div>
+  </body>
+</html>
+<?php
     $content = ob_get_clean();
 
     $html2pdf = new Html2Pdf('P', 'A4', 'fr');//H o P dependiendo de como se necesite
@@ -493,14 +681,14 @@ Route::POST('/ajaxDCdP' /* Doctor obtiene Cita de paciente*/, function() {
 });
 
 Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
-    
+
     dbConnection::update("usuarios",
         ['nombre', 'email', 'apellidoPaterno', 'apellidoMaterno', 'Domicilio', 'codigoPostal', 'telefonoDomiciliar', 'telefonoCelular', 'genero', 'noSeguroSocial', 'fechaNacimiento', 'Ocupacion'],
         [$_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['Domicilio'], $_POST['codigoPostal'], $_POST['domTel'], $_POST['celTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento'], $_POST['ocupacion']],
         [['usuarios.id_usuario', $_POST['idPaciente']]]);
     dbConnection::insert("antecedentes",
         ['id_sangre', 'tabaquismo', 'alcoholismo', 'antecedentesHereditarios', 'antecedentesPatologicos', 'antecedentesNoPatologicos'],
-        [[$_POST['sangre'], $_POST['tabaquismoCantidad'], $_POST['alcoholismoCantidad'], $_POST['antecedentesHereditarios'], $_POST['antecedentesPatologicos'], $_POST['antecedentesNoPatologicos']]]);
+        [[$_POST['sangre'], isset($_POST['tabaquismoCantidad'])?$_POST['tabaquismoCantidad']:null, isset($_POST['alcoholismoCantidad'])?$_POST['alcoholismoCantidad']:null, $_POST['antecedentesHereditarios'], $_POST['antecedentesPatologicos'], $_POST['antecedentesNoPatologicos']]]);
     $antecedentes = dbConnection::lastID();
     
     dbConnection::insert("interrogatorio",
@@ -520,7 +708,7 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
         ["horasDiarias"],
         [[$_POST['horasSuenio']]]);
     $suenio = dbConnection::lastID();
-
+    
     if(isset($_POST['desayuna']))
     {
         dbConnection::insert("comidas",
@@ -626,6 +814,7 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
             $exDroga = dbConnection::lastID();
         }
     }
+    
     dbConnection::insert("estiloVida",
         ["id_ejercicio", "id_suenio", "id_comidas", "id_cafe", "id_refresco", "id_dietas", "id_alcoholismo", "id_exAlcoholismo", "id_drogas", "id_exAdicto", 'id_fumador', 'id_exFumador', "fumadorPasivo"],
         [[$ejercicio, $suenio, $comidas, $cafe, $refresco, $dieta, $alcohol, $exAlcohol, $droga, $exDroga, $fuma, $exFuma, $fumadorPasivo]]);
@@ -644,18 +833,20 @@ Route::POST('/ajaxDgP' /* Doctor guarda Paciente*/, function() {
     dbConnection::RAW("DELETE FROM alergias WHERE id_alergias NOT IN (SELECT id_alergias FROM pacientes)", true);
     dbConnection::RAW("DELETE FROM estilovida WHERE id_estiloVida NOT IN (SELECT id_estiloVida FROM pacientes)", true);
     
-    dbConnection::RAW("DELETE FROM ejercicio WHERE id_ejercicio NOT IN (SELECT id_ejercicio FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM suenio WHERE id_suenio NOT IN (SELECT id_suenio FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM comidas WHERE id_comidas NOT IN (SELECT id_comidas FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM cafe WHERE id_cafe NOT IN (SELECT id_cafe FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM refresco WHERE id_refresco NOT IN (SELECT id_refresco FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM dietas WHERE id_dietas NOT IN (SELECT id_dietas FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM alcoholico WHERE id_alcoholico NOT IN (SELECT id_alcoholismo FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM ex_alcoholico WHERE id_exAlcoholico NOT IN (SELECT id_exAlcoholismo FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM drogas WHERE id_drogas NOT IN (SELECT id_drogas FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM ex_adicto WHERE id_exAdicto NOT IN (SELECT id_exAdicto FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM fumador WHERE id_fumador NOT IN (SELECT id_fumador FROM estilovida)", true);
-    dbConnection::RAW("DELETE FROM ex_fumador WHERE id_exFumador NOT IN (SELECT id_exFumador FROM estilovida)", true);
+    dbConnection::RAW("DELETE FROM ejercicio WHERE id_ejercicio NOT IN (SELECT id_ejercicio FROM estiloVida)", true);
+    
+    dbConnection::RAW("DELETE FROM suenio WHERE id_suenio NOT IN (SELECT id_suenio FROM estiloVida)", true);
+    
+    dbConnection::RAW("DELETE FROM comidas WHERE id_comidas NOT IN (SELECT id_comidas FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM cafe WHERE id_cafe NOT IN (SELECT id_cafe FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM refresco WHERE id_refresco NOT IN (SELECT id_refresco FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM dietas WHERE id_dietas NOT IN (SELECT id_dietas FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM alcoholico WHERE id_alcoholico NOT IN (SELECT id_alcoholismo FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM ex_alcoholico WHERE id_exAlcoholico NOT IN (SELECT id_exAlcoholismo FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM drogas WHERE id_drogas NOT IN (SELECT id_drogas FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM ex_adicto WHERE id_exAdicto NOT IN (SELECT id_exAdicto FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM fumador WHERE id_fumador NOT IN (SELECT id_fumador FROM estiloVida)", true);
+    dbConnection::RAW("DELETE FROM ex_fumador WHERE id_exFumador NOT IN (SELECT id_exFumador FROM estiloVida)", true);
 
 });
 
@@ -716,6 +907,8 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
         $datos["horario"] = $horario;
         $datos["hoy"] = $Hoy;
         $time = $horaStart;
+        if(sizeof($time)==4)
+            $time = "0".$time;
             $conteo = 0;
         if(strtotime($date)<time())
         {
@@ -741,12 +934,16 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
                 }
                 if($comprobacion && $hoyTrabaja)
                 {
+                    if(sizeof($time)==4)
+                        $time = "0".$time;
                     array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "celular" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
                     $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
                     $time = date("H:i:s", $time);
                 }
                 elseif(!$comprobacion)
                 {
+                    if(sizeof($time)==4)
+                        $time = "0".$time;
                     $time = strtotime("+".$tiempoConsulta." minutes",strtotime($tiempoExtra));
                     $time = date("H:i:s", $time);
                 }
@@ -769,12 +966,16 @@ Route::POST('/ajaxRC' /* Recepcionista obtiene Citas */, function() {
                 }
                 if($comprobacion && $hoyTrabaja)
                 {
+                    if(sizeof($time)==4)
+                        $time = "0".$time;
                     array_push($datos["data"],["Seleccionar"=> $date.' '.$time, "Paciente" => "DISPONIBLE", "celular" => "DISPONIBLE", "Tipo" => "DISPONIBLE", "Hora" => $time]);
                     $time = strtotime("+".$tiempoConsulta." minutes",strtotime($time));
                     $time = date("H:i:s", $time);
                 }
                 elseif(!$comprobacion)
                 {
+                    if(sizeof($time)==4)
+                        $time = "0".$time;
                     $time = strtotime("+".$tiempoConsulta." minutes",strtotime($tiempoExtra));
                     $time = date("H:i:s", $time);
                 }
@@ -1144,8 +1345,8 @@ Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
                 [['usuarios.id_usuario', $_POST['idEmpleado']]]);
             
             dbConnection::update("medicos",
-                ['domicilioConsultorio', 'estado', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad', 'horario_trabajo', "tiempo_consulta", "cedula"],
-                [$_POST['domPart'], $_POST['estado'], $_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad'], $horario, $_POST['tiempo'], $_POST['cedula']],
+                ['domicilioConsultorio', 'estado', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad', 'horario_trabajo', "tiempo_consulta"],
+                [$_POST['domPart'], $_POST['estado'], $_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad'], $horario, $_POST['tiempo']],
                 [['medicos.id_usuario', $_POST['idEmpleado']]]);
 
         }
@@ -1157,8 +1358,8 @@ Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
                 [$_POST['usuario'], $cipher_pass, $_POST['nombre'], $_POST['email'], $_POST['apellidoPaterno'], $_POST['apellidoMaterno'], $_POST['domicilio'], $_POST['codigoPostal']==""?null:$_POST['codigoPostal'], $_POST['domTel'], $_POST['ofTel'], $_POST['genero'], $_POST['seguroSocial'], $_POST['fechaNacimiento']==""?null: $_POST['fechaNacimiento'], $_POST['ocupacion']],
                 [['usuarios.id_usuario', $_POST['idEmpleado']]]);
              dbConnection::update("medicos",
-                ['domicilioConsultorio','estado', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad', 'horario_trabajo', "tiempo_consulta", "cedula"],
-                [$_POST['domPart'], $_POST['estado'], $_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad'], $horario, $_POST['tiempo'], $_POST['cedula']],
+                ['domicilioConsultorio','estado', 'telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad', 'horario_trabajo', "tiempo_consulta"],
+                [$_POST['domPart'], $_POST['estado'], $_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad'], $horario, $_POST['tiempo']],
                 [['medicos.id_usuario', $_POST['idEmpleado']]]);    
 
 
@@ -1175,8 +1376,8 @@ Route::POST('/ajaxAgD' /* Admin guarda Doctor*/, function() {
         $idEmpleado = dbConnection::lastID();
        
         dbConnection::insert("medicos",
-                ['id_usuario','domicilioConsultorio', 'estado','telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad', 'horario_trabajo', "tiempo_consulta", "cedula"],
-                [[$idEmpleado, $_POST['domPart'],$_POST['estado'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad'], $horario, $_POST['tiempo'], $_POST['cedula']]],
+                ['id_usuario','domicilioConsultorio', 'estado','telEmergencias', 'celEmergencias', 'emailEmergencias', 'facebook', 'twitter', 'cedula', 'especialidad', 'universidad', 'horario_trabajo', "tiempo_consulta"],
+                [[$idEmpleado, $_POST['domPart'],$_POST['estado'],$_POST['telEme'], $_POST['celEmergencias'], $_POST['correoAux'], $_POST['face'], $_POST['twitter'], $_POST['cedula'], $_POST['Especialidad'], $_POST['universidad'], $horario, $_POST['tiempo']]],
                 [['medicos.id_usuario', $_POST['idEmpleado']]]);       
         
         return $idEmpleado;
@@ -1385,6 +1586,8 @@ Route::POST("/android/logIn", function(){
     else
         echo json_encode(array("error"=>"post"));
 });
+
+
 
 
 Route::POST("/android/retreiveData", function(){

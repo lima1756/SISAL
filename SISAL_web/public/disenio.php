@@ -57,7 +57,7 @@ $datos3 = dbConnection::select($valores,$tabla,$where,$join);
   <body style="position:relative;width:21cm;height:29.7cm;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;color:#001028;background-color:#FFFFFF;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;font-family:Arial;font-size:12px;" >
     <div id="header" class="clearfix" style="padding-top:10px;padding-bottom:10px;padding-right:0;padding-left:0;margin-bottom:30px;" >
       <div id="logo" style="text-align:center;margin-bottom:10px;" >
-        <img src="./res/CSALogo.png" style="width:200px;" >
+        <img src="./res/CSALogo.png" style="width:250px;" >
       </div>
       <h1 style="border-top-width:1px;border-top-style:solid;border-top-color:#5D6975;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#5D6975;color:#5D6975;font-size:2.4em;line-height:1.4em;font-weight:normal;text-align:center;margin-top:0;margin-bottom:20px;margin-right:0;margin-left:0;background-color:transparent;background-image:url(dimension.png);background-repeat:repeat;background-position:top left;background-attachment:scroll;" >Receta médica</h1>
     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">

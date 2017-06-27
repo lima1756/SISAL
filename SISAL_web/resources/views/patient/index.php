@@ -5,11 +5,8 @@
     date_default_timezone_set("America/Mexico_City");
     $today = date("Y-m-d") . " 00:00:00";
     $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
-    $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
-        [["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"]], 
-        [["usuarios", "usuarios.id_usuario", "citas.id_medico"]]);
-    $cantidadCitas = count($citasHoy);
-    $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d/%m/%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
+    
+    
     if(Type::isPatient()):
         $meds = dbConnection::RAW("
             SELECT medicamentos.nombre, tratamiento.inicio, tratamiento.cada, tratamiento.durante, tratamiento.indicaciones 
@@ -19,6 +16,10 @@
             WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
             AND registro_clinico.id_paciente = '".logData::getData("id_usuario")."';
         ");
+        $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+            [["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"], ["citas.id_paciente", logData::getData("id_usuario")]], 
+            [["usuarios", "usuarios.id_usuario", "citas.id_medico"]], "ORDER BY fecha_hora" );
+        $cantidadCitas = count($citasHoy);
     elseif(Type::isInCharge()):
         $id_Usuario = dbConnection::select(['id_paciente'], 'encargados', [['id_usuario', logData::getData("id_usuario")]])[0]['id_paciente'];;
         $meds = dbConnection::RAW("
@@ -29,6 +30,10 @@
             WHERE tratamiento.inicio + INTERVAL tratamiento.durante HOUR > NOW()
             AND registro_clinico.id_paciente = '$id_Usuario';
         ");
+        $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
+            [["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"], ["citas.id_paciente", $id_Usuario]], 
+            [["usuarios", "usuarios.id_usuario", "citas.id_medico"]], "ORDER BY fecha_hora" );
+        $cantidadCitas = count($citasHoy);
     endif;
     $lista=[];
     foreach($meds as $m)
@@ -181,7 +186,7 @@
             <div class="row grid">
                 <div class="grid-sizer col-xs-1 col-md-1 col-lg-1"></div> <!--Aunque esta linea no parezca importante NO BORRAR-->
                 
-                <div class="col-lg-6 col-md-6 grid-item">
+                <div class="col-lg-3 col-md-6 grid-item">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -189,9 +194,9 @@
                                     <i class="fa fa-medkit fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><h2>Mis medicinas</h2></div>
-                                    <div></div>
-                                    <div>tratamiento activo</div>
+                                    <div class="huge"><!-- ingresa aquí los medicamentos--></div>
+                                    <div><h4>Mis <br> medicinas</h4></div>
+                                    <div>Tratamientos</div>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +209,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 grid-item">
+                <div class="col-lg-3 col-md-6 grid-item">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
@@ -267,18 +272,17 @@
                 <div class="col-lg-6 col-md-6 grid-item">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Citas hoy:
+                            <i class="fa fa-bell fa-fw"></i> Citas de hoy:
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
                                 <?php if($cantidadCitas != 0): ?>
                                     <?php foreach($citasHoy as $cita): ?>
-                                            
-                                            <i class="fa fa-calendar-check-o fa-fw"></i> Doctor:  <?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?>
+                                            <i class="fa fa-calendar-check-o fa-fw"></i> Médico:  <?php echo $cita['nombre'] . " " . $cita['apellidoPaterno'] . " " . $cita['apellidoMaterno']; ?>
                                             <span class="pull-right text-muted small"><em><?php echo date("H:i",strtotime($cita['hora'])); ?></em>
                                             </span>
-
+                                            <br>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <i class="fa fa-calendar-check-o fa-fw"></i> No hay citas el día de hoy :)

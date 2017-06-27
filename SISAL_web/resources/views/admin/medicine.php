@@ -7,7 +7,7 @@ $tabla="medicamentos";
 $where=["aprobada",$true];
 $join=[];
 //$datos = dbConnection::select($nombre,$tabla,$where,$join);
-   $datos = dbConnection::RAW("SELECT nombre, id_medicamento, aprobada FROM `medicamentos` WHERE aprobada = 0");
+   $datos = dbConnection::RAW("SELECT nombre, id_medicamento, aprobada FROM `medicamentos` WHERE aprobada is NULL");
 ?>
 
 
@@ -42,7 +42,7 @@ $join=[];
 
     <!-- DataTables Responsive CSS -->
     <link href="../../dataSource/css/templates/dataTables.responsive.css" rel="stylesheet">
-    <link rel='shortcut icon' href='/dataSource/img/favicon.png' type='image/x-icon'/>
+    <link rel='shortcut icon' href='../dataSource/img/favicon.png' type='image/x-icon'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

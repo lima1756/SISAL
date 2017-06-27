@@ -131,14 +131,14 @@
                                     <i class="fa fa-user-md fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><h3>Doctores</h3></div>
-                                    <div>Información </div>
+                                    <div class="huge"><h2>Doctores</h2></div>
+     				    <div>Información</div>
                                 </div>
                             </div>
                         </div>
                         <a href="/dashboard/Personal/?type=doctors">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver doctores</span>
+                                <span class="pull-left">Registrar personal</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -153,14 +153,14 @@
                                     <i class="fa fa-pencil-square-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><h3>Recepcionistas</h3></div>
-                                    <div>Registro de personal</div>
+                                    <div class="huge"><h2>Recepcionista</h2></div>
+                                    <div>Información</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="/dashboard/Personal/?type=recepcionist">
+                        <a href="/dashboard/Personal?type=recepcionist">
                             <div class="panel-footer">
-                                <span class="pull-left">Agregar personal.</span>
+                                <span class="pull-left">Agregar personal</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -175,7 +175,7 @@
                                     <i class="fa fa-hospital-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><h3>Hospital</h3></div>
+                                    <div class="huge"><h2>Hospital</h2></div>
                                     <div>Información</div>
                                 </div>
                             </div>

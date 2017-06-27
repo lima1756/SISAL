@@ -7,9 +7,9 @@
     $tomorrow = date("Y-m-d", strtotime('+1 day')) . " 00:00:00";
     $citasHoy = dbConnection::select(["id_usuario", "TIME(fecha_hora) AS hora", "usuarios.nombre", "usuarios.apellidoPaterno", "usuarios.apellidoMaterno"], "citas", 
         [["citas.fecha_hora", $today, ">"], ["citas.fecha_hora", $tomorrow, "<"]], 
-        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]]);
+        [["usuarios", "usuarios.id_usuario", "citas.id_paciente"]] , "ORDER BY fecha_hora");
     $cantidadCitas = count($citasHoy);
-    $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d/%m/%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
+    $notas = dbConnection::select(["contenido", "DATE_FORMAT(fechaHora,'%d-%m-%Y %h:%i:%s') AS fecha"], "notas", [["notas.id_usuario", logData::getData("id_usuario")]], [], "ORDER BY fechaHora DESC");
 
 ?>
 <html lang="es">

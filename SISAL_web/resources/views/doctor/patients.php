@@ -257,7 +257,7 @@
                                         </div>
                                         </td>
                                         <td>
-                                        <b>Teléfono:</b>
+                                        <br>Teléfono:</b>
                                         <div class="form-group">
                                             <input class="form-control" type="number" placeholder="Teléfono domiciliar" id="domTel" name="domTel" style="height: 30px; width: 100%;" disabled/>
                                         </div>
@@ -891,14 +891,14 @@
                                                     <label><h3><b>Notas Adicionales:</b></h3></label><br>
                                                     <div class="form-group">
                                                         <h5><b>Notas:</b></h5>
-                                                        <textarea type="text" placeholder="Exploración Física: " class="form-control" id="CNA" name="CNA" disabled></textarea>                                                          
+                                                        <textarea type="text" placeholder="Ninguna" class="form-control" id="CNA" name="CNA" disabled></textarea>                                                          
                                                     </div>
                                                     
 
                                                     <label><h3><b>Estudios:</b></h3></label><br>
                                                     <div class="form-group">
                                                         <h5><b>Orden:</b></h5>
-                                                        <input class="form-control" type="text" placeholder="COrden" id="COrden" name="COrden" disabled/>
+                                                        <input class="form-control" type="text" placeholder="Ninguno" id="COrden" name="COrden" disabled/>
                                                     </div>
                                                     <label><h3><b>Tratamiento:</b></h3></label><br>
                                                     <div class="form-group">
@@ -1871,7 +1871,8 @@
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': csrfVal
-                }
+                },
+                async: false
             })
             $.post("/ajaxDgP",
                 $('#formulario').serialize()
@@ -1889,7 +1890,7 @@
             $('#aceptar').hide();
             $('#medico').attr("disabled", false);
             $('#fechaCita').attr("disabled", false);
-            location.reload(true);
+            window.location.replace("/dashboard/patients?id=" + id);
         }
 
     function myToggler(where)

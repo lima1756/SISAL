@@ -389,7 +389,7 @@
                                     <label>Nombre:</label>\n
                                     <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]" id="medName` + x + `" value="` + nombre[x-1] + `"/>\n
                                     <label>Cada:</label>\n
-                                    <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                    <select name="medCada[]" id="medCada` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                         <option value="1">1 hora</option>\n
                                         <option value="2">2 horas</option>\n
                                         <option value="4">4 horas</option>\n
@@ -399,15 +399,17 @@
                                         <option value="24">24 horas</option>\n       
                                         <option value="48">48 horas</option>\n
                                         <option value="72">72 horas</option>\n
+                                        <option value="0">Una toma</option>\n
                                     </select>\n <br> <label>Iniciando a las:</label>\n
                                     <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n
-                                    <label>Duración de tratamiento:</label>\n
+                                    <label id="labelDuracion` + x + `">Duración de tratamiento:</label>\n
                                 <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
-                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                     <option value="hora">horas</option>\n
                                     <option value="dias">dias</option>\n
                                     <option value="semanas">semanas</option>\n
                                     <option value="meses">meses</option>\n         
+                                    <option value="siempre">Siempre</option>\n  
                                 </select>\n
                                     <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" value="" + indi[x-1] + "" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
                                 </div>`;
@@ -420,7 +422,7 @@
                                 <label>Nombre:</label>\n
                                 <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]]" id="medName` + x + `" >\n
                                 <label>Cada:</label>\n
-                                <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                <select name="medCada[]" id="medCada` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                     <option value="1">1 hora</option>\n
                                     <option value="2">2 horas</option>\n
                                     <option value="4">4 horas</option>\n
@@ -430,15 +432,17 @@
                                     <option value="24">24 horas</option>\n          
                                     <option value="48">48 horas</option>\n
                                     <option value="72">72 horas</option>\n
+                                    <option value="0">Una toma</option>\n
                                 </select>\n <br> <label>Iniciando a las:</label>\n            
                                 <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n
-                                <label>Duración de tratamiento:</label>\n
+                                <label id="labelDuracion` + x + `">Duración de tratamiento:</label>\n
                                 <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
-                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                     <option value="hora">horas</option>\n
                                     <option value="dias">dias</option>\n
                                     <option value="semanas">semanas</option>\n
-                                    <option value="meses">meses</option>\n         
+                                    <option value="meses">meses</option>\n    
+                                    <option value="siempre">Siempre</option>\n       
                                 </select>\n
                                 <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
                             </div>`;
@@ -454,7 +458,7 @@
                             <label>Nombre:</label>\n
                             <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]" id="medName` + x + `" value="" + nombre[x-1] + ""/>\n
                             <label>Cada:</label>\n
-                            <select name="medCada[]" id="medCada` + x + `" value="">\n
+                            <select name="medCada[]" id="medCada` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                 <option value="1">1 hora</option>\n
                                 <option value="2">2 horas</option>\n
                                 <option value="4">4 horas</option>\n
@@ -463,17 +467,19 @@
                                 <option value="12">12 horas</option>\n
                                 <option value="24">24 horas</option>\n
                                 <option value="48">48 horas</option>\n
-                                <option value="72">72 horas</option>\n            
+                                <option value="72">72 horas</option>\n    
+                                <option value="0">Una toma</option>\n        
                             </select>\n   
                             <br> <label>Iniciando a las:</label>\n      
                             <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n              
-                            <label>Duración de tratamiento:</label>\n
+                            <label  id="labelDuracion` + x + `">Duración de tratamiento:</label>\n
                                 <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
-                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                     <option value="hora">horas</option>\n
                                     <option value="dias">dias</option>\n
                                     <option value="semanas">semanas</option>\n
-                                    <option value="meses">meses</option>\n         
+                                    <option value="meses">meses</option>\n   
+                                    <option value="siempre">Siempre</option>\n        
                                 </select>\n
                             <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" value="" + indi[x-1] + "" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
                         </div>`;
@@ -486,7 +492,7 @@
                                 <label>Nombre:</label>\n
                                 <input type="text" onchange="nombresMedicamento(` + x + `)" list="meds" name="medName[]" id="medName` + x + `" />\n
                                 <label>Cada:</label>\n
-                                <select name="medCada[]" id="medCada` + x + `" value="">\n
+                                <select name="medCada[]" id="medCada` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                     <option value="1">1 hora</option>\n
                                     <option value="2">2 horas</option>\n
                                     <option value="4">4 horas</option>\n
@@ -495,17 +501,19 @@
                                     <option value="12">12 horas</option>\n
                                     <option value="24">24 horas</option>\n
                                     <option value="48">48 horas</option>\n
-                                    <option value="72">72 horas</option>\n           
+                                    <option value="72">72 horas</option>\n   
+                                    <option value="0">Una toma</option>\n        
                                 </select>\n
                                 <br>     <label>Iniciando a las:</label>\n
                                 <input type="datetime-local" name="medStart[]" id="medStart` + x + `" value="<?php echo date("Y-m-d")."T".date("H:i"); ?>"/>\n          
-                                <label>Duración de tratamiento:</label>\n
+                                <label id="labelDuracion` + x + `">Duración de tratamiento:</label>\n
                                 <input pattern="^[0-9][0-9]?[0-9]?" name="medDura[]" id="medDura` + x + `" value="" /> \n
-                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="">\n
+                                <select name="medDuraValue[]" id="medDuraValue` + x + `" value="" onchange="revisarCuadroDeTexto(`+x+`);">\n
                                     <option value="hora">horas</option>\n
                                     <option value="dias">dias</option>\n
                                     <option value="semanas">semanas</option>\n
-                                    <option value="meses">meses</option>\n         
+                                    <option value="meses">meses</option>\n  
+                                    <option value="siempre">Siempre</option>\n         
                                 </select>\n
                                 <input type="text" class="form-control" name="medIndi[]" id="medIndi` + x + `" placeholder="Cantidad, mm, mg, indicaciones adicionales del medicamento, etc."/>\n
                             </div>`;
@@ -518,7 +526,32 @@
             }
             anterior = cantidad;
         }
-
+        function revisarCuadroDeTexto(id)
+        {
+            var combobox = document.getElementById("medDuraValue" + id);
+            if(combobox.value=="siempre")
+            {
+                document.getElementById("medDura" + id).hidden=true;
+            }
+            else
+            {
+                document.getElementById("medDura" + id).hidden=false;
+                var combobox2 = document.getElementById("medCada" + id);
+                if(combobox2.value==0)
+                {
+                    document.getElementById("medDura" + id).hidden=true;
+                    combobox.hidden=true;
+                    document.getElementById("labelDuracion" + id).hidden=true;
+                }
+                else
+                {
+                    document.getElementById("medDura" + id).hidden=false;
+                    combobox.hidden=false;
+                    document.getElementById("labelDuracion" + id).hidden=false;
+                }
+            }
+            
+        }
         function nombresMedicamento(number)
         {
             var nombres = 
